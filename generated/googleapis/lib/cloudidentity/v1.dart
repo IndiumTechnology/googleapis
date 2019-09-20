@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudidentity.v1;
 
@@ -187,9 +187,6 @@ class GroupsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - `Required`. May be made Optional in the future.
-  /// Customer ID to list all groups from.
-  ///
   /// [pageToken] - The next_page_token value returned from a previous list
   /// request, if any.
   ///
@@ -203,6 +200,9 @@ class GroupsResourceApi {
   /// - "BASIC" : A BASIC.
   /// - "FULL" : A FULL.
   ///
+  /// [parent] - `Required`. May be made Optional in the future.
+  /// Customer ID to list all groups from.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -214,10 +214,10 @@ class GroupsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListGroupsResponse> list(
-      {core.String parent,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
       core.String view,
+      core.String parent,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -226,9 +226,6 @@ class GroupsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
-    if (parent != null) {
-      _queryParams["parent"] = [parent];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
@@ -237,6 +234,9 @@ class GroupsResourceApi {
     }
     if (view != null) {
       _queryParams["view"] = [view];
+    }
+    if (parent != null) {
+      _queryParams["parent"] = [parent];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];

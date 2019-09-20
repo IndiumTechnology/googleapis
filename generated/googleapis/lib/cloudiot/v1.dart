@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudiot.v1;
 
@@ -797,20 +797,6 @@ class ProjectsLocationsRegistriesDevicesResourceApi {
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/registries/[^/]+$".
   ///
-  /// [deviceIds] - A list of device string IDs. For example, `['device0',
-  /// 'device12']`.
-  /// If empty, this field is ignored. Maximum IDs: 10,000
-  ///
-  /// [deviceNumIds] - A list of device numeric IDs. If empty, this field is
-  /// ignored. Maximum
-  /// IDs: 10,000.
-  ///
-  /// [gatewayListOptions_associationsDeviceId] - If set, returns only the
-  /// gateways with which the specified device is
-  /// associated. The device ID can be numeric (`num_id`) or the user-defined
-  /// string (`id`). For example, if `456` is specified, returns only the
-  /// gateways to which the device with `num_id` 456 is bound.
-  ///
   /// [gatewayListOptions_gatewayType] - If `GATEWAY` is specified, only
   /// gateways are returned. If `NON_GATEWAY`
   /// is specified, only non-gateway devices are returned. If
@@ -842,6 +828,20 @@ class ProjectsLocationsRegistriesDevicesResourceApi {
   /// objects than requested. A non-empty `next_page_token` in the response
   /// indicates that more data is available.
   ///
+  /// [deviceIds] - A list of device string IDs. For example, `['device0',
+  /// 'device12']`.
+  /// If empty, this field is ignored. Maximum IDs: 10,000
+  ///
+  /// [deviceNumIds] - A list of device numeric IDs. If empty, this field is
+  /// ignored. Maximum
+  /// IDs: 10,000.
+  ///
+  /// [gatewayListOptions_associationsDeviceId] - If set, returns only the
+  /// gateways with which the specified device is
+  /// associated. The device ID can be numeric (`num_id`) or the user-defined
+  /// string (`id`). For example, if `456` is specified, returns only the
+  /// gateways to which the device with `num_id` 456 is bound.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -853,14 +853,14 @@ class ProjectsLocationsRegistriesDevicesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListDevicesResponse> list(core.String parent,
-      {core.List<core.String> deviceIds,
-      core.List<core.String> deviceNumIds,
-      core.String gatewayListOptions_associationsDeviceId,
-      core.String gatewayListOptions_gatewayType,
+      {core.String gatewayListOptions_gatewayType,
       core.String gatewayListOptions_associationsGatewayId,
       core.String pageToken,
       core.String fieldMask,
       core.int pageSize,
+      core.List<core.String> deviceIds,
+      core.List<core.String> deviceNumIds,
+      core.String gatewayListOptions_associationsDeviceId,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -871,17 +871,6 @@ class ProjectsLocationsRegistriesDevicesResourceApi {
 
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
-    }
-    if (deviceIds != null) {
-      _queryParams["deviceIds"] = deviceIds;
-    }
-    if (deviceNumIds != null) {
-      _queryParams["deviceNumIds"] = deviceNumIds;
-    }
-    if (gatewayListOptions_associationsDeviceId != null) {
-      _queryParams["gatewayListOptions.associationsDeviceId"] = [
-        gatewayListOptions_associationsDeviceId
-      ];
     }
     if (gatewayListOptions_gatewayType != null) {
       _queryParams["gatewayListOptions.gatewayType"] = [
@@ -901,6 +890,17 @@ class ProjectsLocationsRegistriesDevicesResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (deviceIds != null) {
+      _queryParams["deviceIds"] = deviceIds;
+    }
+    if (deviceNumIds != null) {
+      _queryParams["deviceNumIds"] = deviceNumIds;
+    }
+    if (gatewayListOptions_associationsDeviceId != null) {
+      _queryParams["gatewayListOptions.associationsDeviceId"] = [
+        gatewayListOptions_associationsDeviceId
+      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1439,15 +1439,35 @@ class ProjectsLocationsRegistriesGroupsDevicesResourceApi {
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/registries/[^/]+/groups/[^/]+$".
   ///
-  /// [deviceNumIds] - A list of device numeric IDs. If empty, this field is
-  /// ignored. Maximum
-  /// IDs: 10,000.
+  /// [fieldMask] - The fields of the `Device` resource to be returned in the
+  /// response. The
+  /// fields `id` and `num_id` are always returned, along with any
+  /// other fields specified.
+  ///
+  /// [pageToken] - The value returned by the last `ListDevicesResponse`;
+  /// indicates
+  /// that this is a continuation of a prior `ListDevices` call and
+  /// the system should return the next page of data.
+  ///
+  /// [pageSize] - The maximum number of devices to return in the response. If
+  /// this value
+  /// is zero, the service will select a default size. A call may return fewer
+  /// objects than requested. A non-empty `next_page_token` in the response
+  /// indicates that more data is available.
+  ///
+  /// [deviceIds] - A list of device string IDs. For example, `['device0',
+  /// 'device12']`.
+  /// If empty, this field is ignored. Maximum IDs: 10,000
   ///
   /// [gatewayListOptions_associationsDeviceId] - If set, returns only the
   /// gateways with which the specified device is
   /// associated. The device ID can be numeric (`num_id`) or the user-defined
   /// string (`id`). For example, if `456` is specified, returns only the
   /// gateways to which the device with `num_id` 456 is bound.
+  ///
+  /// [deviceNumIds] - A list of device numeric IDs. If empty, this field is
+  /// ignored. Maximum
+  /// IDs: 10,000.
   ///
   /// [gatewayListOptions_gatewayType] - If `GATEWAY` is specified, only
   /// gateways are returned. If `NON_GATEWAY`
@@ -1464,26 +1484,6 @@ class ProjectsLocationsRegistriesGroupsDevicesResourceApi {
   /// (`id`). For example, if `123` is specified, only devices bound to the
   /// gateway with `num_id` 123 are returned.
   ///
-  /// [pageToken] - The value returned by the last `ListDevicesResponse`;
-  /// indicates
-  /// that this is a continuation of a prior `ListDevices` call and
-  /// the system should return the next page of data.
-  ///
-  /// [fieldMask] - The fields of the `Device` resource to be returned in the
-  /// response. The
-  /// fields `id` and `num_id` are always returned, along with any
-  /// other fields specified.
-  ///
-  /// [pageSize] - The maximum number of devices to return in the response. If
-  /// this value
-  /// is zero, the service will select a default size. A call may return fewer
-  /// objects than requested. A non-empty `next_page_token` in the response
-  /// indicates that more data is available.
-  ///
-  /// [deviceIds] - A list of device string IDs. For example, `['device0',
-  /// 'device12']`.
-  /// If empty, this field is ignored. Maximum IDs: 10,000
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1495,14 +1495,14 @@ class ProjectsLocationsRegistriesGroupsDevicesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListDevicesResponse> list(core.String parent,
-      {core.List<core.String> deviceNumIds,
-      core.String gatewayListOptions_associationsDeviceId,
-      core.String gatewayListOptions_gatewayType,
-      core.String gatewayListOptions_associationsGatewayId,
+      {core.String fieldMask,
       core.String pageToken,
-      core.String fieldMask,
       core.int pageSize,
       core.List<core.String> deviceIds,
+      core.String gatewayListOptions_associationsDeviceId,
+      core.List<core.String> deviceNumIds,
+      core.String gatewayListOptions_gatewayType,
+      core.String gatewayListOptions_associationsGatewayId,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1514,13 +1514,25 @@ class ProjectsLocationsRegistriesGroupsDevicesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (deviceNumIds != null) {
-      _queryParams["deviceNumIds"] = deviceNumIds;
+    if (fieldMask != null) {
+      _queryParams["fieldMask"] = [fieldMask];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (deviceIds != null) {
+      _queryParams["deviceIds"] = deviceIds;
     }
     if (gatewayListOptions_associationsDeviceId != null) {
       _queryParams["gatewayListOptions.associationsDeviceId"] = [
         gatewayListOptions_associationsDeviceId
       ];
+    }
+    if (deviceNumIds != null) {
+      _queryParams["deviceNumIds"] = deviceNumIds;
     }
     if (gatewayListOptions_gatewayType != null) {
       _queryParams["gatewayListOptions.gatewayType"] = [
@@ -1531,18 +1543,6 @@ class ProjectsLocationsRegistriesGroupsDevicesResourceApi {
       _queryParams["gatewayListOptions.associationsGatewayId"] = [
         gatewayListOptions_associationsGatewayId
       ];
-    }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
-    if (fieldMask != null) {
-      _queryParams["fieldMask"] = [fieldMask];
-    }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (deviceIds != null) {
-      _queryParams["deviceIds"] = deviceIds;
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1627,7 +1627,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -2389,13 +2389,55 @@ class GatewayConfig {
 
 /// Request message for `GetIamPolicy` method.
 class GetIamPolicyRequest {
+  /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
+  /// `GetIamPolicy`. This field is only used by Cloud IAM.
+  GetPolicyOptions options;
+
   GetIamPolicyRequest();
 
-  GetIamPolicyRequest.fromJson(core.Map _json) {}
+  GetIamPolicyRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("options")) {
+      options = new GetPolicyOptions.fromJson(_json["options"]);
+    }
+  }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (options != null) {
+      _json["options"] = (options).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Encapsulates settings provided to GetIamPolicy.
+class GetPolicyOptions {
+  /// Optional. The policy format version to be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  core.int requestedPolicyVersion;
+
+  GetPolicyOptions();
+
+  GetPolicyOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("requestedPolicyVersion")) {
+      requestedPolicyVersion = _json["requestedPolicyVersion"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (requestedPolicyVersion != null) {
+      _json["requestedPolicyVersion"] = requestedPolicyVersion;
+    }
     return _json;
   }
 }
@@ -2693,7 +2735,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -2704,7 +2746,14 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();

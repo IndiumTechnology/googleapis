@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.driveactivity.v2;
 
@@ -853,7 +853,8 @@ class DriveItem {
   /// The Drive item is a file.
   DriveFile driveFile;
 
-  /// The Drive item is a folder.
+  /// The Drive item is a folder. Includes information about the type of
+  /// folder.
   DriveFolder driveFolder;
 
   /// This field is deprecated; please use the `driveFile` field instead.
@@ -940,7 +941,8 @@ class DriveItemReference {
   /// The Drive item is a file.
   DriveFile driveFile;
 
-  /// The Drive item is a folder.
+  /// The Drive item is a folder. Includes information about the type of
+  /// folder.
   DriveFolder driveFolder;
 
   /// This field is deprecated; please use the `driveFile` field instead.

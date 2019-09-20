@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.dataproc.v1;
 
@@ -62,6 +62,167 @@ class ProjectsLocationsAutoscalingPoliciesResourceApi {
   ProjectsLocationsAutoscalingPoliciesResourceApi(commons.ApiRequester client)
       : _requester = client;
 
+  /// Creates new autoscaling policy.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The "resource name" of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies.create, the resource name  of the
+  /// region has the following format:  projects/{project_id}/regions/{region}
+  /// For projects.locations.autoscalingPolicies.create, the resource name  of
+  /// the location has the following format:
+  /// projects/{project_id}/locations/{location}
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [AutoscalingPolicy].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<AutoscalingPolicy> create(
+      AutoscalingPolicy request, core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/autoscalingPolicies';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new AutoscalingPolicy.fromJson(data));
+  }
+
+  /// Deletes an autoscaling policy. It is an error to delete an autoscaling
+  /// policy that is in use by one or more clusters.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The "resource name" of the autoscaling policy, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies.delete, the resource name  of the
+  /// policy has the following format:
+  /// projects/{project_id}/regions/{region}/autoscalingPolicies/{policy_id}
+  /// For projects.locations.autoscalingPolicies.delete, the resource name  of
+  /// the policy has the following format:
+  /// projects/{project_id}/locations/{location}/autoscalingPolicies/{policy_id}
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/autoscalingPolicies/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Empty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Empty> delete(core.String name, {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new Empty.fromJson(data));
+  }
+
+  /// Retrieves autoscaling policy.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The "resource name" of the autoscaling policy, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies.get, the resource name  of the
+  /// policy has the following format:
+  /// projects/{project_id}/regions/{region}/autoscalingPolicies/{policy_id}
+  /// For projects.locations.autoscalingPolicies.get, the resource name  of the
+  /// policy has the following format:
+  /// projects/{project_id}/locations/{location}/autoscalingPolicies/{policy_id}
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/autoscalingPolicies/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [AutoscalingPolicy].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<AutoscalingPolicy> get(core.String name, {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new AutoscalingPolicy.fromJson(data));
+  }
+
   /// Gets the access control policy for a resource. Returns an empty policy if
   /// the resource exists and does not have a policy set.
   ///
@@ -116,6 +277,71 @@ class ProjectsLocationsAutoscalingPoliciesResourceApi {
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
     return _response.then((data) => new Policy.fromJson(data));
+  }
+
+  /// Lists autoscaling policies in the project.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The "resource name" of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies.list, the resource name  of the
+  /// region has the following format:  projects/{project_id}/regions/{region}
+  /// For projects.locations.autoscalingPolicies.list, the resource name  of the
+  /// location has the following format:
+  /// projects/{project_id}/locations/{location}
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [pageToken] - Optional. The page token, returned by a previous call, to
+  /// request the next page of results.
+  ///
+  /// [pageSize] - Optional. The maximum number of results to return in each
+  /// response. Must be less than or equal to 1000. Defaults to 100.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [ListAutoscalingPoliciesResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<ListAutoscalingPoliciesResponse> list(core.String parent,
+      {core.String pageToken, core.int pageSize, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/autoscalingPolicies';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new ListAutoscalingPoliciesResponse.fromJson(data));
   }
 
   /// Sets the access control policy on the specified resource. Replaces any
@@ -233,6 +459,65 @@ class ProjectsLocationsAutoscalingPoliciesResourceApi {
     return _response
         .then((data) => new TestIamPermissionsResponse.fromJson(data));
   }
+
+  /// Updates (replaces) autoscaling policy.Disabled check for update_mask,
+  /// because all updates will be full replacements.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Output only. The "resource name" of the autoscaling policy, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies, the resource name of the  policy
+  /// has the following format:
+  /// projects/{project_id}/regions/{region}/autoscalingPolicies/{policy_id}
+  /// For projects.locations.autoscalingPolicies, the resource name of the
+  /// policy has the following format:
+  /// projects/{project_id}/locations/{location}/autoscalingPolicies/{policy_id}
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/autoscalingPolicies/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [AutoscalingPolicy].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<AutoscalingPolicy> update(
+      AutoscalingPolicy request, core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "PUT",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new AutoscalingPolicy.fromJson(data));
+  }
 }
 
 class ProjectsLocationsWorkflowTemplatesResourceApi {
@@ -247,9 +532,13 @@ class ProjectsLocationsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required. The "resource name" of the region, as described in
-  /// https://cloud.google.com/apis/design/resource_names of the form
-  /// projects/{project_id}/regions/{region}
+  /// [parent] - Required. The resource name of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates,create, the resource name of the
+  /// region has the following format:  projects/{project_id}/regions/{region}
+  /// For projects.locations.workflowTemplates.create, the resource name of  the
+  /// location has the following format:
+  /// projects/{project_id}/locations/{location}
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -299,10 +588,14 @@ class ProjectsLocationsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required. The "resource name" of the workflow template, as
-  /// described in https://cloud.google.com/apis/design/resource_names of the
-  /// form
+  /// [name] - Required. The resource name of the workflow template, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates.delete, the resource name of the
+  /// template has the following format:
   /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates.instantiate, the resource name
+  /// of the template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/workflowTemplates/[^/]+$".
   ///
@@ -355,16 +648,20 @@ class ProjectsLocationsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required. The "resource name" of the workflow template, as
-  /// described in https://cloud.google.com/apis/design/resource_names of the
-  /// form
+  /// [name] - Required. The resource name of the workflow template, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates.get, the resource name of the
+  /// template has the following format:
   /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates.get, the resource name of the
+  /// template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/workflowTemplates/[^/]+$".
   ///
   /// [version] - Optional. The version of workflow template to retrieve. Only
-  /// previously instatiated versions can be retrieved.If unspecified, retrieves
-  /// the current version.
+  /// previously instantiated versions can be retrieved.If unspecified,
+  /// retrieves the current version.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -467,17 +764,22 @@ class ProjectsLocationsWorkflowTemplatesResourceApi {
   /// Operation will complete when entire workflow is finished.The running
   /// workflow can be aborted via operations.cancel. This will cause any
   /// inflight jobs to be cancelled and workflow-owned clusters to be
-  /// deleted.The Operation.metadata will be WorkflowMetadata.On successful
-  /// completion, Operation.response will be Empty.
+  /// deleted.The Operation.metadata will be WorkflowMetadata. Also see Using
+  /// WorkflowMetadata.On successful completion, Operation.response will be
+  /// Empty.
   ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
   ///
-  /// [name] - Required. The "resource name" of the workflow template, as
-  /// described in https://cloud.google.com/apis/design/resource_names of the
-  /// form
+  /// [name] - Required. The resource name of the workflow template, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates.instantiate, the resource name of
+  /// the template has the following format:
   /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates.instantiate, the resource name
+  /// of the template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/workflowTemplates/[^/]+$".
   ///
@@ -530,16 +832,22 @@ class ProjectsLocationsWorkflowTemplatesResourceApi {
   /// Operation will complete when entire workflow is finished.The running
   /// workflow can be aborted via operations.cancel. This will cause any
   /// inflight jobs to be cancelled and workflow-owned clusters to be
-  /// deleted.The Operation.metadata will be WorkflowMetadata.On successful
-  /// completion, Operation.response will be Empty.
+  /// deleted.The Operation.metadata will be WorkflowMetadata. Also see Using
+  /// WorkflowMetadata.On successful completion, Operation.response will be
+  /// Empty.
   ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required. The "resource name" of the workflow template region,
-  /// as described in https://cloud.google.com/apis/design/resource_names of the
-  /// form projects/{project_id}/regions/{region}
+  /// [parent] - Required. The resource name of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates,instantiateinline, the resource
+  /// name of the region has the following format:
+  /// projects/{project_id}/regions/{region}
+  /// For projects.locations.workflowTemplates.instantiateinline, the  resource
+  /// name of the location has the following format:
+  /// projects/{project_id}/locations/{location}
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
   ///
   /// [requestId] - Optional. A tag that prevents multiple concurrent workflow
@@ -600,9 +908,13 @@ class ProjectsLocationsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required. The "resource name" of the region, as described in
-  /// https://cloud.google.com/apis/design/resource_names of the form
-  /// projects/{project_id}/regions/{region}
+  /// [parent] - Required. The resource name of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates,list, the resource  name of the
+  /// region has the following format:  projects/{project_id}/regions/{region}
+  /// For projects.locations.workflowTemplates.list, the  resource name of the
+  /// location has the following format:
+  /// projects/{project_id}/locations/{location}
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
   ///
   /// [pageToken] - Optional. The page token, returned by a previous call, to
@@ -780,9 +1092,14 @@ class ProjectsLocationsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Output only. The "resource name" of the template, as described in
-  /// https://cloud.google.com/apis/design/resource_names of the form
+  /// [name] - Output only. The resource name of the workflow template, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates, the resource name of the  template
+  /// has the following format:
   /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates, the resource name of the
+  /// template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/workflowTemplates/[^/]+$".
   ///
@@ -851,6 +1168,167 @@ class ProjectsRegionsAutoscalingPoliciesResourceApi {
   ProjectsRegionsAutoscalingPoliciesResourceApi(commons.ApiRequester client)
       : _requester = client;
 
+  /// Creates new autoscaling policy.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The "resource name" of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies.create, the resource name  of the
+  /// region has the following format:  projects/{project_id}/regions/{region}
+  /// For projects.locations.autoscalingPolicies.create, the resource name  of
+  /// the location has the following format:
+  /// projects/{project_id}/locations/{location}
+  /// Value must have pattern "^projects/[^/]+/regions/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [AutoscalingPolicy].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<AutoscalingPolicy> create(
+      AutoscalingPolicy request, core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/autoscalingPolicies';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new AutoscalingPolicy.fromJson(data));
+  }
+
+  /// Deletes an autoscaling policy. It is an error to delete an autoscaling
+  /// policy that is in use by one or more clusters.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The "resource name" of the autoscaling policy, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies.delete, the resource name  of the
+  /// policy has the following format:
+  /// projects/{project_id}/regions/{region}/autoscalingPolicies/{policy_id}
+  /// For projects.locations.autoscalingPolicies.delete, the resource name  of
+  /// the policy has the following format:
+  /// projects/{project_id}/locations/{location}/autoscalingPolicies/{policy_id}
+  /// Value must have pattern
+  /// "^projects/[^/]+/regions/[^/]+/autoscalingPolicies/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Empty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Empty> delete(core.String name, {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new Empty.fromJson(data));
+  }
+
+  /// Retrieves autoscaling policy.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The "resource name" of the autoscaling policy, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies.get, the resource name  of the
+  /// policy has the following format:
+  /// projects/{project_id}/regions/{region}/autoscalingPolicies/{policy_id}
+  /// For projects.locations.autoscalingPolicies.get, the resource name  of the
+  /// policy has the following format:
+  /// projects/{project_id}/locations/{location}/autoscalingPolicies/{policy_id}
+  /// Value must have pattern
+  /// "^projects/[^/]+/regions/[^/]+/autoscalingPolicies/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [AutoscalingPolicy].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<AutoscalingPolicy> get(core.String name, {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new AutoscalingPolicy.fromJson(data));
+  }
+
   /// Gets the access control policy for a resource. Returns an empty policy if
   /// the resource exists and does not have a policy set.
   ///
@@ -905,6 +1383,71 @@ class ProjectsRegionsAutoscalingPoliciesResourceApi {
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
     return _response.then((data) => new Policy.fromJson(data));
+  }
+
+  /// Lists autoscaling policies in the project.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The "resource name" of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies.list, the resource name  of the
+  /// region has the following format:  projects/{project_id}/regions/{region}
+  /// For projects.locations.autoscalingPolicies.list, the resource name  of the
+  /// location has the following format:
+  /// projects/{project_id}/locations/{location}
+  /// Value must have pattern "^projects/[^/]+/regions/[^/]+$".
+  ///
+  /// [pageToken] - Optional. The page token, returned by a previous call, to
+  /// request the next page of results.
+  ///
+  /// [pageSize] - Optional. The maximum number of results to return in each
+  /// response. Must be less than or equal to 1000. Defaults to 100.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [ListAutoscalingPoliciesResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<ListAutoscalingPoliciesResponse> list(core.String parent,
+      {core.String pageToken, core.int pageSize, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/autoscalingPolicies';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new ListAutoscalingPoliciesResponse.fromJson(data));
   }
 
   /// Sets the access control policy on the specified resource. Replaces any
@@ -1022,6 +1565,65 @@ class ProjectsRegionsAutoscalingPoliciesResourceApi {
     return _response
         .then((data) => new TestIamPermissionsResponse.fromJson(data));
   }
+
+  /// Updates (replaces) autoscaling policy.Disabled check for update_mask,
+  /// because all updates will be full replacements.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Output only. The "resource name" of the autoscaling policy, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies, the resource name of the  policy
+  /// has the following format:
+  /// projects/{project_id}/regions/{region}/autoscalingPolicies/{policy_id}
+  /// For projects.locations.autoscalingPolicies, the resource name of the
+  /// policy has the following format:
+  /// projects/{project_id}/locations/{location}/autoscalingPolicies/{policy_id}
+  /// Value must have pattern
+  /// "^projects/[^/]+/regions/[^/]+/autoscalingPolicies/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [AutoscalingPolicy].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<AutoscalingPolicy> update(
+      AutoscalingPolicy request, core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "PUT",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new AutoscalingPolicy.fromJson(data));
+  }
 }
 
 class ProjectsRegionsClustersResourceApi {
@@ -1030,7 +1632,8 @@ class ProjectsRegionsClustersResourceApi {
   ProjectsRegionsClustersResourceApi(commons.ApiRequester client)
       : _requester = client;
 
-  /// Creates a cluster in a project.
+  /// Creates a cluster in a project. The returned Operation.metadata will be
+  /// ClusterOperationMetadata.
   ///
   /// [request] - The metadata request object.
   ///
@@ -1102,7 +1705,8 @@ class ProjectsRegionsClustersResourceApi {
     return _response.then((data) => new Operation.fromJson(data));
   }
 
-  /// Deletes a cluster in a project.
+  /// Deletes a cluster in a project. The returned Operation.metadata will be
+  /// ClusterOperationMetadata.
   ///
   /// Request parameters:
   ///
@@ -1181,8 +1785,9 @@ class ProjectsRegionsClustersResourceApi {
     return _response.then((data) => new Operation.fromJson(data));
   }
 
-  /// Gets cluster diagnostic information. After the operation completes, the
-  /// Operation.response field contains DiagnoseClusterOutputLocation.
+  /// Gets cluster diagnostic information. The returned Operation.metadata will
+  /// be ClusterOperationMetadata. After the operation completes,
+  /// Operation.response contains DiagnoseClusterResults.
   ///
   /// [request] - The metadata request object.
   ///
@@ -1375,10 +1980,6 @@ class ProjectsRegionsClustersResourceApi {
   /// [region] - Required. The Cloud Dataproc region in which to handle the
   /// request.
   ///
-  /// [pageToken] - Optional. The standard List page token.
-  ///
-  /// [pageSize] - Optional. The standard List page size.
-  ///
   /// [filter] - Optional. A filter constraining the clusters to list. Filters
   /// are case-sensitive and have the following syntax:field = value AND field =
   /// value ...where field is one of status.state, clusterName, or labels.[KEY],
@@ -1390,6 +1991,10 @@ class ProjectsRegionsClustersResourceApi {
   /// operator is supported; space-separated items are treated as having an
   /// implicit AND operator.Example filter:status.state = ACTIVE AND clusterName
   /// = mycluster AND labels.env = staging AND labels.starred = *
+  ///
+  /// [pageToken] - Optional. The standard List page token.
+  ///
+  /// [pageSize] - Optional. The standard List page size.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1403,9 +2008,9 @@ class ProjectsRegionsClustersResourceApi {
   /// this method will complete with the same error.
   async.Future<ListClustersResponse> list(
       core.String projectId, core.String region,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1420,14 +2025,14 @@ class ProjectsRegionsClustersResourceApi {
     if (region == null) {
       throw new core.ArgumentError("Parameter region is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1448,7 +2053,8 @@ class ProjectsRegionsClustersResourceApi {
     return _response.then((data) => new ListClustersResponse.fromJson(data));
   }
 
-  /// Updates a cluster in a project.
+  /// Updates a cluster in a project. The returned Operation.metadata will be
+  /// ClusterOperationMetadata.
   ///
   /// [request] - The metadata request object.
   ///
@@ -1956,18 +2562,6 @@ class ProjectsRegionsJobsResourceApi {
   /// [region] - Required. The Cloud Dataproc region in which to handle the
   /// request.
   ///
-  /// [clusterName] - Optional. If set, the returned jobs list includes only
-  /// jobs that were submitted to the named cluster.
-  ///
-  /// [filter] - Optional. A filter constraining the jobs to list. Filters are
-  /// case-sensitive and have the following syntax:field = value AND field =
-  /// value ...where field is status.state or labels.[KEY], and [KEY] is a label
-  /// key. value can be * to match all values. status.state can be either ACTIVE
-  /// or NON_ACTIVE. Only the logical AND operator is supported; space-separated
-  /// items are treated as having an implicit AND operator.Example
-  /// filter:status.state = ACTIVE AND labels.env = staging AND labels.starred =
-  /// *
-  ///
   /// [jobStateMatcher] - Optional. Specifies enumerated categories of jobs to
   /// list. (default = match ALL jobs).If filter is provided, jobStateMatcher
   /// will be ignored.
@@ -1981,6 +2575,18 @@ class ProjectsRegionsJobsResourceApi {
   ///
   /// [pageSize] - Optional. The number of results to return in each response.
   ///
+  /// [clusterName] - Optional. If set, the returned jobs list includes only
+  /// jobs that were submitted to the named cluster.
+  ///
+  /// [filter] - Optional. A filter constraining the jobs to list. Filters are
+  /// case-sensitive and have the following syntax:field = value AND field =
+  /// value ...where field is status.state or labels.[KEY], and [KEY] is a label
+  /// key. value can be * to match all values. status.state can be either ACTIVE
+  /// or NON_ACTIVE. Only the logical AND operator is supported; space-separated
+  /// items are treated as having an implicit AND operator.Example
+  /// filter:status.state = ACTIVE AND labels.env = staging AND labels.starred =
+  /// *
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1992,11 +2598,11 @@ class ProjectsRegionsJobsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListJobsResponse> list(core.String projectId, core.String region,
-      {core.String clusterName,
-      core.String filter,
-      core.String jobStateMatcher,
+      {core.String jobStateMatcher,
       core.String pageToken,
       core.int pageSize,
+      core.String clusterName,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -2011,12 +2617,6 @@ class ProjectsRegionsJobsResourceApi {
     if (region == null) {
       throw new core.ArgumentError("Parameter region is required.");
     }
-    if (clusterName != null) {
-      _queryParams["clusterName"] = [clusterName];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (jobStateMatcher != null) {
       _queryParams["jobStateMatcher"] = [jobStateMatcher];
     }
@@ -2025,6 +2625,12 @@ class ProjectsRegionsJobsResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (clusterName != null) {
+      _queryParams["clusterName"] = [clusterName];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2514,11 +3120,11 @@ class ProjectsRegionsOperationsResourceApi {
   /// [name] - The name of the operation's parent resource.
   /// Value must have pattern "^projects/[^/]+/regions/[^/]+/operations$".
   ///
+  /// [filter] - The standard list filter.
+  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
-  ///
-  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2531,9 +3137,9 @@ class ProjectsRegionsOperationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListOperationsResponse> list(core.String name,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -2545,14 +3151,14 @@ class ProjectsRegionsOperationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2696,9 +3302,13 @@ class ProjectsRegionsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required. The "resource name" of the region, as described in
-  /// https://cloud.google.com/apis/design/resource_names of the form
-  /// projects/{project_id}/regions/{region}
+  /// [parent] - Required. The resource name of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates,create, the resource name of the
+  /// region has the following format:  projects/{project_id}/regions/{region}
+  /// For projects.locations.workflowTemplates.create, the resource name of  the
+  /// location has the following format:
+  /// projects/{project_id}/locations/{location}
   /// Value must have pattern "^projects/[^/]+/regions/[^/]+$".
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -2748,10 +3358,14 @@ class ProjectsRegionsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required. The "resource name" of the workflow template, as
-  /// described in https://cloud.google.com/apis/design/resource_names of the
-  /// form
+  /// [name] - Required. The resource name of the workflow template, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates.delete, the resource name of the
+  /// template has the following format:
   /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates.instantiate, the resource name
+  /// of the template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   /// Value must have pattern
   /// "^projects/[^/]+/regions/[^/]+/workflowTemplates/[^/]+$".
   ///
@@ -2804,16 +3418,20 @@ class ProjectsRegionsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required. The "resource name" of the workflow template, as
-  /// described in https://cloud.google.com/apis/design/resource_names of the
-  /// form
+  /// [name] - Required. The resource name of the workflow template, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates.get, the resource name of the
+  /// template has the following format:
   /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates.get, the resource name of the
+  /// template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   /// Value must have pattern
   /// "^projects/[^/]+/regions/[^/]+/workflowTemplates/[^/]+$".
   ///
   /// [version] - Optional. The version of workflow template to retrieve. Only
-  /// previously instatiated versions can be retrieved.If unspecified, retrieves
-  /// the current version.
+  /// previously instantiated versions can be retrieved.If unspecified,
+  /// retrieves the current version.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2916,17 +3534,22 @@ class ProjectsRegionsWorkflowTemplatesResourceApi {
   /// Operation will complete when entire workflow is finished.The running
   /// workflow can be aborted via operations.cancel. This will cause any
   /// inflight jobs to be cancelled and workflow-owned clusters to be
-  /// deleted.The Operation.metadata will be WorkflowMetadata.On successful
-  /// completion, Operation.response will be Empty.
+  /// deleted.The Operation.metadata will be WorkflowMetadata. Also see Using
+  /// WorkflowMetadata.On successful completion, Operation.response will be
+  /// Empty.
   ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
   ///
-  /// [name] - Required. The "resource name" of the workflow template, as
-  /// described in https://cloud.google.com/apis/design/resource_names of the
-  /// form
+  /// [name] - Required. The resource name of the workflow template, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates.instantiate, the resource name of
+  /// the template has the following format:
   /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates.instantiate, the resource name
+  /// of the template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   /// Value must have pattern
   /// "^projects/[^/]+/regions/[^/]+/workflowTemplates/[^/]+$".
   ///
@@ -2979,16 +3602,22 @@ class ProjectsRegionsWorkflowTemplatesResourceApi {
   /// Operation will complete when entire workflow is finished.The running
   /// workflow can be aborted via operations.cancel. This will cause any
   /// inflight jobs to be cancelled and workflow-owned clusters to be
-  /// deleted.The Operation.metadata will be WorkflowMetadata.On successful
-  /// completion, Operation.response will be Empty.
+  /// deleted.The Operation.metadata will be WorkflowMetadata. Also see Using
+  /// WorkflowMetadata.On successful completion, Operation.response will be
+  /// Empty.
   ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required. The "resource name" of the workflow template region,
-  /// as described in https://cloud.google.com/apis/design/resource_names of the
-  /// form projects/{project_id}/regions/{region}
+  /// [parent] - Required. The resource name of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates,instantiateinline, the resource
+  /// name of the region has the following format:
+  /// projects/{project_id}/regions/{region}
+  /// For projects.locations.workflowTemplates.instantiateinline, the  resource
+  /// name of the location has the following format:
+  /// projects/{project_id}/locations/{location}
   /// Value must have pattern "^projects/[^/]+/regions/[^/]+$".
   ///
   /// [requestId] - Optional. A tag that prevents multiple concurrent workflow
@@ -3049,9 +3678,13 @@ class ProjectsRegionsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required. The "resource name" of the region, as described in
-  /// https://cloud.google.com/apis/design/resource_names of the form
-  /// projects/{project_id}/regions/{region}
+  /// [parent] - Required. The resource name of the region or location, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates,list, the resource  name of the
+  /// region has the following format:  projects/{project_id}/regions/{region}
+  /// For projects.locations.workflowTemplates.list, the  resource name of the
+  /// location has the following format:
+  /// projects/{project_id}/locations/{location}
   /// Value must have pattern "^projects/[^/]+/regions/[^/]+$".
   ///
   /// [pageToken] - Optional. The page token, returned by a previous call, to
@@ -3229,9 +3862,14 @@ class ProjectsRegionsWorkflowTemplatesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Output only. The "resource name" of the template, as described in
-  /// https://cloud.google.com/apis/design/resource_names of the form
+  /// [name] - Output only. The resource name of the workflow template, as
+  /// described in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates, the resource name of the  template
+  /// has the following format:
   /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates, the resource name of the
+  /// template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   /// Value must have pattern
   /// "^projects/[^/]+/regions/[^/]+/workflowTemplates/[^/]+$".
   ///
@@ -3316,6 +3954,218 @@ class AcceleratorConfig {
   }
 }
 
+/// Autoscaling Policy config associated with the cluster.
+class AutoscalingConfig {
+  /// Optional. The autoscaling policy used by the cluster.Only resource names
+  /// including projectid and location (region) are valid. Examples:
+  /// https://www.googleapis.com/compute/v1/projects/[project_id]/locations/[dataproc_region]/autoscalingPolicies/[policy_id]
+  /// projects/[project_id]/locations/[dataproc_region]/autoscalingPolicies/[policy_id]Note
+  /// that the policy must be in the same project and Cloud Dataproc region.
+  core.String policyUri;
+
+  AutoscalingConfig();
+
+  AutoscalingConfig.fromJson(core.Map _json) {
+    if (_json.containsKey("policyUri")) {
+      policyUri = _json["policyUri"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (policyUri != null) {
+      _json["policyUri"] = policyUri;
+    }
+    return _json;
+  }
+}
+
+/// Describes an autoscaling policy for Dataproc cluster autoscaler.
+class AutoscalingPolicy {
+  BasicAutoscalingAlgorithm basicAlgorithm;
+
+  /// Required. The policy id.The id must contain only letters (a-z, A-Z),
+  /// numbers (0-9), underscores (_), and hyphens (-). Cannot begin or end with
+  /// underscore or hyphen. Must consist of between 3 and 50 characters.
+  core.String id;
+
+  /// Output only. The "resource name" of the autoscaling policy, as described
+  /// in https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.autoscalingPolicies, the resource name of the  policy
+  /// has the following format:
+  /// projects/{project_id}/regions/{region}/autoscalingPolicies/{policy_id}
+  /// For projects.locations.autoscalingPolicies, the resource name of the
+  /// policy has the following format:
+  /// projects/{project_id}/locations/{location}/autoscalingPolicies/{policy_id}
+  core.String name;
+
+  /// Optional. Describes how the autoscaler will operate for secondary workers.
+  InstanceGroupAutoscalingPolicyConfig secondaryWorkerConfig;
+
+  /// Required. Describes how the autoscaler will operate for primary workers.
+  InstanceGroupAutoscalingPolicyConfig workerConfig;
+
+  AutoscalingPolicy();
+
+  AutoscalingPolicy.fromJson(core.Map _json) {
+    if (_json.containsKey("basicAlgorithm")) {
+      basicAlgorithm =
+          new BasicAutoscalingAlgorithm.fromJson(_json["basicAlgorithm"]);
+    }
+    if (_json.containsKey("id")) {
+      id = _json["id"];
+    }
+    if (_json.containsKey("name")) {
+      name = _json["name"];
+    }
+    if (_json.containsKey("secondaryWorkerConfig")) {
+      secondaryWorkerConfig = new InstanceGroupAutoscalingPolicyConfig.fromJson(
+          _json["secondaryWorkerConfig"]);
+    }
+    if (_json.containsKey("workerConfig")) {
+      workerConfig = new InstanceGroupAutoscalingPolicyConfig.fromJson(
+          _json["workerConfig"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (basicAlgorithm != null) {
+      _json["basicAlgorithm"] = (basicAlgorithm).toJson();
+    }
+    if (id != null) {
+      _json["id"] = id;
+    }
+    if (name != null) {
+      _json["name"] = name;
+    }
+    if (secondaryWorkerConfig != null) {
+      _json["secondaryWorkerConfig"] = (secondaryWorkerConfig).toJson();
+    }
+    if (workerConfig != null) {
+      _json["workerConfig"] = (workerConfig).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Basic algorithm for autoscaling.
+class BasicAutoscalingAlgorithm {
+  /// Optional. Duration between scaling events. A scaling period starts after
+  /// the update operation from the previous event has completed.Bounds: 2m, 1d.
+  /// Default: 2m.
+  core.String cooldownPeriod;
+
+  /// Required. YARN autoscaling configuration.
+  BasicYarnAutoscalingConfig yarnConfig;
+
+  BasicAutoscalingAlgorithm();
+
+  BasicAutoscalingAlgorithm.fromJson(core.Map _json) {
+    if (_json.containsKey("cooldownPeriod")) {
+      cooldownPeriod = _json["cooldownPeriod"];
+    }
+    if (_json.containsKey("yarnConfig")) {
+      yarnConfig = new BasicYarnAutoscalingConfig.fromJson(_json["yarnConfig"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (cooldownPeriod != null) {
+      _json["cooldownPeriod"] = cooldownPeriod;
+    }
+    if (yarnConfig != null) {
+      _json["yarnConfig"] = (yarnConfig).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Basic autoscaling configurations for YARN.
+class BasicYarnAutoscalingConfig {
+  /// Required. Timeout for YARN graceful decommissioning of Node Managers.
+  /// Specifies the duration to wait for jobs to complete before forcefully
+  /// removing workers (and potentially interrupting jobs). Only applicable to
+  /// downscaling operations.Bounds: 0s, 1d.
+  core.String gracefulDecommissionTimeout;
+
+  /// Required. Fraction of average pending memory in the last cooldown period
+  /// for which to remove workers. A scale-down factor of 1 will result in
+  /// scaling down so that there is no available memory remaining after the
+  /// update (more aggressive scaling). A scale-down factor of 0 disables
+  /// removing workers, which can be beneficial for autoscaling a single
+  /// job.Bounds: 0.0, 1.0.
+  core.double scaleDownFactor;
+
+  /// Optional. Minimum scale-down threshold as a fraction of total cluster size
+  /// before scaling occurs. For example, in a 20-worker cluster, a threshold of
+  /// 0.1 means the autoscaler must recommend at least a 2 worker scale-down for
+  /// the cluster to scale. A threshold of 0 means the autoscaler will scale
+  /// down on any recommended change.Bounds: 0.0, 1.0. Default: 0.0.
+  core.double scaleDownMinWorkerFraction;
+
+  /// Required. Fraction of average pending memory in the last cooldown period
+  /// for which to add workers. A scale-up factor of 1.0 will result in scaling
+  /// up so that there is no pending memory remaining after the update (more
+  /// aggressive scaling). A scale-up factor closer to 0 will result in a
+  /// smaller magnitude of scaling up (less aggressive scaling).Bounds: 0.0,
+  /// 1.0.
+  core.double scaleUpFactor;
+
+  /// Optional. Minimum scale-up threshold as a fraction of total cluster size
+  /// before scaling occurs. For example, in a 20-worker cluster, a threshold of
+  /// 0.1 means the autoscaler must recommend at least a 2-worker scale-up for
+  /// the cluster to scale. A threshold of 0 means the autoscaler will scale up
+  /// on any recommended change.Bounds: 0.0, 1.0. Default: 0.0.
+  core.double scaleUpMinWorkerFraction;
+
+  BasicYarnAutoscalingConfig();
+
+  BasicYarnAutoscalingConfig.fromJson(core.Map _json) {
+    if (_json.containsKey("gracefulDecommissionTimeout")) {
+      gracefulDecommissionTimeout = _json["gracefulDecommissionTimeout"];
+    }
+    if (_json.containsKey("scaleDownFactor")) {
+      scaleDownFactor = _json["scaleDownFactor"].toDouble();
+    }
+    if (_json.containsKey("scaleDownMinWorkerFraction")) {
+      scaleDownMinWorkerFraction =
+          _json["scaleDownMinWorkerFraction"].toDouble();
+    }
+    if (_json.containsKey("scaleUpFactor")) {
+      scaleUpFactor = _json["scaleUpFactor"].toDouble();
+    }
+    if (_json.containsKey("scaleUpMinWorkerFraction")) {
+      scaleUpMinWorkerFraction = _json["scaleUpMinWorkerFraction"].toDouble();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (gracefulDecommissionTimeout != null) {
+      _json["gracefulDecommissionTimeout"] = gracefulDecommissionTimeout;
+    }
+    if (scaleDownFactor != null) {
+      _json["scaleDownFactor"] = scaleDownFactor;
+    }
+    if (scaleDownMinWorkerFraction != null) {
+      _json["scaleDownMinWorkerFraction"] = scaleDownMinWorkerFraction;
+    }
+    if (scaleUpFactor != null) {
+      _json["scaleUpFactor"] = scaleUpFactor;
+    }
+    if (scaleUpMinWorkerFraction != null) {
+      _json["scaleUpMinWorkerFraction"] = scaleUpMinWorkerFraction;
+    }
+    return _json;
+  }
+}
+
 /// Associates members with a role.
 class Binding {
   /// The condition that is associated with this binding. NOTE: An unsatisfied
@@ -3330,7 +4180,7 @@ class Binding {
   /// allAuthenticatedUsers: A special identifier that represents anyone  who is
   /// authenticated with a Google account or a service account.
   /// user:{emailid}: An email address that represents a specific Google
-  /// account. For example, alice@gmail.com .
+  /// account. For example, alice@example.com .
   /// serviceAccount:{emailid}: An email address that represents a service
   /// account. For example, my-other-app@appspot.gserviceaccount.com.
   /// group:{emailid}: An email address that represents a Google group.  For
@@ -3489,6 +4339,10 @@ class Cluster {
 
 /// The cluster config.
 class ClusterConfig {
+  /// Optional. Autoscaling config for the policy associated with the cluster.
+  /// Cluster does not autoscale if this field is unset.
+  AutoscalingConfig autoscalingConfig;
+
   /// Optional. A Google Cloud Storage bucket used to stage job dependencies,
   /// config files, and job driver console output. If you do not specify a
   /// staging bucket, Cloud Dataproc will determine a Cloud Storage location
@@ -3518,6 +4372,9 @@ class ClusterConfig {
   /// fi
   core.List<NodeInitializationAction> initializationActions;
 
+  /// Optional. Lifecycle setting for the cluster.
+  LifecycleConfig lifecycleConfig;
+
   /// Optional. The Compute Engine config settings for the master instance in a
   /// cluster.
   InstanceGroupConfig masterConfig;
@@ -3539,6 +4396,10 @@ class ClusterConfig {
   ClusterConfig();
 
   ClusterConfig.fromJson(core.Map _json) {
+    if (_json.containsKey("autoscalingConfig")) {
+      autoscalingConfig =
+          new AutoscalingConfig.fromJson(_json["autoscalingConfig"]);
+    }
     if (_json.containsKey("configBucket")) {
       configBucket = _json["configBucket"];
     }
@@ -3555,6 +4416,9 @@ class ClusterConfig {
           .map<NodeInitializationAction>(
               (value) => new NodeInitializationAction.fromJson(value))
           .toList();
+    }
+    if (_json.containsKey("lifecycleConfig")) {
+      lifecycleConfig = new LifecycleConfig.fromJson(_json["lifecycleConfig"]);
     }
     if (_json.containsKey("masterConfig")) {
       masterConfig = new InstanceGroupConfig.fromJson(_json["masterConfig"]);
@@ -3577,6 +4441,9 @@ class ClusterConfig {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (autoscalingConfig != null) {
+      _json["autoscalingConfig"] = (autoscalingConfig).toJson();
+    }
     if (configBucket != null) {
       _json["configBucket"] = configBucket;
     }
@@ -3589,6 +4456,9 @@ class ClusterConfig {
     if (initializationActions != null) {
       _json["initializationActions"] =
           initializationActions.map((value) => (value).toJson()).toList();
+    }
+    if (lifecycleConfig != null) {
+      _json["lifecycleConfig"] = (lifecycleConfig).toJson();
     }
     if (masterConfig != null) {
       _json["masterConfig"] = (masterConfig).toJson();
@@ -4253,13 +5123,51 @@ class GceClusterConfig {
 
 /// Request message for GetIamPolicy method.
 class GetIamPolicyRequest {
+  /// OPTIONAL: A GetPolicyOptions object for specifying options to
+  /// GetIamPolicy. This field is only used by Cloud IAM.
+  GetPolicyOptions options;
+
   GetIamPolicyRequest();
 
-  GetIamPolicyRequest.fromJson(core.Map _json) {}
+  GetIamPolicyRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("options")) {
+      options = new GetPolicyOptions.fromJson(_json["options"]);
+    }
+  }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (options != null) {
+      _json["options"] = (options).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Encapsulates settings provided to GetIamPolicy.
+class GetPolicyOptions {
+  /// Optional. The policy format version to be returned.Valid values are 0, 1,
+  /// and 3. Requests specifying an invalid value will be rejected.Requests for
+  /// policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
+  core.int requestedPolicyVersion;
+
+  GetPolicyOptions();
+
+  GetPolicyOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("requestedPolicyVersion")) {
+      requestedPolicyVersion = _json["requestedPolicyVersion"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (requestedPolicyVersion != null) {
+      _json["requestedPolicyVersion"] = requestedPolicyVersion;
+    }
     return _json;
   }
 }
@@ -4441,6 +5349,68 @@ class HiveJob {
     }
     if (scriptVariables != null) {
       _json["scriptVariables"] = scriptVariables;
+    }
+    return _json;
+  }
+}
+
+/// Configuration for the size bounds of an instance group, including its
+/// proportional size to other groups.
+class InstanceGroupAutoscalingPolicyConfig {
+  /// Optional. Maximum number of instances for this group. Required for primary
+  /// workers. Note that by default, clusters will not use secondary workers.
+  /// Required for secondary workers if the minimum secondary instances is
+  /// set.Primary workers - Bounds: [min_instances, ). Required. Secondary
+  /// workers - Bounds: [min_instances, ). Default: 0.
+  core.int maxInstances;
+
+  /// Optional. Minimum number of instances for this group.Primary workers -
+  /// Bounds: 2, max_instances. Default: 2. Secondary workers - Bounds: 0,
+  /// max_instances. Default: 0.
+  core.int minInstances;
+
+  /// Optional. Weight for the instance group, which is used to determine the
+  /// fraction of total workers in the cluster from this instance group. For
+  /// example, if primary workers have weight 2, and secondary workers have
+  /// weight 1, the cluster will have approximately 2 primary workers for each
+  /// secondary worker.The cluster may not reach the specified balance if
+  /// constrained by min/max bounds or other autoscaling settings. For example,
+  /// if max_instances for secondary workers is 0, then only primary workers
+  /// will be added. The cluster can also be out of balance when created.If
+  /// weight is not set on any instance group, the cluster will default to equal
+  /// weight for all groups: the cluster will attempt to maintain an equal
+  /// number of workers in each group within the configured size bounds for each
+  /// group. If weight is set for one group only, the cluster will default to
+  /// zero weight on the unset group. For example if weight is set only on
+  /// primary workers, the cluster will use primary workers only and no
+  /// secondary workers.
+  core.int weight;
+
+  InstanceGroupAutoscalingPolicyConfig();
+
+  InstanceGroupAutoscalingPolicyConfig.fromJson(core.Map _json) {
+    if (_json.containsKey("maxInstances")) {
+      maxInstances = _json["maxInstances"];
+    }
+    if (_json.containsKey("minInstances")) {
+      minInstances = _json["minInstances"];
+    }
+    if (_json.containsKey("weight")) {
+      weight = _json["weight"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (maxInstances != null) {
+      _json["maxInstances"] = maxInstances;
+    }
+    if (minInstances != null) {
+      _json["minInstances"] = minInstances;
+    }
+    if (weight != null) {
+      _json["weight"] = weight;
     }
     return _json;
   }
@@ -5001,6 +5971,10 @@ class KerberosConfig {
   /// Required. The uri of the KMS key used to encrypt various sensitive files.
   core.String kmsKeyUri;
 
+  /// Optional. The name of the on-cluster Kerberos realm. If not specified, the
+  /// uppercased domain of hostnames will be the realm.
+  core.String realm;
+
   /// Required. The Cloud Storage URI of a KMS encrypted file containing the
   /// root principal password.
   core.String rootPrincipalPasswordUri;
@@ -5053,6 +6027,9 @@ class KerberosConfig {
     if (_json.containsKey("kmsKeyUri")) {
       kmsKeyUri = _json["kmsKeyUri"];
     }
+    if (_json.containsKey("realm")) {
+      realm = _json["realm"];
+    }
     if (_json.containsKey("rootPrincipalPasswordUri")) {
       rootPrincipalPasswordUri = _json["rootPrincipalPasswordUri"];
     }
@@ -5101,6 +6078,9 @@ class KerberosConfig {
     if (kmsKeyUri != null) {
       _json["kmsKeyUri"] = kmsKeyUri;
     }
+    if (realm != null) {
+      _json["realm"] = realm;
+    }
     if (rootPrincipalPasswordUri != null) {
       _json["rootPrincipalPasswordUri"] = rootPrincipalPasswordUri;
     }
@@ -5112,6 +6092,98 @@ class KerberosConfig {
     }
     if (truststoreUri != null) {
       _json["truststoreUri"] = truststoreUri;
+    }
+    return _json;
+  }
+}
+
+/// Specifies the cluster auto-delete schedule configuration.
+class LifecycleConfig {
+  /// Optional. The time when cluster will be auto-deleted.
+  core.String autoDeleteTime;
+
+  /// Optional. The lifetime duration of cluster. The cluster will be
+  /// auto-deleted at the end of this period. Valid range: 10m, 14d.Example:
+  /// "1d", to delete the cluster 1 day after its creation..
+  core.String autoDeleteTtl;
+
+  /// Optional. The duration to keep the cluster alive while idling. Passing
+  /// this threshold will cause the cluster to be deleted. Valid range: 10m,
+  /// 14d.Example: "10m", the minimum value, to delete the cluster when it has
+  /// had no jobs running for 10 minutes.
+  core.String idleDeleteTtl;
+
+  /// Output only. The time when cluster became idle (most recent job finished)
+  /// and became eligible for deletion due to idleness.
+  core.String idleStartTime;
+
+  LifecycleConfig();
+
+  LifecycleConfig.fromJson(core.Map _json) {
+    if (_json.containsKey("autoDeleteTime")) {
+      autoDeleteTime = _json["autoDeleteTime"];
+    }
+    if (_json.containsKey("autoDeleteTtl")) {
+      autoDeleteTtl = _json["autoDeleteTtl"];
+    }
+    if (_json.containsKey("idleDeleteTtl")) {
+      idleDeleteTtl = _json["idleDeleteTtl"];
+    }
+    if (_json.containsKey("idleStartTime")) {
+      idleStartTime = _json["idleStartTime"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (autoDeleteTime != null) {
+      _json["autoDeleteTime"] = autoDeleteTime;
+    }
+    if (autoDeleteTtl != null) {
+      _json["autoDeleteTtl"] = autoDeleteTtl;
+    }
+    if (idleDeleteTtl != null) {
+      _json["idleDeleteTtl"] = idleDeleteTtl;
+    }
+    if (idleStartTime != null) {
+      _json["idleStartTime"] = idleStartTime;
+    }
+    return _json;
+  }
+}
+
+/// A response to a request to list autoscaling policies in a project.
+class ListAutoscalingPoliciesResponse {
+  /// Output only. This token is included in the response if there are more
+  /// results to fetch.
+  core.String nextPageToken;
+
+  /// Output only. Autoscaling policies list.
+  core.List<AutoscalingPolicy> policies;
+
+  ListAutoscalingPoliciesResponse();
+
+  ListAutoscalingPoliciesResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("nextPageToken")) {
+      nextPageToken = _json["nextPageToken"];
+    }
+    if (_json.containsKey("policies")) {
+      policies = (_json["policies"] as core.List)
+          .map<AutoscalingPolicy>(
+              (value) => new AutoscalingPolicy.fromJson(value))
+          .toList();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (nextPageToken != null) {
+      _json["nextPageToken"] = nextPageToken;
+    }
+    if (policies != null) {
+      _json["policies"] = policies.map((value) => (value).toJson()).toList();
     }
     return _json;
   }
@@ -5770,7 +6842,7 @@ class Policy {
   /// systems are expected to put that etag in the request to setIamPolicy to
   /// ensure that their change will be applied to the same version of the
   /// policy.If no etag is provided in the call to setIamPolicy, then the
-  /// existing policy is overwritten blindly.
+  /// existing policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -5781,7 +6853,10 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.Valid values are 0, 1, and 3. Requests
+  /// specifying an invalid value will be rejected.Policies with any conditional
+  /// bindings must specify version 3. Policies without any conditional bindings
+  /// may specify any valid value or leave the field unset.
   core.int version;
 
   Policy();
@@ -6568,7 +7643,14 @@ class WorkflowMetadata {
   /// - "DONE" : The operation is done; either cancelled or completed.
   core.String state;
 
-  /// Output only. The "resource name" of the template.
+  /// Output only. The resource name of the workflow template as described in
+  /// https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates, the resource name of the  template
+  /// has the following format:
+  /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates, the resource name of the
+  /// template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   core.String template;
 
   /// Output only. The version of template at the time of workflow
@@ -6744,9 +7826,14 @@ class WorkflowTemplate {
   /// associated with a template.
   core.Map<core.String, core.String> labels;
 
-  /// Output only. The "resource name" of the template, as described in
-  /// https://cloud.google.com/apis/design/resource_names of the form
+  /// Output only. The resource name of the workflow template, as described in
+  /// https://cloud.google.com/apis/design/resource_names.
+  /// For projects.regions.workflowTemplates, the resource name of the  template
+  /// has the following format:
   /// projects/{project_id}/regions/{region}/workflowTemplates/{template_id}
+  /// For projects.locations.workflowTemplates, the resource name of the
+  /// template has the following format:
+  /// projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
   core.String name;
 
   /// Optional. Template parameters whose values are substituted into the

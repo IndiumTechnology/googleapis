@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudkms.v1;
 
@@ -106,11 +106,11 @@ class ProjectsLocationsResourceApi {
   /// [name] - The resource that owns the locations collection, if applicable.
   /// Value must have pattern "^projects/[^/]+$".
   ///
-  /// [filter] - The standard list filter.
-  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
+  ///
+  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -123,9 +123,9 @@ class ProjectsLocationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListLocationsResponse> list(core.String name,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -137,14 +137,14 @@ class ProjectsLocationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -288,10 +288,14 @@ class ProjectsLocationsKeyRingsResourceApi {
   ///
   /// [options_requestedPolicyVersion] - Optional. The policy format version to
   /// be returned.
-  /// Acceptable values are 0 and 1.
-  /// If the value is 0, or the field is omitted, policy format version 1 will
-  /// be
-  /// returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -345,22 +349,25 @@ class ProjectsLocationsKeyRingsResourceApi {
   /// KeyRings, in the format `projects / * /locations / * `.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
   ///
-  /// [filter] - Optional. Only include resources that match the filter in the
-  /// response
-  /// (https://cloud.google.com/kms/docs/sorting-and-filtering).
-  ///
   /// [pageToken] - Optional pagination token, returned earlier via
   /// ListKeyRingsResponse.next_page_token.
   ///
   /// [orderBy] - Optional. Specify how the results should be sorted. If not
   /// specified, the
-  /// results will be sorted in the default order
-  /// (https://cloud.google.com/kms/docs/sorting-and-filtering).
+  /// results will be sorted in the default order.  For more information, see
+  /// [Sorting and filtering list
+  /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
   ///
   /// [pageSize] - Optional limit on the number of KeyRings to include in the
   /// response.  Further KeyRings can subsequently be obtained by
   /// including the ListKeyRingsResponse.next_page_token in a subsequent
   /// request.  If unspecified, the server will pick an appropriate default.
+  ///
+  /// [filter] - Optional. Only include resources that match the filter in the
+  /// response. For
+  /// more information, see
+  /// [Sorting and filtering list
+  /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -373,10 +380,10 @@ class ProjectsLocationsKeyRingsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListKeyRingsResponse> list(core.String parent,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.String orderBy,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -388,9 +395,6 @@ class ProjectsLocationsKeyRingsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
@@ -399,6 +403,9 @@ class ProjectsLocationsKeyRingsResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -791,10 +798,14 @@ class ProjectsLocationsKeyRingsCryptoKeysResourceApi {
   ///
   /// [options_requestedPolicyVersion] - Optional. The policy format version to
   /// be returned.
-  /// Acceptable values are 0 and 1.
-  /// If the value is 0, or the field is omitted, policy format version 1 will
-  /// be
-  /// returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -849,18 +860,11 @@ class ProjectsLocationsKeyRingsCryptoKeysResourceApi {
   /// `projects / * /locations / * /keyRings / * `.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/keyRings/[^/]+$".
   ///
-  /// [pageToken] - Optional pagination token, returned earlier via
-  /// ListCryptoKeysResponse.next_page_token.
-  ///
-  /// [pageSize] - Optional limit on the number of CryptoKeys to include in the
-  /// response.  Further CryptoKeys can subsequently be obtained by
-  /// including the ListCryptoKeysResponse.next_page_token in a subsequent
-  /// request.  If unspecified, the server will pick an appropriate default.
-  ///
   /// [orderBy] - Optional. Specify how the results should be sorted. If not
   /// specified, the
-  /// results will be sorted in the default order
-  /// (https://cloud.google.com/kms/docs/sorting-and-filtering).
+  /// results will be sorted in the default order. For more information, see
+  /// [Sorting and filtering list
+  /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
   ///
   /// [versionView] - The fields of the primary version to include in the
   /// response.
@@ -870,8 +874,18 @@ class ProjectsLocationsKeyRingsCryptoKeysResourceApi {
   /// - "FULL" : A FULL.
   ///
   /// [filter] - Optional. Only include resources that match the filter in the
-  /// response
-  /// (https://cloud.google.com/kms/docs/sorting-and-filtering).
+  /// response. For
+  /// more information, see
+  /// [Sorting and filtering list
+  /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
+  ///
+  /// [pageToken] - Optional pagination token, returned earlier via
+  /// ListCryptoKeysResponse.next_page_token.
+  ///
+  /// [pageSize] - Optional limit on the number of CryptoKeys to include in the
+  /// response.  Further CryptoKeys can subsequently be obtained by
+  /// including the ListCryptoKeysResponse.next_page_token in a subsequent
+  /// request.  If unspecified, the server will pick an appropriate default.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -884,11 +898,11 @@ class ProjectsLocationsKeyRingsCryptoKeysResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListCryptoKeysResponse> list(core.String parent,
-      {core.String pageToken,
-      core.int pageSize,
-      core.String orderBy,
+      {core.String orderBy,
       core.String versionView,
       core.String filter,
+      core.String pageToken,
+      core.int pageSize,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -900,12 +914,6 @@ class ProjectsLocationsKeyRingsCryptoKeysResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
-    }
     if (orderBy != null) {
       _queryParams["orderBy"] = [orderBy];
     }
@@ -914,6 +922,12 @@ class ProjectsLocationsKeyRingsCryptoKeysResourceApi {
     }
     if (filter != null) {
       _queryParams["filter"] = [filter];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1567,12 +1581,15 @@ class ProjectsLocationsKeyRingsCryptoKeysCryptoKeyVersionsResourceApi {
   ///
   /// [orderBy] - Optional. Specify how the results should be sorted. If not
   /// specified, the
-  /// results will be sorted in the default order
-  /// (https://cloud.google.com/kms/docs/sorting-and-filtering).
+  /// results will be sorted in the default order. For more information, see
+  /// [Sorting and filtering list
+  /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
   ///
   /// [filter] - Optional. Only include resources that match the filter in the
-  /// response
-  /// (https://cloud.google.com/kms/docs/sorting-and-filtering).
+  /// response. For
+  /// more information, see
+  /// [Sorting and filtering list
+  /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
   ///
   /// [pageToken] - Optional pagination token, returned earlier via
   /// ListCryptoKeyVersionsResponse.next_page_token.
@@ -1897,10 +1914,14 @@ class ProjectsLocationsKeyRingsImportJobsResourceApi {
   ///
   /// [options_requestedPolicyVersion] - Optional. The policy format version to
   /// be returned.
-  /// Acceptable values are 0 and 1.
-  /// If the value is 0, or the field is omitted, policy format version 1 will
-  /// be
-  /// returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1960,8 +1981,9 @@ class ProjectsLocationsKeyRingsImportJobsResourceApi {
   ///
   /// [orderBy] - Optional. Specify how the results should be sorted. If not
   /// specified, the
-  /// results will be sorted in the default order
-  /// (https://cloud.google.com/kms/docs/sorting-and-filtering).
+  /// results will be sorted in the default order. For more information, see
+  /// [Sorting and filtering list
+  /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
   ///
   /// [pageSize] - Optional limit on the number of ImportJobs to include in the
   /// response. Further ImportJobs can subsequently be obtained by
@@ -1969,8 +1991,10 @@ class ProjectsLocationsKeyRingsImportJobsResourceApi {
   /// request. If unspecified, the server will pick an appropriate default.
   ///
   /// [filter] - Optional. Only include resources that match the filter in the
-  /// response
-  /// (https://cloud.google.com/kms/docs/sorting-and-filtering).
+  /// response. For
+  /// more information, see
+  /// [Sorting and filtering list
+  /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2285,7 +2309,7 @@ class AsymmetricSignResponse {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -2297,7 +2321,7 @@ class AsymmetricSignResponse {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -2305,7 +2329,7 @@ class AsymmetricSignResponse {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -2313,9 +2337,9 @@ class AsymmetricSignResponse {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig> auditLogConfigs;
@@ -2360,7 +2384,7 @@ class AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -2370,7 +2394,7 @@ class AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -2428,7 +2452,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -3136,7 +3160,8 @@ class EncryptResponse {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// The resource name of the CryptoKeyVersion used in encryption.
+  /// The resource name of the CryptoKeyVersion used in encryption. Check
+  /// this field to verify that the intended resource was used for encryption.
   core.String name;
 
   EncryptResponse();
@@ -3962,7 +3987,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -3973,7 +3998,14 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();

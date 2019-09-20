@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.servicemanagement.v1;
 
@@ -102,14 +102,6 @@ class OperationsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Not used.
-  ///
-  /// [pageToken] - The standard list page token.
-  ///
-  /// [pageSize] - The maximum number of operations to return. If unspecified,
-  /// defaults to
-  /// 50. The maximum value is 100.
-  ///
   /// [filter] - A string for filtering Operations.
   ///   The following filter fields are supported&#58;
   ///
@@ -132,6 +124,14 @@ class OperationsResourceApi {
   /// * `serviceName={some-service}.googleapis.com AND (status=done OR
   /// startTime>="2017-02-01")`
   ///
+  /// [name] - Not used.
+  ///
+  /// [pageToken] - The standard list page token.
+  ///
+  /// [pageSize] - The maximum number of operations to return. If unspecified,
+  /// defaults to
+  /// 50. The maximum value is 100.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -143,10 +143,10 @@ class OperationsResourceApi {
   /// If the used [http_1.Client] completes with an error when making a REST
   /// call, this method will complete with the same error.
   async.Future<ListOperationsResponse> list(
-      {core.String name,
+      {core.String filter,
+      core.String name,
       core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -155,6 +155,9 @@ class OperationsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (name != null) {
       _queryParams["name"] = [name];
     }
@@ -163,9 +166,6 @@ class OperationsResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1691,7 +1691,7 @@ class Api {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -1703,7 +1703,7 @@ class Api {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -1711,7 +1711,7 @@ class Api {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -1719,9 +1719,9 @@ class Api {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig> auditLogConfigs;
@@ -1766,7 +1766,7 @@ class AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -1776,7 +1776,7 @@ class AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -2337,7 +2337,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -3075,6 +3075,12 @@ class Documentation {
   /// **NOTE:** All service configuration rules follow "last one wins" order.
   core.List<DocumentationRule> rules;
 
+  /// Specifies the service root url if the default one (the service name
+  /// from the yaml file) is not suitable. This can be seen in any fully
+  /// specified service urls as well as sections that show a base that other
+  /// urls are relative to.
+  core.String serviceRootUrl;
+
   /// A short summary of what the service does. Can only be provided by
   /// plain text.
   core.String summary;
@@ -3099,6 +3105,9 @@ class Documentation {
               (value) => new DocumentationRule.fromJson(value))
           .toList();
     }
+    if (_json.containsKey("serviceRootUrl")) {
+      serviceRootUrl = _json["serviceRootUrl"];
+    }
     if (_json.containsKey("summary")) {
       summary = _json["summary"];
     }
@@ -3118,6 +3127,9 @@ class Documentation {
     }
     if (rules != null) {
       _json["rules"] = rules.map((value) => (value).toJson()).toList();
+    }
+    if (serviceRootUrl != null) {
+      _json["serviceRootUrl"] = serviceRootUrl;
     }
     if (summary != null) {
       _json["summary"] = summary;
@@ -3739,13 +3751,55 @@ class GenerateConfigReportResponse {
 
 /// Request message for `GetIamPolicy` method.
 class GetIamPolicyRequest {
+  /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
+  /// `GetIamPolicy`. This field is only used by Cloud IAM.
+  GetPolicyOptions options;
+
   GetIamPolicyRequest();
 
-  GetIamPolicyRequest.fromJson(core.Map _json) {}
+  GetIamPolicyRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("options")) {
+      options = new GetPolicyOptions.fromJson(_json["options"]);
+    }
+  }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (options != null) {
+      _json["options"] = (options).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Encapsulates settings provided to GetIamPolicy.
+class GetPolicyOptions {
+  /// Optional. The policy format version to be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  core.int requestedPolicyVersion;
+
+  GetPolicyOptions();
+
+  GetPolicyOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("requestedPolicyVersion")) {
+      requestedPolicyVersion = _json["requestedPolicyVersion"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (requestedPolicyVersion != null) {
+      _json["requestedPolicyVersion"] = requestedPolicyVersion;
+    }
     return _json;
   }
 }
@@ -5736,7 +5790,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -5747,7 +5801,14 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();
@@ -5905,10 +5966,7 @@ class QuotaLimit {
   /// display name generated from the configuration.
   core.String displayName;
 
-  /// Duration of this limit in textual notation. Example: "100s", "24h", "1d".
-  /// For duration longer than a day, only multiple of days is supported. We
-  /// support only "100s" and "1d" for now. Additional support will be added in
-  /// the future. "0" indicates indefinite duration.
+  /// Duration of this limit in textual notation. Must be "100s" or "1d".
   ///
   /// Used by group-based quotas only.
   core.String duration;

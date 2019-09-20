@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudresourcemanager.v1;
 
@@ -1312,13 +1312,11 @@ class ProjectsResourceApi {
   }
 
   /// Request that a new Project be created. The result is an Operation which
-  /// can be used to track the creation process. It is automatically deleted
-  /// after a few hours, so there is no need to call DeleteOperation.
-  ///
-  /// Our SLO permits Project creation to take up to 30 seconds at the 90th
-  /// percentile. As of 2016-08-29, we are observing 6 seconds 50th percentile
-  /// latency. 95th percentile latency is around 11 seconds. We recommend
-  /// polling at the 5th second with an exponential backoff.
+  /// can be used to track the creation process. This process usually takes a
+  /// few
+  /// seconds, but can sometimes take much longer. The tracking Operation is
+  /// automatically deleted after a few hours, so there is no need to call
+  /// DeleteOperation.
   ///
   /// Authorization requires the Google IAM permission
   /// `resourcemanager.projects.create` on the specified parent for the new
@@ -1730,18 +1728,6 @@ class ProjectsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [pageToken] - A pagination token returned from a previous call to
-  /// ListProjects
-  /// that indicates from where listing should continue.
-  ///
-  /// Optional.
-  ///
-  /// [pageSize] - The maximum number of Projects to return in the response.
-  /// The server can return fewer Projects than requested.
-  /// If unspecified, server picks an appropriate default.
-  ///
-  /// Optional.
-  ///
   /// [filter] - An expression for filtering the results of the request.  Filter
   /// rules are
   /// case insensitive. The fields eligible for filtering are:
@@ -1778,6 +1764,18 @@ class ProjectsResourceApi {
   ///
   /// Optional.
   ///
+  /// [pageToken] - A pagination token returned from a previous call to
+  /// ListProjects
+  /// that indicates from where listing should continue.
+  ///
+  /// Optional.
+  ///
+  /// [pageSize] - The maximum number of Projects to return in the response.
+  /// The server can return fewer Projects than requested.
+  /// If unspecified, server picks an appropriate default.
+  ///
+  /// Optional.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1789,9 +1787,9 @@ class ProjectsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListProjectsResponse> list(
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1800,14 +1798,14 @@ class ProjectsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1939,7 +1937,11 @@ class ProjectsResourceApi {
   /// + Project does not support `allUsers` and `allAuthenticatedUsers` as
   /// `members` in a `Binding` of a `Policy`.
   ///
-  /// + The owner role can be granted only to `user` and `serviceAccount`.
+  /// + The owner role can be granted to a `user`, `serviceAccount`, or a group
+  /// that is part of an organization. For example,
+  /// group@myownpersonaldomain.com could be added as an owner to a project in
+  /// the myownpersonaldomain.com organization, but not the examplepetstore.com
+  /// organization.
   ///
   /// + Service accounts can be made owners of a project directly
   /// without any restrictions. However, to be added as an owner, a user must be
@@ -2297,7 +2299,7 @@ class Ancestor {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -2309,7 +2311,7 @@ class Ancestor {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -2317,7 +2319,7 @@ class Ancestor {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -2325,9 +2327,9 @@ class Ancestor {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig> auditLogConfigs;
@@ -2372,7 +2374,7 @@ class AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -2382,7 +2384,7 @@ class AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -2440,7 +2442,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -3018,10 +3020,14 @@ class GetOrgPolicyRequest {
 /// Encapsulates settings provided to GetIamPolicy.
 class GetPolicyOptions {
   /// Optional. The policy format version to be returned.
-  /// Acceptable values are 0 and 1.
-  /// If the value is 0, or the field is omitted, policy format version 1 will
-  /// be
-  /// returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
   core.int requestedPolicyVersion;
 
   GetPolicyOptions();
@@ -3779,18 +3785,15 @@ class OrgPolicy {
 /// (e.g., company) resources belong.
 class Organization {
   /// Timestamp when the Organization was created. Assigned by the server.
-  /// @OutputOnly
   core.String creationTime;
 
   /// A human-readable string that refers to the Organization in the
   /// GCP Console UI. This string is set by the server and cannot be
   /// changed. The string will be set to the primary domain (for example,
   /// "google.com") of the G Suite customer that owns the organization.
-  /// @OutputOnly
   core.String displayName;
 
   /// The organization's current lifecycle state. Assigned by the server.
-  /// @OutputOnly
   /// Possible string values are:
   /// - "LIFECYCLE_STATE_UNSPECIFIED" : Unspecified state.  This is only useful
   /// for distinguishing unset values.
@@ -3799,7 +3802,7 @@ class Organization {
   /// the user.
   core.String lifecycleState;
 
-  /// Output Only. The resource name of the organization. This is the
+  /// Output only. The resource name of the organization. This is the
   /// organization's relative path in the API. Its format is
   /// "organizations/[organization_id]". For example, "organizations/1234".
   core.String name;
@@ -3943,7 +3946,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -3954,7 +3957,14 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();

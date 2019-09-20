@@ -94,7 +94,7 @@
     },
     "protocol": "rest",
     "resources": {},
-    "revision": "20190703",
+    "revision": "20190918",
     "rootUrl": "https://youtubeanalytics.googleapis.com/",
     "schemas": {},
     "servicePath": "",

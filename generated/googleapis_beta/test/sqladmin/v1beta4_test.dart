@@ -132,6 +132,8 @@ buildBackupRun() {
   buildCounterBackupRun++;
   if (buildCounterBackupRun < 3) {
     o.description = "foo";
+    o.diskEncryptionConfiguration = buildDiskEncryptionConfiguration();
+    o.diskEncryptionStatus = buildDiskEncryptionStatus();
     o.endTime = core.DateTime.parse("2002-02-27T14:01:02");
     o.enqueuedTime = core.DateTime.parse("2002-02-27T14:01:02");
     o.error = buildOperationError();
@@ -153,6 +155,8 @@ checkBackupRun(api.BackupRun o) {
   buildCounterBackupRun++;
   if (buildCounterBackupRun < 3) {
     unittest.expect(o.description, unittest.equals('foo'));
+    checkDiskEncryptionConfiguration(o.diskEncryptionConfiguration);
+    checkDiskEncryptionStatus(o.diskEncryptionStatus);
     unittest.expect(
         o.endTime, unittest.equals(core.DateTime.parse("2002-02-27T14:01:02")));
     unittest.expect(o.enqueuedTime,
@@ -173,14 +177,14 @@ checkBackupRun(api.BackupRun o) {
   buildCounterBackupRun--;
 }
 
-buildUnnamed5034() {
+buildUnnamed5075() {
   var o = new core.List<api.BackupRun>();
   o.add(buildBackupRun());
   o.add(buildBackupRun());
   return o;
 }
 
-checkUnnamed5034(core.List<api.BackupRun> o) {
+checkUnnamed5075(core.List<api.BackupRun> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkBackupRun(o[0]);
   checkBackupRun(o[1]);
@@ -191,7 +195,7 @@ buildBackupRunsListResponse() {
   var o = new api.BackupRunsListResponse();
   buildCounterBackupRunsListResponse++;
   if (buildCounterBackupRunsListResponse < 3) {
-    o.items = buildUnnamed5034();
+    o.items = buildUnnamed5075();
     o.kind = "foo";
     o.nextPageToken = "foo";
   }
@@ -202,7 +206,7 @@ buildBackupRunsListResponse() {
 checkBackupRunsListResponse(api.BackupRunsListResponse o) {
   buildCounterBackupRunsListResponse++;
   if (buildCounterBackupRunsListResponse < 3) {
-    checkUnnamed5034(o.items);
+    checkUnnamed5075(o.items);
     unittest.expect(o.kind, unittest.equals('foo'));
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
   }
@@ -332,40 +336,40 @@ checkDatabaseInstanceFailoverReplica(api.DatabaseInstanceFailoverReplica o) {
   buildCounterDatabaseInstanceFailoverReplica--;
 }
 
-buildUnnamed5035() {
+buildUnnamed5076() {
   var o = new core.List<api.IpMapping>();
   o.add(buildIpMapping());
   o.add(buildIpMapping());
   return o;
 }
 
-checkUnnamed5035(core.List<api.IpMapping> o) {
+checkUnnamed5076(core.List<api.IpMapping> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkIpMapping(o[0]);
   checkIpMapping(o[1]);
 }
 
-buildUnnamed5036() {
+buildUnnamed5077() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed5036(core.List<core.String> o) {
+checkUnnamed5077(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed5037() {
+buildUnnamed5078() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed5037(core.List<core.String> o) {
+checkUnnamed5078(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -386,7 +390,7 @@ buildDatabaseInstance() {
     o.failoverReplica = buildDatabaseInstanceFailoverReplica();
     o.gceZone = "foo";
     o.instanceType = "foo";
-    o.ipAddresses = buildUnnamed5035();
+    o.ipAddresses = buildUnnamed5076();
     o.ipv6Address = "foo";
     o.kind = "foo";
     o.masterInstanceName = "foo";
@@ -396,14 +400,14 @@ buildDatabaseInstance() {
     o.project = "foo";
     o.region = "foo";
     o.replicaConfiguration = buildReplicaConfiguration();
-    o.replicaNames = buildUnnamed5036();
+    o.replicaNames = buildUnnamed5077();
     o.rootPassword = "foo";
     o.selfLink = "foo";
     o.serverCaCert = buildSslCert();
     o.serviceAccountEmailAddress = "foo";
     o.settings = buildSettings();
     o.state = "foo";
-    o.suspensionReason = buildUnnamed5037();
+    o.suspensionReason = buildUnnamed5078();
   }
   buildCounterDatabaseInstance--;
   return o;
@@ -422,7 +426,7 @@ checkDatabaseInstance(api.DatabaseInstance o) {
     checkDatabaseInstanceFailoverReplica(o.failoverReplica);
     unittest.expect(o.gceZone, unittest.equals('foo'));
     unittest.expect(o.instanceType, unittest.equals('foo'));
-    checkUnnamed5035(o.ipAddresses);
+    checkUnnamed5076(o.ipAddresses);
     unittest.expect(o.ipv6Address, unittest.equals('foo'));
     unittest.expect(o.kind, unittest.equals('foo'));
     unittest.expect(o.masterInstanceName, unittest.equals('foo'));
@@ -432,26 +436,26 @@ checkDatabaseInstance(api.DatabaseInstance o) {
     unittest.expect(o.project, unittest.equals('foo'));
     unittest.expect(o.region, unittest.equals('foo'));
     checkReplicaConfiguration(o.replicaConfiguration);
-    checkUnnamed5036(o.replicaNames);
+    checkUnnamed5077(o.replicaNames);
     unittest.expect(o.rootPassword, unittest.equals('foo'));
     unittest.expect(o.selfLink, unittest.equals('foo'));
     checkSslCert(o.serverCaCert);
     unittest.expect(o.serviceAccountEmailAddress, unittest.equals('foo'));
     checkSettings(o.settings);
     unittest.expect(o.state, unittest.equals('foo'));
-    checkUnnamed5037(o.suspensionReason);
+    checkUnnamed5078(o.suspensionReason);
   }
   buildCounterDatabaseInstance--;
 }
 
-buildUnnamed5038() {
+buildUnnamed5079() {
   var o = new core.List<api.Database>();
   o.add(buildDatabase());
   o.add(buildDatabase());
   return o;
 }
 
-checkUnnamed5038(core.List<api.Database> o) {
+checkUnnamed5079(core.List<api.Database> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkDatabase(o[0]);
   checkDatabase(o[1]);
@@ -462,7 +466,7 @@ buildDatabasesListResponse() {
   var o = new api.DatabasesListResponse();
   buildCounterDatabasesListResponse++;
   if (buildCounterDatabasesListResponse < 3) {
-    o.items = buildUnnamed5038();
+    o.items = buildUnnamed5079();
     o.kind = "foo";
   }
   buildCounterDatabasesListResponse--;
@@ -472,7 +476,7 @@ buildDatabasesListResponse() {
 checkDatabasesListResponse(api.DatabasesListResponse o) {
   buildCounterDatabasesListResponse++;
   if (buildCounterDatabasesListResponse < 3) {
-    checkUnnamed5038(o.items);
+    checkUnnamed5079(o.items);
     unittest.expect(o.kind, unittest.equals('foo'));
   }
   buildCounterDatabasesListResponse--;
@@ -615,14 +619,14 @@ checkExportContextCsvExportOptions(api.ExportContextCsvExportOptions o) {
   buildCounterExportContextCsvExportOptions--;
 }
 
-buildUnnamed5039() {
+buildUnnamed5080() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed5039(core.List<core.String> o) {
+checkUnnamed5080(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -648,14 +652,14 @@ checkExportContextSqlExportOptionsMysqlExportOptions(
   buildCounterExportContextSqlExportOptionsMysqlExportOptions--;
 }
 
-buildUnnamed5040() {
+buildUnnamed5081() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed5040(core.List<core.String> o) {
+checkUnnamed5081(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -669,7 +673,7 @@ buildExportContextSqlExportOptions() {
     o.mysqlExportOptions =
         buildExportContextSqlExportOptionsMysqlExportOptions();
     o.schemaOnly = true;
-    o.tables = buildUnnamed5040();
+    o.tables = buildUnnamed5081();
   }
   buildCounterExportContextSqlExportOptions--;
   return o;
@@ -680,7 +684,7 @@ checkExportContextSqlExportOptions(api.ExportContextSqlExportOptions o) {
   if (buildCounterExportContextSqlExportOptions < 3) {
     checkExportContextSqlExportOptionsMysqlExportOptions(o.mysqlExportOptions);
     unittest.expect(o.schemaOnly, unittest.isTrue);
-    checkUnnamed5040(o.tables);
+    checkUnnamed5081(o.tables);
   }
   buildCounterExportContextSqlExportOptions--;
 }
@@ -691,7 +695,7 @@ buildExportContext() {
   buildCounterExportContext++;
   if (buildCounterExportContext < 3) {
     o.csvExportOptions = buildExportContextCsvExportOptions();
-    o.databases = buildUnnamed5039();
+    o.databases = buildUnnamed5080();
     o.fileType = "foo";
     o.kind = "foo";
     o.sqlExportOptions = buildExportContextSqlExportOptions();
@@ -705,7 +709,7 @@ checkExportContext(api.ExportContext o) {
   buildCounterExportContext++;
   if (buildCounterExportContext < 3) {
     checkExportContextCsvExportOptions(o.csvExportOptions);
-    checkUnnamed5039(o.databases);
+    checkUnnamed5080(o.databases);
     unittest.expect(o.fileType, unittest.equals('foo'));
     unittest.expect(o.kind, unittest.equals('foo'));
     checkExportContextSqlExportOptions(o.sqlExportOptions);
@@ -735,27 +739,27 @@ checkFailoverContext(api.FailoverContext o) {
   buildCounterFailoverContext--;
 }
 
-buildUnnamed5041() {
+buildUnnamed5082() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed5041(core.List<core.String> o) {
+checkUnnamed5082(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed5042() {
+buildUnnamed5083() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed5042(core.List<core.String> o) {
+checkUnnamed5083(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -766,8 +770,8 @@ buildFlag() {
   var o = new api.Flag();
   buildCounterFlag++;
   if (buildCounterFlag < 3) {
-    o.allowedStringValues = buildUnnamed5041();
-    o.appliesTo = buildUnnamed5042();
+    o.allowedStringValues = buildUnnamed5082();
+    o.appliesTo = buildUnnamed5083();
     o.inBeta = true;
     o.kind = "foo";
     o.maxValue = "foo";
@@ -783,8 +787,8 @@ buildFlag() {
 checkFlag(api.Flag o) {
   buildCounterFlag++;
   if (buildCounterFlag < 3) {
-    checkUnnamed5041(o.allowedStringValues);
-    checkUnnamed5042(o.appliesTo);
+    checkUnnamed5082(o.allowedStringValues);
+    checkUnnamed5083(o.appliesTo);
     unittest.expect(o.inBeta, unittest.isTrue);
     unittest.expect(o.kind, unittest.equals('foo'));
     unittest.expect(o.maxValue, unittest.equals('foo'));
@@ -796,14 +800,14 @@ checkFlag(api.Flag o) {
   buildCounterFlag--;
 }
 
-buildUnnamed5043() {
+buildUnnamed5084() {
   var o = new core.List<api.Flag>();
   o.add(buildFlag());
   o.add(buildFlag());
   return o;
 }
 
-checkUnnamed5043(core.List<api.Flag> o) {
+checkUnnamed5084(core.List<api.Flag> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkFlag(o[0]);
   checkFlag(o[1]);
@@ -814,7 +818,7 @@ buildFlagsListResponse() {
   var o = new api.FlagsListResponse();
   buildCounterFlagsListResponse++;
   if (buildCounterFlagsListResponse < 3) {
-    o.items = buildUnnamed5043();
+    o.items = buildUnnamed5084();
     o.kind = "foo";
   }
   buildCounterFlagsListResponse--;
@@ -824,20 +828,63 @@ buildFlagsListResponse() {
 checkFlagsListResponse(api.FlagsListResponse o) {
   buildCounterFlagsListResponse++;
   if (buildCounterFlagsListResponse < 3) {
-    checkUnnamed5043(o.items);
+    checkUnnamed5084(o.items);
     unittest.expect(o.kind, unittest.equals('foo'));
   }
   buildCounterFlagsListResponse--;
 }
 
-buildUnnamed5044() {
+core.int buildCounterImportContextBakImportOptionsEncryptionOptions = 0;
+buildImportContextBakImportOptionsEncryptionOptions() {
+  var o = new api.ImportContextBakImportOptionsEncryptionOptions();
+  buildCounterImportContextBakImportOptionsEncryptionOptions++;
+  if (buildCounterImportContextBakImportOptionsEncryptionOptions < 3) {
+    o.certPath = "foo";
+    o.pvkPassword = "foo";
+    o.pvkPath = "foo";
+  }
+  buildCounterImportContextBakImportOptionsEncryptionOptions--;
+  return o;
+}
+
+checkImportContextBakImportOptionsEncryptionOptions(
+    api.ImportContextBakImportOptionsEncryptionOptions o) {
+  buildCounterImportContextBakImportOptionsEncryptionOptions++;
+  if (buildCounterImportContextBakImportOptionsEncryptionOptions < 3) {
+    unittest.expect(o.certPath, unittest.equals('foo'));
+    unittest.expect(o.pvkPassword, unittest.equals('foo'));
+    unittest.expect(o.pvkPath, unittest.equals('foo'));
+  }
+  buildCounterImportContextBakImportOptionsEncryptionOptions--;
+}
+
+core.int buildCounterImportContextBakImportOptions = 0;
+buildImportContextBakImportOptions() {
+  var o = new api.ImportContextBakImportOptions();
+  buildCounterImportContextBakImportOptions++;
+  if (buildCounterImportContextBakImportOptions < 3) {
+    o.encryptionOptions = buildImportContextBakImportOptionsEncryptionOptions();
+  }
+  buildCounterImportContextBakImportOptions--;
+  return o;
+}
+
+checkImportContextBakImportOptions(api.ImportContextBakImportOptions o) {
+  buildCounterImportContextBakImportOptions++;
+  if (buildCounterImportContextBakImportOptions < 3) {
+    checkImportContextBakImportOptionsEncryptionOptions(o.encryptionOptions);
+  }
+  buildCounterImportContextBakImportOptions--;
+}
+
+buildUnnamed5085() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed5044(core.List<core.String> o) {
+checkUnnamed5085(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -848,7 +895,7 @@ buildImportContextCsvImportOptions() {
   var o = new api.ImportContextCsvImportOptions();
   buildCounterImportContextCsvImportOptions++;
   if (buildCounterImportContextCsvImportOptions < 3) {
-    o.columns = buildUnnamed5044();
+    o.columns = buildUnnamed5085();
     o.table = "foo";
   }
   buildCounterImportContextCsvImportOptions--;
@@ -858,7 +905,7 @@ buildImportContextCsvImportOptions() {
 checkImportContextCsvImportOptions(api.ImportContextCsvImportOptions o) {
   buildCounterImportContextCsvImportOptions++;
   if (buildCounterImportContextCsvImportOptions < 3) {
-    checkUnnamed5044(o.columns);
+    checkUnnamed5085(o.columns);
     unittest.expect(o.table, unittest.equals('foo'));
   }
   buildCounterImportContextCsvImportOptions--;
@@ -869,6 +916,7 @@ buildImportContext() {
   var o = new api.ImportContext();
   buildCounterImportContext++;
   if (buildCounterImportContext < 3) {
+    o.bakImportOptions = buildImportContextBakImportOptions();
     o.csvImportOptions = buildImportContextCsvImportOptions();
     o.database = "foo";
     o.fileType = "foo";
@@ -883,6 +931,7 @@ buildImportContext() {
 checkImportContext(api.ImportContext o) {
   buildCounterImportContext++;
   if (buildCounterImportContext < 3) {
+    checkImportContextBakImportOptions(o.bakImportOptions);
     checkImportContextCsvImportOptions(o.csvImportOptions);
     unittest.expect(o.database, unittest.equals('foo'));
     unittest.expect(o.fileType, unittest.equals('foo'));
@@ -988,27 +1037,27 @@ checkInstancesImportRequest(api.InstancesImportRequest o) {
   buildCounterInstancesImportRequest--;
 }
 
-buildUnnamed5045() {
+buildUnnamed5086() {
   var o = new core.List<api.DatabaseInstance>();
   o.add(buildDatabaseInstance());
   o.add(buildDatabaseInstance());
   return o;
 }
 
-checkUnnamed5045(core.List<api.DatabaseInstance> o) {
+checkUnnamed5086(core.List<api.DatabaseInstance> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkDatabaseInstance(o[0]);
   checkDatabaseInstance(o[1]);
 }
 
-buildUnnamed5046() {
+buildUnnamed5087() {
   var o = new core.List<api.ApiWarning>();
   o.add(buildApiWarning());
   o.add(buildApiWarning());
   return o;
 }
 
-checkUnnamed5046(core.List<api.ApiWarning> o) {
+checkUnnamed5087(core.List<api.ApiWarning> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkApiWarning(o[0]);
   checkApiWarning(o[1]);
@@ -1019,10 +1068,10 @@ buildInstancesListResponse() {
   var o = new api.InstancesListResponse();
   buildCounterInstancesListResponse++;
   if (buildCounterInstancesListResponse < 3) {
-    o.items = buildUnnamed5045();
+    o.items = buildUnnamed5086();
     o.kind = "foo";
     o.nextPageToken = "foo";
-    o.warnings = buildUnnamed5046();
+    o.warnings = buildUnnamed5087();
   }
   buildCounterInstancesListResponse--;
   return o;
@@ -1031,22 +1080,22 @@ buildInstancesListResponse() {
 checkInstancesListResponse(api.InstancesListResponse o) {
   buildCounterInstancesListResponse++;
   if (buildCounterInstancesListResponse < 3) {
-    checkUnnamed5045(o.items);
+    checkUnnamed5086(o.items);
     unittest.expect(o.kind, unittest.equals('foo'));
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
-    checkUnnamed5046(o.warnings);
+    checkUnnamed5087(o.warnings);
   }
   buildCounterInstancesListResponse--;
 }
 
-buildUnnamed5047() {
+buildUnnamed5088() {
   var o = new core.List<api.SslCert>();
   o.add(buildSslCert());
   o.add(buildSslCert());
   return o;
 }
 
-checkUnnamed5047(core.List<api.SslCert> o) {
+checkUnnamed5088(core.List<api.SslCert> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkSslCert(o[0]);
   checkSslCert(o[1]);
@@ -1058,7 +1107,7 @@ buildInstancesListServerCasResponse() {
   buildCounterInstancesListServerCasResponse++;
   if (buildCounterInstancesListServerCasResponse < 3) {
     o.activeVersion = "foo";
-    o.certs = buildUnnamed5047();
+    o.certs = buildUnnamed5088();
     o.kind = "foo";
   }
   buildCounterInstancesListServerCasResponse--;
@@ -1069,7 +1118,7 @@ checkInstancesListServerCasResponse(api.InstancesListServerCasResponse o) {
   buildCounterInstancesListServerCasResponse++;
   if (buildCounterInstancesListServerCasResponse < 3) {
     unittest.expect(o.activeVersion, unittest.equals('foo'));
-    checkUnnamed5047(o.certs);
+    checkUnnamed5088(o.certs);
     unittest.expect(o.kind, unittest.equals('foo'));
   }
   buildCounterInstancesListServerCasResponse--;
@@ -1132,14 +1181,14 @@ checkInstancesTruncateLogRequest(api.InstancesTruncateLogRequest o) {
   buildCounterInstancesTruncateLogRequest--;
 }
 
-buildUnnamed5048() {
+buildUnnamed5089() {
   var o = new core.List<api.AclEntry>();
   o.add(buildAclEntry());
   o.add(buildAclEntry());
   return o;
 }
 
-checkUnnamed5048(core.List<api.AclEntry> o) {
+checkUnnamed5089(core.List<api.AclEntry> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkAclEntry(o[0]);
   checkAclEntry(o[1]);
@@ -1150,7 +1199,7 @@ buildIpConfiguration() {
   var o = new api.IpConfiguration();
   buildCounterIpConfiguration++;
   if (buildCounterIpConfiguration < 3) {
-    o.authorizedNetworks = buildUnnamed5048();
+    o.authorizedNetworks = buildUnnamed5089();
     o.ipv4Enabled = true;
     o.privateNetwork = "foo";
     o.requireSsl = true;
@@ -1162,7 +1211,7 @@ buildIpConfiguration() {
 checkIpConfiguration(api.IpConfiguration o) {
   buildCounterIpConfiguration++;
   if (buildCounterIpConfiguration < 3) {
-    checkUnnamed5048(o.authorizedNetworks);
+    checkUnnamed5089(o.authorizedNetworks);
     unittest.expect(o.ipv4Enabled, unittest.isTrue);
     unittest.expect(o.privateNetwork, unittest.equals('foo'));
     unittest.expect(o.requireSsl, unittest.isTrue);
@@ -1375,14 +1424,14 @@ checkOperationError(api.OperationError o) {
   buildCounterOperationError--;
 }
 
-buildUnnamed5049() {
+buildUnnamed5090() {
   var o = new core.List<api.OperationError>();
   o.add(buildOperationError());
   o.add(buildOperationError());
   return o;
 }
 
-checkUnnamed5049(core.List<api.OperationError> o) {
+checkUnnamed5090(core.List<api.OperationError> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkOperationError(o[0]);
   checkOperationError(o[1]);
@@ -1393,7 +1442,7 @@ buildOperationErrors() {
   var o = new api.OperationErrors();
   buildCounterOperationErrors++;
   if (buildCounterOperationErrors < 3) {
-    o.errors = buildUnnamed5049();
+    o.errors = buildUnnamed5090();
     o.kind = "foo";
   }
   buildCounterOperationErrors--;
@@ -1403,20 +1452,20 @@ buildOperationErrors() {
 checkOperationErrors(api.OperationErrors o) {
   buildCounterOperationErrors++;
   if (buildCounterOperationErrors < 3) {
-    checkUnnamed5049(o.errors);
+    checkUnnamed5090(o.errors);
     unittest.expect(o.kind, unittest.equals('foo'));
   }
   buildCounterOperationErrors--;
 }
 
-buildUnnamed5050() {
+buildUnnamed5091() {
   var o = new core.List<api.Operation>();
   o.add(buildOperation());
   o.add(buildOperation());
   return o;
 }
 
-checkUnnamed5050(core.List<api.Operation> o) {
+checkUnnamed5091(core.List<api.Operation> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkOperation(o[0]);
   checkOperation(o[1]);
@@ -1427,7 +1476,7 @@ buildOperationsListResponse() {
   var o = new api.OperationsListResponse();
   buildCounterOperationsListResponse++;
   if (buildCounterOperationsListResponse < 3) {
-    o.items = buildUnnamed5050();
+    o.items = buildUnnamed5091();
     o.kind = "foo";
     o.nextPageToken = "foo";
   }
@@ -1438,7 +1487,7 @@ buildOperationsListResponse() {
 checkOperationsListResponse(api.OperationsListResponse o) {
   buildCounterOperationsListResponse++;
   if (buildCounterOperationsListResponse < 3) {
-    checkUnnamed5050(o.items);
+    checkUnnamed5091(o.items);
     unittest.expect(o.kind, unittest.equals('foo'));
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
   }
@@ -1514,40 +1563,40 @@ checkRotateServerCaContext(api.RotateServerCaContext o) {
   buildCounterRotateServerCaContext--;
 }
 
-buildUnnamed5051() {
+buildUnnamed5092() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed5051(core.List<core.String> o) {
+checkUnnamed5092(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed5052() {
+buildUnnamed5093() {
   var o = new core.List<api.DatabaseFlags>();
   o.add(buildDatabaseFlags());
   o.add(buildDatabaseFlags());
   return o;
 }
 
-checkUnnamed5052(core.List<api.DatabaseFlags> o) {
+checkUnnamed5093(core.List<api.DatabaseFlags> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkDatabaseFlags(o[0]);
   checkDatabaseFlags(o[1]);
 }
 
-buildUnnamed5053() {
+buildUnnamed5094() {
   var o = new core.Map<core.String, core.String>();
   o["x"] = "foo";
   o["y"] = "foo";
   return o;
 }
 
-checkUnnamed5053(core.Map<core.String, core.String> o) {
+checkUnnamed5094(core.Map<core.String, core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o["x"], unittest.equals('foo'));
   unittest.expect(o["y"], unittest.equals('foo'));
@@ -1559,13 +1608,13 @@ buildSettings() {
   buildCounterSettings++;
   if (buildCounterSettings < 3) {
     o.activationPolicy = "foo";
-    o.authorizedGaeApplications = buildUnnamed5051();
+    o.authorizedGaeApplications = buildUnnamed5092();
     o.availabilityType = "foo";
     o.backupConfiguration = buildBackupConfiguration();
     o.crashSafeReplicationEnabled = true;
     o.dataDiskSizeGb = "foo";
     o.dataDiskType = "foo";
-    o.databaseFlags = buildUnnamed5052();
+    o.databaseFlags = buildUnnamed5093();
     o.databaseReplicationEnabled = true;
     o.ipConfiguration = buildIpConfiguration();
     o.kind = "foo";
@@ -1577,7 +1626,7 @@ buildSettings() {
     o.storageAutoResize = true;
     o.storageAutoResizeLimit = "foo";
     o.tier = "foo";
-    o.userLabels = buildUnnamed5053();
+    o.userLabels = buildUnnamed5094();
   }
   buildCounterSettings--;
   return o;
@@ -1587,13 +1636,13 @@ checkSettings(api.Settings o) {
   buildCounterSettings++;
   if (buildCounterSettings < 3) {
     unittest.expect(o.activationPolicy, unittest.equals('foo'));
-    checkUnnamed5051(o.authorizedGaeApplications);
+    checkUnnamed5092(o.authorizedGaeApplications);
     unittest.expect(o.availabilityType, unittest.equals('foo'));
     checkBackupConfiguration(o.backupConfiguration);
     unittest.expect(o.crashSafeReplicationEnabled, unittest.isTrue);
     unittest.expect(o.dataDiskSizeGb, unittest.equals('foo'));
     unittest.expect(o.dataDiskType, unittest.equals('foo'));
-    checkUnnamed5052(o.databaseFlags);
+    checkUnnamed5093(o.databaseFlags);
     unittest.expect(o.databaseReplicationEnabled, unittest.isTrue);
     checkIpConfiguration(o.ipConfiguration);
     unittest.expect(o.kind, unittest.equals('foo'));
@@ -1605,7 +1654,7 @@ checkSettings(api.Settings o) {
     unittest.expect(o.storageAutoResize, unittest.isTrue);
     unittest.expect(o.storageAutoResizeLimit, unittest.equals('foo'));
     unittest.expect(o.tier, unittest.equals('foo'));
-    checkUnnamed5053(o.userLabels);
+    checkUnnamed5094(o.userLabels);
   }
   buildCounterSettings--;
 }
@@ -1731,14 +1780,14 @@ checkSslCertsInsertResponse(api.SslCertsInsertResponse o) {
   buildCounterSslCertsInsertResponse--;
 }
 
-buildUnnamed5054() {
+buildUnnamed5095() {
   var o = new core.List<api.SslCert>();
   o.add(buildSslCert());
   o.add(buildSslCert());
   return o;
 }
 
-checkUnnamed5054(core.List<api.SslCert> o) {
+checkUnnamed5095(core.List<api.SslCert> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkSslCert(o[0]);
   checkSslCert(o[1]);
@@ -1749,7 +1798,7 @@ buildSslCertsListResponse() {
   var o = new api.SslCertsListResponse();
   buildCounterSslCertsListResponse++;
   if (buildCounterSslCertsListResponse < 3) {
-    o.items = buildUnnamed5054();
+    o.items = buildUnnamed5095();
     o.kind = "foo";
   }
   buildCounterSslCertsListResponse--;
@@ -1759,20 +1808,20 @@ buildSslCertsListResponse() {
 checkSslCertsListResponse(api.SslCertsListResponse o) {
   buildCounterSslCertsListResponse++;
   if (buildCounterSslCertsListResponse < 3) {
-    checkUnnamed5054(o.items);
+    checkUnnamed5095(o.items);
     unittest.expect(o.kind, unittest.equals('foo'));
   }
   buildCounterSslCertsListResponse--;
 }
 
-buildUnnamed5055() {
+buildUnnamed5096() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed5055(core.List<core.String> o) {
+checkUnnamed5096(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -1786,7 +1835,7 @@ buildTier() {
     o.DiskQuota = "foo";
     o.RAM = "foo";
     o.kind = "foo";
-    o.region = buildUnnamed5055();
+    o.region = buildUnnamed5096();
     o.tier = "foo";
   }
   buildCounterTier--;
@@ -1799,20 +1848,20 @@ checkTier(api.Tier o) {
     unittest.expect(o.DiskQuota, unittest.equals('foo'));
     unittest.expect(o.RAM, unittest.equals('foo'));
     unittest.expect(o.kind, unittest.equals('foo'));
-    checkUnnamed5055(o.region);
+    checkUnnamed5096(o.region);
     unittest.expect(o.tier, unittest.equals('foo'));
   }
   buildCounterTier--;
 }
 
-buildUnnamed5056() {
+buildUnnamed5097() {
   var o = new core.List<api.Tier>();
   o.add(buildTier());
   o.add(buildTier());
   return o;
 }
 
-checkUnnamed5056(core.List<api.Tier> o) {
+checkUnnamed5097(core.List<api.Tier> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkTier(o[0]);
   checkTier(o[1]);
@@ -1823,7 +1872,7 @@ buildTiersListResponse() {
   var o = new api.TiersListResponse();
   buildCounterTiersListResponse++;
   if (buildCounterTiersListResponse < 3) {
-    o.items = buildUnnamed5056();
+    o.items = buildUnnamed5097();
     o.kind = "foo";
   }
   buildCounterTiersListResponse--;
@@ -1833,7 +1882,7 @@ buildTiersListResponse() {
 checkTiersListResponse(api.TiersListResponse o) {
   buildCounterTiersListResponse++;
   if (buildCounterTiersListResponse < 3) {
-    checkUnnamed5056(o.items);
+    checkUnnamed5097(o.items);
     unittest.expect(o.kind, unittest.equals('foo'));
   }
   buildCounterTiersListResponse--;
@@ -1891,14 +1940,14 @@ checkUser(api.User o) {
   buildCounterUser--;
 }
 
-buildUnnamed5057() {
+buildUnnamed5098() {
   var o = new core.List<api.User>();
   o.add(buildUser());
   o.add(buildUser());
   return o;
 }
 
-checkUnnamed5057(core.List<api.User> o) {
+checkUnnamed5098(core.List<api.User> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkUser(o[0]);
   checkUser(o[1]);
@@ -1909,7 +1958,7 @@ buildUsersListResponse() {
   var o = new api.UsersListResponse();
   buildCounterUsersListResponse++;
   if (buildCounterUsersListResponse < 3) {
-    o.items = buildUnnamed5057();
+    o.items = buildUnnamed5098();
     o.kind = "foo";
     o.nextPageToken = "foo";
   }
@@ -1920,7 +1969,7 @@ buildUsersListResponse() {
 checkUsersListResponse(api.UsersListResponse o) {
   buildCounterUsersListResponse++;
   if (buildCounterUsersListResponse < 3) {
-    checkUnnamed5057(o.items);
+    checkUnnamed5098(o.items);
     unittest.expect(o.kind, unittest.equals('foo'));
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
   }
@@ -2120,6 +2169,24 @@ main() {
       var o = buildFlagsListResponse();
       var od = new api.FlagsListResponse.fromJson(o.toJson());
       checkFlagsListResponse(od);
+    });
+  });
+
+  unittest.group("obj-schema-ImportContextBakImportOptionsEncryptionOptions",
+      () {
+    unittest.test("to-json--from-json", () {
+      var o = buildImportContextBakImportOptionsEncryptionOptions();
+      var od = new api.ImportContextBakImportOptionsEncryptionOptions.fromJson(
+          o.toJson());
+      checkImportContextBakImportOptionsEncryptionOptions(od);
+    });
+  });
+
+  unittest.group("obj-schema-ImportContextBakImportOptions", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildImportContextBakImportOptions();
+      var od = new api.ImportContextBakImportOptions.fromJson(o.toJson());
+      checkImportContextBakImportOptions(od);
     });
   });
 

@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.firebaserules.v1;
 
@@ -678,6 +678,11 @@ class ProjectsRulesetsResourceApi {
   /// Format: `projects/{project_id}`
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [pageSize] - Page size to load. Maximum of 100. Defaults to 10.
+  /// Note: `page_size` is just a hint and the service may choose to load less
+  /// than `page_size` due to the size of the output. To traverse all of the
+  /// releases, caller should iterate until the `page_token` is empty.
+  ///
   /// [filter] - `Ruleset` filter. The list method supports filters with
   /// restrictions on
   /// `Ruleset.name`.
@@ -690,11 +695,6 @@ class ProjectsRulesetsResourceApi {
   /// [pageToken] - Next page token for loading the next batch of `Ruleset`
   /// instances.
   ///
-  /// [pageSize] - Page size to load. Maximum of 100. Defaults to 10.
-  /// Note: `page_size` is just a hint and the service may choose to load less
-  /// than `page_size` due to the size of the output. To traverse all of the
-  /// releases, caller should iterate until the `page_token` is empty.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -706,9 +706,9 @@ class ProjectsRulesetsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListRulesetsResponse> list(core.String name,
-      {core.String filter,
+      {core.int pageSize,
+      core.String filter,
       core.String pageToken,
-      core.int pageSize,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -720,14 +720,14 @@ class ProjectsRulesetsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
     if (filter != null) {
       _queryParams["filter"] = [filter];
     }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
-    }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1401,6 +1401,16 @@ class TestCase {
   /// not influence the test outcome.
   core.List<FunctionMock> functionMocks;
 
+  /// Specifies whether paths (such as request.path) are encoded and how.
+  /// Possible string values are:
+  /// - "ENCODING_UNSPECIFIED" : No encoding has been specified. Defaults to
+  /// "URL_ENCODED" behavior.
+  /// - "URL_ENCODED" : Treats path segments as URL encoded but with non-encoded
+  /// separators
+  /// ("/"). This is the default behavior.
+  /// - "PLAIN" : Treats total path as non-URL encoded e.g. raw.
+  core.String pathEncoding;
+
   /// Request context.
   ///
   /// The exact format of the request context is service-dependent. See the
@@ -1445,6 +1455,9 @@ class TestCase {
           .map<FunctionMock>((value) => new FunctionMock.fromJson(value))
           .toList();
     }
+    if (_json.containsKey("pathEncoding")) {
+      pathEncoding = _json["pathEncoding"];
+    }
     if (_json.containsKey("request")) {
       request = _json["request"];
     }
@@ -1462,6 +1475,9 @@ class TestCase {
     if (functionMocks != null) {
       _json["functionMocks"] =
           functionMocks.map((value) => (value).toJson()).toList();
+    }
+    if (pathEncoding != null) {
+      _json["pathEncoding"] = pathEncoding;
     }
     if (request != null) {
       _json["request"] = request;

@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudscheduler.v1;
 
@@ -101,11 +101,11 @@ class ProjectsLocationsResourceApi {
   /// [name] - The resource that owns the locations collection, if applicable.
   /// Value must have pattern "^projects/[^/]+$".
   ///
-  /// [filter] - The standard list filter.
-  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
+  ///
+  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -118,9 +118,9 @@ class ProjectsLocationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListLocationsResponse> list(core.String name,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -132,14 +132,14 @@ class ProjectsLocationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -170,9 +170,7 @@ class ProjectsLocationsJobsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required.
-  ///
-  /// The location name. For example:
+  /// [parent] - Required. The location name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID`.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
   ///
@@ -220,9 +218,7 @@ class ProjectsLocationsJobsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The job name. For example:
+  /// [name] - Required. The job name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/jobs/[^/]+$".
   ///
@@ -266,9 +262,7 @@ class ProjectsLocationsJobsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The job name. For example:
+  /// [name] - Required. The job name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/jobs/[^/]+$".
   ///
@@ -312,9 +306,7 @@ class ProjectsLocationsJobsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required.
-  ///
-  /// The location name. For example:
+  /// [parent] - Required. The location name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID`.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
   ///
@@ -468,9 +460,7 @@ class ProjectsLocationsJobsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The job name. For example:
+  /// [name] - Required. The job name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/jobs/[^/]+$".
   ///
@@ -525,9 +515,7 @@ class ProjectsLocationsJobsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The job name. For example:
+  /// [name] - Required. The job name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/jobs/[^/]+$".
   ///
@@ -580,9 +568,7 @@ class ProjectsLocationsJobsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The job name. For example:
+  /// [name] - Required. The job name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/jobs/[^/]+$".
   ///
@@ -978,9 +964,7 @@ class HttpTarget {
   /// yourself.
   OidcToken oidcToken;
 
-  /// Required.
-  ///
-  /// The full URI path that the request will be sent to. This string
+  /// Required. The full URI path that the request will be sent to. This string
   /// must begin with either "http://" or "https://". Some examples of
   /// valid values for uri are:
   /// `http://acme.com` and `https://acme.com/sales:8080`. Cloud Scheduler will
@@ -1588,9 +1572,7 @@ class PubsubTarget {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Required.
-  ///
-  /// The name of the Cloud Pub/Sub topic to which messages will
+  /// Required. The name of the Cloud Pub/Sub topic to which messages will
   /// be published when a job is delivered. The topic name must be in the
   /// same format as required by PubSub's
   /// [PublishRequest.name](https://cloud.google.com/pubsub/docs/reference/rpc/google.pubsub.v1#publishrequest),

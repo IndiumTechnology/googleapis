@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.toolresults.v1beta3;
 
@@ -887,17 +887,11 @@ class ProjectsHistoriesExecutionsStepsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [projectId] - A Project id.
+  /// [projectId] - Required. A Project id.
   ///
-  /// Required.
+  /// [historyId] - Required. A History id.
   ///
-  /// [historyId] - A History id.
-  ///
-  /// Required.
-  ///
-  /// [executionId] - A Execution id.
-  ///
-  /// Required.
+  /// [executionId] - Required. An Execution id.
   ///
   /// [requestId] - A unique request ID for server to detect duplicated
   /// requests. For example, a UUID.
@@ -2771,7 +2765,7 @@ class CPUInfo {
 /// start.nanos;
 ///
 /// if (duration.seconds  0) { duration.seconds += 1; duration.nanos -=
-/// 1000000000; } else if (durations.seconds > 0 && duration.nanos < 0) {
+/// 1000000000; } else if (duration.seconds > 0 && duration.nanos < 0) {
 /// duration.seconds -= 1; duration.nanos += 1000000000; }
 ///
 /// Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.
@@ -4468,6 +4462,8 @@ class Status {
 ///
 /// A Step can be updated until its state is set to COMPLETE at which points it
 /// becomes immutable.
+///
+/// Next tag: 23
 class Step {
   /// The time when the step status was set to complete.
   ///
@@ -4820,6 +4816,11 @@ class SuccessDetail {
 }
 
 class TestCase {
+  /// The elapsed run time of the test case.
+  ///
+  /// Required.
+  Duration elapsedTime;
+
   /// The end time of the test case.
   ///
   /// Optional.
@@ -4868,6 +4869,9 @@ class TestCase {
   TestCase();
 
   TestCase.fromJson(core.Map _json) {
+    if (_json.containsKey("elapsedTime")) {
+      elapsedTime = new Duration.fromJson(_json["elapsedTime"]);
+    }
     if (_json.containsKey("endTime")) {
       endTime = new Timestamp.fromJson(_json["endTime"]);
     }
@@ -4903,6 +4907,9 @@ class TestCase {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (elapsedTime != null) {
+      _json["elapsedTime"] = (elapsedTime).toJson();
+    }
     if (endTime != null) {
       _json["endTime"] = (endTime).toJson();
     }
@@ -5092,6 +5099,7 @@ class TestIssue {
   /// Possible string values are:
   /// - "anr"
   /// - "availableDeepLinks"
+  /// - "blankScreen"
   /// - "compatibleWithOrchestrator"
   /// - "completeRoboScriptExecution"
   /// - "crashDialogError"
@@ -5108,9 +5116,11 @@ class TestIssue {
   /// - "nativeCrash"
   /// - "nonSdkApiUsageReport"
   /// - "nonSdkApiUsageViolation"
+  /// - "overlappingUiElements"
   /// - "performedGoogleLogin"
   /// - "performedMonkeyActions"
   /// - "startActivityNotFound"
+  /// - "uiElementsTooDeep"
   /// - "unspecifiedType"
   /// - "unusedRoboDirective"
   /// - "usedRoboDirective"

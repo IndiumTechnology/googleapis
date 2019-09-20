@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.firebasehosting.v1beta1;
 
@@ -800,17 +800,17 @@ class SitesVersionsFilesResourceApi {
   /// <code>sites/<var>site-name</var>/versions/<var>versionID</var></code>
   /// Value must have pattern "^sites/[^/]+/versions/[^/]+$".
   ///
-  /// [status] - The type of files in the version that should be listed.
-  /// Possible string values are:
-  /// - "STATUS_UNSPECIFIED" : A STATUS_UNSPECIFIED.
-  /// - "EXPECTED" : A EXPECTED.
-  /// - "ACTIVE" : A ACTIVE.
-  ///
   /// [pageToken] - The next_page_token from a previous request, if provided.
   /// This will be the
   /// encoded version of a firebase.hosting.proto.metadata.ListFilesPageToken.
   ///
   /// [pageSize] - The page size to return. Defaults to 1000.
+  ///
+  /// [status] - The type of files in the version that should be listed.
+  /// Possible string values are:
+  /// - "STATUS_UNSPECIFIED" : A STATUS_UNSPECIFIED.
+  /// - "EXPECTED" : A EXPECTED.
+  /// - "ACTIVE" : A ACTIVE.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -823,9 +823,9 @@ class SitesVersionsFilesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListVersionFilesResponse> list(core.String parent,
-      {core.String status,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String status,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -837,14 +837,14 @@ class SitesVersionsFilesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (status != null) {
-      _queryParams["status"] = [status];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (status != null) {
+      _queryParams["status"] = [status];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1267,13 +1267,17 @@ class Empty {
 /// A [`header`](/docs/hosting/full-config#headers) defines custom headers to
 /// add to a response should the request URL path match the pattern.
 class Header {
-  /// Required. The user-supplied
-  /// [glob pattern](/docs/hosting/full-config#glob_pattern_matching) to match
+  /// The user-supplied [glob
+  /// pattern](/docs/hosting/full-config#glob_pattern_matching) to match
   /// against the request URL path.
   core.String glob;
 
   /// Required. The additional headers to add to the response.
   core.Map<core.String, core.String> headers;
+
+  /// The user-supplied RE2 regular expression to match against the request
+  /// URL path.
+  core.String regex;
 
   Header();
 
@@ -1283,6 +1287,9 @@ class Header {
     }
     if (_json.containsKey("headers")) {
       headers = (_json["headers"] as core.Map).cast<core.String, core.String>();
+    }
+    if (_json.containsKey("regex")) {
+      regex = _json["regex"];
     }
   }
 
@@ -1294,6 +1301,9 @@ class Header {
     }
     if (headers != null) {
       _json["headers"] = headers;
+    }
+    if (regex != null) {
+      _json["regex"] = regex;
     }
     return _json;
   }
@@ -1466,8 +1476,8 @@ class PopulateVersionFilesResponse {
 /// configuration for returning an HTTP redirect response given a matching
 /// request URL path.
 class Redirect {
-  /// Required. The user-supplied
-  /// [glob pattern](/docs/hosting/full-config#glob_pattern_matching) to match
+  /// The user-supplied [glob
+  /// pattern](/docs/hosting/full-config#glob_pattern_matching) to match
   /// against the request URL path.
   core.String glob;
 
@@ -1480,6 +1490,10 @@ class Redirect {
   /// <br>"statusCode": 301,
   /// <br>"location": "https://example.com/foo/:capture"</code>
   core.String location;
+
+  /// The user-supplied RE2 regular expression to match against the request
+  /// URL path.
+  core.String regex;
 
   /// Required. The status HTTP code to return in the response. It must be a
   /// valid 3xx status code.
@@ -1494,6 +1508,9 @@ class Redirect {
     if (_json.containsKey("location")) {
       location = _json["location"];
     }
+    if (_json.containsKey("regex")) {
+      regex = _json["regex"];
+    }
     if (_json.containsKey("statusCode")) {
       statusCode = _json["statusCode"];
     }
@@ -1507,6 +1524,9 @@ class Redirect {
     }
     if (location != null) {
       _json["location"] = location;
+    }
+    if (regex != null) {
+      _json["regex"] = regex;
     }
     if (statusCode != null) {
       _json["statusCode"] = statusCode;
@@ -1551,7 +1571,7 @@ class Release {
   /// as if the site never existed.
   core.String type;
 
-  /// Output only.  The configuration and content that was released.
+  /// Output only. The configuration and content that was released.
   Version version;
 
   Release();
@@ -1614,13 +1634,17 @@ class Rewrite {
   /// name exactly.
   core.String function;
 
-  /// Required. The user-supplied
-  /// [glob pattern](/docs/hosting/full-config#glob_pattern_matching) to match
+  /// The user-supplied [glob
+  /// pattern](/docs/hosting/full-config#glob_pattern_matching) to match
   /// against the request URL path.
   core.String glob;
 
   /// The URL path to rewrite the request to.
   core.String path;
+
+  /// The user-supplied RE2 regular expression to match against the request
+  /// URL path.
+  core.String regex;
 
   /// The request will be forwarded to Cloud Run.
   CloudRunRewrite run;
@@ -1639,6 +1663,9 @@ class Rewrite {
     }
     if (_json.containsKey("path")) {
       path = _json["path"];
+    }
+    if (_json.containsKey("regex")) {
+      regex = _json["regex"];
     }
     if (_json.containsKey("run")) {
       run = new CloudRunRewrite.fromJson(_json["run"]);
@@ -1659,6 +1686,9 @@ class Rewrite {
     }
     if (path != null) {
       _json["path"] = path;
+    }
+    if (regex != null) {
+      _json["regex"] = regex;
     }
     if (run != null) {
       _json["run"] = (run).toJson();

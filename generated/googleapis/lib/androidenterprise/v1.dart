@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.androidenterprise.v1;
 
@@ -2803,8 +2803,7 @@ class ManagedconfigurationssettingsResourceApi {
   ManagedconfigurationssettingsResourceApi(commons.ApiRequester client)
       : _requester = client;
 
-  /// Lists all the managed configurations settings for the specified app. Only
-  /// the ID and the name is set.
+  /// Lists all the managed configurations settings for the specified app.
   ///
   /// Request parameters:
   ///
@@ -5288,7 +5287,8 @@ class AdministratorWebTokenSpec {
   AdministratorWebTokenSpecManagedConfigurations managedConfigurations;
 
   /// The URI of the parent frame hosting the iframe. To prevent XSS, the iframe
-  /// may not be hosted at other URIs. This URI must be https.
+  /// may not be hosted at other URIs. This URI must be https. Use whitespaces
+  /// to separate multiple parent URIs.
   core.String parent;
 
   /// Deprecated. Use PlaySearch.approveApps.
@@ -7215,9 +7215,6 @@ class ManagedConfigurationsSettings {
   /// milliseconds since 1970-01-01T00:00:00Z.
   core.String lastUpdatedTimestampMillis;
 
-  /// The set of managed properties for this configuration.
-  core.List<ManagedProperty> managedProperty;
-
   /// The ID of the managed configurations settings.
   core.String mcmId;
 
@@ -7232,11 +7229,6 @@ class ManagedConfigurationsSettings {
     }
     if (_json.containsKey("lastUpdatedTimestampMillis")) {
       lastUpdatedTimestampMillis = _json["lastUpdatedTimestampMillis"];
-    }
-    if (_json.containsKey("managedProperty")) {
-      managedProperty = (_json["managedProperty"] as core.List)
-          .map<ManagedProperty>((value) => new ManagedProperty.fromJson(value))
-          .toList();
     }
     if (_json.containsKey("mcmId")) {
       mcmId = _json["mcmId"];
@@ -7254,10 +7246,6 @@ class ManagedConfigurationsSettings {
     }
     if (lastUpdatedTimestampMillis != null) {
       _json["lastUpdatedTimestampMillis"] = lastUpdatedTimestampMillis;
-    }
-    if (managedProperty != null) {
-      _json["managedProperty"] =
-          managedProperty.map((value) => (value).toJson()).toList();
     }
     if (mcmId != null) {
       _json["mcmId"] = mcmId;

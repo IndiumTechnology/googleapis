@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.healthcare.v1beta1;
 
@@ -248,6 +248,8 @@ class ProjectsLocationsDatasetsResourceApi {
   /// If errors occur,
   /// details field type is
   /// DeidentifyErrorDetails.
+  /// Errors are also logged to Stackdriver
+  /// (see [Viewing logs](/healthcare/docs/how-tos/stackdriver-logging)).
   ///
   /// [request] - The metadata request object.
   ///
@@ -404,7 +406,7 @@ class ProjectsLocationsDatasetsResourceApi {
   ///
   /// [options_requestedPolicyVersion] - Optional. The policy format version to
   /// be returned.
-  /// Acceptable values are 0 and 1.
+  /// Acceptable values are 0, 1, and 3.
   /// If the value is 0, or the field is omitted, policy format version 1 will
   /// be
   /// returned.
@@ -915,7 +917,7 @@ class ProjectsLocationsDatasetsDicomStoresResourceApi {
   ///
   /// [options_requestedPolicyVersion] - Optional. The policy format version to
   /// be returned.
-  /// Acceptable values are 0 and 1.
+  /// Acceptable values are 0, 1, and 3.
   /// If the value is 0, or the field is omitted, policy format version 1 will
   /// be
   /// returned.
@@ -968,7 +970,8 @@ class ProjectsLocationsDatasetsDicomStoresResourceApi {
   /// For errors, the Operation will be populated with error details (in the
   /// form
   /// of ImportDicomDataErrorDetails in error.details), which will hold
-  /// finer-grained error information.
+  /// finer-grained error information. Errors are also logged to Stackdriver
+  /// (see [Viewing logs](/healthcare/docs/how-tos/stackdriver-logging)).
   /// The metadata field type is
   /// OperationMetadata.
   ///
@@ -1031,16 +1034,16 @@ class ProjectsLocationsDatasetsDicomStoresResourceApi {
   /// [parent] - Name of the dataset.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/datasets/[^/]+$".
   ///
-  /// [filter] - Restricts stores returned to those matching a filter. Syntax:
-  /// https://cloud.google.com/appengine/docs/standard/python/search/query_strings
-  /// Only filtering on labels is supported, for example `labels.key=value`.
-  ///
   /// [pageToken] - The next_page_token value returned from the previous List
   /// request, if any.
   ///
   /// [pageSize] - Limit on the number of DICOM stores to return in a single
   /// response.
   /// If zero the default page size of 100 is used.
+  ///
+  /// [filter] - Restricts stores returned to those matching a filter. Syntax:
+  /// https://cloud.google.com/appengine/docs/standard/python/search/query_strings
+  /// Only filtering on labels is supported, for example `labels.key=value`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1053,9 +1056,9 @@ class ProjectsLocationsDatasetsDicomStoresResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListDicomStoresResponse> list(core.String parent,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1067,14 +1070,14 @@ class ProjectsLocationsDatasetsDicomStoresResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2637,7 +2640,9 @@ class ProjectsLocationsDatasetsFhirStoresResourceApi {
   /// GetOperation.
   ///
   /// Immediate fatal errors appear in the
-  /// error field.
+  /// error field, errors are also logged
+  /// to Stackdriver (see [Viewing
+  /// logs](/healthcare/docs/how-tos/stackdriver-logging)).
   /// Otherwise, when the operation finishes, a detailed response of type
   /// ExportResourcesResponse is returned in the
   /// response field.
@@ -2755,7 +2760,7 @@ class ProjectsLocationsDatasetsFhirStoresResourceApi {
   ///
   /// [options_requestedPolicyVersion] - Optional. The policy format version to
   /// be returned.
-  /// Acceptable values are 0 and 1.
+  /// Acceptable values are 0, 1, and 3.
   /// If the value is 0, or the field is omitted, policy format version 1 will
   /// be
   /// returned.
@@ -2805,31 +2810,84 @@ class ProjectsLocationsDatasetsFhirStoresResourceApi {
   }
 
   /// Import resources to the FHIR store by loading data from the specified
-  /// sources. Each resource must have a client-supplied ID, which is retained
-  /// by the server.
+  /// sources. This method is optimized to load large quantities of data using
+  /// import semantics that ignore some FHIR store configuration options and are
+  /// not suitable for all use cases. It is primarily intended to load data into
+  /// an empty FHIR store that is not being used by other clients. In cases
+  /// where this method is not appropriate, consider using ExecuteBundle to
+  /// load data.
   ///
-  /// The import operation is idempotent. Upon retry, the most recent data
-  /// (matching the client-supplied ID) is overwritten, without creating a new
-  /// resource version. If partial failures occur during the import, successful
-  /// changes are not rolled back.
+  /// Every resource in the input must contain a client-supplied ID, and will be
+  /// stored using that ID regardless of the
+  /// enable_update_create setting on the FHIR
+  /// store.
   ///
-  /// If history imports are enabled
-  /// (enable_history_import is set in the
-  /// FHIR store's configuration), you can import historical versions of a
-  /// resource by supplying a bundle of type `history`. The historical versions
-  /// in the bundle must have `lastUpdated` timestamps. If a current or
-  /// historical version with the supplied resource ID already exists, the
-  /// bundle is rejected.
+  /// The import process does not enforce referential integrity, regardless of
+  /// the
+  /// disable_referential_integrity
+  /// setting on the FHIR store. This allows the import of resources with
+  /// arbitrary interdependencies without considering grouping or ordering, but
+  /// if the input data contains invalid references or if some resources fail to
+  /// be imported, the FHIR store might be left in a state that violates
+  /// referential integrity.
+  ///
+  /// If a resource with the specified ID already exists, the most recent
+  /// version of the resource is overwritten without creating a new historical
+  /// version, regardless of the
+  /// disable_resource_versioning
+  /// setting on the FHIR store. If transient failures occur during the import,
+  /// it is possible that successfully imported resources will be overwritten
+  /// more than once.
+  ///
+  /// The import operation is idempotent unless the input data contains multiple
+  /// valid resources with the same ID but different contents. In that case,
+  /// after the import completes, the store will contain exactly one resource
+  /// with that ID but there is no ordering guarantee on which version of the
+  /// contents it will have. The operation result counters do not count
+  /// duplicate IDs as an error and will count one success for each resource in
+  /// the input, which might result in a success count larger than the number
+  /// of resources in the FHIR store. This often occurs when importing data
+  /// organized in bundles produced by Patient-everything
+  /// where each bundle contains its own copy of a resource such as Practitioner
+  /// that might be referred to by many patients.
+  ///
+  /// If some resources fail to import, for example due to parsing errors,
+  /// successfully imported resources are not rolled back.
+  ///
+  /// The location and format of the input data is specified by the parameters
+  /// below. Note that if no format is specified, this method assumes the
+  /// `BUNDLE` format. When using the `BUNDLE` format this method ignores the
+  /// `Bundle.type` field, except for the special case of `history`, and does
+  /// not apply any of the bundle processing semantics for batch or transaction
+  /// bundles. Unlike in ExecuteBundle, transaction bundles are not executed
+  /// as a single transaction and bundle-internal references are not rewritten.
+  /// The bundle is treated as a collection of resources to be written as
+  /// provided in `Bundle.entry.resource`, ignoring `Bundle.entry.request`. As
+  /// an example, this allows the import of `searchset` bundles produced by a
+  /// FHIR search or
+  /// Patient-everything operation.
+  ///
+  /// If history imports are enabled by setting
+  /// enable_history_import in the FHIR
+  /// store's configuration, this method can import historical versions
+  /// of a resource by supplying a bundle of type `history` and using the
+  /// `BUNDLE` format. The historical versions in the bundle must have
+  /// `lastUpdated` timestamps, and the resulting resource history on the server
+  /// will appear as if the versions had been created at those timestamps. If a
+  /// current or historical version with the supplied resource ID already
+  /// exists, the bundle is rejected to avoid creating an inconsistent sequence
+  /// of resource versions.
   ///
   /// This method returns an Operation that can
   /// be used to track the status of the import by calling
   /// GetOperation.
   ///
   /// Immediate fatal errors appear in the
-  /// error field.
-  /// Otherwise, when the operation finishes, a detailed response of type
-  /// ImportResourcesResponse is returned in the
-  /// response field.
+  /// error field, errors are also logged
+  /// to Stackdriver (see [Viewing
+  /// logs](/healthcare/docs/how-tos/stackdriver-logging)). Otherwise, when the
+  /// operation finishes, a detailed response of type ImportResourcesResponse
+  /// is returned in the response field.
   /// The metadata field type for this
   /// operation is OperationMetadata.
   ///
@@ -2893,16 +2951,16 @@ class ProjectsLocationsDatasetsFhirStoresResourceApi {
   /// [parent] - Name of the dataset.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/datasets/[^/]+$".
   ///
-  /// [filter] - Restricts stores returned to those matching a filter. Syntax:
-  /// https://cloud.google.com/appengine/docs/standard/python/search/query_strings
-  /// Only filtering on labels is supported, for example `labels.key=value`.
-  ///
   /// [pageToken] - The next_page_token value returned from the previous List
   /// request, if any.
   ///
   /// [pageSize] - Limit on the number of FHIR stores to return in a single
   /// response.  If zero
   /// the default page size of 100 is used.
+  ///
+  /// [filter] - Restricts stores returned to those matching a filter. Syntax:
+  /// https://cloud.google.com/appengine/docs/standard/python/search/query_strings
+  /// Only filtering on labels is supported, for example `labels.key=value`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2915,9 +2973,9 @@ class ProjectsLocationsDatasetsFhirStoresResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListFhirStoresResponse> list(core.String parent,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -2929,14 +2987,14 @@ class ProjectsLocationsDatasetsFhirStoresResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -3206,8 +3264,8 @@ class ProjectsLocationsDatasetsFhirStoresFhirResourceApi {
     return _response.then((data) => new HttpBody.fromJson(data));
   }
 
-  /// Retrieves all the resources in the patient compartment for a `Patient`
-  /// resource.
+  /// Retrieves all the resources directly referenced by a patient, as well as
+  /// all of the resources in the patient compartment.
   ///
   /// Implements the FHIR extended operation
   /// [Patient-everything](http://hl7.org/implement/standards/fhir/STU3/patient-operations.html#everything).
@@ -3226,6 +3284,16 @@ class ProjectsLocationsDatasetsFhirStoresFhirResourceApi {
   /// required.
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/datasets/[^/]+/fhirStores/[^/]+/fhir/Patient/[^/]+$".
+  ///
+  /// [P_count] - Maximum number of resources in a page. Defaults to 100.
+  ///
+  /// [pageToken] - Used to retrieve the next or previous page of results
+  /// when using pagination. Value should be set to the value of page_token set
+  /// in next or previous page links' urls. Next and previous page are returned
+  /// in the response bundle's links field, where `link.relation` is "previous"
+  /// or "next".
+  ///
+  /// Omit `page_token` if no previous request has been made.
   ///
   /// [start] - The response includes records subsequent to the start date. If
   /// no start
@@ -3246,7 +3314,11 @@ class ProjectsLocationsDatasetsFhirStoresFhirResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<HttpBody> Patient_everything(core.String name,
-      {core.String start, core.String end, core.String $fields}) {
+      {core.int P_count,
+      core.String pageToken,
+      core.String start,
+      core.String end,
+      core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -3256,6 +3328,12 @@ class ProjectsLocationsDatasetsFhirStoresFhirResourceApi {
 
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (P_count != null) {
+      _queryParams["_count"] = ["${P_count}"];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
     }
     if (start != null) {
       _queryParams["start"] = [start];
@@ -3869,6 +3947,17 @@ class ProjectsLocationsDatasetsFhirStoresFhirResourceApi {
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/datasets/[^/]+/fhirStores/[^/]+/fhir/[^/]+/[^/]+$".
   ///
+  /// [count] - The maximum number of search results on a page. Defaults to
+  /// 1000.
+  ///
+  /// [since] - Only include resource versions that were created at or after the
+  /// given
+  /// instant in time. The instant in time uses the format
+  /// YYYY-MM-DDThh:mm:ss.sss+zz:zz (for example 2015-02-07T13:28:17.239+02:00
+  /// or
+  /// 2017-01-01T00:00:00Z). The time must be specified to the second and
+  /// include a time zone.
+  ///
   /// [page] - Used to retrieve the first, previous, next, or last page of
   /// resource
   /// versions when using pagination. Value should be set to the value of the
@@ -3889,17 +3978,6 @@ class ProjectsLocationsDatasetsFhirStoresFhirResourceApi {
   /// *  A specific day: `_at=2019-01-20`
   /// *  A specific second: `_at=2018-12-31T23:59:58Z`
   ///
-  /// [count] - The maximum number of search results on a page. Defaults to
-  /// 1000.
-  ///
-  /// [since] - Only include resource versions that were created at or after the
-  /// given
-  /// instant in time. The instant in time uses the format
-  /// YYYY-MM-DDThh:mm:ss.sss+zz:zz (for example 2015-02-07T13:28:17.239+02:00
-  /// or
-  /// 2017-01-01T00:00:00Z). The time must be specified to the second and
-  /// include a time zone.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -3911,10 +3989,10 @@ class ProjectsLocationsDatasetsFhirStoresFhirResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<HttpBody> history(core.String name,
-      {core.String page,
-      core.String at,
-      core.int count,
+      {core.int count,
       core.String since,
+      core.String page,
+      core.String at,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -3926,17 +4004,17 @@ class ProjectsLocationsDatasetsFhirStoresFhirResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (page != null) {
-      _queryParams["page"] = [page];
-    }
-    if (at != null) {
-      _queryParams["at"] = [at];
-    }
     if (count != null) {
       _queryParams["count"] = ["${count}"];
     }
     if (since != null) {
       _queryParams["since"] = [since];
+    }
+    if (page != null) {
+      _queryParams["page"] = [page];
+    }
+    if (at != null) {
+      _queryParams["at"] = [at];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -4122,6 +4200,17 @@ class ProjectsLocationsDatasetsFhirStoresFhirResourceApi {
   /// be overridden by the `_count` parameter up to a maximum limit of 1000. If
   /// there are additional results, the returned `Bundle` will contain
   /// pagination links.
+  ///
+  /// Resources with a total size larger than 5MB or a field count larger than
+  /// 50,000 might not be fully searchable as the server might trim its
+  /// generated
+  /// search index in those cases.
+  ///
+  /// Note: FHIR resources are indexed asynchronously, so there might be a
+  /// slight
+  /// delay between the time a resource is created or changes and when the
+  /// change
+  /// is reflected in search results.
   ///
   /// [request] - The metadata request object.
   ///
@@ -4470,7 +4559,7 @@ class ProjectsLocationsDatasetsHl7V2StoresResourceApi {
   ///
   /// [options_requestedPolicyVersion] - Optional. The policy format version to
   /// be returned.
-  /// Acceptable values are 0 and 1.
+  /// Acceptable values are 0, 1, and 3.
   /// If the value is 0, or the field is omitted, policy format version 1 will
   /// be
   /// returned.
@@ -4526,16 +4615,16 @@ class ProjectsLocationsDatasetsHl7V2StoresResourceApi {
   /// [parent] - Name of the dataset.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/datasets/[^/]+$".
   ///
-  /// [filter] - Restricts stores returned to those matching a filter. Syntax:
-  /// https://cloud.google.com/appengine/docs/standard/python/search/query_strings
-  /// Only filtering on labels is supported, for example `labels.key=value`.
-  ///
   /// [pageToken] - The next_page_token value returned from the previous List
   /// request, if any.
   ///
   /// [pageSize] - Limit on the number of HL7v2 stores to return in a single
   /// response.
   /// If zero the default page size of 100 is used.
+  ///
+  /// [filter] - Restricts stores returned to those matching a filter. Syntax:
+  /// https://cloud.google.com/appengine/docs/standard/python/search/query_strings
+  /// Only filtering on labels is supported, for example `labels.key=value`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -4548,9 +4637,9 @@ class ProjectsLocationsDatasetsHl7V2StoresResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListHl7V2StoresResponse> list(core.String parent,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -4562,14 +4651,14 @@ class ProjectsLocationsDatasetsHl7V2StoresResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -4991,6 +5080,11 @@ class ProjectsLocationsDatasetsHl7V2StoresMessagesResourceApi {
   /// Lists all the messages in the given HL7v2 store with support for
   /// filtering.
   ///
+  /// Note: HL7v2 messages are indexed asynchronously, so there might be a
+  /// slight
+  /// delay between the time a message is created and when it can be found
+  /// through a filter.
+  ///
   /// Request parameters:
   ///
   /// [parent] - Name of the HL7v2 store to retrieve messages from.
@@ -5007,7 +5101,7 @@ class ProjectsLocationsDatasetsHl7V2StoresMessagesResourceApi {
   /// *  `send_date` or `sendDate`, the YYYY-MM-DD date the message was sent in
   /// the dataset's time_zone, from the MSH-7 segment; for example
   /// `send_date < "2017-01-02"`
-  /// *  `send_time`, the timestamp of when the message was sent, using the
+  /// *  `send_time`, the timestamp when the message was sent, using the
   /// RFC3339 time format for comparisons, from the MSH-7 segment; for example
   /// `send_time < "2017-01-02T00:00:00-05:00"`
   /// *  `send_facility`, the care center that the message came from, from the
@@ -5240,11 +5334,11 @@ class ProjectsLocationsDatasetsOperationsResourceApi {
   /// [name] - The name of the operation's parent resource.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/datasets/[^/]+$".
   ///
+  /// [filter] - The standard list filter.
+  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
-  ///
-  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -5257,9 +5351,9 @@ class ProjectsLocationsDatasetsOperationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListOperationsResponse> list(core.String name,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -5271,14 +5365,14 @@ class ProjectsLocationsDatasetsOperationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -5318,7 +5412,7 @@ class ProjectsLocationsDatasetsOperationsResourceApi {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -5330,7 +5424,7 @@ class ProjectsLocationsDatasetsOperationsResourceApi {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -5338,7 +5432,7 @@ class ProjectsLocationsDatasetsOperationsResourceApi {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -5346,9 +5440,9 @@ class ProjectsLocationsDatasetsOperationsResourceApi {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig> auditLogConfigs;
@@ -5393,7 +5487,7 @@ class AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -5403,7 +5497,7 @@ class AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -5461,7 +5555,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -5561,9 +5655,8 @@ class CreateMessageRequest {
 /// (for example, `L7k0BHmF1ha5U3NfGykjro4xWi1MPVQPjhMAZbSV9mM=`).
 class CryptoHashConfig {
   /// An AES 128/192/256 bit key. Causes the hash to be computed based on this
-  /// key. A default key is generated for each DeidentifyDataset operation and
-  /// is
-  /// used wherever crypto_key is not specified.
+  /// key. A default key is generated for each Deidentify operation and is used
+  /// wherever crypto_key is not specified.
   core.String cryptoKey;
   core.List<core.int> get cryptoKeyAsBytes {
     return convert.base64.decode(cryptoKey);
@@ -5638,8 +5731,7 @@ class Dataset {
 class DateShiftConfig {
   /// An AES 128/192/256 bit key. Causes the shift to be computed based on this
   /// key and the patient ID. A default key is generated for each
-  /// DeidentifyDataset operation and is used wherever crypto_key is not
-  /// specified.
+  /// Deidentify operation and is used wherever crypto_key is not specified.
   core.String cryptoKey;
   core.List<core.int> get cryptoKeyAsBytes {
     return convert.base64.decode(cryptoKey);
@@ -5869,6 +5961,16 @@ class DicomConfig {
   /// List of tags to remove. Keep all other tags.
   TagFilterList removeList;
 
+  /// If true, skip replacing StudyInstanceUID, SeriesInstanceUID,
+  /// SOPInstanceUID, and MediaStorageSOPInstanceUID and leave them untouched.
+  /// The Cloud Healthcare API regenerates these UIDs by default based on the
+  /// DICOM Standard's reasoning: "Whilst these UIDs cannot be mapped directly
+  /// to an individual out of context, given access to the original images, or
+  /// to a database of the original images containing the UIDs, it would be
+  /// possible to recover the individual's identity."
+  /// http://dicom.nema.org/medical/dicom/current/output/chtml/part15/sect_E.3.9.html
+  core.bool skipIdRedaction;
+
   DicomConfig();
 
   DicomConfig.fromJson(core.Map _json) {
@@ -5880,6 +5982,9 @@ class DicomConfig {
     }
     if (_json.containsKey("removeList")) {
       removeList = new TagFilterList.fromJson(_json["removeList"]);
+    }
+    if (_json.containsKey("skipIdRedaction")) {
+      skipIdRedaction = _json["skipIdRedaction"];
     }
   }
 
@@ -5894,6 +5999,9 @@ class DicomConfig {
     }
     if (removeList != null) {
       _json["removeList"] = (removeList).toJson();
+    }
+    if (skipIdRedaction != null) {
+      _json["skipIdRedaction"] = skipIdRedaction;
     }
     return _json;
   }
@@ -6505,6 +6613,11 @@ class GoogleCloudHealthcareV1beta1FhirBigQueryDestination {
   /// `bq://projectId.bqDatasetId`
   core.String datasetUri;
 
+  /// If this flag is `TRUE`, all tables will be deleted from the dataset before
+  /// the new exported tables are written. If the flag is not set and the
+  /// destination dataset contains tables, the export call returns an error.
+  core.bool force;
+
   /// The configuration for the exported BigQuery schema.
   SchemaConfig schemaConfig;
 
@@ -6513,6 +6626,9 @@ class GoogleCloudHealthcareV1beta1FhirBigQueryDestination {
   GoogleCloudHealthcareV1beta1FhirBigQueryDestination.fromJson(core.Map _json) {
     if (_json.containsKey("datasetUri")) {
       datasetUri = _json["datasetUri"];
+    }
+    if (_json.containsKey("force")) {
+      force = _json["force"];
     }
     if (_json.containsKey("schemaConfig")) {
       schemaConfig = new SchemaConfig.fromJson(_json["schemaConfig"]);
@@ -6525,6 +6641,9 @@ class GoogleCloudHealthcareV1beta1FhirBigQueryDestination {
     if (datasetUri != null) {
       _json["datasetUri"] = datasetUri;
     }
+    if (force != null) {
+      _json["force"] = force;
+    }
     if (schemaConfig != null) {
       _json["schemaConfig"] = (schemaConfig).toJson();
     }
@@ -6532,10 +6651,68 @@ class GoogleCloudHealthcareV1beta1FhirBigQueryDestination {
   }
 }
 
-/// Final response of exporting resources.
+/// Response when errors occur while exporting resources.
+/// This structure is included in the
+/// error details to describe the
+/// detailed outcome. It is only included when the operation finishes with
+/// errors.
+class GoogleCloudHealthcareV1beta1FhirRestExportResourcesErrorDetails {
+  /// The number of resources that had errors.
+  core.String errorCount;
+
+  /// The name of the FHIR store where resources have been exported, in the
+  /// format
+  /// `projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/fhirStores/{fhir_store_id}`.
+  core.String fhirStore;
+
+  /// The total number of resources included in the export operation. This is
+  /// the sum of the success and error counts.
+  core.String resourceCount;
+
+  /// The number of resources that were exported.
+  core.String successCount;
+
+  GoogleCloudHealthcareV1beta1FhirRestExportResourcesErrorDetails();
+
+  GoogleCloudHealthcareV1beta1FhirRestExportResourcesErrorDetails.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("errorCount")) {
+      errorCount = _json["errorCount"];
+    }
+    if (_json.containsKey("fhirStore")) {
+      fhirStore = _json["fhirStore"];
+    }
+    if (_json.containsKey("resourceCount")) {
+      resourceCount = _json["resourceCount"];
+    }
+    if (_json.containsKey("successCount")) {
+      successCount = _json["successCount"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (errorCount != null) {
+      _json["errorCount"] = errorCount;
+    }
+    if (fhirStore != null) {
+      _json["fhirStore"] = fhirStore;
+    }
+    if (resourceCount != null) {
+      _json["resourceCount"] = resourceCount;
+    }
+    if (successCount != null) {
+      _json["successCount"] = successCount;
+    }
+    return _json;
+  }
+}
+
+/// Response when all resources export successfully.
 /// This structure will be included in the
 /// response to describe the detailed
-/// outcome. It will only be included when the operation finishes.
+/// outcome. It will only be included when the operation finishes successfully.
 class GoogleCloudHealthcareV1beta1FhirRestExportResourcesResponse {
   /// The name of the FHIR store where resources have been exported, in the
   /// format
@@ -6991,7 +7168,9 @@ class ImportResourcesRequest {
   /// The content structure in the source location. If not specified, the server
   /// treats the input source files as BUNDLE.
   /// Possible string values are:
-  /// - "CONTENT_STRUCTURE_UNSPECIFIED"
+  /// - "CONTENT_STRUCTURE_UNSPECIFIED" : If the content structure is not
+  /// specified, the default value `BUNDLE`
+  /// will be used.
   /// - "BUNDLE" : The source file contains one or more lines of
   /// newline-delimited JSON
   /// (ndjson). Each line is a bundle, which contains one or more resources.
@@ -6999,6 +7178,10 @@ class ImportResourcesRequest {
   /// - "RESOURCE" : The source file contains one or more lines of
   /// newline-delimited JSON
   /// (ndjson). Each line is a single resource.
+  /// - "BUNDLE_PRETTY" : The entire file is one JSON bundle. The JSON can span
+  /// multiple lines.
+  /// - "RESOURCE_PRETTY" : The entire file is one JSON resource. The JSON can
+  /// span multiple lines.
   core.String contentStructure;
 
   /// Cloud Storage source data location and import configuration.
@@ -7941,7 +8124,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);

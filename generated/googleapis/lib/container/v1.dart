@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.container.v1;
 
@@ -71,6 +71,12 @@ class ProjectsAggregatedUsableSubnetworksResourceApi {
   /// Specified in the format 'projects / * '.
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [filter] - Filtering currently only supports equality on the
+  /// networkProjectId and must
+  /// be in the form: "networkProjectId=[PROJECTID]", where `networkProjectId`
+  /// is the project which owns the listed subnetworks. This defaults to the
+  /// parent project ID.
+  ///
   /// [pageToken] - Specifies a page token to use. Set this to the nextPageToken
   /// returned by
   /// previous list requests to get the next page of results.
@@ -80,12 +86,6 @@ class ProjectsAggregatedUsableSubnetworksResourceApi {
   /// of available results is larger than `page_size`, a `next_page_token` is
   /// returned which can be used to get the next page of results in subsequent
   /// requests. Acceptable values are 0 to 500, inclusive. (Default: 500)
-  ///
-  /// [filter] - Filtering currently only supports equality on the
-  /// networkProjectId and must
-  /// be in the form: "networkProjectId=[PROJECTID]", where `networkProjectId`
-  /// is the project which owns the listed subnetworks. This defaults to the
-  /// parent project ID.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -98,9 +98,9 @@ class ProjectsAggregatedUsableSubnetworksResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListUsableSubnetworksResponse> list(core.String parent,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -112,14 +112,14 @@ class ProjectsAggregatedUsableSubnetworksResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -361,9 +361,6 @@ class ProjectsLocationsClustersResourceApi {
   /// Specified in the format 'projects / * /locations / * /clusters / * '.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/clusters/[^/]+$".
   ///
-  /// [clusterId] - Deprecated. The name of the cluster to delete.
-  /// This field has been deprecated and replaced by the name field.
-  ///
   /// [projectId] - Deprecated. The Google Developers Console [project ID or
   /// project
   /// number](https://support.google.com/cloud/answer/6158840).
@@ -372,6 +369,9 @@ class ProjectsLocationsClustersResourceApi {
   /// [zone] - Deprecated. The name of the Google Compute Engine
   /// [zone](/compute/docs/zones#available) in which the cluster
   /// resides.
+  /// This field has been deprecated and replaced by the name field.
+  ///
+  /// [clusterId] - Deprecated. The name of the cluster to delete.
   /// This field has been deprecated and replaced by the name field.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -385,9 +385,9 @@ class ProjectsLocationsClustersResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Operation> delete(core.String name,
-      {core.String clusterId,
-      core.String projectId,
+      {core.String projectId,
       core.String zone,
+      core.String clusterId,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -399,14 +399,14 @@ class ProjectsLocationsClustersResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (clusterId != null) {
-      _queryParams["clusterId"] = [clusterId];
-    }
     if (projectId != null) {
       _queryParams["projectId"] = [projectId];
     }
     if (zone != null) {
       _queryParams["zone"] = [zone];
+    }
+    if (clusterId != null) {
+      _queryParams["clusterId"] = [clusterId];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1405,6 +1405,12 @@ class ProjectsLocationsClustersNodePoolsResourceApi {
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/clusters/[^/]+/nodePools/[^/]+$".
   ///
+  /// [clusterId] - Deprecated. The name of the cluster.
+  /// This field has been deprecated and replaced by the name field.
+  ///
+  /// [nodePoolId] - Deprecated. The name of the node pool.
+  /// This field has been deprecated and replaced by the name field.
+  ///
   /// [projectId] - Deprecated. The Google Developers Console [project ID or
   /// project
   /// number](https://developers.google.com/console/help/new/#projectnumber).
@@ -1413,12 +1419,6 @@ class ProjectsLocationsClustersNodePoolsResourceApi {
   /// [zone] - Deprecated. The name of the Google Compute Engine
   /// [zone](/compute/docs/zones#available) in which the cluster
   /// resides.
-  /// This field has been deprecated and replaced by the name field.
-  ///
-  /// [clusterId] - Deprecated. The name of the cluster.
-  /// This field has been deprecated and replaced by the name field.
-  ///
-  /// [nodePoolId] - Deprecated. The name of the node pool.
   /// This field has been deprecated and replaced by the name field.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -1432,10 +1432,10 @@ class ProjectsLocationsClustersNodePoolsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<NodePool> get(core.String name,
-      {core.String projectId,
-      core.String zone,
-      core.String clusterId,
+      {core.String clusterId,
       core.String nodePoolId,
+      core.String projectId,
+      core.String zone,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1447,17 +1447,17 @@ class ProjectsLocationsClustersNodePoolsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (projectId != null) {
-      _queryParams["projectId"] = [projectId];
-    }
-    if (zone != null) {
-      _queryParams["zone"] = [zone];
-    }
     if (clusterId != null) {
       _queryParams["clusterId"] = [clusterId];
     }
     if (nodePoolId != null) {
       _queryParams["nodePoolId"] = [nodePoolId];
+    }
+    if (projectId != null) {
+      _queryParams["projectId"] = [projectId];
+    }
+    if (zone != null) {
+      _queryParams["zone"] = [zone];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -4364,7 +4364,7 @@ class AcceleratorConfig {
   core.String acceleratorCount;
 
   /// The accelerator type resource name. List of supported accelerators
-  /// [here](/compute/docs/gpus/#Introduction)
+  /// [here](/compute/docs/gpus)
   core.String acceleratorType;
 
   AcceleratorConfig();
@@ -5171,6 +5171,9 @@ class ClusterUpdate {
   /// NOTE: Set the "desired_node_pool" field as well.
   core.String desiredImageType;
 
+  /// The desired config of Intra-node visibility.
+  IntraNodeVisibilityConfig desiredIntraNodeVisibilityConfig;
+
   /// The desired list of Google Compute Engine
   /// [zones](/compute/docs/zones#available) in which the cluster's nodes
   /// should be located. Changing the locations a cluster is in will result
@@ -5251,6 +5254,10 @@ class ClusterUpdate {
     if (_json.containsKey("desiredImageType")) {
       desiredImageType = _json["desiredImageType"];
     }
+    if (_json.containsKey("desiredIntraNodeVisibilityConfig")) {
+      desiredIntraNodeVisibilityConfig = new IntraNodeVisibilityConfig.fromJson(
+          _json["desiredIntraNodeVisibilityConfig"]);
+    }
     if (_json.containsKey("desiredLocations")) {
       desiredLocations =
           (_json["desiredLocations"] as core.List).cast<core.String>();
@@ -5293,6 +5300,10 @@ class ClusterUpdate {
     }
     if (desiredImageType != null) {
       _json["desiredImageType"] = desiredImageType;
+    }
+    if (desiredIntraNodeVisibilityConfig != null) {
+      _json["desiredIntraNodeVisibilityConfig"] =
+          (desiredIntraNodeVisibilityConfig).toJson();
     }
     if (desiredLocations != null) {
       _json["desiredLocations"] = desiredLocations;
@@ -5595,6 +5606,10 @@ class Empty {
 
 /// GetJSONWebKeysResponse is a valid JSON Web Key Set as specififed in rfc 7517
 class GetJSONWebKeysResponse {
+  /// OnePlatform automatically extracts this field and uses it to set the HTTP
+  /// Cache-Control header.
+  HttpCacheControlResponseHeader cacheHeader;
+
   /// The public component of the keys used by the cluster to sign token
   /// requests.
   core.List<Jwk> keys;
@@ -5602,6 +5617,10 @@ class GetJSONWebKeysResponse {
   GetJSONWebKeysResponse();
 
   GetJSONWebKeysResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("cacheHeader")) {
+      cacheHeader =
+          new HttpCacheControlResponseHeader.fromJson(_json["cacheHeader"]);
+    }
     if (_json.containsKey("keys")) {
       keys = (_json["keys"] as core.List)
           .map<Jwk>((value) => new Jwk.fromJson(value))
@@ -5612,6 +5631,9 @@ class GetJSONWebKeysResponse {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (cacheHeader != null) {
+      _json["cacheHeader"] = (cacheHeader).toJson();
+    }
     if (keys != null) {
       _json["keys"] = keys.map((value) => (value).toJson()).toList();
     }
@@ -5622,6 +5644,10 @@ class GetJSONWebKeysResponse {
 /// GetOpenIDConfigResponse is an OIDC discovery document for the cluster.
 /// See the OpenID Connect Discovery 1.0 specification for details.
 class GetOpenIDConfigResponse {
+  /// OnePlatform automatically extracts this field and uses it to set the HTTP
+  /// Cache-Control header.
+  HttpCacheControlResponseHeader cacheHeader;
+
   /// Supported claims.
   core.List<core.String> claimsSupported;
 
@@ -5646,6 +5672,10 @@ class GetOpenIDConfigResponse {
   GetOpenIDConfigResponse();
 
   GetOpenIDConfigResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("cacheHeader")) {
+      cacheHeader =
+          new HttpCacheControlResponseHeader.fromJson(_json["cacheHeader"]);
+    }
     if (_json.containsKey("claims_supported")) {
       claimsSupported =
           (_json["claims_supported"] as core.List).cast<core.String>();
@@ -5677,6 +5707,9 @@ class GetOpenIDConfigResponse {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (cacheHeader != null) {
+      _json["cacheHeader"] = (cacheHeader).toJson();
+    }
     if (claimsSupported != null) {
       _json["claims_supported"] = claimsSupported;
     }
@@ -5725,6 +5758,47 @@ class HorizontalPodAutoscaling {
         new core.Map<core.String, core.Object>();
     if (disabled != null) {
       _json["disabled"] = disabled;
+    }
+    return _json;
+  }
+}
+
+/// RFC-2616: cache control support
+class HttpCacheControlResponseHeader {
+  /// 14.6 response cache age, in seconds since the response is generated
+  core.String age;
+
+  /// 14.9 request and response directives
+  core.String directive;
+
+  /// 14.21 response cache expires, in RFC 1123 date format
+  core.String expires;
+
+  HttpCacheControlResponseHeader();
+
+  HttpCacheControlResponseHeader.fromJson(core.Map _json) {
+    if (_json.containsKey("age")) {
+      age = _json["age"];
+    }
+    if (_json.containsKey("directive")) {
+      directive = _json["directive"];
+    }
+    if (_json.containsKey("expires")) {
+      expires = _json["expires"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (age != null) {
+      _json["age"] = age;
+    }
+    if (directive != null) {
+      _json["directive"] = directive;
+    }
+    if (expires != null) {
+      _json["expires"] = expires;
     }
     return _json;
   }
@@ -5945,6 +6019,30 @@ class IPAllocationPolicy {
     }
     if (useIpAliases != null) {
       _json["useIpAliases"] = useIpAliases;
+    }
+    return _json;
+  }
+}
+
+/// IntraNodeVisibilityConfig contains the desired config of the intra-node
+/// visibility on this cluster.
+class IntraNodeVisibilityConfig {
+  /// Enables intra node visibility for this cluster.
+  core.bool enabled;
+
+  IntraNodeVisibilityConfig();
+
+  IntraNodeVisibilityConfig.fromJson(core.Map _json) {
+    if (_json.containsKey("enabled")) {
+      enabled = _json["enabled"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (enabled != null) {
+      _json["enabled"] = enabled;
     }
     return _json;
   }
@@ -6424,6 +6522,10 @@ class MaxPodsConstraint {
 
 /// NetworkConfig reports the relative names of network & subnetwork.
 class NetworkConfig {
+  /// Whether Intra-node visibility is enabled for this cluster.
+  /// This makes same node pod to pod traffic visible for VPC network.
+  core.bool enableIntraNodeVisibility;
+
   /// Output only. The relative name of the Google Compute Engine
   /// network(/compute/docs/networks-and-firewalls#networks) to which
   /// the cluster is connected.
@@ -6438,6 +6540,9 @@ class NetworkConfig {
   NetworkConfig();
 
   NetworkConfig.fromJson(core.Map _json) {
+    if (_json.containsKey("enableIntraNodeVisibility")) {
+      enableIntraNodeVisibility = _json["enableIntraNodeVisibility"];
+    }
     if (_json.containsKey("network")) {
       network = _json["network"];
     }
@@ -6449,6 +6554,9 @@ class NetworkConfig {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (enableIntraNodeVisibility != null) {
+      _json["enableIntraNodeVisibility"] = enableIntraNodeVisibility;
+    }
     if (network != null) {
       _json["network"] = network;
     }
@@ -6554,9 +6662,9 @@ class NodeConfig {
 
   /// The number of local SSD disks to be attached to the node.
   ///
-  /// The limit for this value is dependant upon the maximum number of
+  /// The limit for this value is dependent upon the maximum number of
   /// disks available on a machine per zone. See:
-  /// https://cloud.google.com/compute/docs/disks/local-ssd#local_ssd_limits
+  /// https://cloud.google.com/compute/docs/disks/local-ssd
   /// for more information.
   core.int localSsdCount;
 

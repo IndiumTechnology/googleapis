@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.kgsearch.v1;
 
@@ -39,14 +39,6 @@ class EntitiesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [query] - The literal query string for search.
-  ///
-  /// [types] - Restricts returned entities with these types, e.g. Person
-  /// (as defined in http://schema.org/Person). If multiple types are specified,
-  /// returned entities will contain one or more of these types.
-  ///
-  /// [indent] - Enables indenting of json results.
-  ///
   /// [languages] - The list of language codes (defined in ISO 693) to run the
   /// query with,
   /// e.g. 'en'.
@@ -60,6 +52,14 @@ class EntitiesResourceApi {
   ///
   /// [prefix] - Enables prefix match against names and aliases of entities
   ///
+  /// [query] - The literal query string for search.
+  ///
+  /// [types] - Restricts returned entities with these types, e.g. Person
+  /// (as defined in http://schema.org/Person). If multiple types are specified,
+  /// returned entities will contain one or more of these types.
+  ///
+  /// [indent] - Enables indenting of json results.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -71,13 +71,13 @@ class EntitiesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<SearchResponse> search(
-      {core.String query,
-      core.List<core.String> types,
-      core.bool indent,
-      core.List<core.String> languages,
+      {core.List<core.String> languages,
       core.List<core.String> ids,
       core.int limit,
       core.bool prefix,
+      core.String query,
+      core.List<core.String> types,
+      core.bool indent,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -86,15 +86,6 @@ class EntitiesResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
-    if (query != null) {
-      _queryParams["query"] = [query];
-    }
-    if (types != null) {
-      _queryParams["types"] = types;
-    }
-    if (indent != null) {
-      _queryParams["indent"] = ["${indent}"];
-    }
     if (languages != null) {
       _queryParams["languages"] = languages;
     }
@@ -106,6 +97,15 @@ class EntitiesResourceApi {
     }
     if (prefix != null) {
       _queryParams["prefix"] = ["${prefix}"];
+    }
+    if (query != null) {
+      _queryParams["query"] = [query];
+    }
+    if (types != null) {
+      _queryParams["types"] = types;
+    }
+    if (indent != null) {
+      _queryParams["indent"] = ["${indent}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];

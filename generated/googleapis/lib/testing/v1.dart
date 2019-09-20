@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.testing.v1;
 
@@ -1967,6 +1967,7 @@ class IosDeviceList {
 }
 
 /// A description of an iOS device tests may be run on.
+/// Next tag: 10
 class IosModel {
   /// Device capabilities.
   /// Copied from
@@ -1989,6 +1990,15 @@ class IosModel {
   /// The human-readable name for this device model.
   /// Examples: "iPhone 4s", "iPad Mini 2".
   core.String name;
+
+  /// Screen density in DPI.
+  core.int screenDensity;
+
+  /// Screen size in the horizontal (X) dimension measured in pixels.
+  core.int screenX;
+
+  /// Screen size in the vertical (Y) dimension measured in pixels.
+  core.int screenY;
 
   /// The set of iOS major software versions this device supports.
   core.List<core.String> supportedVersionIds;
@@ -2013,6 +2023,15 @@ class IosModel {
     if (_json.containsKey("name")) {
       name = _json["name"];
     }
+    if (_json.containsKey("screenDensity")) {
+      screenDensity = _json["screenDensity"];
+    }
+    if (_json.containsKey("screenX")) {
+      screenX = _json["screenX"];
+    }
+    if (_json.containsKey("screenY")) {
+      screenY = _json["screenY"];
+    }
     if (_json.containsKey("supportedVersionIds")) {
       supportedVersionIds =
           (_json["supportedVersionIds"] as core.List).cast<core.String>();
@@ -2036,6 +2055,15 @@ class IosModel {
     }
     if (name != null) {
       _json["name"] = name;
+    }
+    if (screenDensity != null) {
+      _json["screenDensity"] = screenDensity;
+    }
+    if (screenX != null) {
+      _json["screenX"] = screenX;
+    }
+    if (screenY != null) {
+      _json["screenY"] = screenY;
     }
     if (supportedVersionIds != null) {
       _json["supportedVersionIds"] = supportedVersionIds;
@@ -3049,8 +3077,6 @@ class TestMatrix {
   /// - "PLIST_CANNOT_BE_PARSED" : An Info.plist file in the XCTest zip could
   /// not be parsed.
   /// - "TEST_ONLY_APK" : The APK is marked as "testOnly".
-  /// Deprecated and not currently used.
-  /// - "MALFORMED_IPA" : The input IPA could not be parsed.
   /// Deprecated and not currently used.
   /// - "NO_CODE_APK" : APK contains no code.
   /// See also

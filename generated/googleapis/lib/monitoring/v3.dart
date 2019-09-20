@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.monitoring.v3;
 
@@ -243,6 +243,10 @@ class ProjectsAlertPoliciesResourceApi {
   /// name, use the GetAlertPolicy operation, instead.
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [filter] - If provided, this field specifies the criteria that must be met
+  /// by alert policies to be included in the response.For more details, see
+  /// sorting and filtering.
+  ///
   /// [orderBy] - A comma-separated list of fields by which to sort the result.
   /// Supports the same set of field references as the filter field. Entries can
   /// be prefixed with a minus sign to sort by the field in descending order.For
@@ -255,10 +259,6 @@ class ProjectsAlertPoliciesResourceApi {
   ///
   /// [pageSize] - The maximum number of results to return in a single response.
   ///
-  /// [filter] - If provided, this field specifies the criteria that must be met
-  /// by alert policies to be included in the response.For more details, see
-  /// sorting and filtering.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -270,10 +270,10 @@ class ProjectsAlertPoliciesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListAlertPoliciesResponse> list(core.String name,
-      {core.String orderBy,
+      {core.String filter,
+      core.String orderBy,
       core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -285,6 +285,9 @@ class ProjectsAlertPoliciesResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (orderBy != null) {
       _queryParams["orderBy"] = [orderBy];
     }
@@ -293,9 +296,6 @@ class ProjectsAlertPoliciesResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -626,6 +626,17 @@ class ProjectsGroupsResourceApi {
   /// "projects/{project_id_or_number}".
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [childrenOfGroup] - A group name:
+  /// "projects/{project_id_or_number}/groups/{group_id}". Returns groups whose
+  /// parentName field contains the group name. If no groups have this parent,
+  /// the results are empty.
+  ///
+  /// [descendantsOfGroup] - A group name:
+  /// "projects/{project_id_or_number}/groups/{group_id}". Returns the
+  /// descendants of the specified group. This is a superset of the results
+  /// returned by the childrenOfGroup filter, and includes children-of-children,
+  /// and so forth.
+  ///
   /// [pageToken] - If this field is not empty then it must contain the
   /// nextPageToken value returned by a previous call to this method. Using this
   /// field causes the method to return additional results from the previous
@@ -641,17 +652,6 @@ class ProjectsGroupsResourceApi {
   /// ancestor. If the specified group has no immediate parent, the results are
   /// empty.
   ///
-  /// [childrenOfGroup] - A group name:
-  /// "projects/{project_id_or_number}/groups/{group_id}". Returns groups whose
-  /// parentName field contains the group name. If no groups have this parent,
-  /// the results are empty.
-  ///
-  /// [descendantsOfGroup] - A group name:
-  /// "projects/{project_id_or_number}/groups/{group_id}". Returns the
-  /// descendants of the specified group. This is a superset of the results
-  /// returned by the childrenOfGroup filter, and includes children-of-children,
-  /// and so forth.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -663,11 +663,11 @@ class ProjectsGroupsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListGroupsResponse> list(core.String name,
-      {core.String pageToken,
+      {core.String childrenOfGroup,
+      core.String descendantsOfGroup,
+      core.String pageToken,
       core.int pageSize,
       core.String ancestorsOfGroup,
-      core.String childrenOfGroup,
-      core.String descendantsOfGroup,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -679,6 +679,12 @@ class ProjectsGroupsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (childrenOfGroup != null) {
+      _queryParams["childrenOfGroup"] = [childrenOfGroup];
+    }
+    if (descendantsOfGroup != null) {
+      _queryParams["descendantsOfGroup"] = [descendantsOfGroup];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
@@ -687,12 +693,6 @@ class ProjectsGroupsResourceApi {
     }
     if (ancestorsOfGroup != null) {
       _queryParams["ancestorsOfGroup"] = [ancestorsOfGroup];
-    }
-    if (childrenOfGroup != null) {
-      _queryParams["childrenOfGroup"] = [childrenOfGroup];
-    }
-    if (descendantsOfGroup != null) {
-      _queryParams["descendantsOfGroup"] = [descendantsOfGroup];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -784,8 +784,6 @@ class ProjectsGroupsMembersResourceApi {
   /// "projects/{project_id_or_number}/groups/{group_id}".
   /// Value must have pattern "^projects/[^/]+/groups/[^/]+$".
   ///
-  /// [interval_endTime] - Required. The end of the time interval.
-  ///
   /// [filter] - An optional list filter describing the members to be returned.
   /// The filter may reference the type, labels, and metadata of monitored
   /// resources that comprise the group. For example, to return only resources
@@ -797,12 +795,14 @@ class ProjectsGroupsMembersResourceApi {
   /// field causes the method to return additional results from the previous
   /// method call.
   ///
+  /// [pageSize] - A positive number that is the maximum number of results to
+  /// return.
+  ///
   /// [interval_startTime] - Optional. The beginning of the time interval. The
   /// default value for the start time is the end time. The start time must not
   /// be later than the end time.
   ///
-  /// [pageSize] - A positive number that is the maximum number of results to
-  /// return.
+  /// [interval_endTime] - Required. The end of the time interval.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -815,11 +815,11 @@ class ProjectsGroupsMembersResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListGroupMembersResponse> list(core.String name,
-      {core.String interval_endTime,
-      core.String filter,
+      {core.String filter,
       core.String pageToken,
-      core.String interval_startTime,
       core.int pageSize,
+      core.String interval_startTime,
+      core.String interval_endTime,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -831,20 +831,20 @@ class ProjectsGroupsMembersResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (interval_endTime != null) {
-      _queryParams["interval.endTime"] = [interval_endTime];
-    }
     if (filter != null) {
       _queryParams["filter"] = [filter];
     }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
     if (interval_startTime != null) {
       _queryParams["interval.startTime"] = [interval_startTime];
     }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
+    if (interval_endTime != null) {
+      _queryParams["interval.endTime"] = [interval_endTime];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1025,12 +1025,6 @@ class ProjectsMetricDescriptorsResourceApi {
   /// "projects/{project_id_or_number}".
   /// Value must have pattern "^projects/[^/]+$".
   ///
-  /// [filter] - If this field is empty, all custom and system-defined metric
-  /// descriptors are returned. Otherwise, the filter specifies which metric
-  /// descriptors are to be returned. For example, the following filter matches
-  /// all custom metrics:
-  /// metric.type = starts_with("custom.googleapis.com/")
-  ///
   /// [pageToken] - If this field is not empty then it must contain the
   /// nextPageToken value returned by a previous call to this method. Using this
   /// field causes the method to return additional results from the previous
@@ -1038,6 +1032,12 @@ class ProjectsMetricDescriptorsResourceApi {
   ///
   /// [pageSize] - A positive number that is the maximum number of results to
   /// return.
+  ///
+  /// [filter] - If this field is empty, all custom and system-defined metric
+  /// descriptors are returned. Otherwise, the filter specifies which metric
+  /// descriptors are to be returned. For example, the following filter matches
+  /// all custom metrics:
+  /// metric.type = starts_with("custom.googleapis.com/")
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1050,9 +1050,9 @@ class ProjectsMetricDescriptorsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListMetricDescriptorsResponse> list(core.String name,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1064,14 +1064,14 @@ class ProjectsMetricDescriptorsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1156,6 +1156,12 @@ class ProjectsMonitoredResourceDescriptorsResourceApi {
   /// "projects/{project_id_or_number}".
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [filter] - An optional filter describing the descriptors to be returned.
+  /// The filter can reference the descriptor's type and labels. For example,
+  /// the following filter returns only Google Compute Engine descriptors that
+  /// have an id label:
+  /// resource.type = starts_with("gce_") AND resource.label:id
+  ///
   /// [pageToken] - If this field is not empty then it must contain the
   /// nextPageToken value returned by a previous call to this method. Using this
   /// field causes the method to return additional results from the previous
@@ -1163,12 +1169,6 @@ class ProjectsMonitoredResourceDescriptorsResourceApi {
   ///
   /// [pageSize] - A positive number that is the maximum number of results to
   /// return.
-  ///
-  /// [filter] - An optional filter describing the descriptors to be returned.
-  /// The filter can reference the descriptor's type and labels. For example,
-  /// the following filter returns only Google Compute Engine descriptors that
-  /// have an id label:
-  /// resource.type = starts_with("gce_") AND resource.label:id
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1181,9 +1181,9 @@ class ProjectsMonitoredResourceDescriptorsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListMonitoredResourceDescriptorsResponse> list(core.String name,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1195,14 +1195,14 @@ class ProjectsMonitoredResourceDescriptorsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1600,10 +1600,6 @@ class ProjectsNotificationChannelsResourceApi {
   /// GetNotificationChannel operation.
   /// Value must have pattern "^projects/[^/]+$".
   ///
-  /// [filter] - If provided, this field specifies the criteria that must be met
-  /// by notification channels to be included in the response.For more details,
-  /// see sorting and filtering.
-  ///
   /// [orderBy] - A comma-separated list of fields by which to sort the result.
   /// Supports the same set of fields as in filter. Entries can be prefixed with
   /// a minus sign to sort in descending rather than ascending order.For more
@@ -1617,6 +1613,10 @@ class ProjectsNotificationChannelsResourceApi {
   /// If not set to a positive number, a reasonable value will be chosen by the
   /// service.
   ///
+  /// [filter] - If provided, this field specifies the criteria that must be met
+  /// by notification channels to be included in the response.For more details,
+  /// see sorting and filtering.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1628,10 +1628,10 @@ class ProjectsNotificationChannelsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListNotificationChannelsResponse> list(core.String name,
-      {core.String filter,
-      core.String orderBy,
+      {core.String orderBy,
       core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1643,9 +1643,6 @@ class ProjectsNotificationChannelsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (orderBy != null) {
       _queryParams["orderBy"] = [orderBy];
     }
@@ -1654,6 +1651,9 @@ class ProjectsNotificationChannelsResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1906,6 +1906,77 @@ class ProjectsTimeSeriesResourceApi {
   /// "projects/{project_id_or_number}".
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [orderBy] - Unsupported: must be left blank. The points in each time
+  /// series are returned in reverse time order.
+  ///
+  /// [aggregation_crossSeriesReducer] - The approach to be used to combine time
+  /// series. Not all reducer functions may be applied to all time series,
+  /// depending on the metric type and the value type of the original time
+  /// series. Reduction may change the metric type of value type of the time
+  /// series.Time series data must be aligned in order to perform cross-time
+  /// series reduction. If crossSeriesReducer is specified, then
+  /// perSeriesAligner must be specified and not equal ALIGN_NONE and
+  /// alignmentPeriod must be specified; otherwise, an error is returned.
+  /// Possible string values are:
+  /// - "REDUCE_NONE" : A REDUCE_NONE.
+  /// - "REDUCE_MEAN" : A REDUCE_MEAN.
+  /// - "REDUCE_MIN" : A REDUCE_MIN.
+  /// - "REDUCE_MAX" : A REDUCE_MAX.
+  /// - "REDUCE_SUM" : A REDUCE_SUM.
+  /// - "REDUCE_STDDEV" : A REDUCE_STDDEV.
+  /// - "REDUCE_COUNT" : A REDUCE_COUNT.
+  /// - "REDUCE_COUNT_TRUE" : A REDUCE_COUNT_TRUE.
+  /// - "REDUCE_COUNT_FALSE" : A REDUCE_COUNT_FALSE.
+  /// - "REDUCE_FRACTION_TRUE" : A REDUCE_FRACTION_TRUE.
+  /// - "REDUCE_PERCENTILE_99" : A REDUCE_PERCENTILE_99.
+  /// - "REDUCE_PERCENTILE_95" : A REDUCE_PERCENTILE_95.
+  /// - "REDUCE_PERCENTILE_50" : A REDUCE_PERCENTILE_50.
+  /// - "REDUCE_PERCENTILE_05" : A REDUCE_PERCENTILE_05.
+  ///
+  /// [filter] - A monitoring filter that specifies which time series should be
+  /// returned. The filter must specify a single metric type, and can
+  /// additionally specify metric labels and other information. For example:
+  /// metric.type = "compute.googleapis.com/instance/cpu/usage_time" AND
+  ///     metric.labels.instance_name = "my-instance-name"
+  ///
+  /// [aggregation_perSeriesAligner] - The approach to be used to align
+  /// individual time series. Not all alignment functions may be applied to all
+  /// time series, depending on the metric type and value type of the original
+  /// time series. Alignment may change the metric type or the value type of the
+  /// time series.Time series data must be aligned in order to perform
+  /// cross-time series reduction. If crossSeriesReducer is specified, then
+  /// perSeriesAligner must be specified and not equal ALIGN_NONE and
+  /// alignmentPeriod must be specified; otherwise, an error is returned.
+  /// Possible string values are:
+  /// - "ALIGN_NONE" : A ALIGN_NONE.
+  /// - "ALIGN_DELTA" : A ALIGN_DELTA.
+  /// - "ALIGN_RATE" : A ALIGN_RATE.
+  /// - "ALIGN_INTERPOLATE" : A ALIGN_INTERPOLATE.
+  /// - "ALIGN_NEXT_OLDER" : A ALIGN_NEXT_OLDER.
+  /// - "ALIGN_MIN" : A ALIGN_MIN.
+  /// - "ALIGN_MAX" : A ALIGN_MAX.
+  /// - "ALIGN_MEAN" : A ALIGN_MEAN.
+  /// - "ALIGN_COUNT" : A ALIGN_COUNT.
+  /// - "ALIGN_SUM" : A ALIGN_SUM.
+  /// - "ALIGN_STDDEV" : A ALIGN_STDDEV.
+  /// - "ALIGN_COUNT_TRUE" : A ALIGN_COUNT_TRUE.
+  /// - "ALIGN_COUNT_FALSE" : A ALIGN_COUNT_FALSE.
+  /// - "ALIGN_FRACTION_TRUE" : A ALIGN_FRACTION_TRUE.
+  /// - "ALIGN_PERCENTILE_99" : A ALIGN_PERCENTILE_99.
+  /// - "ALIGN_PERCENTILE_95" : A ALIGN_PERCENTILE_95.
+  /// - "ALIGN_PERCENTILE_50" : A ALIGN_PERCENTILE_50.
+  /// - "ALIGN_PERCENTILE_05" : A ALIGN_PERCENTILE_05.
+  /// - "ALIGN_PERCENT_CHANGE" : A ALIGN_PERCENT_CHANGE.
+  ///
+  /// [pageToken] - If this field is not empty then it must contain the
+  /// nextPageToken value returned by a previous call to this method. Using this
+  /// field causes the method to return additional results from the previous
+  /// method call.
+  ///
+  /// [interval_startTime] - Optional. The beginning of the time interval. The
+  /// default value for the start time is the end time. The start time must not
+  /// be later than the end time.
+  ///
   /// [view] - Specifies which information is returned about the time series.
   /// Possible string values are:
   /// - "FULL" : A FULL.
@@ -1940,77 +2011,6 @@ class ProjectsTimeSeriesResourceApi {
   /// number of Points returned. If view is set to HEADERS, this is the maximum
   /// number of TimeSeries returned.
   ///
-  /// [orderBy] - Unsupported: must be left blank. The points in each time
-  /// series are returned in reverse time order.
-  ///
-  /// [aggregation_crossSeriesReducer] - The approach to be used to combine time
-  /// series. Not all reducer functions may be applied to all time series,
-  /// depending on the metric type and the value type of the original time
-  /// series. Reduction may change the metric type of value type of the time
-  /// series.Time series data must be aligned in order to perform cross-time
-  /// series reduction. If crossSeriesReducer is specified, then
-  /// perSeriesAligner must be specified and not equal ALIGN_NONE and
-  /// alignmentPeriod must be specified; otherwise, an error is returned.
-  /// Possible string values are:
-  /// - "REDUCE_NONE" : A REDUCE_NONE.
-  /// - "REDUCE_MEAN" : A REDUCE_MEAN.
-  /// - "REDUCE_MIN" : A REDUCE_MIN.
-  /// - "REDUCE_MAX" : A REDUCE_MAX.
-  /// - "REDUCE_SUM" : A REDUCE_SUM.
-  /// - "REDUCE_STDDEV" : A REDUCE_STDDEV.
-  /// - "REDUCE_COUNT" : A REDUCE_COUNT.
-  /// - "REDUCE_COUNT_TRUE" : A REDUCE_COUNT_TRUE.
-  /// - "REDUCE_COUNT_FALSE" : A REDUCE_COUNT_FALSE.
-  /// - "REDUCE_FRACTION_TRUE" : A REDUCE_FRACTION_TRUE.
-  /// - "REDUCE_PERCENTILE_99" : A REDUCE_PERCENTILE_99.
-  /// - "REDUCE_PERCENTILE_95" : A REDUCE_PERCENTILE_95.
-  /// - "REDUCE_PERCENTILE_50" : A REDUCE_PERCENTILE_50.
-  /// - "REDUCE_PERCENTILE_05" : A REDUCE_PERCENTILE_05.
-  ///
-  /// [filter] - A monitoring filter that specifies which time series should be
-  /// returned. The filter must specify a single metric type, and can
-  /// additionally specify metric labels and other information. For example:
-  /// metric.type = "compute.googleapis.com/instance/cpu/usage_time" AND
-  ///     metric.labels.instance_name = "my-instance-name"
-  ///
-  /// [pageToken] - If this field is not empty then it must contain the
-  /// nextPageToken value returned by a previous call to this method. Using this
-  /// field causes the method to return additional results from the previous
-  /// method call.
-  ///
-  /// [aggregation_perSeriesAligner] - The approach to be used to align
-  /// individual time series. Not all alignment functions may be applied to all
-  /// time series, depending on the metric type and value type of the original
-  /// time series. Alignment may change the metric type or the value type of the
-  /// time series.Time series data must be aligned in order to perform
-  /// cross-time series reduction. If crossSeriesReducer is specified, then
-  /// perSeriesAligner must be specified and not equal ALIGN_NONE and
-  /// alignmentPeriod must be specified; otherwise, an error is returned.
-  /// Possible string values are:
-  /// - "ALIGN_NONE" : A ALIGN_NONE.
-  /// - "ALIGN_DELTA" : A ALIGN_DELTA.
-  /// - "ALIGN_RATE" : A ALIGN_RATE.
-  /// - "ALIGN_INTERPOLATE" : A ALIGN_INTERPOLATE.
-  /// - "ALIGN_NEXT_OLDER" : A ALIGN_NEXT_OLDER.
-  /// - "ALIGN_MIN" : A ALIGN_MIN.
-  /// - "ALIGN_MAX" : A ALIGN_MAX.
-  /// - "ALIGN_MEAN" : A ALIGN_MEAN.
-  /// - "ALIGN_COUNT" : A ALIGN_COUNT.
-  /// - "ALIGN_SUM" : A ALIGN_SUM.
-  /// - "ALIGN_STDDEV" : A ALIGN_STDDEV.
-  /// - "ALIGN_COUNT_TRUE" : A ALIGN_COUNT_TRUE.
-  /// - "ALIGN_COUNT_FALSE" : A ALIGN_COUNT_FALSE.
-  /// - "ALIGN_FRACTION_TRUE" : A ALIGN_FRACTION_TRUE.
-  /// - "ALIGN_PERCENTILE_99" : A ALIGN_PERCENTILE_99.
-  /// - "ALIGN_PERCENTILE_95" : A ALIGN_PERCENTILE_95.
-  /// - "ALIGN_PERCENTILE_50" : A ALIGN_PERCENTILE_50.
-  /// - "ALIGN_PERCENTILE_05" : A ALIGN_PERCENTILE_05.
-  /// - "ALIGN_PERCENT_CHANGE" : A ALIGN_PERCENT_CHANGE.
-  ///
-  /// [interval_startTime] - Optional. The beginning of the time interval. The
-  /// default value for the start time is the end time. The start time must not
-  /// be later than the end time.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -2022,17 +2022,17 @@ class ProjectsTimeSeriesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListTimeSeriesResponse> list(core.String name,
-      {core.String view,
+      {core.String orderBy,
+      core.String aggregation_crossSeriesReducer,
+      core.String filter,
+      core.String aggregation_perSeriesAligner,
+      core.String pageToken,
+      core.String interval_startTime,
+      core.String view,
       core.List<core.String> aggregation_groupByFields,
       core.String interval_endTime,
       core.String aggregation_alignmentPeriod,
       core.int pageSize,
-      core.String orderBy,
-      core.String aggregation_crossSeriesReducer,
-      core.String filter,
-      core.String pageToken,
-      core.String aggregation_perSeriesAligner,
-      core.String interval_startTime,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -2043,6 +2043,28 @@ class ProjectsTimeSeriesResourceApi {
 
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (orderBy != null) {
+      _queryParams["orderBy"] = [orderBy];
+    }
+    if (aggregation_crossSeriesReducer != null) {
+      _queryParams["aggregation.crossSeriesReducer"] = [
+        aggregation_crossSeriesReducer
+      ];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
+    if (aggregation_perSeriesAligner != null) {
+      _queryParams["aggregation.perSeriesAligner"] = [
+        aggregation_perSeriesAligner
+      ];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (interval_startTime != null) {
+      _queryParams["interval.startTime"] = [interval_startTime];
     }
     if (view != null) {
       _queryParams["view"] = [view];
@@ -2060,28 +2082,6 @@ class ProjectsTimeSeriesResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (orderBy != null) {
-      _queryParams["orderBy"] = [orderBy];
-    }
-    if (aggregation_crossSeriesReducer != null) {
-      _queryParams["aggregation.crossSeriesReducer"] = [
-        aggregation_crossSeriesReducer
-      ];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
-    if (aggregation_perSeriesAligner != null) {
-      _queryParams["aggregation.perSeriesAligner"] = [
-        aggregation_perSeriesAligner
-      ];
-    }
-    if (interval_startTime != null) {
-      _queryParams["interval.startTime"] = [interval_startTime];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2106,13 +2106,13 @@ class ProjectsUptimeCheckConfigsResourceApi {
   ProjectsUptimeCheckConfigsResourceApi(commons.ApiRequester client)
       : _requester = client;
 
-  /// Creates a new uptime check configuration.
+  /// Creates a new Uptime check configuration.
   ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
   ///
-  /// [parent] - The project in which to create the uptime check. The format  is
+  /// [parent] - The project in which to create the Uptime check. The format  is
   /// projects/[PROJECT_ID].
   /// Value must have pattern "^projects/[^/]+$".
   ///
@@ -2159,13 +2159,13 @@ class ProjectsUptimeCheckConfigsResourceApi {
     return _response.then((data) => new UptimeCheckConfig.fromJson(data));
   }
 
-  /// Deletes an uptime check configuration. Note that this method will fail if
-  /// the uptime check configuration is referenced by an alert policy or other
+  /// Deletes an Uptime check configuration. Note that this method will fail if
+  /// the Uptime check configuration is referenced by an alert policy or other
   /// dependent configs that would be rendered invalid by the deletion.
   ///
   /// Request parameters:
   ///
-  /// [name] - The uptime check configuration to delete. The format  is
+  /// [name] - The Uptime check configuration to delete. The format  is
   /// projects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].
   /// Value must have pattern "^projects/[^/]+/uptimeCheckConfigs/[^/]+$".
   ///
@@ -2205,11 +2205,11 @@ class ProjectsUptimeCheckConfigsResourceApi {
     return _response.then((data) => new Empty.fromJson(data));
   }
 
-  /// Gets a single uptime check configuration.
+  /// Gets a single Uptime check configuration.
   ///
   /// Request parameters:
   ///
-  /// [name] - The uptime check configuration to retrieve. The format  is
+  /// [name] - The Uptime check configuration to retrieve. The format  is
   /// projects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].
   /// Value must have pattern "^projects/[^/]+/uptimeCheckConfigs/[^/]+$".
   ///
@@ -2249,12 +2249,12 @@ class ProjectsUptimeCheckConfigsResourceApi {
     return _response.then((data) => new UptimeCheckConfig.fromJson(data));
   }
 
-  /// Lists the existing valid uptime check configurations for the project,
-  /// leaving out any invalid configurations.
+  /// Lists the existing valid Uptime check configurations for the project
+  /// (leaving out any invalid configurations).
   ///
   /// Request parameters:
   ///
-  /// [parent] - The project whose uptime check configurations are listed. The
+  /// [parent] - The project whose Uptime check configurations are listed. The
   /// format  is projects/[PROJECT_ID].
   /// Value must have pattern "^projects/[^/]+$".
   ///
@@ -2314,23 +2314,24 @@ class ProjectsUptimeCheckConfigsResourceApi {
         .then((data) => new ListUptimeCheckConfigsResponse.fromJson(data));
   }
 
-  /// Updates an uptime check configuration. You can either replace the entire
+  /// Updates an Uptime check configuration. You can either replace the entire
   /// configuration with a new one or replace only certain fields in the current
-  /// configuration by specifying the fields to be updated via "updateMask".
+  /// configuration by specifying the fields to be updated via updateMask.
   /// Returns the updated configuration.
   ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
   ///
-  /// [name] - A unique resource name for this UptimeCheckConfig. The format
-  /// is:projects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].This field
-  /// should be omitted when creating the uptime check configuration; on create,
-  /// the resource name is assigned by the server and included in the response.
+  /// [name] - A unique resource name for this Uptime check configuration. The
+  /// format is:projects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].This
+  /// field should be omitted when creating the Uptime check configuration; on
+  /// create, the resource name is assigned by the server and included in the
+  /// response.
   /// Value must have pattern "^projects/[^/]+/uptimeCheckConfigs/[^/]+$".
   ///
   /// [updateMask] - Optional. If present, only the listed fields in the current
-  /// uptime check configuration are updated with values from the new
+  /// Uptime check configuration are updated with values from the new
   /// configuration. If this field is empty, then the current configuration is
   /// completely replaced with the new configuration.
   ///
@@ -2384,7 +2385,7 @@ class UptimeCheckIpsResourceApi {
 
   UptimeCheckIpsResourceApi(commons.ApiRequester client) : _requester = client;
 
-  /// Returns the list of IPs that checkers run from
+  /// Returns the list of IP addresses that checkers run from
   ///
   /// Request parameters:
   ///
@@ -2756,6 +2757,10 @@ class AlertPolicy {
   /// underscores, and dashes. Keys must begin with a letter.
   core.Map<core.String, core.String> userLabels;
 
+  /// Read-only description of how the alert policy is invalid. OK if the alert
+  /// policy is valid. If not OK, the alert policy will not generate incidents.
+  Status validity;
+
   AlertPolicy();
 
   AlertPolicy.fromJson(core.Map _json) {
@@ -2793,6 +2798,9 @@ class AlertPolicy {
       userLabels =
           (_json["userLabels"] as core.Map).cast<core.String, core.String>();
     }
+    if (_json.containsKey("validity")) {
+      validity = new Status.fromJson(_json["validity"]);
+    }
   }
 
   core.Map<core.String, core.Object> toJson() {
@@ -2829,18 +2837,22 @@ class AlertPolicy {
     if (userLabels != null) {
       _json["userLabels"] = userLabels;
     }
+    if (validity != null) {
+      _json["validity"] = (validity).toJson();
+    }
     return _json;
   }
 }
 
-/// A type of authentication to perform against the specified resource or URL
-/// that uses username and password. Currently, only Basic authentication is
-/// supported in Uptime Monitoring.
+/// The authentication parameters to provide to the specified resource or URL
+/// that requires a username and password. Currently, only Basic HTTP
+/// authentication (https://tools.ietf.org/html/rfc7617) is supported in Uptime
+/// checks.
 class BasicAuthentication {
-  /// The password to authenticate.
+  /// The password to use when authenticating with the HTTP server.
   core.String password;
 
-  /// The username to authenticate.
+  /// The username to use when authenticating with the HTTP server.
   core.String username;
 
   BasicAuthentication();
@@ -3225,11 +3237,34 @@ class ContentMatcher {
   /// String or regex content to match (max 1024 bytes)
   core.String content;
 
+  /// The type of content matcher that will be applied to the server output,
+  /// compared to the content string when the check is run.
+  /// Possible string values are:
+  /// - "CONTENT_MATCHER_OPTION_UNSPECIFIED" : No content matcher type specified
+  /// (maintained for backward compatibility, but deprecated for future use).
+  /// Treated as CONTAINS_STRING.
+  /// - "CONTAINS_STRING" : Selects substring matching (there is a match if the
+  /// output contains the content string). This is the default value for checks
+  /// without a matcher option, or where the value of matcher is
+  /// CONTENT_MATCHER_OPTION_UNSPECIFIED.
+  /// - "NOT_CONTAINS_STRING" : Selects negation of substring matching (there is
+  /// a match if the output does NOT contain the content string).
+  /// - "MATCHES_REGEX" : Selects regular expression matching (there is a match
+  /// of the output matches the regular expression specified in the content
+  /// string).
+  /// - "NOT_MATCHES_REGEX" : Selects negation of regular expression matching
+  /// (there is a match if the output does NOT match the regular expression
+  /// specified in the content string).
+  core.String matcher;
+
   ContentMatcher();
 
   ContentMatcher.fromJson(core.Map _json) {
     if (_json.containsKey("content")) {
       content = _json["content"];
+    }
+    if (_json.containsKey("matcher")) {
+      matcher = _json["matcher"];
     }
   }
 
@@ -3238,6 +3273,9 @@ class ContentMatcher {
         new core.Map<core.String, core.Object>();
     if (content != null) {
       _json["content"] = content;
+    }
+    if (matcher != null) {
+      _json["matcher"] = matcher;
     }
     return _json;
   }
@@ -3967,13 +4005,13 @@ class Group {
   }
 }
 
-/// Information involved in an HTTP/HTTPS uptime check request.
+/// Information involved in an HTTP/HTTPS Uptime check request.
 class HttpCheck {
   /// The authentication information. Optional when creating an HTTP check;
   /// defaults to empty.
   BasicAuthentication authInfo;
 
-  /// The list of headers to send as part of the uptime check request. If two
+  /// The list of headers to send as part of the Uptime check request. If two
   /// headers have the same key and different values, they should be entered as
   /// a single header, with the value being a comma-separated list of all the
   /// desired values as described at
@@ -3987,22 +4025,29 @@ class HttpCheck {
   /// should be specified for any headers related to authentication that you do
   /// not wish to be seen when retrieving the configuration. The server will be
   /// responsible for encrypting the headers. On Get/List calls, if mask_headers
-  /// is set to True then the headers will be obscured with ******.
+  /// is set to true then the headers will be obscured with ******.
   core.bool maskHeaders;
 
-  /// The path to the page to run the check against. Will be combined with the
-  /// host (specified within the MonitoredResource) and port to construct the
-  /// full URL. Optional (defaults to "/"). If the provided path does not begin
-  /// with "/", it will be prepended automatically.
+  /// Optional (defaults to "/"). The path to the page against which to run the
+  /// check. Will be combined with the host (specified within the
+  /// monitored_resource) and port to construct the full URL. If the provided
+  /// path does not begin with "/", a "/" will be prepended automatically.
   core.String path;
 
-  /// The port to the page to run the check against. Will be combined with host
-  /// (specified within the MonitoredResource) and path to construct the full
-  /// URL. Optional (defaults to 80 without SSL, or 443 with SSL).
+  /// Optional (defaults to 80 when use_ssl is false, and 443 when use_ssl is
+  /// true). The TCP port on the HTTP server against which to run the check.
+  /// Will be combined with host (specified within the monitored_resource) and
+  /// path to construct the full URL.
   core.int port;
 
   /// If true, use HTTPS instead of HTTP to run the check.
   core.bool useSsl;
+
+  /// Boolean specifying whether to include SSL certificate validation as a part
+  /// of the Uptime check. Only applies to checks where monitored_resource is
+  /// set to uptime_url. If use_ssl is false, setting validate_ssl to true has
+  /// no effect.
+  core.bool validateSsl;
 
   HttpCheck();
 
@@ -4024,6 +4069,9 @@ class HttpCheck {
     }
     if (_json.containsKey("useSsl")) {
       useSsl = _json["useSsl"];
+    }
+    if (_json.containsKey("validateSsl")) {
+      validateSsl = _json["validateSsl"];
     }
   }
 
@@ -4048,11 +4096,14 @@ class HttpCheck {
     if (useSsl != null) {
       _json["useSsl"] = useSsl;
     }
+    if (validateSsl != null) {
+      _json["validateSsl"] = validateSsl;
+    }
     return _json;
   }
 }
 
-/// An internal checker allows uptime checks to run on private/internal GCP
+/// An internal checker allows Uptime checks to run on private/internal GCP
 /// resources.
 class InternalChecker {
   /// The checker's human-readable name. The display name should be unique
@@ -4060,13 +4111,13 @@ class InternalChecker {
   /// however, uniqueness is not enforced.
   core.String displayName;
 
-  /// The GCP zone the uptime check should egress from. Only respected for
-  /// internal uptime checks, where internal_network is specified.
+  /// The GCP zone the Uptime check should egress from. Only respected for
+  /// internal Uptime checks, where internal_network is specified.
   core.String gcpZone;
 
   /// A unique resource name for this InternalChecker. The format
-  /// is:projects/[PROJECT_ID]/internalCheckers/[INTERNAL_CHECKER_ID].PROJECT_ID
-  /// is the stackdriver workspace project for the uptime check config
+  /// is:projects/[PROJECT_ID]/internalCheckers/[INTERNAL_CHECKER_ID].[PROJECT_ID]
+  /// is the Stackdriver Workspace project for the Uptime check config
   /// associated with the internal checker.
   core.String name;
 
@@ -4074,8 +4125,8 @@ class InternalChecker {
   /// internal resource lives (ex: "default").
   core.String network;
 
-  /// The GCP project_id where the internal checker lives. Not necessary the
-  /// same as the workspace project.
+  /// The GCP project ID where the internal checker lives. Not necessary the
+  /// same as the Workspace project.
   core.String peerProjectId;
 
   /// The current operational state of the internal checker.
@@ -4084,13 +4135,15 @@ class InternalChecker {
   /// state.
   /// - "CREATING" : The checker is being created, provisioned, and configured.
   /// A checker in this state can be returned by ListInternalCheckers or
-  /// GetInternalChecker, as well as by examining the longrunning.Operation that
-  /// created it.
+  /// GetInternalChecker, as well as by examining the long running Operation
+  /// (https://cloud.google.com/apis/design/design_patterns#long_running_operations)
+  /// that created it.
   /// - "RUNNING" : The checker is running and available for use. A checker in
   /// this state can be returned by ListInternalCheckers or GetInternalChecker
-  /// as well as by examining the longrunning.Operation that created it. If a
-  /// checker is being torn down, it is neither visible nor usable, so there is
-  /// no "deleting" or "down" state.
+  /// as well as by examining the long running Operation
+  /// (https://cloud.google.com/apis/design/design_patterns#long_running_operations)
+  /// that created it. If a checker is being torn down, it is neither visible
+  /// nor usable, so there is no "deleting" or "down" state.
   core.String state;
 
   InternalChecker();
@@ -4565,11 +4618,11 @@ class ListUptimeCheckConfigsResponse {
   /// request message's page_token field).
   core.String nextPageToken;
 
-  /// The total number of uptime check configurations for the project,
+  /// The total number of Uptime check configurations for the project,
   /// irrespective of any pagination.
   core.int totalSize;
 
-  /// The returned uptime check configurations.
+  /// The returned Uptime check configurations.
   core.List<UptimeCheckConfig> uptimeCheckConfigs;
 
   ListUptimeCheckConfigsResponse();
@@ -5087,20 +5140,16 @@ class MetricThreshold {
   /// single stream for each resource or when aggregating streams across all
   /// members of a group of resources).When computing ratios, the aggregations
   /// and denominator_aggregations fields must use the same alignment period and
-  /// produce time series that have the same periodicity and labels.This field
-  /// is similar to the one in the MetricService.ListTimeSeries request. It is
-  /// advisable to use the ListTimeSeries method when debugging this field.
+  /// produce time series that have the same periodicity and labels.
   core.List<Aggregation> denominatorAggregations;
 
   /// A filter that identifies a time series that should be used as the
   /// denominator of a ratio that will be compared with the threshold. If a
   /// denominator_filter is specified, the time series specified by the filter
-  /// field will be used as the numerator.The filter is similar to the one that
-  /// is specified in the MetricService.ListTimeSeries request (that call is
-  /// useful to verify the time series that will be retrieved / processed) and
-  /// must specify the metric type and optionally may contain restrictions on
-  /// resource type, resource labels, and metric labels. This field may not
-  /// exceed 2048 Unicode characters in length.
+  /// field will be used as the numerator.The filter and must specify the metric
+  /// type and optionally may contain restrictions on resource type, resource
+  /// labels, and metric labels. This field may not exceed 2048 Unicode
+  /// characters in length.
   core.String denominatorFilter;
 
   /// The amount of time that a time series must violate the threshold to be
@@ -5778,8 +5827,8 @@ class Range {
 /// The resource submessage for group checks. It can be used instead of a
 /// monitored resource, when multiple resources are being monitored.
 class ResourceGroup {
-  /// The group of resources being monitored. Should be only the group_id, not
-  /// projects/<project_id>/groups/<group_id>.
+  /// The group of resources being monitored. Should be only the [GROUP_ID], and
+  /// not the full-path projects/[PROJECT_ID]/groups/[GROUP_ID].
   core.String groupId;
 
   /// The resource type of the group members.
@@ -5937,11 +5986,11 @@ class Status {
   }
 }
 
-/// Information required for a TCP uptime check request.
+/// Information required for a TCP Uptime check request.
 class TcpCheck {
-  /// The port to the page to run the check against. Will be combined with host
-  /// (specified within the MonitoredResource) to construct the full URL.
-  /// Required.
+  /// The TCP port on the server against which to run the check. Will be
+  /// combined with host (specified within the monitored_resource) to construct
+  /// the full URL. Required.
   core.int port;
 
   TcpCheck();
@@ -5970,8 +6019,8 @@ class TcpCheck {
 /// value is specified, the start time defaults to the value of the  end time,
 /// and the interval represents a single point in time. Such an  interval is
 /// valid only for GAUGE metrics, which are point-in-time  measurements.
-/// For DELTA and CUMULATIVE metrics, the start time must be later than  the end
-/// time.
+/// For DELTA and CUMULATIVE metrics, the start time must be earlier  than the
+/// end time.
 /// In all cases, the start time of the next interval must be  at least a
 /// microsecond after the end time of the previous interval.  Because the
 /// interval is closed, if the start time of a new interval  is the same as the
@@ -6296,14 +6345,14 @@ class TypedValue {
 /// This message configures which resources and services to monitor for
 /// availability.
 class UptimeCheckConfig {
-  /// The expected content on the page the check is run against. Currently, only
-  /// the first entry in the list is supported, and other entries will be
-  /// ignored. The server will look for an exact match of the string in the page
-  /// response's content. This field is optional and should only be specified if
-  /// a content match is required.
+  /// The content that is expected to appear in the data returned by the target
+  /// server against which the check is run. Currently, only the first entry in
+  /// the content_matchers list is supported, and additional entries will be
+  /// ignored. This field is optional and should only be specified if a content
+  /// match is required as part of the/ Uptime check.
   core.List<ContentMatcher> contentMatchers;
 
-  /// A human-friendly name for the uptime check configuration. The display name
+  /// A human-friendly name for the Uptime check configuration. The display name
   /// should be unique within a Stackdriver Workspace in order to make it easier
   /// to identify; however, uniqueness is not enforced. Required.
   core.String displayName;
@@ -6313,22 +6362,23 @@ class UptimeCheckConfig {
 
   /// The internal checkers that this check will egress from. If is_internal is
   /// true and this list is empty, the check will egress from all the
-  /// InternalCheckers configured for the project that owns this CheckConfig.
+  /// InternalCheckers configured for the project that owns this
+  /// UptimeCheckConfig.
   core.List<InternalChecker> internalCheckers;
 
   /// The monitored resource (https://cloud.google.com/monitoring/api/resources)
   /// associated with the configuration. The following monitored resource types
-  /// are supported for uptime checks:  uptime_url  gce_instance  gae_app
-  /// aws_ec2_instance  aws_elb_load_balancer
+  /// are supported for Uptime checks:  uptime_url,  gce_instance,  gae_app,
+  /// aws_ec2_instance,  aws_elb_load_balancer
   MonitoredResource monitoredResource;
 
-  /// A unique resource name for this UptimeCheckConfig. The format
+  /// A unique resource name for this Uptime check configuration. The format
   /// is:projects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].This field
-  /// should be omitted when creating the uptime check configuration; on create,
+  /// should be omitted when creating the Uptime check configuration; on create,
   /// the resource name is assigned by the server and included in the response.
   core.String name;
 
-  /// How often, in seconds, the uptime check is performed. Currently, the only
+  /// How often, in seconds, the Uptime check is performed. Currently, the only
   /// supported values are 60s (1 minute), 300s (5 minutes), 600s (10 minutes),
   /// and 900s (15 minutes). Optional, defaults to 60s.
   core.String period;
@@ -6338,9 +6388,9 @@ class UptimeCheckConfig {
 
   /// The list of regions from which the check will be run. Some regions contain
   /// one location, and others contain more than one. If this field is
-  /// specified, enough regions to include a minimum of 3 locations must be
-  /// provided, or an error message is returned. Not specifying this field will
-  /// result in uptime checks running from all regions.
+  /// specified, enough regions must be provided to include a minimum of 3
+  /// locations. Not specifying this field will result in Uptime checks running
+  /// from all available regions.
   core.List<core.String> selectedRegions;
 
   /// Contains information needed to make a TCP check.
@@ -6439,10 +6489,10 @@ class UptimeCheckConfig {
 /// Contains the region, location, and list of IP addresses where checkers in
 /// the location run from.
 class UptimeCheckIp {
-  /// The IP address from which the uptime check originates. This is a full IP
-  /// address (not an IP address range). Most IP addresses, as of this
-  /// publication, are in IPv4 format; however, one should not rely on the IP
-  /// addresses being in IPv4 format indefinitely and should support
+  /// The IP address from which the Uptime check originates. This is a fully
+  /// specified IP address (not an IP address range). Most IP addresses, as of
+  /// this publication, are in IPv4 format; however, one should not rely on the
+  /// IP addresses being in IPv4 format indefinitely, and should support
   /// interpreting this field in either IPv4 or IPv6 format.
   core.String ipAddress;
 
@@ -6454,7 +6504,7 @@ class UptimeCheckIp {
   /// A broad region category in which the IP address is located.
   /// Possible string values are:
   /// - "REGION_UNSPECIFIED" : Default value if no region is specified. Will
-  /// result in uptime checks running from all regions.
+  /// result in Uptime checks running from all regions.
   /// - "USA" : Allows checks to run from locations within the United States of
   /// America.
   /// - "EUROPE" : Allows checks to run from locations within the continent of

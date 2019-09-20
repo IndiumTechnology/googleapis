@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.youtubeAnalytics.v2;
 
@@ -527,6 +527,10 @@ class ReportsResourceApi {
   ///
   /// Request parameters:
   ///
+  /// [includeHistoricalChannelData] - If set to true historical data (i.e.
+  /// channel data from before the linking
+  /// of the channel to the content owner) will be retrieved.",
+  ///
   /// [ids] - Identifies the YouTube channel or content owner for which you are
   /// retrieving YouTube Analytics data.
   ///
@@ -537,10 +541,6 @@ class ReportsResourceApi {
   ///   value to `contentOwner==OWNER_NAME`, where `OWNER_NAME` is the CMS name
   ///   of the content owner.
   /// required: true, pattern: [a-zA-Z]+==[a-zA-Z0-9_+-]+
-  ///
-  /// [includeHistoricalChannelData] - If set to true historical data (i.e.
-  /// channel data from before the linking
-  /// of the channel to the content owner) will be retrieved.",
   ///
   /// [currency] - The currency to which financial metrics should be converted.
   /// The default is
@@ -616,8 +616,8 @@ class ReportsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<QueryResponse> query(
-      {core.String ids,
-      core.bool includeHistoricalChannelData,
+      {core.bool includeHistoricalChannelData,
+      core.String ids,
       core.String currency,
       core.int startIndex,
       core.String dimensions,
@@ -635,13 +635,13 @@ class ReportsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
-    if (ids != null) {
-      _queryParams["ids"] = [ids];
-    }
     if (includeHistoricalChannelData != null) {
       _queryParams["includeHistoricalChannelData"] = [
         "${includeHistoricalChannelData}"
       ];
+    }
+    if (ids != null) {
+      _queryParams["ids"] = [ids];
     }
     if (currency != null) {
       _queryParams["currency"] = [currency];

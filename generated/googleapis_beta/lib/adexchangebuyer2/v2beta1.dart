@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.adexchangebuyer2.v2beta1;
 
@@ -1930,12 +1930,6 @@ class AccountsProposalsResourceApi {
   ///
   /// [accountId] - Account ID of the buyer.
   ///
-  /// [pageToken] - The page token as returned from ListProposalsResponse.
-  ///
-  /// [pageSize] - Requested page size. The server may return fewer results than
-  /// requested.
-  /// If unspecified, the server will pick an appropriate default.
-  ///
   /// [filterSyntax] - Syntax the filter is written in. Current implementation
   /// defaults to PQL
   /// but in the future it will be LIST_FILTER.
@@ -1949,6 +1943,12 @@ class AccountsProposalsResourceApi {
   /// Nested repeated fields, such as proposal.deals.targetingCriterion,
   /// cannot be filtered.
   ///
+  /// [pageToken] - The page token as returned from ListProposalsResponse.
+  ///
+  /// [pageSize] - Requested page size. The server may return fewer results than
+  /// requested.
+  /// If unspecified, the server will pick an appropriate default.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1960,10 +1960,10 @@ class AccountsProposalsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListProposalsResponse> list(core.String accountId,
-      {core.String pageToken,
-      core.int pageSize,
-      core.String filterSyntax,
+      {core.String filterSyntax,
       core.String filter,
+      core.String pageToken,
+      core.int pageSize,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1975,17 +1975,17 @@ class AccountsProposalsResourceApi {
     if (accountId == null) {
       throw new core.ArgumentError("Parameter accountId is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
-    }
     if (filterSyntax != null) {
       _queryParams["filterSyntax"] = [filterSyntax];
     }
     if (filter != null) {
       _queryParams["filter"] = [filter];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -5610,6 +5610,10 @@ class Creative {
   /// See serving_restrictions for details.
   /// - "APPROVED" : The creative has been approved.
   /// - "DISAPPROVED" : The creative has been disapproved.
+  /// - "PENDING_REVIEW" : Placeholder for transition to v1beta1. Currently not
+  /// used.
+  /// - "STATUS_TYPE_UNSPECIFIED" : Placeholder for transition to v1beta1.
+  /// Currently not used.
   core.String dealsStatus;
 
   /// The set of declared destination URLs for the creative.
@@ -5663,6 +5667,10 @@ class Creative {
   /// See serving_restrictions for details.
   /// - "APPROVED" : The creative has been approved.
   /// - "DISAPPROVED" : The creative has been disapproved.
+  /// - "PENDING_REVIEW" : Placeholder for transition to v1beta1. Currently not
+  /// used.
+  /// - "STATUS_TYPE_UNSPECIFIED" : Placeholder for transition to v1beta1.
+  /// Currently not used.
   core.String openAuctionStatus;
 
   /// All restricted categories for the ads that may be shown from this

@@ -1,10 +1,11 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.pagespeedonline.v5;
 
 import 'dart:core' as core;
+import 'dart:collection' as collection;
 import 'dart:async' as async;
 
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
@@ -42,7 +43,7 @@ class PagespeedapiResourceApi {
   /// Request parameters:
   ///
   /// [url] - The URL to fetch and analyze
-  /// Value must have pattern "(?i)http(s)?://.*".
+  /// Value must have pattern "(?i)(url:|origin:)?http(s)?://.*".
   ///
   /// [category] - A Lighthouse category to run; if none are given, only
   /// Performance category will be run
@@ -117,6 +118,31 @@ class PagespeedapiResourceApi {
         downloadOptions: _downloadOptions);
     return _response
         .then((data) => new PagespeedApiPagespeedResponseV5.fromJson(data));
+  }
+}
+
+class GoogleprotobufListValue extends collection.ListBase<core.Object> {
+  final core.List<core.Object> _inner;
+
+  GoogleprotobufListValue() : _inner = [];
+
+  GoogleprotobufListValue.fromJson(core.List json)
+      : _inner = json.map((value) => value).toList();
+
+  core.List<core.Object> toJson() {
+    return _inner.map((value) => value).toList();
+  }
+
+  core.Object operator [](core.int key) => _inner[key];
+
+  void operator []=(core.int key, core.Object value) {
+    _inner[key] = value;
+  }
+
+  core.int get length => _inner.length;
+
+  set length(core.int newLength) {
+    _inner.length = newLength;
   }
 }
 
@@ -852,10 +878,7 @@ class LighthouseResultV5 {
   core.String requestedUrl;
 
   /// List of all run warnings in the LHR. Will always output to at least `[]`.
-  ///
-  /// The values for Object must be JSON objects. It can consist of `num`,
-  /// `String`, `bool` and `null` as well as `Map` and `List` values.
-  core.List<core.Object> runWarnings;
+  GoogleprotobufListValue runWarnings;
 
   /// A top-level error message that, if present, indicates a serious enough
   /// problem that this Lighthouse result may need to be discarded.
@@ -913,7 +936,7 @@ class LighthouseResultV5 {
       requestedUrl = _json["requestedUrl"];
     }
     if (_json.containsKey("runWarnings")) {
-      runWarnings = (_json["runWarnings"] as core.List).cast<core.Object>();
+      runWarnings = new GoogleprotobufListValue.fromJson(_json["runWarnings"]);
     }
     if (_json.containsKey("runtimeError")) {
       runtimeError =

@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.securitycenter.v1;
 
@@ -222,11 +222,19 @@ class OrganizationsAssetsResourceApi {
   /// "organizations/[organization_id]".
   /// Value must have pattern "^organizations/[^/]+$".
   ///
-  /// [readTime] - Time used as a reference point when filtering assets. The
-  /// filter is limited
-  /// to assets existing at the supplied time and their values are those at that
-  /// specific time. Absence of this field will default to the API's version of
-  /// NOW.
+  /// [fieldMask] - Optional. A field mask to specify the ListAssetsResult
+  /// fields to be listed in the
+  /// response.
+  /// An empty field mask will list all fields.
+  ///
+  /// [pageToken] - The value returned by the last `ListAssetsResponse`;
+  /// indicates
+  /// that this is a continuation of a prior `ListAssets` call, and
+  /// that the system should return the next page of data.
+  ///
+  /// [pageSize] - The maximum number of results to return in a single response.
+  /// Default is
+  /// 10, minimum is 1, maximum is 1000.
   ///
   /// [orderBy] - Expression that defines what fields and order to use for
   /// sorting. The
@@ -242,11 +250,17 @@ class OrganizationsAssetsResourceApi {
   /// name
   /// update_time
   /// resource_properties
-  /// security_marks
+  /// security_marks.marks
   /// security_center_properties.resource_name
   /// security_center_properties.resource_parent
   /// security_center_properties.resource_project
   /// security_center_properties.resource_type
+  ///
+  /// [readTime] - Time used as a reference point when filtering assets. The
+  /// filter is limited
+  /// to assets existing at the supplied time and their values are those at that
+  /// specific time. Absence of this field will default to the API's version of
+  /// NOW.
   ///
   /// [compareDuration] - When compare_duration is set, the ListAssetsResult's
   /// "state_change"
@@ -305,10 +319,23 @@ class OrganizationsAssetsResourceApi {
   /// The following are the allowed field and operator combinations:
   ///
   /// * name: `=`
-  /// * update_time: `>`, `<`, `>=`, `<=`
+  /// * update_time: `=`, `>`, `<`, `>=`, `<=`
+  ///
+  ///   Usage: This should be milliseconds since epoch or an RFC3339 string.
+  ///   Examples:
+  ///     "update_time = \"2019-06-10T16:07:18-07:00\""
+  ///     "update_time = 1560208038000"
+  ///
+  /// * create_time: `=`, `>`, `<`, `>=`, `<=`
+  ///
+  ///   Usage: This should be milliseconds since epoch or an RFC3339 string.
+  ///   Examples:
+  ///     "create_time = \"2019-06-10T16:07:18-07:00\""
+  ///     "create_time = 1560208038000"
+  ///
   /// * iam_policy.policy_blob: `=`, `:`
   /// * resource_properties: `=`, `:`, `>`, `<`, `>=`, `<=`
-  /// * security_marks: `=`, `:`
+  /// * security_marks.marks: `=`, `:`
   /// * security_center_properties.resource_name: `=`, `:`
   /// * security_center_properties.resource_type: `=`, `:`
   /// * security_center_properties.resource_parent: `=`, `:`
@@ -316,21 +343,6 @@ class OrganizationsAssetsResourceApi {
   /// * security_center_properties.resource_owners: `=`, `:`
   ///
   /// For example, `resource_properties.size = 100` is a valid filter string.
-  ///
-  /// [pageToken] - The value returned by the last `ListAssetsResponse`;
-  /// indicates
-  /// that this is a continuation of a prior `ListAssets` call, and
-  /// that the system should return the next page of data.
-  ///
-  /// [fieldMask] - Optional.
-  ///
-  /// A field mask to specify the ListAssetsResult fields to be listed in the
-  /// response.
-  /// An empty field mask will list all fields.
-  ///
-  /// [pageSize] - The maximum number of results to return in a single response.
-  /// Default is
-  /// 10, minimum is 1, maximum is 1000.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -343,13 +355,13 @@ class OrganizationsAssetsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListAssetsResponse> list(core.String parent,
-      {core.String readTime,
+      {core.String fieldMask,
+      core.String pageToken,
+      core.int pageSize,
       core.String orderBy,
+      core.String readTime,
       core.String compareDuration,
       core.String filter,
-      core.String pageToken,
-      core.String fieldMask,
-      core.int pageSize,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -361,26 +373,26 @@ class OrganizationsAssetsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (readTime != null) {
-      _queryParams["readTime"] = [readTime];
+    if (fieldMask != null) {
+      _queryParams["fieldMask"] = [fieldMask];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if (orderBy != null) {
       _queryParams["orderBy"] = [orderBy];
+    }
+    if (readTime != null) {
+      _queryParams["readTime"] = [readTime];
     }
     if (compareDuration != null) {
       _queryParams["compareDuration"] = [compareDuration];
     }
     if (filter != null) {
       _queryParams["filter"] = [filter];
-    }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
-    if (fieldMask != null) {
-      _queryParams["fieldMask"] = [fieldMask];
-    }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -470,16 +482,16 @@ class OrganizationsAssetsResourceApi {
   /// Value must have pattern
   /// "^organizations/[^/]+/assets/[^/]+/securityMarks$".
   ///
+  /// [startTime] - The time at which the updated SecurityMarks take effect.
+  /// If not set uses current server time.  Updates will be applied to the
+  /// SecurityMarks that are active immediately preceding this time.
+  ///
   /// [updateMask] - The FieldMask to use when updating the security marks
   /// resource.
   ///
   /// The field mask must not contain duplicate fields.
   /// If empty or set to "marks", all marks will be replaced.  Individual
   /// marks can be updated using "marks.<mark_key>".
-  ///
-  /// [startTime] - The time at which the updated SecurityMarks take effect.
-  /// If not set uses current server time.  Updates will be applied to the
-  /// SecurityMarks that are active immediately preceding this time.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -493,7 +505,7 @@ class OrganizationsAssetsResourceApi {
   /// this method will complete with the same error.
   async.Future<SecurityMarks> updateSecurityMarks(
       SecurityMarks request, core.String name,
-      {core.String updateMask, core.String startTime, core.String $fields}) {
+      {core.String startTime, core.String updateMask, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -507,11 +519,11 @@ class OrganizationsAssetsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (updateMask != null) {
-      _queryParams["updateMask"] = [updateMask];
-    }
     if (startTime != null) {
       _queryParams["startTime"] = [startTime];
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -695,11 +707,11 @@ class OrganizationsOperationsResourceApi {
   /// [name] - The name of the operation's parent resource.
   /// Value must have pattern "^organizations/[^/]+/operations$".
   ///
+  /// [filter] - The standard list filter.
+  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
-  ///
-  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -712,9 +724,9 @@ class OrganizationsOperationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListOperationsResponse> list(core.String name,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -726,14 +738,14 @@ class OrganizationsOperationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1303,7 +1315,7 @@ class OrganizationsSourcesFindingsResourceApi {
   /// resource_name
   /// event_time
   /// source_properties
-  /// security_marks
+  /// security_marks.marks
   ///
   /// [compareDuration] - When compare_duration is set, the ListFindingsResult's
   /// "state_change"
@@ -1366,8 +1378,14 @@ class OrganizationsSourcesFindingsResourceApi {
   /// state: `=`, `:`
   /// category: `=`, `:`
   /// external_uri: `=`, `:`
-  /// event_time: `>`, `<`, `>=`, `<=`
-  /// security_marks: `=`, `:`
+  /// event_time: `=`, `>`, `<`, `>=`, `<=`
+  ///
+  ///   Usage: This should be milliseconds since epoch or an RFC3339 string.
+  ///   Examples:
+  ///     "event_time = \"2019-06-10T16:07:18-07:00\""
+  ///     "event_time = 1560208038000"
+  ///
+  /// security_marks.marks: `=`, `:`
   /// source_properties: `=`, `:`, `>`, `<`, `>=`, `<=`
   ///
   /// For example, `source_properties.size = 100` is a valid filter string.
@@ -1377,9 +1395,8 @@ class OrganizationsSourcesFindingsResourceApi {
   /// that this is a continuation of a prior `ListFindings` call, and
   /// that the system should return the next page of data.
   ///
-  /// [fieldMask] - Optional.
-  ///
-  /// A field mask to specify the Finding fields to be listed in the response.
+  /// [fieldMask] - Optional. A field mask to specify the Finding fields to be
+  /// listed in the response.
   /// An empty field mask will list all fields.
   ///
   /// [pageSize] - The maximum number of results to return in a single response.
@@ -1586,16 +1603,16 @@ class OrganizationsSourcesFindingsResourceApi {
   /// Value must have pattern
   /// "^organizations/[^/]+/sources/[^/]+/findings/[^/]+/securityMarks$".
   ///
-  /// [startTime] - The time at which the updated SecurityMarks take effect.
-  /// If not set uses current server time.  Updates will be applied to the
-  /// SecurityMarks that are active immediately preceding this time.
-  ///
   /// [updateMask] - The FieldMask to use when updating the security marks
   /// resource.
   ///
   /// The field mask must not contain duplicate fields.
   /// If empty or set to "marks", all marks will be replaced.  Individual
   /// marks can be updated using "marks.<mark_key>".
+  ///
+  /// [startTime] - The time at which the updated SecurityMarks take effect.
+  /// If not set uses current server time.  Updates will be applied to the
+  /// SecurityMarks that are active immediately preceding this time.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1609,7 +1626,7 @@ class OrganizationsSourcesFindingsResourceApi {
   /// this method will complete with the same error.
   async.Future<SecurityMarks> updateSecurityMarks(
       SecurityMarks request, core.String name,
-      {core.String startTime, core.String updateMask, core.String $fields}) {
+      {core.String updateMask, core.String startTime, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -1623,11 +1640,11 @@ class OrganizationsSourcesFindingsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (startTime != null) {
-      _queryParams["startTime"] = [startTime];
-    }
     if (updateMask != null) {
       _queryParams["updateMask"] = [updateMask];
+    }
+    if (startTime != null) {
+      _queryParams["startTime"] = [startTime];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1804,7 +1821,7 @@ class AssetDiscoveryConfig {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -1816,7 +1833,7 @@ class AssetDiscoveryConfig {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -1824,7 +1841,7 @@ class AssetDiscoveryConfig {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -1832,9 +1849,9 @@ class AssetDiscoveryConfig {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig> auditLogConfigs;
@@ -1879,7 +1896,7 @@ class AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -1889,7 +1906,7 @@ class AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -1947,7 +1964,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -2223,13 +2240,55 @@ class Finding {
 
 /// Request message for `GetIamPolicy` method.
 class GetIamPolicyRequest {
+  /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
+  /// `GetIamPolicy`. This field is only used by Cloud IAM.
+  GetPolicyOptions options;
+
   GetIamPolicyRequest();
 
-  GetIamPolicyRequest.fromJson(core.Map _json) {}
+  GetIamPolicyRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("options")) {
+      options = new GetPolicyOptions.fromJson(_json["options"]);
+    }
+  }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (options != null) {
+      _json["options"] = (options).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Encapsulates settings provided to GetIamPolicy.
+class GetPolicyOptions {
+  /// Optional. The policy format version to be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  core.int requestedPolicyVersion;
+
+  GetPolicyOptions();
+
+  GetPolicyOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("requestedPolicyVersion")) {
+      requestedPolicyVersion = _json["requestedPolicyVersion"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (requestedPolicyVersion != null) {
+      _json["requestedPolicyVersion"] = requestedPolicyVersion;
+    }
     return _json;
   }
 }
@@ -2376,11 +2435,23 @@ class GroupAssetsRequest {
   /// The following field and operator combinations are supported:
   ///
   /// * name: `=`
-  /// * update_time: `>`, `<`, `>=`, `<=`, `=`
-  /// * create_time: `>`, `<`, `>=`, `<=`, `=`
+  /// * update_time: `=`, `>`, `<`, `>=`, `<=`
+  ///
+  ///   Usage: This should be milliseconds since epoch or an RFC3339 string.
+  ///   Examples:
+  ///     "update_time = \"2019-06-10T16:07:18-07:00\""
+  ///     "update_time = 1560208038000"
+  ///
+  /// * create_time: `=`, `>`, `<`, `>=`, `<=`
+  ///
+  ///   Usage: This should be milliseconds since epoch or an RFC3339 string.
+  ///   Examples:
+  ///     "create_time = \"2019-06-10T16:07:18-07:00\""
+  ///     "create_time = 1560208038000"
+  ///
   /// * iam_policy.policy_blob: `=`, `:`
   /// * resource_properties: `=`, `:`, `>`, `<`, `>=`, `<=`
-  /// * security_marks: `=`, `:`
+  /// * security_marks.marks: `=`, `:`
   /// * security_center_properties.resource_name: `=`, `:`
   /// * security_center_properties.resource_type: `=`, `:`
   /// * security_center_properties.resource_parent: `=`, `:`
@@ -2591,8 +2662,14 @@ class GroupFindingsRequest {
   /// * state: `=`, `:`
   /// * category: `=`, `:`
   /// * external_uri: `=`, `:`
-  /// * event_time: `>`, `<`, `>=`, `<=`
-  /// * security_marks: `=`, `:`
+  /// * event_time: `=`, `>`, `<`, `>=`, `<=`
+  ///
+  ///   Usage: This should be milliseconds since epoch or an RFC3339 string.
+  ///   Examples:
+  ///     "event_time = \"2019-06-10T16:07:18-07:00\""
+  ///     "event_time = 1560208038000"
+  ///
+  /// * security_marks.marks: `=`, `:`
   /// * source_properties: `=`, `:`, `>`, `<`, `>=`, `<=`
   ///
   /// For example, `source_properties.size = 100` is a valid filter string.
@@ -3259,7 +3336,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -3270,7 +3347,14 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();

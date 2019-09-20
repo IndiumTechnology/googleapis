@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudfunctions.v1;
 
@@ -98,17 +98,17 @@ class OperationsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [filter] - Required. A filter for matching the requested
-  /// operations.<br><br> The supported formats of <b>filter</b> are:<br> To
-  /// query for specific function:
-  /// <code>project:*,location:*,function:*</code><br> To query for all of the
-  /// latest operations for a project: <code>project:*,latest:true</code>
-  ///
   /// [name] - Must not be set.
   ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
+  ///
+  /// [filter] - Required. A filter for matching the requested
+  /// operations.<br><br> The supported formats of <b>filter</b> are:<br> To
+  /// query for specific function:
+  /// <code>project:*,location:*,function:*</code><br> To query for all of the
+  /// latest operations for a project: <code>project:*,latest:true</code>
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -121,10 +121,10 @@ class OperationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListOperationsResponse> list(
-      {core.String filter,
-      core.String name,
+      {core.String name,
       core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -133,9 +133,6 @@ class OperationsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (name != null) {
       _queryParams["name"] = [name];
     }
@@ -144,6 +141,9 @@ class OperationsResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -186,11 +186,11 @@ class ProjectsLocationsResourceApi {
   /// [name] - The resource that owns the locations collection, if applicable.
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [filter] - The standard list filter.
+  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
-  ///
-  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -203,9 +203,9 @@ class ProjectsLocationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListLocationsResponse> list(core.String name,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -217,14 +217,14 @@ class ProjectsLocationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -602,6 +602,13 @@ class ProjectsLocationsFunctionsResourceApi {
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/functions/[^/]+$".
   ///
+  /// [options_requestedPolicyVersion] - Optional. The policy format version to
+  /// be returned.
+  /// Acceptable values are 0, 1, and 3.
+  /// If the value is 0, or the field is omitted, policy format version 1 will
+  /// be
+  /// returned.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -613,7 +620,7 @@ class ProjectsLocationsFunctionsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Policy> getIamPolicy(core.String resource,
-      {core.String $fields}) {
+      {core.int options_requestedPolicyVersion, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -623,6 +630,11 @@ class ProjectsLocationsFunctionsResourceApi {
 
     if (resource == null) {
       throw new core.ArgumentError("Parameter resource is required.");
+    }
+    if (options_requestedPolicyVersion != null) {
+      _queryParams["options.requestedPolicyVersion"] = [
+        "${options_requestedPolicyVersion}"
+      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -896,7 +908,7 @@ class ProjectsLocationsFunctionsResourceApi {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -908,7 +920,7 @@ class ProjectsLocationsFunctionsResourceApi {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -916,7 +928,7 @@ class ProjectsLocationsFunctionsResourceApi {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -924,9 +936,9 @@ class ProjectsLocationsFunctionsResourceApi {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig> auditLogConfigs;
@@ -971,7 +983,7 @@ class AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -981,7 +993,7 @@ class AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -1039,7 +1051,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -1155,7 +1167,6 @@ class CallFunctionResponse {
 
 /// Describes a Cloud Function that contains user computation executed in
 /// response to an event. It encapsulate function and triggers configurations.
-/// LINT.IfChange
 class CloudFunction {
   /// The amount of memory in MB available for a function.
   /// Defaults to 256MB.
@@ -1207,21 +1218,17 @@ class CloudFunction {
   ///
   /// See [the VPC documentation](https://cloud.google.com/compute/docs/vpc) for
   /// more information on connecting Cloud projects.
-  ///
-  /// This feature is currently in alpha, available only for whitelisted users.
   core.String network;
 
-  /// Required. The runtime in which the function is going to run. Choices:
-  ///
-  /// * `nodejs6`: Node.js 6
-  /// * `nodejs8`: Node.js 8
-  /// * `nodejs10`: Node.js 10
-  /// * `python37`: Python 3.7
-  /// * `go111`: Go 1.11
+  /// The runtime in which to run the function. Required when deploying a new
+  /// function, optional when updating an existing function. For a complete
+  /// list of possible choices, see the
+  /// [`gcloud` command
+  /// reference](/sdk/gcloud/reference/functions/deploy#--runtime).
   core.String runtime;
 
   /// The email of the function's service account. If empty, defaults to
-  /// {project_id}@appspot.gserviceaccount.com.
+  /// `{project_id}@appspot.gserviceaccount.com`.
   core.String serviceAccountEmail;
 
   /// The Google Cloud Storage URL, starting with gs://, pointing to the zip
@@ -1257,8 +1264,8 @@ class CloudFunction {
   /// Output only. The last update timestamp of a Cloud Function.
   core.String updateTime;
 
-  /// Output only.
-  /// The version identifier of the Cloud Function. Each deployment attempt
+  /// Output only. The version identifier of the Cloud Function. Each deployment
+  /// attempt
   /// results in a new version of a function being created.
   core.String versionId;
 
@@ -1272,8 +1279,6 @@ class CloudFunction {
   ///
   /// See [the VPC documentation](https://cloud.google.com/compute/docs/vpc) for
   /// more information on connecting Cloud projects.
-  ///
-  /// This feature is currently in alpha, available only for whitelisted users.
   core.String vpcConnector;
 
   CloudFunction();
@@ -2151,7 +2156,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);

@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.dialogflow.v2;
 
@@ -42,6 +42,8 @@ class ProjectsResourceApi {
 
   ProjectsAgentResourceApi get agent_1 =>
       new ProjectsAgentResourceApi(_requester);
+  ProjectsLocationsResourceApi get locations =>
+      new ProjectsLocationsResourceApi(_requester);
   ProjectsOperationsResourceApi get operations =>
       new ProjectsOperationsResourceApi(_requester);
 
@@ -819,13 +821,6 @@ class ProjectsAgentEntityTypesResourceApi {
   /// Format: `projects/<Project ID>/agent`.
   /// Value must have pattern "^projects/[^/]+/agent$".
   ///
-  /// [pageToken] - Optional. The next_page_token value returned from a previous
-  /// list request.
-  ///
-  /// [pageSize] - Optional. The maximum number of items to return in a single
-  /// page. By
-  /// default 100 and at most 1000.
-  ///
   /// [languageCode] - Optional. The language to list entity synonyms for. If
   /// not specified,
   /// the agent's default language is used.
@@ -834,6 +829,13 @@ class ProjectsAgentEntityTypesResourceApi {
   /// are supported. Note: languages must be enabled in the agent before they
   /// can
   /// be used.
+  ///
+  /// [pageToken] - Optional. The next_page_token value returned from a previous
+  /// list request.
+  ///
+  /// [pageSize] - Optional. The maximum number of items to return in a single
+  /// page. By
+  /// default 100 and at most 1000.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -847,9 +849,9 @@ class ProjectsAgentEntityTypesResourceApi {
   /// this method will complete with the same error.
   async.Future<GoogleCloudDialogflowV2ListEntityTypesResponse> list(
       core.String parent,
-      {core.String pageToken,
+      {core.String languageCode,
+      core.String pageToken,
       core.int pageSize,
-      core.String languageCode,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -861,14 +863,14 @@ class ProjectsAgentEntityTypesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (languageCode != null) {
-      _queryParams["languageCode"] = [languageCode];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1460,6 +1462,15 @@ class ProjectsAgentIntentsResourceApi {
   /// Format: `projects/<Project ID>/agent`.
   /// Value must have pattern "^projects/[^/]+/agent$".
   ///
+  /// [languageCode] - Optional. The language to list training phrases,
+  /// parameters and rich
+  /// messages for. If not specified, the agent's default language is used.
+  /// [Many
+  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
+  /// are supported. Note: languages must be enabled in the agent before they
+  /// can
+  /// be used.
+  ///
   /// [pageToken] - Optional. The next_page_token value returned from a previous
   /// list request.
   ///
@@ -1473,15 +1484,6 @@ class ProjectsAgentIntentsResourceApi {
   /// - "INTENT_VIEW_UNSPECIFIED" : A INTENT_VIEW_UNSPECIFIED.
   /// - "INTENT_VIEW_FULL" : A INTENT_VIEW_FULL.
   ///
-  /// [languageCode] - Optional. The language to list training phrases,
-  /// parameters and rich
-  /// messages for. If not specified, the agent's default language is used.
-  /// [Many
-  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
-  /// are supported. Note: languages must be enabled in the agent before they
-  /// can
-  /// be used.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1494,10 +1496,10 @@ class ProjectsAgentIntentsResourceApi {
   /// this method will complete with the same error.
   async.Future<GoogleCloudDialogflowV2ListIntentsResponse> list(
       core.String parent,
-      {core.String pageToken,
+      {core.String languageCode,
+      core.String pageToken,
       core.int pageSize,
       core.String intentView,
-      core.String languageCode,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1509,6 +1511,9 @@ class ProjectsAgentIntentsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
@@ -1517,9 +1522,6 @@ class ProjectsAgentIntentsResourceApi {
     }
     if (intentView != null) {
       _queryParams["intentView"] = [intentView];
-    }
-    if (languageCode != null) {
-      _queryParams["languageCode"] = [languageCode];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1550,12 +1552,6 @@ class ProjectsAgentIntentsResourceApi {
   /// Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
   /// Value must have pattern "^projects/[^/]+/agent/intents/[^/]+$".
   ///
-  /// [intentView] - Optional. The resource view to apply to the returned
-  /// intent.
-  /// Possible string values are:
-  /// - "INTENT_VIEW_UNSPECIFIED" : A INTENT_VIEW_UNSPECIFIED.
-  /// - "INTENT_VIEW_FULL" : A INTENT_VIEW_FULL.
-  ///
   /// [languageCode] - Optional. The language of training phrases, parameters
   /// and rich messages
   /// defined in `intent`. If not specified, the agent's default language is
@@ -1566,6 +1562,12 @@ class ProjectsAgentIntentsResourceApi {
   /// be used.
   ///
   /// [updateMask] - Optional. The mask to control which fields get updated.
+  ///
+  /// [intentView] - Optional. The resource view to apply to the returned
+  /// intent.
+  /// Possible string values are:
+  /// - "INTENT_VIEW_UNSPECIFIED" : A INTENT_VIEW_UNSPECIFIED.
+  /// - "INTENT_VIEW_FULL" : A INTENT_VIEW_FULL.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1579,9 +1581,9 @@ class ProjectsAgentIntentsResourceApi {
   /// this method will complete with the same error.
   async.Future<GoogleCloudDialogflowV2Intent> patch(
       GoogleCloudDialogflowV2Intent request, core.String name,
-      {core.String intentView,
-      core.String languageCode,
+      {core.String languageCode,
       core.String updateMask,
+      core.String intentView,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1596,14 +1598,14 @@ class ProjectsAgentIntentsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (intentView != null) {
-      _queryParams["intentView"] = [intentView];
-    }
     if (languageCode != null) {
       _queryParams["languageCode"] = [languageCode];
     }
     if (updateMask != null) {
       _queryParams["updateMask"] = [updateMask];
+    }
+    if (intentView != null) {
+      _queryParams["intentView"] = [intentView];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2033,6 +2035,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
   /// If the specified session entity type already exists, overrides the session
   /// entity type.
   ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
@@ -2087,6 +2093,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
 
   /// Deletes the specified session entity type.
   ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
   /// Request parameters:
   ///
   /// [name] - Required. The name of the entity type to delete. Format:
@@ -2134,6 +2144,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
   }
 
   /// Retrieves the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
   ///
   /// Request parameters:
   ///
@@ -2183,6 +2197,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
   }
 
   /// Returns the list of all session entity types in the specified session.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
   ///
   /// Request parameters:
   ///
@@ -2249,6 +2267,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
 
   /// Updates the specified session entity type.
   ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
@@ -2313,11 +2335,257 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
   }
 }
 
+class ProjectsLocationsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsOperationsResourceApi get operations =>
+      new ProjectsLocationsOperationsResourceApi(_requester);
+
+  ProjectsLocationsResourceApi(commons.ApiRequester client)
+      : _requester = client;
+}
+
+class ProjectsLocationsOperationsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsOperationsResourceApi(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Starts asynchronous cancellation on a long-running operation.  The server
+  /// makes a best effort to cancel the operation, but success is not
+  /// guaranteed.  If the server doesn't support this method, it returns
+  /// `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+  /// Operations.GetOperation or
+  /// other methods to check whether the cancellation succeeded or whether the
+  /// operation completed despite cancellation. On successful cancellation,
+  /// the operation is not deleted; instead, it becomes an operation with
+  /// an Operation.error value with a google.rpc.Status.code of 1,
+  /// corresponding to `Code.CANCELLED`.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation resource to be cancelled.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/operations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> cancel(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2/' + commons.Escaper.ecapeVariableReserved('$name') + ':cancel';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Gets the latest state of a long-running operation.  Clients can use this
+  /// method to poll the operation result at intervals as recommended by the API
+  /// service.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation resource.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/operations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> get(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Lists operations that match the specified filter in the request. If the
+  /// server doesn't support this method, it returns `UNIMPLEMENTED`.
+  ///
+  /// NOTE: the `name` binding allows API services to override the binding
+  /// to use different resource name schemes, such as `users / * /operations`.
+  /// To
+  /// override the binding, API services can add a binding such as
+  /// `"/v1/{name=users / * }/operations"` to their service configuration.
+  /// For backwards compatibility, the default name includes the operations
+  /// collection id, however overriding users must ensure the name binding
+  /// is the parent resource, without the operations collection id.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation's parent resource.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [pageToken] - The standard list page token.
+  ///
+  /// [pageSize] - The standard list page size.
+  ///
+  /// [filter] - The standard list filter.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningListOperationsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningListOperationsResponse> list(core.String name,
+      {core.String pageToken,
+      core.int pageSize,
+      core.String filter,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url =
+        'v2/' + commons.Escaper.ecapeVariableReserved('$name') + '/operations';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then(
+        (data) => new GoogleLongrunningListOperationsResponse.fromJson(data));
+  }
+}
+
 class ProjectsOperationsResourceApi {
   final commons.ApiRequester _requester;
 
   ProjectsOperationsResourceApi(commons.ApiRequester client)
       : _requester = client;
+
+  /// Starts asynchronous cancellation on a long-running operation.  The server
+  /// makes a best effort to cancel the operation, but success is not
+  /// guaranteed.  If the server doesn't support this method, it returns
+  /// `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+  /// Operations.GetOperation or
+  /// other methods to check whether the cancellation succeeded or whether the
+  /// operation completed despite cancellation. On successful cancellation,
+  /// the operation is not deleted; instead, it becomes an operation with
+  /// an Operation.error value with a google.rpc.Status.code of 1,
+  /// corresponding to `Code.CANCELLED`.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation resource to be cancelled.
+  /// Value must have pattern "^projects/[^/]+/operations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> cancel(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2/' + commons.Escaper.ecapeVariableReserved('$name') + ':cancel';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
 
   /// Gets the latest state of a long-running operation.  Clients can use this
   /// method to poll the operation result at intervals as recommended by the API
@@ -2364,6 +2632,80 @@ class ProjectsOperationsResourceApi {
         downloadOptions: _downloadOptions);
     return _response
         .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Lists operations that match the specified filter in the request. If the
+  /// server doesn't support this method, it returns `UNIMPLEMENTED`.
+  ///
+  /// NOTE: the `name` binding allows API services to override the binding
+  /// to use different resource name schemes, such as `users / * /operations`.
+  /// To
+  /// override the binding, API services can add a binding such as
+  /// `"/v1/{name=users / * }/operations"` to their service configuration.
+  /// For backwards compatibility, the default name includes the operations
+  /// collection id, however overriding users must ensure the name binding
+  /// is the parent resource, without the operations collection id.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation's parent resource.
+  /// Value must have pattern "^projects/[^/]+$".
+  ///
+  /// [pageToken] - The standard list page token.
+  ///
+  /// [pageSize] - The standard list page size.
+  ///
+  /// [filter] - The standard list filter.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningListOperationsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningListOperationsResponse> list(core.String name,
+      {core.String pageToken,
+      core.int pageSize,
+      core.String filter,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url =
+        'v2/' + commons.Escaper.ecapeVariableReserved('$name') + '/operations';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then(
+        (data) => new GoogleLongrunningListOperationsResponse.fromJson(data));
   }
 }
 
@@ -3128,6 +3470,9 @@ class GoogleCloudDialogflowV2EntityType {
   /// Required. The name of the entity type.
   core.String displayName;
 
+  /// Optional. Enables fuzzy entity extraction during classification.
+  core.bool enableFuzzyExtraction;
+
   /// Optional. The collection of entity entries associated with the entity
   /// type.
   core.List<GoogleCloudDialogflowV2EntityTypeEntity> entities;
@@ -3142,6 +3487,9 @@ class GoogleCloudDialogflowV2EntityType {
   /// to canonical
   /// values. However, list entity types can contain references to other entity
   /// types (with or without aliases).
+  /// - "KIND_REGEXP" : Regexp entity types allow to specify regular expressions
+  /// in entries
+  /// values.
   core.String kind;
 
   /// The unique identifier of the entity type.
@@ -3158,6 +3506,9 @@ class GoogleCloudDialogflowV2EntityType {
     }
     if (_json.containsKey("displayName")) {
       displayName = _json["displayName"];
+    }
+    if (_json.containsKey("enableFuzzyExtraction")) {
+      enableFuzzyExtraction = _json["enableFuzzyExtraction"];
     }
     if (_json.containsKey("entities")) {
       entities = (_json["entities"] as core.List)
@@ -3181,6 +3532,9 @@ class GoogleCloudDialogflowV2EntityType {
     }
     if (displayName != null) {
       _json["displayName"] = displayName;
+    }
+    if (enableFuzzyExtraction != null) {
+      _json["enableFuzzyExtraction"] = enableFuzzyExtraction;
     }
     if (entities != null) {
       _json["entities"] = entities.map((value) => (value).toJson()).toList();
@@ -5483,11 +5837,16 @@ class GoogleCloudDialogflowV2QueryResult {
 
   /// The intent that matched the conversational query. Some, not
   /// all fields are filled in this message, including but not limited to:
-  /// `name`, `display_name` and `webhook_state`.
+  /// `name`, `display_name`, `end_interaction` and `is_fallback`.
   GoogleCloudDialogflowV2Intent intent;
 
   /// The intent detection confidence. Values range from 0.0
   /// (completely uncertain) to 1.0 (completely certain).
+  /// This value is for informational purpose only and is only used to
+  /// help match the best intent within the classification threshold.
+  /// This value may change for the same end-user expression at any time due to
+  /// a
+  /// model retraining or change in implementation.
   /// If there are `multiple knowledge_answers` messages, this value is set to
   /// the greatest `knowledgeAnswers.match_confidence` value in the list.
   core.double intentDetectionConfidence;
@@ -6262,6 +6621,121 @@ class GoogleCloudDialogflowV2WebhookResponse {
   }
 }
 
+/// Represents an annotated conversation dataset.
+/// ConversationDataset can have multiple AnnotatedConversationDataset, each of
+/// them represents one result from one annotation task.
+/// AnnotatedConversationDataset can only be generated from annotation task,
+/// which will be triggered by LabelConversation.
+class GoogleCloudDialogflowV2beta1AnnotatedConversationDataset {
+  /// Output only. Number of examples that have annotations in the annotated
+  /// conversation dataset.
+  core.String completedExampleCount;
+
+  /// Output only. Creation time of this annotated conversation dataset.
+  core.String createTime;
+
+  /// Optional. The description of the annotated conversation dataset.
+  /// Maximum of 10000 bytes.
+  core.String description;
+
+  /// Required. The display name of the annotated conversation dataset.
+  /// It's specified when user starts an annotation task. Maximum of 64 bytes.
+  core.String displayName;
+
+  /// Output only. Number of examples in the annotated conversation dataset.
+  core.String exampleCount;
+
+  /// Output only. AnnotatedConversationDataset resource name. Format:
+  /// `projects/<Project ID>/conversationDatasets/<Conversation Dataset
+  /// ID>/annotatedConversationDatasets/<Annotated Conversation Dataset ID>`
+  core.String name;
+
+  /// Output only. Question type name that identifies a labeling task.
+  /// A question is a single task that a worker answers. A question type is set
+  /// of related questions. Each question belongs to a particular question type.
+  /// It can be used in CrowdCompute UI to filter and manage labeling tasks.
+  core.String questionTypeName;
+
+  GoogleCloudDialogflowV2beta1AnnotatedConversationDataset();
+
+  GoogleCloudDialogflowV2beta1AnnotatedConversationDataset.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("completedExampleCount")) {
+      completedExampleCount = _json["completedExampleCount"];
+    }
+    if (_json.containsKey("createTime")) {
+      createTime = _json["createTime"];
+    }
+    if (_json.containsKey("description")) {
+      description = _json["description"];
+    }
+    if (_json.containsKey("displayName")) {
+      displayName = _json["displayName"];
+    }
+    if (_json.containsKey("exampleCount")) {
+      exampleCount = _json["exampleCount"];
+    }
+    if (_json.containsKey("name")) {
+      name = _json["name"];
+    }
+    if (_json.containsKey("questionTypeName")) {
+      questionTypeName = _json["questionTypeName"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (completedExampleCount != null) {
+      _json["completedExampleCount"] = completedExampleCount;
+    }
+    if (createTime != null) {
+      _json["createTime"] = createTime;
+    }
+    if (description != null) {
+      _json["description"] = description;
+    }
+    if (displayName != null) {
+      _json["displayName"] = displayName;
+    }
+    if (exampleCount != null) {
+      _json["exampleCount"] = exampleCount;
+    }
+    if (name != null) {
+      _json["name"] = name;
+    }
+    if (questionTypeName != null) {
+      _json["questionTypeName"] = questionTypeName;
+    }
+    return _json;
+  }
+}
+
+/// Metadata for article suggestion models.
+class GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata {
+  /// Optional. Type of the article suggestion model. The available values are:
+  /// *   `article-suggestion-gbt-1` - (default) Article Suggestion Gbt model.
+  core.String modelType;
+
+  GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata();
+
+  GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("modelType")) {
+      modelType = _json["modelType"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (modelType != null) {
+      _json["modelType"] = modelType;
+    }
+    return _json;
+  }
+}
+
 /// The response message for EntityTypes.BatchUpdateEntityTypes.
 class GoogleCloudDialogflowV2beta1BatchUpdateEntityTypesResponse {
   /// The collection of updated or created entity types.
@@ -6377,6 +6851,105 @@ class GoogleCloudDialogflowV2beta1Context {
   }
 }
 
+/// Represents a conversation model.
+class GoogleCloudDialogflowV2beta1ConversationModel {
+  /// Metadata for article suggestion models.
+  GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata
+      articleSuggestionModelMetadata;
+
+  /// Output only. Creation time of this model.
+  core.String createTime;
+
+  /// Required. Datasets used to create model.
+  core.List<GoogleCloudDialogflowV2beta1InputDataset> datasets;
+
+  /// Required. The display name of the model. At most 64 bytes long.
+  core.String displayName;
+
+  /// Output only. ConversationModel resource name. Format:
+  /// `projects/<Project ID>/conversationModels/<Conversation Model ID>`
+  core.String name;
+
+  /// Metadata for smart reply models.
+  GoogleCloudDialogflowV2beta1SmartReplyModelMetadata smartReplyModelMetadata;
+
+  /// Output only. State of the model. A model can only serve prediction
+  /// requests
+  /// after it gets deployed.
+  /// Possible string values are:
+  /// - "STATE_UNSPECIFIED" : Should not be used, an un-set enum has this value
+  /// by default.
+  /// - "CREATING" : Model is creating.
+  /// - "UNDEPLOYED" : Model is not deployed but ready to deploy.
+  /// - "DEPLOYING" : Model is deploying.
+  /// - "DEPLOYED" : Model is deployed and ready to use.
+  /// - "UNDEPLOYING" : Model is undeploying.
+  /// - "DELETING" : Model is deleting.
+  /// - "FAILED" : Model is in error state. Not ready to deploy and use.
+  core.String state;
+
+  GoogleCloudDialogflowV2beta1ConversationModel();
+
+  GoogleCloudDialogflowV2beta1ConversationModel.fromJson(core.Map _json) {
+    if (_json.containsKey("articleSuggestionModelMetadata")) {
+      articleSuggestionModelMetadata =
+          new GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata
+              .fromJson(_json["articleSuggestionModelMetadata"]);
+    }
+    if (_json.containsKey("createTime")) {
+      createTime = _json["createTime"];
+    }
+    if (_json.containsKey("datasets")) {
+      datasets = (_json["datasets"] as core.List)
+          .map<GoogleCloudDialogflowV2beta1InputDataset>((value) =>
+              new GoogleCloudDialogflowV2beta1InputDataset.fromJson(value))
+          .toList();
+    }
+    if (_json.containsKey("displayName")) {
+      displayName = _json["displayName"];
+    }
+    if (_json.containsKey("name")) {
+      name = _json["name"];
+    }
+    if (_json.containsKey("smartReplyModelMetadata")) {
+      smartReplyModelMetadata =
+          new GoogleCloudDialogflowV2beta1SmartReplyModelMetadata.fromJson(
+              _json["smartReplyModelMetadata"]);
+    }
+    if (_json.containsKey("state")) {
+      state = _json["state"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (articleSuggestionModelMetadata != null) {
+      _json["articleSuggestionModelMetadata"] =
+          (articleSuggestionModelMetadata).toJson();
+    }
+    if (createTime != null) {
+      _json["createTime"] = createTime;
+    }
+    if (datasets != null) {
+      _json["datasets"] = datasets.map((value) => (value).toJson()).toList();
+    }
+    if (displayName != null) {
+      _json["displayName"] = displayName;
+    }
+    if (name != null) {
+      _json["name"] = name;
+    }
+    if (smartReplyModelMetadata != null) {
+      _json["smartReplyModelMetadata"] = (smartReplyModelMetadata).toJson();
+    }
+    if (state != null) {
+      _json["state"] = state;
+    }
+    return _json;
+  }
+}
+
 /// Represents an entity type.
 /// Entity types serve as a tool for extracting parameter values from natural
 /// language queries.
@@ -6394,6 +6967,9 @@ class GoogleCloudDialogflowV2beta1EntityType {
   /// Required. The name of the entity type.
   core.String displayName;
 
+  /// Optional. Enables fuzzy entity extraction during classification.
+  core.bool enableFuzzyExtraction;
+
   /// Optional. The collection of entity entries associated with the entity
   /// type.
   core.List<GoogleCloudDialogflowV2beta1EntityTypeEntity> entities;
@@ -6408,6 +6984,9 @@ class GoogleCloudDialogflowV2beta1EntityType {
   /// to canonical
   /// values. However, list entity types can contain references to other entity
   /// types (with or without aliases).
+  /// - "KIND_REGEXP" : Regexp entity types allow to specify regular expressions
+  /// in entries
+  /// values.
   core.String kind;
 
   /// The unique identifier of the entity type.
@@ -6424,6 +7003,9 @@ class GoogleCloudDialogflowV2beta1EntityType {
     }
     if (_json.containsKey("displayName")) {
       displayName = _json["displayName"];
+    }
+    if (_json.containsKey("enableFuzzyExtraction")) {
+      enableFuzzyExtraction = _json["enableFuzzyExtraction"];
     }
     if (_json.containsKey("entities")) {
       entities = (_json["entities"] as core.List)
@@ -6447,6 +7029,9 @@ class GoogleCloudDialogflowV2beta1EntityType {
     }
     if (displayName != null) {
       _json["displayName"] = displayName;
+    }
+    if (enableFuzzyExtraction != null) {
+      _json["enableFuzzyExtraction"] = enableFuzzyExtraction;
     }
     if (entities != null) {
       _json["entities"] = entities.map((value) => (value).toJson()).toList();
@@ -6611,6 +7196,33 @@ class GoogleCloudDialogflowV2beta1ExportAgentResponse {
     }
     if (agentUri != null) {
       _json["agentUri"] = agentUri;
+    }
+    return _json;
+  }
+}
+
+/// InputDataset used to create model or do evaluation.
+class GoogleCloudDialogflowV2beta1InputDataset {
+  /// Required. ConversationDataset resource name. Format:
+  /// `projects/<Project ID>/conversationDatasets/<Conversation Dataset ID>`
+  /// or
+  /// `projects/<Project ID>/conversationDatasets/<Conversation Dataset
+  /// ID>/annotatedConversationDatasets/<Annotated Conversation Dataset ID>`
+  core.String dataset;
+
+  GoogleCloudDialogflowV2beta1InputDataset();
+
+  GoogleCloudDialogflowV2beta1InputDataset.fromJson(core.Map _json) {
+    if (_json.containsKey("dataset")) {
+      dataset = _json["dataset"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (dataset != null) {
+      _json["dataset"] = dataset;
     }
     return _json;
   }
@@ -8881,6 +9493,35 @@ class GoogleCloudDialogflowV2beta1KnowledgeOperationMetadata {
   }
 }
 
+/// The response for
+/// ConversationDatasets.LabelConversation
+class GoogleCloudDialogflowV2beta1LabelConversationResponse {
+  /// New annotated conversation dataset created by the labeling task.
+  GoogleCloudDialogflowV2beta1AnnotatedConversationDataset
+      annotatedConversationDataset;
+
+  GoogleCloudDialogflowV2beta1LabelConversationResponse();
+
+  GoogleCloudDialogflowV2beta1LabelConversationResponse.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("annotatedConversationDataset")) {
+      annotatedConversationDataset =
+          new GoogleCloudDialogflowV2beta1AnnotatedConversationDataset.fromJson(
+              _json["annotatedConversationDataset"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (annotatedConversationDataset != null) {
+      _json["annotatedConversationDataset"] =
+          (annotatedConversationDataset).toJson();
+    }
+    return _json;
+  }
+}
+
 /// Represents the contents of the original request that was passed to
 /// the `[Streaming]DetectIntent` call.
 class GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest {
@@ -8973,11 +9614,16 @@ class GoogleCloudDialogflowV2beta1QueryResult {
 
   /// The intent that matched the conversational query. Some, not
   /// all fields are filled in this message, including but not limited to:
-  /// `name`, `display_name` and `webhook_state`.
+  /// `name`, `display_name`, `end_interaction` and `is_fallback`.
   GoogleCloudDialogflowV2beta1Intent intent;
 
   /// The intent detection confidence. Values range from 0.0
   /// (completely uncertain) to 1.0 (completely certain).
+  /// This value is for informational purpose only and is only used to
+  /// help match the best intent within the classification threshold.
+  /// This value may change for the same end-user expression at any time due to
+  /// a
+  /// model retraining or change in implementation.
   /// If there are `multiple knowledge_answers` messages, this value is set to
   /// the greatest `knowledgeAnswers.match_confidence` value in the list.
   core.double intentDetectionConfidence;
@@ -9226,6 +9872,31 @@ class GoogleCloudDialogflowV2beta1SentimentAnalysisResult {
   }
 }
 
+/// Metadata for smart reply models.
+class GoogleCloudDialogflowV2beta1SmartReplyModelMetadata {
+  /// Optional. Type of the article suggestion model. The available values are:
+  /// *  `smart-reply-dual-encoder-model-1` - (default) Smart Reply Dual Encoder
+  /// model.
+  core.String modelType;
+
+  GoogleCloudDialogflowV2beta1SmartReplyModelMetadata();
+
+  GoogleCloudDialogflowV2beta1SmartReplyModelMetadata.fromJson(core.Map _json) {
+    if (_json.containsKey("modelType")) {
+      modelType = _json["modelType"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (modelType != null) {
+      _json["modelType"] = modelType;
+    }
+    return _json;
+  }
+}
+
 /// The request message for a webhook call.
 class GoogleCloudDialogflowV2beta1WebhookRequest {
   /// Alternative query results from KnowledgeService.
@@ -9419,6 +10090,42 @@ class GoogleCloudDialogflowV2beta1WebhookResponse {
     }
     if (source != null) {
       _json["source"] = source;
+    }
+    return _json;
+  }
+}
+
+/// The response message for Operations.ListOperations.
+class GoogleLongrunningListOperationsResponse {
+  /// The standard List next-page token.
+  core.String nextPageToken;
+
+  /// A list of operations that matches the specified filter in the request.
+  core.List<GoogleLongrunningOperation> operations;
+
+  GoogleLongrunningListOperationsResponse();
+
+  GoogleLongrunningListOperationsResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("nextPageToken")) {
+      nextPageToken = _json["nextPageToken"];
+    }
+    if (_json.containsKey("operations")) {
+      operations = (_json["operations"] as core.List)
+          .map<GoogleLongrunningOperation>(
+              (value) => new GoogleLongrunningOperation.fromJson(value))
+          .toList();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (nextPageToken != null) {
+      _json["nextPageToken"] = nextPageToken;
+    }
+    if (operations != null) {
+      _json["operations"] =
+          operations.map((value) => (value).toJson()).toList();
     }
     return _json;
   }

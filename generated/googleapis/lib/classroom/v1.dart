@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.classroom.v1;
 
@@ -307,14 +307,6 @@ class CoursesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [pageToken] - nextPageToken
-  /// value returned from a previous
-  /// list call,
-  /// indicating that the subsequent page of results should be returned.
-  ///
-  /// The list request must be
-  /// otherwise identical to the one that resulted in this token.
-  ///
   /// [pageSize] - Maximum number of items to return. Zero or unspecified
   /// indicates that the
   /// server may assign a maximum.
@@ -341,6 +333,14 @@ class CoursesResourceApi {
   /// * the email address of the user
   /// * the string literal `"me"`, indicating the requesting user
   ///
+  /// [pageToken] - nextPageToken
+  /// value returned from a previous
+  /// list call,
+  /// indicating that the subsequent page of results should be returned.
+  ///
+  /// The list request must be
+  /// otherwise identical to the one that resulted in this token.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -352,11 +352,11 @@ class CoursesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListCoursesResponse> list(
-      {core.String pageToken,
-      core.int pageSize,
+      {core.int pageSize,
       core.String teacherId,
       core.List<core.String> courseStates,
       core.String studentId,
+      core.String pageToken,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -365,9 +365,6 @@ class CoursesResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
     }
@@ -379,6 +376,9 @@ class CoursesResourceApi {
     }
     if (studentId != null) {
       _queryParams["studentId"] = [studentId];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -961,6 +961,10 @@ class CoursesAnnouncementsResourceApi {
   /// This identifier can be either the Classroom-assigned identifier or an
   /// alias.
   ///
+  /// [announcementStates] - Restriction on the `state` of announcements
+  /// returned.
+  /// If this argument is left unspecified, the default value is `PUBLISHED`.
+  ///
   /// [orderBy] - Optional sort ordering for results. A comma-separated list of
   /// fields with
   /// an optional sort direction keyword. Supported field is `updateTime`.
@@ -982,10 +986,6 @@ class CoursesAnnouncementsResourceApi {
   ///
   /// The server may return fewer than the specified number of results.
   ///
-  /// [announcementStates] - Restriction on the `state` of announcements
-  /// returned.
-  /// If this argument is left unspecified, the default value is `PUBLISHED`.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -997,10 +997,10 @@ class CoursesAnnouncementsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListAnnouncementsResponse> list(core.String courseId,
-      {core.String orderBy,
+      {core.List<core.String> announcementStates,
+      core.String orderBy,
       core.String pageToken,
       core.int pageSize,
-      core.List<core.String> announcementStates,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1012,6 +1012,9 @@ class CoursesAnnouncementsResourceApi {
     if (courseId == null) {
       throw new core.ArgumentError("Parameter courseId is required.");
     }
+    if (announcementStates != null) {
+      _queryParams["announcementStates"] = announcementStates;
+    }
     if (orderBy != null) {
       _queryParams["orderBy"] = [orderBy];
     }
@@ -1020,9 +1023,6 @@ class CoursesAnnouncementsResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (announcementStates != null) {
-      _queryParams["announcementStates"] = announcementStates;
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1428,11 +1428,6 @@ class CoursesCourseWorkResourceApi {
   /// This identifier can be either the Classroom-assigned identifier or an
   /// alias.
   ///
-  /// [courseWorkStates] - Restriction on the work status to return. Only
-  /// courseWork that matches
-  /// is returned. If unspecified, items with a work status of `PUBLISHED`
-  /// is returned.
-  ///
   /// [orderBy] - Optional sort ordering for results. A comma-separated list of
   /// fields with
   /// an optional sort direction keyword. Supported fields are `updateTime`
@@ -1454,6 +1449,11 @@ class CoursesCourseWorkResourceApi {
   ///
   /// The server may return fewer than the specified number of results.
   ///
+  /// [courseWorkStates] - Restriction on the work status to return. Only
+  /// courseWork that matches
+  /// is returned. If unspecified, items with a work status of `PUBLISHED`
+  /// is returned.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1465,10 +1465,10 @@ class CoursesCourseWorkResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListCourseWorkResponse> list(core.String courseId,
-      {core.List<core.String> courseWorkStates,
-      core.String orderBy,
+      {core.String orderBy,
       core.String pageToken,
       core.int pageSize,
+      core.List<core.String> courseWorkStates,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1480,9 +1480,6 @@ class CoursesCourseWorkResourceApi {
     if (courseId == null) {
       throw new core.ArgumentError("Parameter courseId is required.");
     }
-    if (courseWorkStates != null) {
-      _queryParams["courseWorkStates"] = courseWorkStates;
-    }
     if (orderBy != null) {
       _queryParams["orderBy"] = [orderBy];
     }
@@ -1491,6 +1488,9 @@ class CoursesCourseWorkResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (courseWorkStates != null) {
+      _queryParams["courseWorkStates"] = courseWorkStates;
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1787,6 +1787,15 @@ class CoursesCourseWorkStudentSubmissionsResourceApi {
   /// This may be set to the string literal `"-"` to request student work for
   /// all course work in the specified course.
   ///
+  /// [userId] - Optional argument to restrict returned student work to those
+  /// owned by the
+  /// student with the specified identifier. The identifier can be one of the
+  /// following:
+  ///
+  /// * the numeric identifier for the user
+  /// * the email address of the user
+  /// * the string literal `"me"`, indicating the requesting user
+  ///
   /// [late] - Requested lateness value. If specified, returned student
   /// submissions are
   /// restricted by the requested value.
@@ -1814,15 +1823,6 @@ class CoursesCourseWorkStudentSubmissionsResourceApi {
   /// submissions
   /// match one of the specified submission states.
   ///
-  /// [userId] - Optional argument to restrict returned student work to those
-  /// owned by the
-  /// student with the specified identifier. The identifier can be one of the
-  /// following:
-  ///
-  /// * the numeric identifier for the user
-  /// * the email address of the user
-  /// * the string literal `"me"`, indicating the requesting user
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1835,11 +1835,11 @@ class CoursesCourseWorkStudentSubmissionsResourceApi {
   /// this method will complete with the same error.
   async.Future<ListStudentSubmissionsResponse> list(
       core.String courseId, core.String courseWorkId,
-      {core.String late,
+      {core.String userId,
+      core.String late,
       core.String pageToken,
       core.int pageSize,
       core.List<core.String> states,
-      core.String userId,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1854,6 +1854,9 @@ class CoursesCourseWorkStudentSubmissionsResourceApi {
     if (courseWorkId == null) {
       throw new core.ArgumentError("Parameter courseWorkId is required.");
     }
+    if (userId != null) {
+      _queryParams["userId"] = [userId];
+    }
     if (late != null) {
       _queryParams["late"] = [late];
     }
@@ -1865,9 +1868,6 @@ class CoursesCourseWorkStudentSubmissionsResourceApi {
     }
     if (states != null) {
       _queryParams["states"] = states;
-    }
-    if (userId != null) {
-      _queryParams["userId"] = [userId];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -3462,6 +3462,10 @@ class InvitationsResourceApi {
   ///
   /// Request parameters:
   ///
+  /// [pageSize] - Maximum number of items to return. Zero means no maximum.
+  ///
+  /// The server may return fewer than the specified number of results.
+  ///
   /// [courseId] - Restricts returned invitations to those for a course with the
   /// specified
   /// identifier.
@@ -3482,10 +3486,6 @@ class InvitationsResourceApi {
   /// The list request must be
   /// otherwise identical to the one that resulted in this token.
   ///
-  /// [pageSize] - Maximum number of items to return. Zero means no maximum.
-  ///
-  /// The server may return fewer than the specified number of results.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -3497,10 +3497,10 @@ class InvitationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListInvitationsResponse> list(
-      {core.String courseId,
+      {core.int pageSize,
+      core.String courseId,
       core.String userId,
       core.String pageToken,
-      core.int pageSize,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -3509,6 +3509,9 @@ class InvitationsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
     if (courseId != null) {
       _queryParams["courseId"] = [courseId];
     }
@@ -3517,9 +3520,6 @@ class InvitationsResourceApi {
     }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
-    }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];

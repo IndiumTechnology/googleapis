@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.games.v1;
 
@@ -6852,9 +6852,6 @@ class ProfileSettings {
   /// Uniquely identifies the type of this resource. Value is always the fixed
   /// string games#profileSettings.
   core.String kind;
-
-  /// The player's current profile visibility. This field is visible to both 1P
-  /// and 3P APIs.
   core.bool profileVisible;
 
   ProfileSettings();

@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.dialogflow.v2beta1;
 
@@ -44,6 +44,8 @@ class ProjectsResourceApi {
       new ProjectsAgentResourceApi(_requester);
   ProjectsKnowledgeBasesResourceApi get knowledgeBases =>
       new ProjectsKnowledgeBasesResourceApi(_requester);
+  ProjectsLocationsResourceApi get locations =>
+      new ProjectsLocationsResourceApi(_requester);
   ProjectsOperationsResourceApi get operations =>
       new ProjectsOperationsResourceApi(_requester);
 
@@ -838,13 +840,6 @@ class ProjectsAgentEntityTypesResourceApi {
   /// Format: `projects/<Project ID>/agent`.
   /// Value must have pattern "^projects/[^/]+/agent$".
   ///
-  /// [pageToken] - Optional. The next_page_token value returned from a previous
-  /// list request.
-  ///
-  /// [pageSize] - Optional. The maximum number of items to return in a single
-  /// page. By
-  /// default 100 and at most 1000.
-  ///
   /// [languageCode] - Optional. The language to list entity synonyms for. If
   /// not specified,
   /// the agent's default language is used.
@@ -853,6 +848,13 @@ class ProjectsAgentEntityTypesResourceApi {
   /// are supported. Note: languages must be enabled in the agent before they
   /// can
   /// be used.
+  ///
+  /// [pageToken] - Optional. The next_page_token value returned from a previous
+  /// list request.
+  ///
+  /// [pageSize] - Optional. The maximum number of items to return in a single
+  /// page. By
+  /// default 100 and at most 1000.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -866,9 +868,9 @@ class ProjectsAgentEntityTypesResourceApi {
   /// this method will complete with the same error.
   async.Future<GoogleCloudDialogflowV2beta1ListEntityTypesResponse> list(
       core.String parent,
-      {core.String pageToken,
+      {core.String languageCode,
+      core.String pageToken,
       core.int pageSize,
-      core.String languageCode,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -880,14 +882,14 @@ class ProjectsAgentEntityTypesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (languageCode != null) {
-      _queryParams["languageCode"] = [languageCode];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1635,6 +1637,10 @@ class ProjectsAgentEnvironmentsUsersSessionsEntityTypesResourceApi {
   /// If the specified session entity type already exists, overrides the
   /// session entity type.
   ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
@@ -1695,6 +1701,10 @@ class ProjectsAgentEnvironmentsUsersSessionsEntityTypesResourceApi {
 
   /// Deletes the specified session entity type.
   ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
   /// Request parameters:
   ///
   /// [name] - Required. The name of the entity type to delete. Format:
@@ -1745,6 +1755,10 @@ class ProjectsAgentEnvironmentsUsersSessionsEntityTypesResourceApi {
   }
 
   /// Retrieves the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
   ///
   /// Request parameters:
   ///
@@ -1798,6 +1812,10 @@ class ProjectsAgentEnvironmentsUsersSessionsEntityTypesResourceApi {
   }
 
   /// Returns the list of all session entity types in the specified session.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
   ///
   /// Request parameters:
   ///
@@ -1870,6 +1888,10 @@ class ProjectsAgentEnvironmentsUsersSessionsEntityTypesResourceApi {
   }
 
   /// Updates the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
   ///
   /// [request] - The metadata request object.
   ///
@@ -2258,13 +2280,6 @@ class ProjectsAgentIntentsResourceApi {
   /// Format: `projects/<Project ID>/agent`.
   /// Value must have pattern "^projects/[^/]+/agent$".
   ///
-  /// [pageToken] - Optional. The next_page_token value returned from a previous
-  /// list request.
-  ///
-  /// [pageSize] - Optional. The maximum number of items to return in a single
-  /// page. By
-  /// default 100 and at most 1000.
-  ///
   /// [intentView] - Optional. The resource view to apply to the returned
   /// intent.
   /// Possible string values are:
@@ -2280,6 +2295,13 @@ class ProjectsAgentIntentsResourceApi {
   /// can
   /// be used.
   ///
+  /// [pageToken] - Optional. The next_page_token value returned from a previous
+  /// list request.
+  ///
+  /// [pageSize] - Optional. The maximum number of items to return in a single
+  /// page. By
+  /// default 100 and at most 1000.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -2292,10 +2314,10 @@ class ProjectsAgentIntentsResourceApi {
   /// this method will complete with the same error.
   async.Future<GoogleCloudDialogflowV2beta1ListIntentsResponse> list(
       core.String parent,
-      {core.String pageToken,
-      core.int pageSize,
-      core.String intentView,
+      {core.String intentView,
       core.String languageCode,
+      core.String pageToken,
+      core.int pageSize,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -2307,17 +2329,17 @@ class ProjectsAgentIntentsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
-    }
     if (intentView != null) {
       _queryParams["intentView"] = [intentView];
     }
     if (languageCode != null) {
       _queryParams["languageCode"] = [languageCode];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2349,6 +2371,12 @@ class ProjectsAgentIntentsResourceApi {
   /// Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
   /// Value must have pattern "^projects/[^/]+/agent/intents/[^/]+$".
   ///
+  /// [intentView] - Optional. The resource view to apply to the returned
+  /// intent.
+  /// Possible string values are:
+  /// - "INTENT_VIEW_UNSPECIFIED" : A INTENT_VIEW_UNSPECIFIED.
+  /// - "INTENT_VIEW_FULL" : A INTENT_VIEW_FULL.
+  ///
   /// [languageCode] - Optional. The language of training phrases, parameters
   /// and rich messages
   /// defined in `intent`. If not specified, the agent's default language is
@@ -2359,12 +2387,6 @@ class ProjectsAgentIntentsResourceApi {
   /// be used.
   ///
   /// [updateMask] - Optional. The mask to control which fields get updated.
-  ///
-  /// [intentView] - Optional. The resource view to apply to the returned
-  /// intent.
-  /// Possible string values are:
-  /// - "INTENT_VIEW_UNSPECIFIED" : A INTENT_VIEW_UNSPECIFIED.
-  /// - "INTENT_VIEW_FULL" : A INTENT_VIEW_FULL.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2378,9 +2400,9 @@ class ProjectsAgentIntentsResourceApi {
   /// this method will complete with the same error.
   async.Future<GoogleCloudDialogflowV2beta1Intent> patch(
       GoogleCloudDialogflowV2beta1Intent request, core.String name,
-      {core.String languageCode,
+      {core.String intentView,
+      core.String languageCode,
       core.String updateMask,
-      core.String intentView,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -2395,14 +2417,14 @@ class ProjectsAgentIntentsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (intentView != null) {
+      _queryParams["intentView"] = [intentView];
+    }
     if (languageCode != null) {
       _queryParams["languageCode"] = [languageCode];
     }
     if (updateMask != null) {
       _queryParams["updateMask"] = [updateMask];
-    }
-    if (intentView != null) {
-      _queryParams["intentView"] = [intentView];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -3546,6 +3568,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
   /// If the specified session entity type already exists, overrides the
   /// session entity type.
   ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
@@ -3605,6 +3631,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
 
   /// Deletes the specified session entity type.
   ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
   /// Request parameters:
   ///
   /// [name] - Required. The name of the entity type to delete. Format:
@@ -3655,6 +3685,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
   }
 
   /// Retrieves the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
   ///
   /// Request parameters:
   ///
@@ -3708,6 +3742,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
   }
 
   /// Returns the list of all session entity types in the specified session.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
   ///
   /// Request parameters:
   ///
@@ -3779,6 +3817,10 @@ class ProjectsAgentSessionsEntityTypesResourceApi {
   }
 
   /// Updates the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
   ///
   /// [request] - The metadata request object.
   ///
@@ -4528,11 +4570,3370 @@ class ProjectsKnowledgeBasesDocumentsResourceApi {
   }
 }
 
+class ProjectsLocationsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentResourceApi get agent_1 =>
+      new ProjectsLocationsAgentResourceApi(_requester);
+  ProjectsLocationsOperationsResourceApi get operations =>
+      new ProjectsLocationsOperationsResourceApi(_requester);
+
+  ProjectsLocationsResourceApi(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Creates/updates the specified agent.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The project of this agent.
+  /// Format: `projects/<Project ID>`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [updateMask] - Optional. The mask to control which fields get updated.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Agent].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Agent> agent(
+      GoogleCloudDialogflowV2beta1Agent request, core.String parent,
+      {core.String updateMask, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/agent';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Agent.fromJson(data));
+  }
+
+  /// Deletes the specified agent.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The project that the agent to delete is associated
+  /// with.
+  /// Format: `projects/<Project ID>`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> deleteAgent(core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/agent';
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Retrieves the specified agent.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The project that the agent to fetch is associated
+  /// with.
+  /// Format: `projects/<Project ID>`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Agent].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Agent> getAgent(core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/agent';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Agent.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentEntityTypesResourceApi get entityTypes =>
+      new ProjectsLocationsAgentEntityTypesResourceApi(_requester);
+  ProjectsLocationsAgentEnvironmentsResourceApi get environments =>
+      new ProjectsLocationsAgentEnvironmentsResourceApi(_requester);
+  ProjectsLocationsAgentIntentsResourceApi get intents =>
+      new ProjectsLocationsAgentIntentsResourceApi(_requester);
+  ProjectsLocationsAgentSessionsResourceApi get sessions =>
+      new ProjectsLocationsAgentSessionsResourceApi(_requester);
+
+  ProjectsLocationsAgentResourceApi(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Exports the specified agent to a ZIP file.
+  ///
+  ///
+  /// Operation <response: ExportAgentResponse>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The project that the agent to export is associated
+  /// with.
+  /// Format: `projects/<Project ID>`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> export(
+      GoogleCloudDialogflowV2beta1ExportAgentRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/agent:export';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Imports the specified agent from a ZIP file.
+  ///
+  /// Uploads new intents and entity types without deleting the existing ones.
+  /// Intents and entity types with the same name are replaced with the new
+  /// versions from ImportAgentRequest.
+  ///
+  ///
+  /// Operation <response: google.protobuf.Empty>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The project that the agent to import is associated
+  /// with.
+  /// Format: `projects/<Project ID>`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> import(
+      GoogleCloudDialogflowV2beta1ImportAgentRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/agent:import';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Restores the specified agent from a ZIP file.
+  ///
+  /// Replaces the current agent version with a new one. All the intents and
+  /// entity types in the older version are deleted.
+  ///
+  ///
+  /// Operation <response: google.protobuf.Empty>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The project that the agent to restore is associated
+  /// with.
+  /// Format: `projects/<Project ID>`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> restore(
+      GoogleCloudDialogflowV2beta1RestoreAgentRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/agent:restore';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Trains the specified agent.
+  ///
+  ///
+  /// Operation <response: google.protobuf.Empty>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The project that the agent to train is associated
+  /// with.
+  /// Format: `projects/<Project ID>`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> train(
+      GoogleCloudDialogflowV2beta1TrainAgentRequest request, core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/agent:train';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentEntityTypesResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentEntityTypesEntitiesResourceApi get entities =>
+      new ProjectsLocationsAgentEntityTypesEntitiesResourceApi(_requester);
+
+  ProjectsLocationsAgentEntityTypesResourceApi(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Deletes entity types in the specified agent.
+  ///
+  /// Operation <response: google.protobuf.Empty>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the agent to delete all entities types
+  /// for. Format:
+  /// `projects/<Project ID>/agent`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+/agent$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> batchDelete(
+      GoogleCloudDialogflowV2beta1BatchDeleteEntityTypesRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entityTypes:batchDelete';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Updates/Creates multiple entity types in the specified agent.
+  ///
+  /// Operation <response: BatchUpdateEntityTypesResponse>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the agent to update or create entity
+  /// types in.
+  /// Format: `projects/<Project ID>/agent`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+/agent$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> batchUpdate(
+      GoogleCloudDialogflowV2beta1BatchUpdateEntityTypesRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entityTypes:batchUpdate';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Creates an entity type in the specified agent.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The agent to create a entity type for.
+  /// Format: `projects/<Project ID>/agent`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+/agent$".
+  ///
+  /// [languageCode] - Optional. The language of entity synonyms defined in
+  /// `entity_type`. If not
+  /// specified, the agent's default language is used.
+  /// [Many
+  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
+  /// are supported. Note: languages must be enabled in the agent before they
+  /// can
+  /// be used.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1EntityType].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1EntityType> create(
+      GoogleCloudDialogflowV2beta1EntityType request, core.String parent,
+      {core.String languageCode, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entityTypes';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then(
+        (data) => new GoogleCloudDialogflowV2beta1EntityType.fromJson(data));
+  }
+
+  /// Deletes the specified entity type.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the entity type to delete.
+  /// Format: `projects/<Project ID>/agent/entityTypes/<EntityType ID>`.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/entityTypes/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> delete(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Retrieves the specified entity type.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the entity type.
+  /// Format: `projects/<Project ID>/agent/entityTypes/<EntityType ID>`.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/entityTypes/[^/]+$".
+  ///
+  /// [languageCode] - Optional. The language to retrieve entity synonyms for.
+  /// If not specified,
+  /// the agent's default language is used.
+  /// [Many
+  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
+  /// are supported. Note: languages must be enabled in the agent before they
+  /// can
+  /// be used.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1EntityType].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1EntityType> get(core.String name,
+      {core.String languageCode, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then(
+        (data) => new GoogleCloudDialogflowV2beta1EntityType.fromJson(data));
+  }
+
+  /// Returns the list of all entity types in the specified agent.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The agent to list all entity types from.
+  /// Format: `projects/<Project ID>/agent`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+/agent$".
+  ///
+  /// [languageCode] - Optional. The language to list entity synonyms for. If
+  /// not specified,
+  /// the agent's default language is used.
+  /// [Many
+  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
+  /// are supported. Note: languages must be enabled in the agent before they
+  /// can
+  /// be used.
+  ///
+  /// [pageToken] - Optional. The next_page_token value returned from a previous
+  /// list request.
+  ///
+  /// [pageSize] - Optional. The maximum number of items to return in a single
+  /// page. By
+  /// default 100 and at most 1000.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1ListEntityTypesResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1ListEntityTypesResponse> list(
+      core.String parent,
+      {core.String languageCode,
+      core.String pageToken,
+      core.int pageSize,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entityTypes';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1ListEntityTypesResponse.fromJson(data));
+  }
+
+  /// Updates the specified entity type.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The unique identifier of the entity type.
+  /// Required for EntityTypes.UpdateEntityType and
+  /// EntityTypes.BatchUpdateEntityTypes methods.
+  /// Format: `projects/<Project ID>/agent/entityTypes/<Entity Type ID>`.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/entityTypes/[^/]+$".
+  ///
+  /// [languageCode] - Optional. The language of entity synonyms defined in
+  /// `entity_type`. If not
+  /// specified, the agent's default language is used.
+  /// [Many
+  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
+  /// are supported. Note: languages must be enabled in the agent before they
+  /// can
+  /// be used.
+  ///
+  /// [updateMask] - Optional. The mask to control which fields get updated.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1EntityType].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1EntityType> patch(
+      GoogleCloudDialogflowV2beta1EntityType request, core.String name,
+      {core.String languageCode, core.String updateMask, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "PATCH",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then(
+        (data) => new GoogleCloudDialogflowV2beta1EntityType.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentEntityTypesEntitiesResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentEntityTypesEntitiesResourceApi(
+      commons.ApiRequester client)
+      : _requester = client;
+
+  /// Creates multiple new entities in the specified entity type.
+  ///
+  /// Operation <response: google.protobuf.Empty>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the entity type to create entities in.
+  /// Format:
+  /// `projects/<Project ID>/agent/entityTypes/<Entity Type ID>`.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/entityTypes/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> batchCreate(
+      GoogleCloudDialogflowV2beta1BatchCreateEntitiesRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entities:batchCreate';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Deletes entities in the specified entity type.
+  ///
+  /// Operation <response: google.protobuf.Empty>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the entity type to delete entries for.
+  /// Format:
+  /// `projects/<Project ID>/agent/entityTypes/<Entity Type ID>`.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/entityTypes/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> batchDelete(
+      GoogleCloudDialogflowV2beta1BatchDeleteEntitiesRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entities:batchDelete';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Updates or creates multiple entities in the specified entity type. This
+  /// method does not affect entities in the entity type that aren't explicitly
+  /// specified in the request.
+  ///
+  /// Operation <response: google.protobuf.Empty>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the entity type to update or create
+  /// entities in.
+  /// Format: `projects/<Project ID>/agent/entityTypes/<Entity Type ID>`.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/entityTypes/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> batchUpdate(
+      GoogleCloudDialogflowV2beta1BatchUpdateEntitiesRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entities:batchUpdate';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentEnvironmentsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentEnvironmentsUsersResourceApi get users =>
+      new ProjectsLocationsAgentEnvironmentsUsersResourceApi(_requester);
+
+  ProjectsLocationsAgentEnvironmentsResourceApi(commons.ApiRequester client)
+      : _requester = client;
+}
+
+class ProjectsLocationsAgentEnvironmentsUsersResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentEnvironmentsUsersSessionsResourceApi get sessions =>
+      new ProjectsLocationsAgentEnvironmentsUsersSessionsResourceApi(
+          _requester);
+
+  ProjectsLocationsAgentEnvironmentsUsersResourceApi(
+      commons.ApiRequester client)
+      : _requester = client;
+}
+
+class ProjectsLocationsAgentEnvironmentsUsersSessionsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentEnvironmentsUsersSessionsContextsResourceApi
+      get contexts =>
+          new ProjectsLocationsAgentEnvironmentsUsersSessionsContextsResourceApi(
+              _requester);
+  ProjectsLocationsAgentEnvironmentsUsersSessionsEntityTypesResourceApi
+      get entityTypes =>
+          new ProjectsLocationsAgentEnvironmentsUsersSessionsEntityTypesResourceApi(
+              _requester);
+
+  ProjectsLocationsAgentEnvironmentsUsersSessionsResourceApi(
+      commons.ApiRequester client)
+      : _requester = client;
+
+  /// Deletes all active contexts in the specified session.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the session to delete all contexts from.
+  /// Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>` or `projects/<Project
+  /// ID>/agent/environments/<Environment ID>/users/<User ID>/sessions/<Session
+  /// ID>`. If `Environment ID` is not specified we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> deleteContexts(core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/contexts';
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Processes a natural language query and returns structured, actionable data
+  /// as a result. This method is not idempotent, because it may cause contexts
+  /// and session entity types to be updated, which in turn might affect
+  /// results of future queries.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [session] - Required. The name of the session this query is sent to.
+  /// Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>`, or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>`. If `Environment ID` is not specified, we
+  /// assume
+  /// default 'draft' environment. If `User ID` is not specified, we are using
+  /// "-". It's up to the API caller to choose an appropriate `Session ID` and
+  /// `User Id`. They can be a random number or some type of user and session
+  /// identifiers (preferably hashed). The length of the `Session ID` and
+  /// `User ID` must not exceed 36 characters.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1DetectIntentResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1DetectIntentResponse> detectIntent(
+      GoogleCloudDialogflowV2beta1DetectIntentRequest request,
+      core.String session,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (session == null) {
+      throw new core.ArgumentError("Parameter session is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$session') +
+        ':detectIntent';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1DetectIntentResponse.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentEnvironmentsUsersSessionsContextsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentEnvironmentsUsersSessionsContextsResourceApi(
+      commons.ApiRequester client)
+      : _requester = client;
+
+  /// Creates a context.
+  ///
+  /// If the specified context already exists, overrides the context.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The session to create a context for.
+  /// Format: `projects/<Project ID>/agent/sessions/<Session ID>` or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>`. If `Environment ID` is not specified, we
+  /// assume
+  /// default 'draft' environment. If `User ID` is not specified, we assume
+  /// default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Context].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Context> create(
+      GoogleCloudDialogflowV2beta1Context request, core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/contexts';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Context.fromJson(data));
+  }
+
+  /// Deletes the specified context.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the context to delete. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/contexts/<Context ID>`
+  /// or `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>/contexts/<Context ID>`. If `Environment ID` is
+  /// not specified, we assume default 'draft' environment. If `User ID` is not
+  /// specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+/contexts/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> delete(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Retrieves the specified context.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the context. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/contexts/<Context ID>`
+  /// or `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>/contexts/<Context ID>`. If `Environment ID` is
+  /// not specified, we assume default 'draft' environment. If `User ID` is not
+  /// specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+/contexts/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Context].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Context> get(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Context.fromJson(data));
+  }
+
+  /// Returns the list of all contexts in the specified session.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The session to list all contexts from.
+  /// Format: `projects/<Project ID>/agent/sessions/<Session ID>` or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>`. If `Environment ID` is not specified, we
+  /// assume
+  /// default 'draft' environment. If `User ID` is not specified, we assume
+  /// default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+$".
+  ///
+  /// [pageToken] - Optional. The next_page_token value returned from a previous
+  /// list request.
+  ///
+  /// [pageSize] - Optional. The maximum number of items to return in a single
+  /// page. By
+  /// default 100 and at most 1000.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1ListContextsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1ListContextsResponse> list(
+      core.String parent,
+      {core.String pageToken,
+      core.int pageSize,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/contexts';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1ListContextsResponse.fromJson(data));
+  }
+
+  /// Updates the specified context.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The unique identifier of the context. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/contexts/<Context ID>`,
+  /// or `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>/contexts/<Context ID>`.
+  ///
+  /// The `Context ID` is always converted to lowercase, may only contain
+  /// characters in a-zA-Z0-9_-% and may be at most 250 bytes long.
+  ///
+  /// If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+/contexts/[^/]+$".
+  ///
+  /// [updateMask] - Optional. The mask to control which fields get updated.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Context].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Context> patch(
+      GoogleCloudDialogflowV2beta1Context request, core.String name,
+      {core.String updateMask, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "PATCH",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Context.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentEnvironmentsUsersSessionsEntityTypesResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentEnvironmentsUsersSessionsEntityTypesResourceApi(
+      commons.ApiRequester client)
+      : _requester = client;
+
+  /// Creates a session entity type.
+  ///
+  /// If the specified session entity type already exists, overrides the
+  /// session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The session to create a session entity type for.
+  /// Format: `projects/<Project ID>/agent/sessions/<Session ID>` or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/
+  /// sessions/<Session ID>`. If `Environment ID` is not specified, we assume
+  /// default 'draft' environment. If `User ID` is not specified, we assume
+  /// default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1SessionEntityType].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1SessionEntityType> create(
+      GoogleCloudDialogflowV2beta1SessionEntityType request, core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entityTypes';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1SessionEntityType.fromJson(data));
+  }
+
+  /// Deletes the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the entity type to delete. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/entityTypes/<Entity
+  /// Type
+  /// Display Name>` or `projects/<Project ID>/agent/environments/<Environment
+  /// ID>/users/<User ID>/sessions/<Session ID>/entityTypes/<Entity Type Display
+  /// Name>`. If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+/entityTypes/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> delete(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Retrieves the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the session entity type. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/entityTypes/<Entity
+  /// Type
+  /// Display Name>` or `projects/<Project ID>/agent/environments/<Environment
+  /// ID>/users/<User ID>/sessions/<Session ID>/entityTypes/<Entity Type Display
+  /// Name>`. If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+/entityTypes/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1SessionEntityType].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1SessionEntityType> get(
+      core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1SessionEntityType.fromJson(data));
+  }
+
+  /// Returns the list of all session entity types in the specified session.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The session to list all session entity types from.
+  /// Format: `projects/<Project ID>/agent/sessions/<Session ID>` or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/
+  /// sessions/<Session ID>`.
+  /// If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+$".
+  ///
+  /// [pageToken] - Optional. The next_page_token value returned from a previous
+  /// list request.
+  ///
+  /// [pageSize] - Optional. The maximum number of items to return in a single
+  /// page. By
+  /// default 100 and at most 1000.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a
+  /// [GoogleCloudDialogflowV2beta1ListSessionEntityTypesResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1ListSessionEntityTypesResponse> list(
+      core.String parent,
+      {core.String pageToken,
+      core.int pageSize,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entityTypes';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1ListSessionEntityTypesResponse.fromJson(
+            data));
+  }
+
+  /// Updates the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The unique identifier of this session entity type.
+  /// Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/entityTypes/<Entity
+  /// Type
+  /// Display Name>`, or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>/entityTypes/<Entity Type Display Name>`.
+  /// If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  ///
+  /// `<Entity Type Display Name>` must be the display name of an existing
+  /// entity
+  /// type in the same agent that will be overridden or supplemented.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/environments/[^/]+/users/[^/]+/sessions/[^/]+/entityTypes/[^/]+$".
+  ///
+  /// [updateMask] - Optional. The mask to control which fields get updated.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1SessionEntityType].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1SessionEntityType> patch(
+      GoogleCloudDialogflowV2beta1SessionEntityType request, core.String name,
+      {core.String updateMask, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "PATCH",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1SessionEntityType.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentIntentsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentIntentsResourceApi(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Deletes intents in the specified agent.
+  ///
+  /// Operation <response: google.protobuf.Empty>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the agent to delete all entities types
+  /// for. Format:
+  /// `projects/<Project ID>/agent`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+/agent$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> batchDelete(
+      GoogleCloudDialogflowV2beta1BatchDeleteIntentsRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/intents:batchDelete';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Updates/Creates multiple intents in the specified agent.
+  ///
+  /// Operation <response: BatchUpdateIntentsResponse>
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the agent to update or create intents in.
+  /// Format: `projects/<Project ID>/agent`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+/agent$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> batchUpdate(
+      GoogleCloudDialogflowV2beta1BatchUpdateIntentsRequest request,
+      core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/intents:batchUpdate';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Creates an intent in the specified agent.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The agent to create a intent for.
+  /// Format: `projects/<Project ID>/agent`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+/agent$".
+  ///
+  /// [intentView] - Optional. The resource view to apply to the returned
+  /// intent.
+  /// Possible string values are:
+  /// - "INTENT_VIEW_UNSPECIFIED" : A INTENT_VIEW_UNSPECIFIED.
+  /// - "INTENT_VIEW_FULL" : A INTENT_VIEW_FULL.
+  ///
+  /// [languageCode] - Optional. The language of training phrases, parameters
+  /// and rich messages
+  /// defined in `intent`. If not specified, the agent's default language is
+  /// used. [Many
+  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
+  /// are supported. Note: languages must be enabled in the agent before they
+  /// can
+  /// be used.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Intent].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Intent> create(
+      GoogleCloudDialogflowV2beta1Intent request, core.String parent,
+      {core.String intentView, core.String languageCode, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (intentView != null) {
+      _queryParams["intentView"] = [intentView];
+    }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/intents';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Intent.fromJson(data));
+  }
+
+  /// Deletes the specified intent and its direct or indirect followup intents.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the intent to delete. If this intent has
+  /// direct or
+  /// indirect followup intents, we also delete them.
+  ///
+  /// Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/intents/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> delete(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Retrieves the specified intent.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the intent.
+  /// Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/intents/[^/]+$".
+  ///
+  /// [intentView] - Optional. The resource view to apply to the returned
+  /// intent.
+  /// Possible string values are:
+  /// - "INTENT_VIEW_UNSPECIFIED" : A INTENT_VIEW_UNSPECIFIED.
+  /// - "INTENT_VIEW_FULL" : A INTENT_VIEW_FULL.
+  ///
+  /// [languageCode] - Optional. The language to retrieve training phrases,
+  /// parameters and rich
+  /// messages for. If not specified, the agent's default language is used.
+  /// [Many
+  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
+  /// are supported. Note: languages must be enabled in the agent before they
+  /// can
+  /// be used.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Intent].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Intent> get(core.String name,
+      {core.String intentView, core.String languageCode, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (intentView != null) {
+      _queryParams["intentView"] = [intentView];
+    }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Intent.fromJson(data));
+  }
+
+  /// Returns the list of all intents in the specified agent.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The agent to list all intents from.
+  /// Format: `projects/<Project ID>/agent`.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+/agent$".
+  ///
+  /// [pageToken] - Optional. The next_page_token value returned from a previous
+  /// list request.
+  ///
+  /// [pageSize] - Optional. The maximum number of items to return in a single
+  /// page. By
+  /// default 100 and at most 1000.
+  ///
+  /// [intentView] - Optional. The resource view to apply to the returned
+  /// intent.
+  /// Possible string values are:
+  /// - "INTENT_VIEW_UNSPECIFIED" : A INTENT_VIEW_UNSPECIFIED.
+  /// - "INTENT_VIEW_FULL" : A INTENT_VIEW_FULL.
+  ///
+  /// [languageCode] - Optional. The language to list training phrases,
+  /// parameters and rich
+  /// messages for. If not specified, the agent's default language is used.
+  /// [Many
+  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
+  /// are supported. Note: languages must be enabled in the agent before they
+  /// can
+  /// be used.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1ListIntentsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1ListIntentsResponse> list(
+      core.String parent,
+      {core.String pageToken,
+      core.int pageSize,
+      core.String intentView,
+      core.String languageCode,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (intentView != null) {
+      _queryParams["intentView"] = [intentView];
+    }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/intents';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1ListIntentsResponse.fromJson(data));
+  }
+
+  /// Updates the specified intent.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The unique identifier of this intent.
+  /// Required for Intents.UpdateIntent and Intents.BatchUpdateIntents
+  /// methods.
+  /// Format: `projects/<Project ID>/agent/intents/<Intent ID>`.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/intents/[^/]+$".
+  ///
+  /// [intentView] - Optional. The resource view to apply to the returned
+  /// intent.
+  /// Possible string values are:
+  /// - "INTENT_VIEW_UNSPECIFIED" : A INTENT_VIEW_UNSPECIFIED.
+  /// - "INTENT_VIEW_FULL" : A INTENT_VIEW_FULL.
+  ///
+  /// [languageCode] - Optional. The language of training phrases, parameters
+  /// and rich messages
+  /// defined in `intent`. If not specified, the agent's default language is
+  /// used. [Many
+  /// languages](https://cloud.google.com/dialogflow/docs/reference/language)
+  /// are supported. Note: languages must be enabled in the agent before they
+  /// can
+  /// be used.
+  ///
+  /// [updateMask] - Optional. The mask to control which fields get updated.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Intent].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Intent> patch(
+      GoogleCloudDialogflowV2beta1Intent request, core.String name,
+      {core.String intentView,
+      core.String languageCode,
+      core.String updateMask,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (intentView != null) {
+      _queryParams["intentView"] = [intentView];
+    }
+    if (languageCode != null) {
+      _queryParams["languageCode"] = [languageCode];
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "PATCH",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Intent.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentSessionsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentSessionsContextsResourceApi get contexts =>
+      new ProjectsLocationsAgentSessionsContextsResourceApi(_requester);
+  ProjectsLocationsAgentSessionsEntityTypesResourceApi get entityTypes =>
+      new ProjectsLocationsAgentSessionsEntityTypesResourceApi(_requester);
+
+  ProjectsLocationsAgentSessionsResourceApi(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Deletes all active contexts in the specified session.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the session to delete all contexts from.
+  /// Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>` or `projects/<Project
+  /// ID>/agent/environments/<Environment ID>/users/<User ID>/sessions/<Session
+  /// ID>`. If `Environment ID` is not specified we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> deleteContexts(core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/contexts';
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Processes a natural language query and returns structured, actionable data
+  /// as a result. This method is not idempotent, because it may cause contexts
+  /// and session entity types to be updated, which in turn might affect
+  /// results of future queries.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [session] - Required. The name of the session this query is sent to.
+  /// Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>`, or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>`. If `Environment ID` is not specified, we
+  /// assume
+  /// default 'draft' environment. If `User ID` is not specified, we are using
+  /// "-". It's up to the API caller to choose an appropriate `Session ID` and
+  /// `User Id`. They can be a random number or some type of user and session
+  /// identifiers (preferably hashed). The length of the `Session ID` and
+  /// `User ID` must not exceed 36 characters.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1DetectIntentResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1DetectIntentResponse> detectIntent(
+      GoogleCloudDialogflowV2beta1DetectIntentRequest request,
+      core.String session,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (session == null) {
+      throw new core.ArgumentError("Parameter session is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$session') +
+        ':detectIntent';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1DetectIntentResponse.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentSessionsContextsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentSessionsContextsResourceApi(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Creates a context.
+  ///
+  /// If the specified context already exists, overrides the context.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The session to create a context for.
+  /// Format: `projects/<Project ID>/agent/sessions/<Session ID>` or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>`. If `Environment ID` is not specified, we
+  /// assume
+  /// default 'draft' environment. If `User ID` is not specified, we assume
+  /// default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Context].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Context> create(
+      GoogleCloudDialogflowV2beta1Context request, core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/contexts';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Context.fromJson(data));
+  }
+
+  /// Deletes the specified context.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the context to delete. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/contexts/<Context ID>`
+  /// or `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>/contexts/<Context ID>`. If `Environment ID` is
+  /// not specified, we assume default 'draft' environment. If `User ID` is not
+  /// specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+/contexts/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> delete(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Retrieves the specified context.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the context. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/contexts/<Context ID>`
+  /// or `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>/contexts/<Context ID>`. If `Environment ID` is
+  /// not specified, we assume default 'draft' environment. If `User ID` is not
+  /// specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+/contexts/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Context].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Context> get(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Context.fromJson(data));
+  }
+
+  /// Returns the list of all contexts in the specified session.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The session to list all contexts from.
+  /// Format: `projects/<Project ID>/agent/sessions/<Session ID>` or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>`. If `Environment ID` is not specified, we
+  /// assume
+  /// default 'draft' environment. If `User ID` is not specified, we assume
+  /// default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+$".
+  ///
+  /// [pageToken] - Optional. The next_page_token value returned from a previous
+  /// list request.
+  ///
+  /// [pageSize] - Optional. The maximum number of items to return in a single
+  /// page. By
+  /// default 100 and at most 1000.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1ListContextsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1ListContextsResponse> list(
+      core.String parent,
+      {core.String pageToken,
+      core.int pageSize,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/contexts';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1ListContextsResponse.fromJson(data));
+  }
+
+  /// Updates the specified context.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The unique identifier of the context. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/contexts/<Context ID>`,
+  /// or `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>/contexts/<Context ID>`.
+  ///
+  /// The `Context ID` is always converted to lowercase, may only contain
+  /// characters in a-zA-Z0-9_-% and may be at most 250 bytes long.
+  ///
+  /// If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+/contexts/[^/]+$".
+  ///
+  /// [updateMask] - Optional. The mask to control which fields get updated.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1Context].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1Context> patch(
+      GoogleCloudDialogflowV2beta1Context request, core.String name,
+      {core.String updateMask, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "PATCH",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleCloudDialogflowV2beta1Context.fromJson(data));
+  }
+}
+
+class ProjectsLocationsAgentSessionsEntityTypesResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsAgentSessionsEntityTypesResourceApi(
+      commons.ApiRequester client)
+      : _requester = client;
+
+  /// Creates a session entity type.
+  ///
+  /// If the specified session entity type already exists, overrides the
+  /// session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The session to create a session entity type for.
+  /// Format: `projects/<Project ID>/agent/sessions/<Session ID>` or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/
+  /// sessions/<Session ID>`. If `Environment ID` is not specified, we assume
+  /// default 'draft' environment. If `User ID` is not specified, we assume
+  /// default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1SessionEntityType].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1SessionEntityType> create(
+      GoogleCloudDialogflowV2beta1SessionEntityType request, core.String parent,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entityTypes';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1SessionEntityType.fromJson(data));
+  }
+
+  /// Deletes the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the entity type to delete. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/entityTypes/<Entity
+  /// Type
+  /// Display Name>` or `projects/<Project ID>/agent/environments/<Environment
+  /// ID>/users/<User ID>/sessions/<Session ID>/entityTypes/<Entity Type Display
+  /// Name>`. If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+/entityTypes/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> delete(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Retrieves the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the session entity type. Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/entityTypes/<Entity
+  /// Type
+  /// Display Name>` or `projects/<Project ID>/agent/environments/<Environment
+  /// ID>/users/<User ID>/sessions/<Session ID>/entityTypes/<Entity Type Display
+  /// Name>`. If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+/entityTypes/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1SessionEntityType].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1SessionEntityType> get(
+      core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1SessionEntityType.fromJson(data));
+  }
+
+  /// Returns the list of all session entity types in the specified session.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The session to list all session entity types from.
+  /// Format: `projects/<Project ID>/agent/sessions/<Session ID>` or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/
+  /// sessions/<Session ID>`.
+  /// If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+$".
+  ///
+  /// [pageToken] - Optional. The next_page_token value returned from a previous
+  /// list request.
+  ///
+  /// [pageSize] - Optional. The maximum number of items to return in a single
+  /// page. By
+  /// default 100 and at most 1000.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a
+  /// [GoogleCloudDialogflowV2beta1ListSessionEntityTypesResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1ListSessionEntityTypesResponse> list(
+      core.String parent,
+      {core.String pageToken,
+      core.int pageSize,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/entityTypes';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1ListSessionEntityTypesResponse.fromJson(
+            data));
+  }
+
+  /// Updates the specified session entity type.
+  ///
+  /// This method doesn't work with Google Assistant integration.
+  /// Contact Dialogflow support if you need to use session entities
+  /// with Google Assistant integration.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The unique identifier of this session entity type.
+  /// Format:
+  /// `projects/<Project ID>/agent/sessions/<Session ID>/entityTypes/<Entity
+  /// Type
+  /// Display Name>`, or
+  /// `projects/<Project ID>/agent/environments/<Environment ID>/users/<User
+  /// ID>/sessions/<Session ID>/entityTypes/<Entity Type Display Name>`.
+  /// If `Environment ID` is not specified, we assume default 'draft'
+  /// environment. If `User ID` is not specified, we assume default '-' user.
+  ///
+  /// `<Entity Type Display Name>` must be the display name of an existing
+  /// entity
+  /// type in the same agent that will be overridden or supplemented.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/agent/sessions/[^/]+/entityTypes/[^/]+$".
+  ///
+  /// [updateMask] - Optional. The mask to control which fields get updated.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleCloudDialogflowV2beta1SessionEntityType].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleCloudDialogflowV2beta1SessionEntityType> patch(
+      GoogleCloudDialogflowV2beta1SessionEntityType request, core.String name,
+      {core.String updateMask, core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "PATCH",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GoogleCloudDialogflowV2beta1SessionEntityType.fromJson(data));
+  }
+}
+
+class ProjectsLocationsOperationsResourceApi {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsOperationsResourceApi(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Starts asynchronous cancellation on a long-running operation.  The server
+  /// makes a best effort to cancel the operation, but success is not
+  /// guaranteed.  If the server doesn't support this method, it returns
+  /// `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+  /// Operations.GetOperation or
+  /// other methods to check whether the cancellation succeeded or whether the
+  /// operation completed despite cancellation. On successful cancellation,
+  /// the operation is not deleted; instead, it becomes an operation with
+  /// an Operation.error value with a google.rpc.Status.code of 1,
+  /// corresponding to `Code.CANCELLED`.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation resource to be cancelled.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/operations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> cancel(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url =
+        'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name') + ':cancel';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
+
+  /// Gets the latest state of a long-running operation.  Clients can use this
+  /// method to poll the operation result at intervals as recommended by the API
+  /// service.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation resource.
+  /// Value must have pattern
+  /// "^projects/[^/]+/locations/[^/]+/operations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> get(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name');
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Lists operations that match the specified filter in the request. If the
+  /// server doesn't support this method, it returns `UNIMPLEMENTED`.
+  ///
+  /// NOTE: the `name` binding allows API services to override the binding
+  /// to use different resource name schemes, such as `users / * /operations`.
+  /// To
+  /// override the binding, API services can add a binding such as
+  /// `"/v1/{name=users / * }/operations"` to their service configuration.
+  /// For backwards compatibility, the default name includes the operations
+  /// collection id, however overriding users must ensure the name binding
+  /// is the parent resource, without the operations collection id.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation's parent resource.
+  /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
+  ///
+  /// [filter] - The standard list filter.
+  ///
+  /// [pageToken] - The standard list page token.
+  ///
+  /// [pageSize] - The standard list page size.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningListOperationsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningListOperationsResponse> list(core.String name,
+      {core.String filter,
+      core.String pageToken,
+      core.int pageSize,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$name') +
+        '/operations';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then(
+        (data) => new GoogleLongrunningListOperationsResponse.fromJson(data));
+  }
+}
+
 class ProjectsOperationsResourceApi {
   final commons.ApiRequester _requester;
 
   ProjectsOperationsResourceApi(commons.ApiRequester client)
       : _requester = client;
+
+  /// Starts asynchronous cancellation on a long-running operation.  The server
+  /// makes a best effort to cancel the operation, but success is not
+  /// guaranteed.  If the server doesn't support this method, it returns
+  /// `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+  /// Operations.GetOperation or
+  /// other methods to check whether the cancellation succeeded or whether the
+  /// operation completed despite cancellation. On successful cancellation,
+  /// the operation is not deleted; instead, it becomes an operation with
+  /// an Operation.error value with a google.rpc.Status.code of 1,
+  /// corresponding to `Code.CANCELLED`.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation resource to be cancelled.
+  /// Value must have pattern "^projects/[^/]+/operations/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> cancel(core.String name,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url =
+        'v2beta1/' + commons.Escaper.ecapeVariableReserved('$name') + ':cancel';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => new GoogleProtobufEmpty.fromJson(data));
+  }
 
   /// Gets the latest state of a long-running operation.  Clients can use this
   /// method to poll the operation result at intervals as recommended by the API
@@ -4579,6 +7980,81 @@ class ProjectsOperationsResourceApi {
         downloadOptions: _downloadOptions);
     return _response
         .then((data) => new GoogleLongrunningOperation.fromJson(data));
+  }
+
+  /// Lists operations that match the specified filter in the request. If the
+  /// server doesn't support this method, it returns `UNIMPLEMENTED`.
+  ///
+  /// NOTE: the `name` binding allows API services to override the binding
+  /// to use different resource name schemes, such as `users / * /operations`.
+  /// To
+  /// override the binding, API services can add a binding such as
+  /// `"/v1/{name=users / * }/operations"` to their service configuration.
+  /// For backwards compatibility, the default name includes the operations
+  /// collection id, however overriding users must ensure the name binding
+  /// is the parent resource, without the operations collection id.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the operation's parent resource.
+  /// Value must have pattern "^projects/[^/]+$".
+  ///
+  /// [pageToken] - The standard list page token.
+  ///
+  /// [pageSize] - The standard list page size.
+  ///
+  /// [filter] - The standard list filter.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningListOperationsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningListOperationsResponse> list(core.String name,
+      {core.String pageToken,
+      core.int pageSize,
+      core.String filter,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (name == null) {
+      throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2beta1/' +
+        commons.Escaper.ecapeVariableReserved('$name') +
+        '/operations';
+
+    var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then(
+        (data) => new GoogleLongrunningListOperationsResponse.fromJson(data));
   }
 }
 
@@ -4708,6 +8184,9 @@ class GoogleCloudDialogflowV2EntityType {
   /// Required. The name of the entity type.
   core.String displayName;
 
+  /// Optional. Enables fuzzy entity extraction during classification.
+  core.bool enableFuzzyExtraction;
+
   /// Optional. The collection of entity entries associated with the entity
   /// type.
   core.List<GoogleCloudDialogflowV2EntityTypeEntity> entities;
@@ -4722,6 +8201,9 @@ class GoogleCloudDialogflowV2EntityType {
   /// to canonical
   /// values. However, list entity types can contain references to other entity
   /// types (with or without aliases).
+  /// - "KIND_REGEXP" : Regexp entity types allow to specify regular expressions
+  /// in entries
+  /// values.
   core.String kind;
 
   /// The unique identifier of the entity type.
@@ -4738,6 +8220,9 @@ class GoogleCloudDialogflowV2EntityType {
     }
     if (_json.containsKey("displayName")) {
       displayName = _json["displayName"];
+    }
+    if (_json.containsKey("enableFuzzyExtraction")) {
+      enableFuzzyExtraction = _json["enableFuzzyExtraction"];
     }
     if (_json.containsKey("entities")) {
       entities = (_json["entities"] as core.List)
@@ -4761,6 +8246,9 @@ class GoogleCloudDialogflowV2EntityType {
     }
     if (displayName != null) {
       _json["displayName"] = displayName;
+    }
+    if (enableFuzzyExtraction != null) {
+      _json["enableFuzzyExtraction"] = enableFuzzyExtraction;
     }
     if (entities != null) {
       _json["entities"] = entities.map((value) => (value).toJson()).toList();
@@ -6416,11 +9904,16 @@ class GoogleCloudDialogflowV2QueryResult {
 
   /// The intent that matched the conversational query. Some, not
   /// all fields are filled in this message, including but not limited to:
-  /// `name`, `display_name` and `webhook_state`.
+  /// `name`, `display_name`, `end_interaction` and `is_fallback`.
   GoogleCloudDialogflowV2Intent intent;
 
   /// The intent detection confidence. Values range from 0.0
   /// (completely uncertain) to 1.0 (completely certain).
+  /// This value is for informational purpose only and is only used to
+  /// help match the best intent within the classification threshold.
+  /// This value may change for the same end-user expression at any time due to
+  /// a
+  /// model retraining or change in implementation.
   /// If there are `multiple knowledge_answers` messages, this value is set to
   /// the greatest `knowledgeAnswers.match_confidence` value in the list.
   core.double intentDetectionConfidence;
@@ -6997,6 +10490,121 @@ class GoogleCloudDialogflowV2beta1Agent {
   }
 }
 
+/// Represents an annotated conversation dataset.
+/// ConversationDataset can have multiple AnnotatedConversationDataset, each of
+/// them represents one result from one annotation task.
+/// AnnotatedConversationDataset can only be generated from annotation task,
+/// which will be triggered by LabelConversation.
+class GoogleCloudDialogflowV2beta1AnnotatedConversationDataset {
+  /// Output only. Number of examples that have annotations in the annotated
+  /// conversation dataset.
+  core.String completedExampleCount;
+
+  /// Output only. Creation time of this annotated conversation dataset.
+  core.String createTime;
+
+  /// Optional. The description of the annotated conversation dataset.
+  /// Maximum of 10000 bytes.
+  core.String description;
+
+  /// Required. The display name of the annotated conversation dataset.
+  /// It's specified when user starts an annotation task. Maximum of 64 bytes.
+  core.String displayName;
+
+  /// Output only. Number of examples in the annotated conversation dataset.
+  core.String exampleCount;
+
+  /// Output only. AnnotatedConversationDataset resource name. Format:
+  /// `projects/<Project ID>/conversationDatasets/<Conversation Dataset
+  /// ID>/annotatedConversationDatasets/<Annotated Conversation Dataset ID>`
+  core.String name;
+
+  /// Output only. Question type name that identifies a labeling task.
+  /// A question is a single task that a worker answers. A question type is set
+  /// of related questions. Each question belongs to a particular question type.
+  /// It can be used in CrowdCompute UI to filter and manage labeling tasks.
+  core.String questionTypeName;
+
+  GoogleCloudDialogflowV2beta1AnnotatedConversationDataset();
+
+  GoogleCloudDialogflowV2beta1AnnotatedConversationDataset.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("completedExampleCount")) {
+      completedExampleCount = _json["completedExampleCount"];
+    }
+    if (_json.containsKey("createTime")) {
+      createTime = _json["createTime"];
+    }
+    if (_json.containsKey("description")) {
+      description = _json["description"];
+    }
+    if (_json.containsKey("displayName")) {
+      displayName = _json["displayName"];
+    }
+    if (_json.containsKey("exampleCount")) {
+      exampleCount = _json["exampleCount"];
+    }
+    if (_json.containsKey("name")) {
+      name = _json["name"];
+    }
+    if (_json.containsKey("questionTypeName")) {
+      questionTypeName = _json["questionTypeName"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (completedExampleCount != null) {
+      _json["completedExampleCount"] = completedExampleCount;
+    }
+    if (createTime != null) {
+      _json["createTime"] = createTime;
+    }
+    if (description != null) {
+      _json["description"] = description;
+    }
+    if (displayName != null) {
+      _json["displayName"] = displayName;
+    }
+    if (exampleCount != null) {
+      _json["exampleCount"] = exampleCount;
+    }
+    if (name != null) {
+      _json["name"] = name;
+    }
+    if (questionTypeName != null) {
+      _json["questionTypeName"] = questionTypeName;
+    }
+    return _json;
+  }
+}
+
+/// Metadata for article suggestion models.
+class GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata {
+  /// Optional. Type of the article suggestion model. The available values are:
+  /// *   `article-suggestion-gbt-1` - (default) Article Suggestion Gbt model.
+  core.String modelType;
+
+  GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata();
+
+  GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("modelType")) {
+      modelType = _json["modelType"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (modelType != null) {
+      _json["modelType"] = modelType;
+    }
+    return _json;
+  }
+}
+
 /// The request message for EntityTypes.BatchCreateEntities.
 class GoogleCloudDialogflowV2beta1BatchCreateEntitiesRequest {
   /// Required. The entities to create.
@@ -7436,6 +11044,105 @@ class GoogleCloudDialogflowV2beta1Context {
   }
 }
 
+/// Represents a conversation model.
+class GoogleCloudDialogflowV2beta1ConversationModel {
+  /// Metadata for article suggestion models.
+  GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata
+      articleSuggestionModelMetadata;
+
+  /// Output only. Creation time of this model.
+  core.String createTime;
+
+  /// Required. Datasets used to create model.
+  core.List<GoogleCloudDialogflowV2beta1InputDataset> datasets;
+
+  /// Required. The display name of the model. At most 64 bytes long.
+  core.String displayName;
+
+  /// Output only. ConversationModel resource name. Format:
+  /// `projects/<Project ID>/conversationModels/<Conversation Model ID>`
+  core.String name;
+
+  /// Metadata for smart reply models.
+  GoogleCloudDialogflowV2beta1SmartReplyModelMetadata smartReplyModelMetadata;
+
+  /// Output only. State of the model. A model can only serve prediction
+  /// requests
+  /// after it gets deployed.
+  /// Possible string values are:
+  /// - "STATE_UNSPECIFIED" : Should not be used, an un-set enum has this value
+  /// by default.
+  /// - "CREATING" : Model is creating.
+  /// - "UNDEPLOYED" : Model is not deployed but ready to deploy.
+  /// - "DEPLOYING" : Model is deploying.
+  /// - "DEPLOYED" : Model is deployed and ready to use.
+  /// - "UNDEPLOYING" : Model is undeploying.
+  /// - "DELETING" : Model is deleting.
+  /// - "FAILED" : Model is in error state. Not ready to deploy and use.
+  core.String state;
+
+  GoogleCloudDialogflowV2beta1ConversationModel();
+
+  GoogleCloudDialogflowV2beta1ConversationModel.fromJson(core.Map _json) {
+    if (_json.containsKey("articleSuggestionModelMetadata")) {
+      articleSuggestionModelMetadata =
+          new GoogleCloudDialogflowV2beta1ArticleSuggestionModelMetadata
+              .fromJson(_json["articleSuggestionModelMetadata"]);
+    }
+    if (_json.containsKey("createTime")) {
+      createTime = _json["createTime"];
+    }
+    if (_json.containsKey("datasets")) {
+      datasets = (_json["datasets"] as core.List)
+          .map<GoogleCloudDialogflowV2beta1InputDataset>((value) =>
+              new GoogleCloudDialogflowV2beta1InputDataset.fromJson(value))
+          .toList();
+    }
+    if (_json.containsKey("displayName")) {
+      displayName = _json["displayName"];
+    }
+    if (_json.containsKey("name")) {
+      name = _json["name"];
+    }
+    if (_json.containsKey("smartReplyModelMetadata")) {
+      smartReplyModelMetadata =
+          new GoogleCloudDialogflowV2beta1SmartReplyModelMetadata.fromJson(
+              _json["smartReplyModelMetadata"]);
+    }
+    if (_json.containsKey("state")) {
+      state = _json["state"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (articleSuggestionModelMetadata != null) {
+      _json["articleSuggestionModelMetadata"] =
+          (articleSuggestionModelMetadata).toJson();
+    }
+    if (createTime != null) {
+      _json["createTime"] = createTime;
+    }
+    if (datasets != null) {
+      _json["datasets"] = datasets.map((value) => (value).toJson()).toList();
+    }
+    if (displayName != null) {
+      _json["displayName"] = displayName;
+    }
+    if (name != null) {
+      _json["name"] = name;
+    }
+    if (smartReplyModelMetadata != null) {
+      _json["smartReplyModelMetadata"] = (smartReplyModelMetadata).toJson();
+    }
+    if (state != null) {
+      _json["state"] = state;
+    }
+    return _json;
+  }
+}
+
 /// The request to detect user's intent.
 class GoogleCloudDialogflowV2beta1DetectIntentRequest {
   /// Optional. The natural language speech audio to be processed. This field
@@ -7729,6 +11436,9 @@ class GoogleCloudDialogflowV2beta1EntityType {
   /// Required. The name of the entity type.
   core.String displayName;
 
+  /// Optional. Enables fuzzy entity extraction during classification.
+  core.bool enableFuzzyExtraction;
+
   /// Optional. The collection of entity entries associated with the entity
   /// type.
   core.List<GoogleCloudDialogflowV2beta1EntityTypeEntity> entities;
@@ -7743,6 +11453,9 @@ class GoogleCloudDialogflowV2beta1EntityType {
   /// to canonical
   /// values. However, list entity types can contain references to other entity
   /// types (with or without aliases).
+  /// - "KIND_REGEXP" : Regexp entity types allow to specify regular expressions
+  /// in entries
+  /// values.
   core.String kind;
 
   /// The unique identifier of the entity type.
@@ -7759,6 +11472,9 @@ class GoogleCloudDialogflowV2beta1EntityType {
     }
     if (_json.containsKey("displayName")) {
       displayName = _json["displayName"];
+    }
+    if (_json.containsKey("enableFuzzyExtraction")) {
+      enableFuzzyExtraction = _json["enableFuzzyExtraction"];
     }
     if (_json.containsKey("entities")) {
       entities = (_json["entities"] as core.List)
@@ -7782,6 +11498,9 @@ class GoogleCloudDialogflowV2beta1EntityType {
     }
     if (displayName != null) {
       _json["displayName"] = displayName;
+    }
+    if (enableFuzzyExtraction != null) {
+      _json["enableFuzzyExtraction"] = enableFuzzyExtraction;
     }
     if (entities != null) {
       _json["entities"] = entities.map((value) => (value).toJson()).toList();
@@ -8005,6 +11724,32 @@ class GoogleCloudDialogflowV2beta1ExportAgentResponse {
   }
 }
 
+/// Google Cloud Storage location for single input.
+class GoogleCloudDialogflowV2beta1GcsSource {
+  /// Required. The Google Cloud Storage URIs for the inputs. A URI is of the
+  /// form:
+  ///   gs://bucket/object-prefix-or-name
+  /// Whether a prefix or name is used depends on the use case.
+  core.String uri;
+
+  GoogleCloudDialogflowV2beta1GcsSource();
+
+  GoogleCloudDialogflowV2beta1GcsSource.fromJson(core.Map _json) {
+    if (_json.containsKey("uri")) {
+      uri = _json["uri"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (uri != null) {
+      _json["uri"] = uri;
+    }
+    return _json;
+  }
+}
+
 /// The request message for Agents.ImportAgent.
 class GoogleCloudDialogflowV2beta1ImportAgentRequest {
   /// The agent to import.
@@ -8183,6 +11928,13 @@ class GoogleCloudDialogflowV2beta1InputAudioConfig {
   /// over StreamingDetectIntentRequest.single_utterance.
   core.bool singleUtterance;
 
+  /// Optional. Context information to assist speech recognition.
+  ///
+  /// See [the Cloud Speech
+  /// documentation](https://cloud.google.com/speech-to-text/docs/basics#phrase-hints)
+  /// for more details.
+  core.List<GoogleCloudDialogflowV2beta1SpeechContext> speechContexts;
+
   GoogleCloudDialogflowV2beta1InputAudioConfig();
 
   GoogleCloudDialogflowV2beta1InputAudioConfig.fromJson(core.Map _json) {
@@ -8209,6 +11961,12 @@ class GoogleCloudDialogflowV2beta1InputAudioConfig {
     }
     if (_json.containsKey("singleUtterance")) {
       singleUtterance = _json["singleUtterance"];
+    }
+    if (_json.containsKey("speechContexts")) {
+      speechContexts = (_json["speechContexts"] as core.List)
+          .map<GoogleCloudDialogflowV2beta1SpeechContext>((value) =>
+              new GoogleCloudDialogflowV2beta1SpeechContext.fromJson(value))
+          .toList();
     }
   }
 
@@ -8238,6 +11996,37 @@ class GoogleCloudDialogflowV2beta1InputAudioConfig {
     }
     if (singleUtterance != null) {
       _json["singleUtterance"] = singleUtterance;
+    }
+    if (speechContexts != null) {
+      _json["speechContexts"] =
+          speechContexts.map((value) => (value).toJson()).toList();
+    }
+    return _json;
+  }
+}
+
+/// InputDataset used to create model or do evaluation.
+class GoogleCloudDialogflowV2beta1InputDataset {
+  /// Required. ConversationDataset resource name. Format:
+  /// `projects/<Project ID>/conversationDatasets/<Conversation Dataset ID>`
+  /// or
+  /// `projects/<Project ID>/conversationDatasets/<Conversation Dataset
+  /// ID>/annotatedConversationDatasets/<Annotated Conversation Dataset ID>`
+  core.String dataset;
+
+  GoogleCloudDialogflowV2beta1InputDataset();
+
+  GoogleCloudDialogflowV2beta1InputDataset.fromJson(core.Map _json) {
+    if (_json.containsKey("dataset")) {
+      dataset = _json["dataset"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (dataset != null) {
+      _json["dataset"] = dataset;
     }
     return _json;
   }
@@ -10572,6 +14361,35 @@ class GoogleCloudDialogflowV2beta1KnowledgeOperationMetadata {
   }
 }
 
+/// The response for
+/// ConversationDatasets.LabelConversation
+class GoogleCloudDialogflowV2beta1LabelConversationResponse {
+  /// New annotated conversation dataset created by the labeling task.
+  GoogleCloudDialogflowV2beta1AnnotatedConversationDataset
+      annotatedConversationDataset;
+
+  GoogleCloudDialogflowV2beta1LabelConversationResponse();
+
+  GoogleCloudDialogflowV2beta1LabelConversationResponse.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("annotatedConversationDataset")) {
+      annotatedConversationDataset =
+          new GoogleCloudDialogflowV2beta1AnnotatedConversationDataset.fromJson(
+              _json["annotatedConversationDataset"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (annotatedConversationDataset != null) {
+      _json["annotatedConversationDataset"] =
+          (annotatedConversationDataset).toJson();
+    }
+    return _json;
+  }
+}
+
 /// The response message for Contexts.ListContexts.
 class GoogleCloudDialogflowV2beta1ListContextsResponse {
   /// The list of contexts. There will be a maximum number of items
@@ -11113,11 +14931,16 @@ class GoogleCloudDialogflowV2beta1QueryResult {
 
   /// The intent that matched the conversational query. Some, not
   /// all fields are filled in this message, including but not limited to:
-  /// `name`, `display_name` and `webhook_state`.
+  /// `name`, `display_name`, `end_interaction` and `is_fallback`.
   GoogleCloudDialogflowV2beta1Intent intent;
 
   /// The intent detection confidence. Values range from 0.0
   /// (completely uncertain) to 1.0 (completely certain).
+  /// This value is for informational purpose only and is only used to
+  /// help match the best intent within the classification threshold.
+  /// This value may change for the same end-user expression at any time due to
+  /// a
+  /// model retraining or change in implementation.
   /// If there are `multiple knowledge_answers` messages, this value is set to
   /// the greatest `knowledgeAnswers.match_confidence` value in the list.
   core.double intentDetectionConfidence;
@@ -11307,13 +15130,24 @@ class GoogleCloudDialogflowV2beta1QueryResult {
 
 /// Request message for Documents.ReloadDocument.
 class GoogleCloudDialogflowV2beta1ReloadDocumentRequest {
+  /// The path of gcs source file for reloading document content.
+  GoogleCloudDialogflowV2beta1GcsSource gcsSource;
+
   GoogleCloudDialogflowV2beta1ReloadDocumentRequest();
 
-  GoogleCloudDialogflowV2beta1ReloadDocumentRequest.fromJson(core.Map _json) {}
+  GoogleCloudDialogflowV2beta1ReloadDocumentRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("gcsSource")) {
+      gcsSource = new GoogleCloudDialogflowV2beta1GcsSource.fromJson(
+          _json["gcsSource"]);
+    }
+  }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (gcsSource != null) {
+      _json["gcsSource"] = (gcsSource).toJson();
+    }
     return _json;
   }
 }
@@ -11570,6 +15404,83 @@ class GoogleCloudDialogflowV2beta1SessionEntityType {
     }
     if (name != null) {
       _json["name"] = name;
+    }
+    return _json;
+  }
+}
+
+/// Metadata for smart reply models.
+class GoogleCloudDialogflowV2beta1SmartReplyModelMetadata {
+  /// Optional. Type of the article suggestion model. The available values are:
+  /// *  `smart-reply-dual-encoder-model-1` - (default) Smart Reply Dual Encoder
+  /// model.
+  core.String modelType;
+
+  GoogleCloudDialogflowV2beta1SmartReplyModelMetadata();
+
+  GoogleCloudDialogflowV2beta1SmartReplyModelMetadata.fromJson(core.Map _json) {
+    if (_json.containsKey("modelType")) {
+      modelType = _json["modelType"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (modelType != null) {
+      _json["modelType"] = modelType;
+    }
+    return _json;
+  }
+}
+
+/// Hints for the speech recognizer to help with recognition in a specific
+/// conversation state.
+class GoogleCloudDialogflowV2beta1SpeechContext {
+  /// Optional. Boost for this context compared to other contexts:
+  /// * If the boost is positive, Dialogflow will increase the probability that
+  /// the phrases in this context are recognized over similar sounding phrases.
+  /// * If the boost is unspecified or non-positive, Dialogflow will not apply
+  ///   any boost.
+  ///
+  /// Dialogflow recommends that you use boosts in the range (0, 20] and that
+  /// you
+  /// find a value that fits your use case with binary search.
+  core.double boost;
+
+  /// Optional. A list of strings containing words and phrases that the speech
+  /// recognizer should recognize with higher likelihood.
+  ///
+  /// This list can be used to:
+  /// * improve accuracy for words and phrases you expect the user to say,
+  ///   e.g. typical commands for your Dialogflow agent
+  /// * add additional words to the speech recognizer vocabulary
+  /// * ...
+  ///
+  /// See the [Cloud Speech
+  /// documentation](https://cloud.google.com/speech-to-text/quotas) for usage
+  /// limits.
+  core.List<core.String> phrases;
+
+  GoogleCloudDialogflowV2beta1SpeechContext();
+
+  GoogleCloudDialogflowV2beta1SpeechContext.fromJson(core.Map _json) {
+    if (_json.containsKey("boost")) {
+      boost = _json["boost"].toDouble();
+    }
+    if (_json.containsKey("phrases")) {
+      phrases = (_json["phrases"] as core.List).cast<core.String>();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (boost != null) {
+      _json["boost"] = boost;
+    }
+    if (phrases != null) {
+      _json["phrases"] = phrases;
     }
     return _json;
   }
@@ -11941,6 +15852,42 @@ class GoogleCloudDialogflowV2beta1WebhookResponse {
     }
     if (source != null) {
       _json["source"] = source;
+    }
+    return _json;
+  }
+}
+
+/// The response message for Operations.ListOperations.
+class GoogleLongrunningListOperationsResponse {
+  /// The standard List next-page token.
+  core.String nextPageToken;
+
+  /// A list of operations that matches the specified filter in the request.
+  core.List<GoogleLongrunningOperation> operations;
+
+  GoogleLongrunningListOperationsResponse();
+
+  GoogleLongrunningListOperationsResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("nextPageToken")) {
+      nextPageToken = _json["nextPageToken"];
+    }
+    if (_json.containsKey("operations")) {
+      operations = (_json["operations"] as core.List)
+          .map<GoogleLongrunningOperation>(
+              (value) => new GoogleLongrunningOperation.fromJson(value))
+          .toList();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (nextPageToken != null) {
+      _json["nextPageToken"] = nextPageToken;
+    }
+    if (operations != null) {
+      _json["operations"] =
+          operations.map((value) => (value).toJson()).toList();
     }
     return _json;
   }

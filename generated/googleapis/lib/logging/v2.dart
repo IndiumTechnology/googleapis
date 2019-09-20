@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.logging.v2;
 
@@ -317,7 +317,7 @@ class BillingAccountsExclusionsResourceApi {
   /// Example: "projects/my-project-id/exclusions/my-exclusion-id".
   /// Value must have pattern "^billingAccounts/[^/]+/exclusions/[^/]+$".
   ///
-  /// [updateMask] - Required. A nonempty list of fields to change in the
+  /// [updateMask] - Required. A non-empty list of fields to change in the
   /// existing exclusion. New values for the fields are taken from the
   /// corresponding fields in the LogExclusion included in this request. Fields
   /// not mentioned in update_mask are not changed and are ignored in the
@@ -1245,7 +1245,7 @@ class ExclusionsResourceApi {
   /// Example: "projects/my-project-id/exclusions/my-exclusion-id".
   /// Value must have pattern "^[^/]+/[^/]+/exclusions/[^/]+$".
   ///
-  /// [updateMask] - Required. A nonempty list of fields to change in the
+  /// [updateMask] - Required. A non-empty list of fields to change in the
   /// existing exclusion. New values for the fields are taken from the
   /// corresponding fields in the LogExclusion included in this request. Fields
   /// not mentioned in update_mask are not changed and are ignored in the
@@ -1548,7 +1548,7 @@ class FoldersExclusionsResourceApi {
   /// Example: "projects/my-project-id/exclusions/my-exclusion-id".
   /// Value must have pattern "^folders/[^/]+/exclusions/[^/]+$".
   ///
-  /// [updateMask] - Required. A nonempty list of fields to change in the
+  /// [updateMask] - Required. A non-empty list of fields to change in the
   /// existing exclusion. New values for the fields are taken from the
   /// corresponding fields in the LogExclusion included in this request. Fields
   /// not mentioned in update_mask are not changed and are ignored in the
@@ -2507,14 +2507,14 @@ class OrganizationsExclusionsResourceApi {
   ///
   /// Value must have pattern "^organizations/[^/]+$".
   ///
+  /// [pageSize] - Optional. The maximum number of results to return from this
+  /// request. Non-positive values are ignored. The presence of nextPageToken in
+  /// the response indicates that more results might be available.
+  ///
   /// [pageToken] - Optional. If present, then retrieve the next batch of
   /// results from the preceding call to this method. pageToken must be the
   /// value of nextPageToken from the previous response. The values of other
   /// method parameters should be identical to those in the previous call.
-  ///
-  /// [pageSize] - Optional. The maximum number of results to return from this
-  /// request. Non-positive values are ignored. The presence of nextPageToken in
-  /// the response indicates that more results might be available.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2527,7 +2527,7 @@ class OrganizationsExclusionsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListExclusionsResponse> list(core.String parent,
-      {core.String pageToken, core.int pageSize, core.String $fields}) {
+      {core.int pageSize, core.String pageToken, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -2538,11 +2538,11 @@ class OrganizationsExclusionsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2575,7 +2575,7 @@ class OrganizationsExclusionsResourceApi {
   /// Example: "projects/my-project-id/exclusions/my-exclusion-id".
   /// Value must have pattern "^organizations/[^/]+/exclusions/[^/]+$".
   ///
-  /// [updateMask] - Required. A nonempty list of fields to change in the
+  /// [updateMask] - Required. A non-empty list of fields to change in the
   /// existing exclusion. New values for the fields are taken from the
   /// corresponding fields in the LogExclusion included in this request. Fields
   /// not mentioned in update_mask are not changed and are ignored in the
@@ -2938,14 +2938,14 @@ class OrganizationsSinksResourceApi {
   ///
   /// Value must have pattern "^organizations/[^/]+$".
   ///
+  /// [pageSize] - Optional. The maximum number of results to return from this
+  /// request. Non-positive values are ignored. The presence of nextPageToken in
+  /// the response indicates that more results might be available.
+  ///
   /// [pageToken] - Optional. If present, then retrieve the next batch of
   /// results from the preceding call to this method. pageToken must be the
   /// value of nextPageToken from the previous response. The values of other
   /// method parameters should be identical to those in the previous call.
-  ///
-  /// [pageSize] - Optional. The maximum number of results to return from this
-  /// request. Non-positive values are ignored. The presence of nextPageToken in
-  /// the response indicates that more results might be available.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2958,7 +2958,7 @@ class OrganizationsSinksResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListSinksResponse> list(core.String parent,
-      {core.String pageToken, core.int pageSize, core.String $fields}) {
+      {core.int pageSize, core.String pageToken, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -2969,11 +2969,11 @@ class OrganizationsSinksResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -3420,7 +3420,7 @@ class ProjectsExclusionsResourceApi {
   /// Example: "projects/my-project-id/exclusions/my-exclusion-id".
   /// Value must have pattern "^projects/[^/]+/exclusions/[^/]+$".
   ///
-  /// [updateMask] - Required. A nonempty list of fields to change in the
+  /// [updateMask] - Required. A non-empty list of fields to change in the
   /// existing exclusion. New values for the fields are taken from the
   /// corresponding fields in the LogExclusion included in this request. Fields
   /// not mentioned in update_mask are not changed and are ignored in the
@@ -3751,14 +3751,14 @@ class ProjectsMetricsResourceApi {
   ///
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [pageSize] - Optional. The maximum number of results to return from this
+  /// request. Non-positive values are ignored. The presence of nextPageToken in
+  /// the response indicates that more results might be available.
+  ///
   /// [pageToken] - Optional. If present, then retrieve the next batch of
   /// results from the preceding call to this method. pageToken must be the
   /// value of nextPageToken from the previous response. The values of other
   /// method parameters should be identical to those in the previous call.
-  ///
-  /// [pageSize] - Optional. The maximum number of results to return from this
-  /// request. Non-positive values are ignored. The presence of nextPageToken in
-  /// the response indicates that more results might be available.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -3771,7 +3771,7 @@ class ProjectsMetricsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListLogMetricsResponse> list(core.String parent,
-      {core.String pageToken, core.int pageSize, core.String $fields}) {
+      {core.int pageSize, core.String pageToken, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -3782,11 +3782,11 @@ class ProjectsMetricsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -4457,14 +4457,14 @@ class SinksResourceApi {
   ///
   /// Value must have pattern "^[^/]+/[^/]+$".
   ///
+  /// [pageSize] - Optional. The maximum number of results to return from this
+  /// request. Non-positive values are ignored. The presence of nextPageToken in
+  /// the response indicates that more results might be available.
+  ///
   /// [pageToken] - Optional. If present, then retrieve the next batch of
   /// results from the preceding call to this method. pageToken must be the
   /// value of nextPageToken from the previous response. The values of other
   /// method parameters should be identical to those in the previous call.
-  ///
-  /// [pageSize] - Optional. The maximum number of results to return from this
-  /// request. Non-positive values are ignored. The presence of nextPageToken in
-  /// the response indicates that more results might be available.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -4477,7 +4477,7 @@ class SinksResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListSinksResponse> list(core.String parent,
-      {core.String pageToken, core.int pageSize, core.String $fields}) {
+      {core.int pageSize, core.String pageToken, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -4488,11 +4488,11 @@ class SinksResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -4594,6 +4594,33 @@ class SinksResourceApi {
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
     return _response.then((data) => new LogSink.fromJson(data));
+  }
+}
+
+/// Options that change functionality of a sink exporting data to BigQuery.
+class BigQueryOptions {
+  /// Optional. Whether to use BigQuery's partition tables. By default, Logging
+  /// creates dated tables based on the log entries' timestamps, e.g.
+  /// syslog_20170523. With partitioned tables the date suffix is no longer
+  /// present and special query syntax has to be used instead. In both cases,
+  /// tables are sharded based on UTC timezone.
+  core.bool usePartitionedTables;
+
+  BigQueryOptions();
+
+  BigQueryOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("usePartitionedTables")) {
+      usePartitionedTables = _json["usePartitionedTables"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (usePartitionedTables != null) {
+      _json["usePartitionedTables"] = usePartitionedTables;
+    }
+    return _json;
   }
 }
 
@@ -5212,8 +5239,8 @@ class ListLogMetricsResponse {
 
 /// Result returned from ListLogs.
 class ListLogsResponse {
-  /// A list of log names. For example, "projects/my-project/syslog" or
-  /// "organizations/123/cloudresourcemanager.googleapis.com%2Factivity".
+  /// A list of log names. For example, "projects/my-project/logs/syslog" or
+  /// "organizations/123/logs/cloudresourcemanager.googleapis.com%2Factivity".
   core.List<core.String> logNames;
 
   /// If there might be more results than those appearing in this response, then
@@ -5673,10 +5700,11 @@ class LogEntrySourceLocation {
 }
 
 /// Specifies a set of log entries that are not to be stored in Logging. If your
-/// project receives a large volume of logs, you might be able to use exclusions
-/// to reduce your chargeable logs. Exclusions are processed after log sinks, so
-/// you can export log entries before they are excluded. Audit log entries and
-/// log entries from Amazon Web Services are never excluded.
+/// GCP resource receives a large volume of logs, you can use exclusions to
+/// reduce your chargeable logs. Exclusions are processed after log sinks, so
+/// you can export log entries before they are excluded. Note that
+/// organization-level and folder-level exclusions don't apply to child
+/// resources, and that you can't exclude audit log entries.
 class LogExclusion {
   /// Output only. The creation timestamp of the exclusion.This field may not be
   /// present for older exclusions.
@@ -5692,10 +5720,9 @@ class LogExclusion {
 
   /// Required. An advanced logs filter that matches the log entries to be
   /// excluded. By using the sample function, you can exclude less than 100% of
-  /// the matching log entries. For example, the following filter matches 99% of
-  /// low-severity log entries from load
-  /// balancers:"resource.type=http_load_balancer severity<ERROR
-  /// sample(insertId, 0.99)"
+  /// the matching log entries. For example, the following query matches 99% of
+  /// low-severity log entries from Google Cloud Storage
+  /// buckets:"resource.type=gcs_bucket severity<ERROR sample(insertId, 0.99)"
   core.String filter;
 
   /// Required. A client-assigned identifier, such as "load-balancer-exclusion".
@@ -5993,6 +6020,9 @@ class LogMetric {
 /// exported. The sink must be created within a project, organization, billing
 /// account, or folder.
 class LogSink {
+  /// Optional. Options that affect sinks exporting data to BigQuery.
+  BigQueryOptions bigqueryOptions;
+
   /// Output only. The creation timestamp of the sink.This field may not be
   /// present for older sinks.
   core.String createTime;
@@ -6058,6 +6088,9 @@ class LogSink {
   LogSink();
 
   LogSink.fromJson(core.Map _json) {
+    if (_json.containsKey("bigqueryOptions")) {
+      bigqueryOptions = new BigQueryOptions.fromJson(_json["bigqueryOptions"]);
+    }
     if (_json.containsKey("createTime")) {
       createTime = _json["createTime"];
     }
@@ -6087,6 +6120,9 @@ class LogSink {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (bigqueryOptions != null) {
+      _json["bigqueryOptions"] = (bigqueryOptions).toJson();
+    }
     if (createTime != null) {
       _json["createTime"] = createTime;
     }

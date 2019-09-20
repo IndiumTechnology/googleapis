@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.serviceconsumermanagement.v1;
 
@@ -564,6 +564,10 @@ class ServicesTenancyUnitsResourceApi {
   }
 
   /// Creates a tenancy unit with no tenant resources.
+  /// If tenancy unit already exists, it will be returned,
+  /// however, in this case, returned TenancyUnit does not have tenant_resources
+  /// field set and ListTenancyUnit has to be used to get a complete
+  /// TenancyUnit with all fields populated.
   ///
   /// [request] - The metadata request object.
   ///
@@ -749,14 +753,14 @@ class ServicesTenancyUnitsResourceApi {
   /// {service} the name of a service, such as 'service.googleapis.com'.
   /// Value must have pattern "^services/[^/]+/[^/]+/[^/]+$".
   ///
-  /// [filter] - Filter expression over tenancy resources field. Optional.
-  ///
   /// [pageToken] - The continuation token, which is used to page through large
   /// result sets.
   /// To get the next page of results, set this parameter to the value of
   /// `nextPageToken` from the previous response.
   ///
   /// [pageSize] - The maximum number of results returned by this request.
+  ///
+  /// [filter] - Filter expression over tenancy resources field. Optional.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -769,9 +773,9 @@ class ServicesTenancyUnitsResourceApi {
   /// If the used [http_1.Client] completes with an error when making a REST
   /// call, this method will complete with the same error.
   async.Future<ListTenancyUnitsResponse> list(core.String parent,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -783,14 +787,14 @@ class ServicesTenancyUnitsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2105,6 +2109,12 @@ class Documentation {
   /// **NOTE:** All service configuration rules follow "last one wins" order.
   core.List<DocumentationRule> rules;
 
+  /// Specifies the service root url if the default one (the service name
+  /// from the yaml file) is not suitable. This can be seen in any fully
+  /// specified service urls as well as sections that show a base that other
+  /// urls are relative to.
+  core.String serviceRootUrl;
+
   /// A short summary of what the service does. Can only be provided by
   /// plain text.
   core.String summary;
@@ -2129,6 +2139,9 @@ class Documentation {
               (value) => new DocumentationRule.fromJson(value))
           .toList();
     }
+    if (_json.containsKey("serviceRootUrl")) {
+      serviceRootUrl = _json["serviceRootUrl"];
+    }
     if (_json.containsKey("summary")) {
       summary = _json["summary"];
     }
@@ -2148,6 +2161,9 @@ class Documentation {
     }
     if (rules != null) {
       _json["rules"] = rules.map((value) => (value).toJson()).toList();
+    }
+    if (serviceRootUrl != null) {
+      _json["serviceRootUrl"] = serviceRootUrl;
     }
     if (summary != null) {
       _json["summary"] = summary;
@@ -4470,10 +4486,7 @@ class QuotaLimit {
   /// display name generated from the configuration.
   core.String displayName;
 
-  /// Duration of this limit in textual notation. Example: "100s", "24h", "1d".
-  /// For duration longer than a day, only multiple of days is supported. We
-  /// support only "100s" and "1d" for now. Additional support will be added in
-  /// the future. "0" indicates indefinite duration.
+  /// Duration of this limit in textual notation. Must be "100s" or "1d".
   ///
   /// Used by group-based quotas only.
   core.String duration;
@@ -6058,8 +6071,7 @@ class V1ServiceAccount {
   /// The email address of the service account.
   core.String email;
 
-  /// The IAM resource name of the service account in the following format:
-  /// projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}.
+  /// Deprecated. See b/136209818.
   core.String iamAccountName;
 
   /// P4 SA resource name.

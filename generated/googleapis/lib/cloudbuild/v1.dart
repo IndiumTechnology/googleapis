@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudbuild.v1;
 
@@ -159,11 +159,11 @@ class OperationsResourceApi {
   /// [name] - The name of the operation's parent resource.
   /// Value must have pattern "^operations$".
   ///
-  /// [filter] - The standard list filter.
-  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
+  ///
+  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -176,9 +176,9 @@ class OperationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListOperationsResponse> list(core.String name,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -190,14 +190,14 @@ class OperationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1746,6 +1746,9 @@ class BuildTrigger {
   /// then we do not trigger a build.
   core.List<core.String> includedFiles;
 
+  /// User assigned name of the trigger. Must be unique within the project.
+  core.String name;
+
   /// Substitutions data for Build resource.
   core.Map<core.String, core.String> substitutions;
 
@@ -1789,6 +1792,9 @@ class BuildTrigger {
     if (_json.containsKey("includedFiles")) {
       includedFiles = (_json["includedFiles"] as core.List).cast<core.String>();
     }
+    if (_json.containsKey("name")) {
+      name = _json["name"];
+    }
     if (_json.containsKey("substitutions")) {
       substitutions =
           (_json["substitutions"] as core.Map).cast<core.String, core.String>();
@@ -1830,6 +1836,9 @@ class BuildTrigger {
     }
     if (includedFiles != null) {
       _json["includedFiles"] = includedFiles;
+    }
+    if (name != null) {
+      _json["name"] = name;
     }
     if (substitutions != null) {
       _json["substitutions"] = substitutions;
@@ -2299,13 +2308,13 @@ class PullRequestFilter {
 
 /// Push contains filter properties for matching GitHub git pushes.
 class PushFilter {
-  /// Regexes of branches to match.
+  /// Regexes matching branches to build.
   ///
   /// The syntax of the regular expressions accepted is the syntax accepted by
   /// RE2 and described at https://github.com/google/re2/wiki/Syntax
   core.String branch;
 
-  /// Regexes of tags to match.
+  /// Regexes matching tags to build.
   ///
   /// The syntax of the regular expressions accepted is the syntax accepted by
   /// RE2 and described at https://github.com/google/re2/wiki/Syntax
@@ -2337,7 +2346,10 @@ class PushFilter {
 
 /// Location of the source in a Google Cloud Source Repository.
 class RepoSource {
-  /// Name of the branch to build.
+  /// Regex matching branches to build.
+  ///
+  /// The syntax of the regular expressions accepted is the syntax accepted by
+  /// RE2 and described at https://github.com/google/re2/wiki/Syntax
   core.String branchName;
 
   /// Explicit commit SHA to build.
@@ -2357,7 +2369,10 @@ class RepoSource {
   /// assumed.
   core.String repoName;
 
-  /// Name of the tag to build.
+  /// Regex matching tags to build.
+  ///
+  /// The syntax of the regular expressions accepted is the syntax accepted by
+  /// RE2 and described at https://github.com/google/re2/wiki/Syntax
   core.String tagName;
 
   RepoSource();

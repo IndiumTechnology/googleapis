@@ -145,22 +145,32 @@
             }
         }
     },
-    "revision": "20190627",
+    "revision": "20190918",
     "rootUrl": "https://indexing.googleapis.com/",
     "schemas": {
+        "UrlNotificationMetadata": {
+            "description": "Summary of the most recent Indexing API notifications successfully received,\nfor a given URL.",
+            "id": "UrlNotificationMetadata",
+            "properties": {
+                "latestUpdate": {
+                    "$ref": "UrlNotification",
+                    "description": "Latest notification received with type `URL_UPDATED`."
+                },
+                "url": {
+                    "description": "URL to which this metadata refers.",
+                    "type": "string"
+                },
+                "latestRemove": {
+                    "$ref": "UrlNotification",
+                    "description": "Latest notification received with type `URL_REMOVED`."
+                }
+            },
+            "type": "object"
+        },
         "UrlNotification": {
             "description": "`UrlNotification` is the resource used in all Indexing API calls.\nIt describes one event in the life cycle of a Web Document.",
             "id": "UrlNotification",
             "properties": {
-                "url": {
-                    "description": "The object of this notification. The URL must be owned by the publisher\nof this notification and, in case of `URL_UPDATED` notifications, it _must_\nbe crawlable by Google.",
-                    "type": "string"
-                },
-                "notifyTime": {
-                    "description": "Creation timestamp for this notification.\nUsers should _not_ specify it, the field is ignored at the request time.",
-                    "format": "google-datetime",
-                    "type": "string"
-                },
                 "type": {
                     "description": "The URL life cycle event that Google is being notified about.",
                     "enum": [
@@ -174,6 +184,15 @@
                         "The given URL (Web document) has been deleted."
                     ],
                     "type": "string"
+                },
+                "url": {
+                    "description": "The object of this notification. The URL must be owned by the publisher\nof this notification and, in case of `URL_UPDATED` notifications, it _must_\nbe crawlable by Google.",
+                    "type": "string"
+                },
+                "notifyTime": {
+                    "description": "Creation timestamp for this notification.\nUsers should _not_ specify it, the field is ignored at the request time.",
+                    "format": "google-datetime",
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -185,25 +204,6 @@
                 "urlNotificationMetadata": {
                     "$ref": "UrlNotificationMetadata",
                     "description": "Description of the notification events received for this URL."
-                }
-            },
-            "type": "object"
-        },
-        "UrlNotificationMetadata": {
-            "description": "Summary of the most recent Indexing API notifications successfully received,\nfor a given URL.",
-            "id": "UrlNotificationMetadata",
-            "properties": {
-                "latestRemove": {
-                    "$ref": "UrlNotification",
-                    "description": "Latest notification received with type `URL_REMOVED`."
-                },
-                "latestUpdate": {
-                    "$ref": "UrlNotification",
-                    "description": "Latest notification received with type `URL_UPDATED`."
-                },
-                "url": {
-                    "description": "URL to which this metadata refers.",
-                    "type": "string"
                 }
             },
             "type": "object"

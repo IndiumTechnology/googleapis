@@ -189,12 +189,6 @@ Provides a historical view of activity.
 
 Official API documentation: https://developers.google.com/google-apps/activity/
 
-#### ![Logo](https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png) Google App State API - appstate v1
-
-The Google App State API.
-
-Official API documentation: https://developers.google.com/games/services/web/api/states
-
 #### ![Logo](https://www.google.com/images/icons/product/search-16.gif) BigQuery API - bigquery v2
 
 A data platform for customers to create, manage, share and query data.
@@ -448,7 +442,7 @@ API for viewing and managing your reports in DoubleClick Bid Manager.
 
 Official API documentation: https://developers.google.com/bid-manager/
 
-#### ![Logo](https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png) DoubleClick Search API - doubleclicksearch v2
+#### ![Logo](https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png) Search Ads 360 API - doubleclicksearch v2
 
 Reports and modifies your advertising data in DoubleClick Search (for example, campaigns, ad groups, keywords, and conversions).
 

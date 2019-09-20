@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.poly.v1;
 
@@ -89,12 +89,6 @@ class AssetsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [keywords] - One or more search terms to be matched against all text that
-  /// Poly has
-  /// indexed for assets, which includes display_name,
-  /// description, and tags. Multiple keywords should be
-  /// separated by spaces.
-  ///
   /// [orderBy] - Specifies an ordering for assets. Acceptable values are:
   /// `BEST`, `NEWEST`, `OLDEST`. Defaults to `BEST`, which ranks assets
   /// based on a combination of popularity and other features.
@@ -110,12 +104,6 @@ class AssetsResourceApi {
   /// `animals`, `architecture`, `art`, `food`, `nature`, `objects`, `people`,
   /// `scenes`, `technology`, and `transport`.
   ///
-  /// [pageToken] - Specifies a continuation token from a previous search whose
-  /// results were
-  /// split into multiple pages. To get the next page, submit the same request
-  /// specifying the value from
-  /// next_page_token.
-  ///
   /// [maxComplexity] - Returns assets that are of the specified complexity or
   /// less. Defaults to
   /// COMPLEX. For example, a request for
@@ -127,9 +115,21 @@ class AssetsResourceApi {
   /// - "MEDIUM" : A MEDIUM.
   /// - "SIMPLE" : A SIMPLE.
   ///
+  /// [pageToken] - Specifies a continuation token from a previous search whose
+  /// results were
+  /// split into multiple pages. To get the next page, submit the same request
+  /// specifying the value from
+  /// next_page_token.
+  ///
   /// [pageSize] - The maximum number of assets to be returned. This value must
   /// be between `1`
   /// and `100`. Defaults to `20`.
+  ///
+  /// [keywords] - One or more search terms to be matched against all text that
+  /// Poly has
+  /// indexed for assets, which includes display_name,
+  /// description, and tags. Multiple keywords should be
+  /// separated by spaces.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -142,14 +142,14 @@ class AssetsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListAssetsResponse> list(
-      {core.String keywords,
-      core.String orderBy,
+      {core.String orderBy,
       core.String format,
       core.bool curated,
       core.String category,
-      core.String pageToken,
       core.String maxComplexity,
+      core.String pageToken,
       core.int pageSize,
+      core.String keywords,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -158,9 +158,6 @@ class AssetsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
-    if (keywords != null) {
-      _queryParams["keywords"] = [keywords];
-    }
     if (orderBy != null) {
       _queryParams["orderBy"] = [orderBy];
     }
@@ -173,14 +170,17 @@ class AssetsResourceApi {
     if (category != null) {
       _queryParams["category"] = [category];
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
     if (maxComplexity != null) {
       _queryParams["maxComplexity"] = [maxComplexity];
     }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
+    }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (keywords != null) {
+      _queryParams["keywords"] = [keywords];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];

@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.servicecontrol.v1;
 
@@ -256,7 +256,8 @@ class AllocateInfo {
   /// A list of label keys that were unused by the server in processing the
   /// request. Thus, for similar requests repeated in a certain future time
   /// window, the caller can choose to ignore these labels in the requests
-  /// to achieve better client-side cache hits and quota aggregation.
+  /// to achieve better client-side cache hits and quota aggregation for rate
+  /// quota. This field is not populated for allocation quota checks.
   core.List<core.String> unusedArguments;
 
   AllocateInfo();
@@ -1772,6 +1773,10 @@ class LogEntry {
   /// - "EMERGENCY" : (800) One or more systems are unusable.
   core.String severity;
 
+  /// Optional. Source code location information associated with the log entry,
+  /// if any.
+  LogEntrySourceLocation sourceLocation;
+
   /// The log entry payload, represented as a structure that
   /// is expressed as a JSON object.
   ///
@@ -1819,6 +1824,10 @@ class LogEntry {
     if (_json.containsKey("severity")) {
       severity = _json["severity"];
     }
+    if (_json.containsKey("sourceLocation")) {
+      sourceLocation =
+          new LogEntrySourceLocation.fromJson(_json["sourceLocation"]);
+    }
     if (_json.containsKey("structPayload")) {
       structPayload =
           (_json["structPayload"] as core.Map).cast<core.String, core.Object>();
@@ -1857,6 +1866,9 @@ class LogEntry {
     }
     if (severity != null) {
       _json["severity"] = severity;
+    }
+    if (sourceLocation != null) {
+      _json["sourceLocation"] = (sourceLocation).toJson();
     }
     if (structPayload != null) {
       _json["structPayload"] = structPayload;
@@ -1924,6 +1936,57 @@ class LogEntryOperation {
     }
     if (producer != null) {
       _json["producer"] = producer;
+    }
+    return _json;
+  }
+}
+
+/// Additional information about the source code location that produced the log
+/// entry.
+class LogEntrySourceLocation {
+  /// Optional. Source file name. Depending on the runtime environment, this
+  /// might be a simple name or a fully-qualified name.
+  core.String file;
+
+  /// Optional. Human-readable name of the function or method being invoked,
+  /// with
+  /// optional context such as the class or package name. This information may
+  /// be
+  /// used in contexts such as the logs viewer, where a file and line number are
+  /// less meaningful. The format can vary by language. For example:
+  /// `qual.if.ied.Class.method` (Java), `dir/package.func` (Go), `function`
+  /// (Python).
+  core.String function;
+
+  /// Optional. Line within the source file. 1-based; 0 indicates no line number
+  /// available.
+  core.String line;
+
+  LogEntrySourceLocation();
+
+  LogEntrySourceLocation.fromJson(core.Map _json) {
+    if (_json.containsKey("file")) {
+      file = _json["file"];
+    }
+    if (_json.containsKey("function")) {
+      function = _json["function"];
+    }
+    if (_json.containsKey("line")) {
+      line = _json["line"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (file != null) {
+      _json["file"] = file;
+    }
+    if (function != null) {
+      _json["function"] = function;
+    }
+    if (line != null) {
+      _json["line"] = line;
     }
     return _json;
   }
@@ -2324,8 +2387,8 @@ class Operation {
 
 /// This message defines attributes for a node that handles a network request.
 /// The node can be either a service or an application that sends, forwards,
-/// or receives the request. Service peers should fill in the `service`,
-/// `principal`, and `labels` as appropriate.
+/// or receives the request. Service peers should fill in
+/// `principal` and `labels` as appropriate.
 class Peer {
   /// The IP address of the peer.
   core.String ip;
@@ -2346,11 +2409,6 @@ class Peer {
   /// physical location where this peer is running.
   core.String regionCode;
 
-  /// The canonical service name of the peer.
-  ///
-  /// NOTE: different systems may have different service naming schemes.
-  core.String service;
-
   Peer();
 
   Peer.fromJson(core.Map _json) {
@@ -2368,9 +2426,6 @@ class Peer {
     }
     if (_json.containsKey("regionCode")) {
       regionCode = _json["regionCode"];
-    }
-    if (_json.containsKey("service")) {
-      service = _json["service"];
     }
   }
 
@@ -2391,9 +2446,6 @@ class Peer {
     }
     if (regionCode != null) {
       _json["regionCode"] = regionCode;
-    }
-    if (service != null) {
-      _json["service"] = service;
     }
     return _json;
   }
@@ -2903,9 +2955,6 @@ class Request {
   /// Derived from the HTTP request `Authorization` header or equivalent.
   Auth auth;
 
-  /// The HTTP URL fragment. No URL decoding is performed.
-  core.String fragment;
-
   /// The HTTP request headers. If multiple headers share the same key, they
   /// must be merged according to the HTTP spec. All header keys must be
   /// lowercased, because HTTP header keys are case-insensitive.
@@ -2955,9 +3004,6 @@ class Request {
     if (_json.containsKey("auth")) {
       auth = new Auth.fromJson(_json["auth"]);
     }
-    if (_json.containsKey("fragment")) {
-      fragment = _json["fragment"];
-    }
     if (_json.containsKey("headers")) {
       headers = (_json["headers"] as core.Map).cast<core.String, core.String>();
     }
@@ -2998,9 +3044,6 @@ class Request {
         new core.Map<core.String, core.Object>();
     if (auth != null) {
       _json["auth"] = (auth).toJson();
-    }
-    if (fragment != null) {
-      _json["fragment"] = fragment;
     }
     if (headers != null) {
       _json["headers"] = headers;
@@ -3162,8 +3205,10 @@ class Resource {
   /// hostname that actually serves the request.
   core.String service;
 
-  /// The type of the resource. The scheme is platform-specific because
+  /// The type of the resource. The syntax is platform-specific because
   /// different platforms define their resources differently.
+  ///
+  /// For Google APIs, the type format must be "{service}/{kind}".
   core.String type;
 
   Resource();

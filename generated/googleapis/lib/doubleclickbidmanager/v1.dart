@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.doubleclickbidmanager.v1;
 
@@ -677,7 +677,7 @@ class FilterPair {
   /// - "FILTER_ADVERTISER_TIMEZONE"
   /// - "FILTER_AD_POSITION"
   /// - "FILTER_AGE"
-  /// - "FILTER_AUTHORIZED_SELLER_STATE_ID"
+  /// - "FILTER_AUTHORIZED_SELLER_STATE"
   /// - "FILTER_BRANDSAFE_CHANNEL_ID"
   /// - "FILTER_BROWSER"
   /// - "FILTER_BUDGET_SEGMENT_DESCRIPTION"
@@ -702,10 +702,8 @@ class FilterPair {
   /// - "FILTER_DEVICE_TYPE"
   /// - "FILTER_DFP_ORDER_ID"
   /// - "FILTER_DMA"
-  /// - "FILTER_DV360_ACTIVITY_ID"
   /// - "FILTER_EXCHANGE_ID"
   /// - "FILTER_FLOODLIGHT_ACTIVITY_ID"
-  /// - "FILTER_FLOODLIGHT_PIXEL_ID"
   /// - "FILTER_GENDER"
   /// - "FILTER_INSERTION_ORDER"
   /// - "FILTER_INVENTORY_COMMITMENT_TYPE"
@@ -789,6 +787,7 @@ class FilterPair {
   /// - "FILTER_VIDEO_CREATIVE_DURATION"
   /// - "FILTER_VIDEO_CREATIVE_DURATION_SKIPPABLE"
   /// - "FILTER_VIDEO_DURATION_SECONDS"
+  /// - "FILTER_VIDEO_DURATION_SECONDS_RANGE"
   /// - "FILTER_VIDEO_FORMAT_SUPPORT"
   /// - "FILTER_VIDEO_INVENTORY_TYPE"
   /// - "FILTER_VIDEO_PLAYER_SIZE"

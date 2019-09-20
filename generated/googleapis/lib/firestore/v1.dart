@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.firestore.v1;
 
@@ -590,13 +590,13 @@ class ProjectsDatabasesCollectionGroupsIndexesResourceApi {
   /// Value must have pattern
   /// "^projects/[^/]+/databases/[^/]+/collectionGroups/[^/]+$".
   ///
+  /// [filter] - The filter to apply to list results.
+  ///
   /// [pageToken] - A page token, returned from a previous call to
   /// FirestoreAdmin.ListIndexes, that may be used to get the next
   /// page of results.
   ///
   /// [pageSize] - The number of results to return.
-  ///
-  /// [filter] - The filter to apply to list results.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -610,9 +610,9 @@ class ProjectsDatabasesCollectionGroupsIndexesResourceApi {
   /// this method will complete with the same error.
   async.Future<GoogleFirestoreAdminV1ListIndexesResponse> list(
       core.String parent,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -624,14 +624,14 @@ class ProjectsDatabasesCollectionGroupsIndexesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -835,13 +835,13 @@ class ProjectsDatabasesDocumentsResourceApi {
   /// [collectionId] - The collection ID, relative to `parent`, to list. For
   /// example: `chatrooms`.
   ///
-  /// [mask_fieldPaths] - The list of field paths in the mask. See
-  /// Document.fields for a field
-  /// path syntax reference.
-  ///
   /// [documentId] - The client-assigned document ID to use for this document.
   ///
   /// Optional. If not specified, an ID will be assigned by the service.
+  ///
+  /// [mask_fieldPaths] - The list of field paths in the mask. See
+  /// Document.fields for a field
+  /// path syntax reference.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -855,8 +855,8 @@ class ProjectsDatabasesDocumentsResourceApi {
   /// this method will complete with the same error.
   async.Future<Document> createDocument(
       Document request, core.String parent, core.String collectionId,
-      {core.List<core.String> mask_fieldPaths,
-      core.String documentId,
+      {core.String documentId,
+      core.List<core.String> mask_fieldPaths,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -874,11 +874,11 @@ class ProjectsDatabasesDocumentsResourceApi {
     if (collectionId == null) {
       throw new core.ArgumentError("Parameter collectionId is required.");
     }
-    if (mask_fieldPaths != null) {
-      _queryParams["mask.fieldPaths"] = mask_fieldPaths;
-    }
     if (documentId != null) {
       _queryParams["documentId"] = [documentId];
+    }
+    if (mask_fieldPaths != null) {
+      _queryParams["mask.fieldPaths"] = mask_fieldPaths;
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -969,14 +969,14 @@ class ProjectsDatabasesDocumentsResourceApi {
   /// Value must have pattern
   /// "^projects/[^/]+/databases/[^/]+/documents/[^/]+/.+$".
   ///
+  /// [transaction] - Reads the document in a transaction.
+  ///
   /// [mask_fieldPaths] - The list of field paths in the mask. See
   /// Document.fields for a field
   /// path syntax reference.
   ///
   /// [readTime] - Reads the version of the document at the given time.
   /// This may not be older than 60 seconds.
-  ///
-  /// [transaction] - Reads the document in a transaction.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -989,9 +989,9 @@ class ProjectsDatabasesDocumentsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Document> get(core.String name,
-      {core.List<core.String> mask_fieldPaths,
+      {core.String transaction,
+      core.List<core.String> mask_fieldPaths,
       core.String readTime,
-      core.String transaction,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1003,14 +1003,14 @@ class ProjectsDatabasesDocumentsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (transaction != null) {
+      _queryParams["transaction"] = [transaction];
+    }
     if (mask_fieldPaths != null) {
       _queryParams["mask.fieldPaths"] = mask_fieldPaths;
     }
     if (readTime != null) {
       _queryParams["readTime"] = [readTime];
-    }
-    if (transaction != null) {
-      _queryParams["transaction"] = [transaction];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1044,6 +1044,12 @@ class ProjectsDatabasesDocumentsResourceApi {
   /// example: `chatrooms`
   /// or `messages`.
   ///
+  /// [orderBy] - The order to sort results by. For example: `priority desc,
+  /// name`.
+  ///
+  /// [readTime] - Reads documents as they were at the given time.
+  /// This may not be older than 60 seconds.
+  ///
   /// [showMissing] - If the list should show missing documents. A missing
   /// document is a
   /// document that does not exist but has sub-documents. These documents will
@@ -1064,12 +1070,6 @@ class ProjectsDatabasesDocumentsResourceApi {
   ///
   /// [transaction] - Reads documents in a transaction.
   ///
-  /// [readTime] - Reads documents as they were at the given time.
-  /// This may not be older than 60 seconds.
-  ///
-  /// [orderBy] - The order to sort results by. For example: `priority desc,
-  /// name`.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1082,13 +1082,13 @@ class ProjectsDatabasesDocumentsResourceApi {
   /// this method will complete with the same error.
   async.Future<ListDocumentsResponse> list(
       core.String parent, core.String collectionId,
-      {core.bool showMissing,
+      {core.String orderBy,
+      core.String readTime,
+      core.bool showMissing,
       core.List<core.String> mask_fieldPaths,
       core.String pageToken,
       core.int pageSize,
       core.String transaction,
-      core.String readTime,
-      core.String orderBy,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1102,6 +1102,12 @@ class ProjectsDatabasesDocumentsResourceApi {
     }
     if (collectionId == null) {
       throw new core.ArgumentError("Parameter collectionId is required.");
+    }
+    if (orderBy != null) {
+      _queryParams["orderBy"] = [orderBy];
+    }
+    if (readTime != null) {
+      _queryParams["readTime"] = [readTime];
     }
     if (showMissing != null) {
       _queryParams["showMissing"] = ["${showMissing}"];
@@ -1117,12 +1123,6 @@ class ProjectsDatabasesDocumentsResourceApi {
     }
     if (transaction != null) {
       _queryParams["transaction"] = [transaction];
-    }
-    if (readTime != null) {
-      _queryParams["readTime"] = [readTime];
-    }
-    if (orderBy != null) {
-      _queryParams["orderBy"] = [orderBy];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1263,6 +1263,10 @@ class ProjectsDatabasesDocumentsResourceApi {
   /// Value must have pattern
   /// "^projects/[^/]+/databases/[^/]+/documents/[^/]+/.+$".
   ///
+  /// [currentDocument_exists] - When set to `true`, the target document must
+  /// exist.
+  /// When set to `false`, the target document must not exist.
+  ///
   /// [updateMask_fieldPaths] - The list of field paths in the mask. See
   /// Document.fields for a field
   /// path syntax reference.
@@ -1275,10 +1279,6 @@ class ProjectsDatabasesDocumentsResourceApi {
   /// and have been last updated at
   /// that time.
   ///
-  /// [currentDocument_exists] - When set to `true`, the target document must
-  /// exist.
-  /// When set to `false`, the target document must not exist.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1290,10 +1290,10 @@ class ProjectsDatabasesDocumentsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Document> patch(Document request, core.String name,
-      {core.List<core.String> updateMask_fieldPaths,
+      {core.bool currentDocument_exists,
+      core.List<core.String> updateMask_fieldPaths,
       core.List<core.String> mask_fieldPaths,
       core.String currentDocument_updateTime,
-      core.bool currentDocument_exists,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1308,6 +1308,9 @@ class ProjectsDatabasesDocumentsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (currentDocument_exists != null) {
+      _queryParams["currentDocument.exists"] = ["${currentDocument_exists}"];
+    }
     if (updateMask_fieldPaths != null) {
       _queryParams["updateMask.fieldPaths"] = updateMask_fieldPaths;
     }
@@ -1316,9 +1319,6 @@ class ProjectsDatabasesDocumentsResourceApi {
     }
     if (currentDocument_updateTime != null) {
       _queryParams["currentDocument.updateTime"] = [currentDocument_updateTime];
-    }
-    if (currentDocument_exists != null) {
-      _queryParams["currentDocument.exists"] = ["${currentDocument_exists}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1676,11 +1676,11 @@ class ProjectsDatabasesOperationsResourceApi {
   /// [name] - The name of the operation's parent resource.
   /// Value must have pattern "^projects/[^/]+/databases/[^/]+$".
   ///
+  /// [pageSize] - The standard list page size.
+  ///
   /// [filter] - The standard list filter.
   ///
   /// [pageToken] - The standard list page token.
-  ///
-  /// [pageSize] - The standard list page size.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1693,9 +1693,9 @@ class ProjectsDatabasesOperationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<GoogleLongrunningListOperationsResponse> list(core.String name,
-      {core.String filter,
+      {core.int pageSize,
+      core.String filter,
       core.String pageToken,
-      core.int pageSize,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1707,14 +1707,14 @@ class ProjectsDatabasesOperationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
+    }
     if (filter != null) {
       _queryParams["filter"] = [filter];
     }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
-    }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];

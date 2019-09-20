@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.vault.v1;
 
@@ -291,6 +291,12 @@ class MattersResourceApi {
   ///
   /// Request parameters:
   ///
+  /// [view] - Specifies which parts of the matter to return in response.
+  /// Possible string values are:
+  /// - "VIEW_UNSPECIFIED" : A VIEW_UNSPECIFIED.
+  /// - "BASIC" : A BASIC.
+  /// - "FULL" : A FULL.
+  ///
   /// [state] - If set, list only matters with that specific state. The default
   /// is listing
   /// matters of all states.
@@ -305,12 +311,6 @@ class MattersResourceApi {
   /// [pageSize] - The number of matters to return in the response.
   /// Default and maximum are 100.
   ///
-  /// [view] - Specifies which parts of the matter to return in response.
-  /// Possible string values are:
-  /// - "VIEW_UNSPECIFIED" : A VIEW_UNSPECIFIED.
-  /// - "BASIC" : A BASIC.
-  /// - "FULL" : A FULL.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -322,10 +322,10 @@ class MattersResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListMattersResponse> list(
-      {core.String state,
+      {core.String view,
+      core.String state,
       core.String pageToken,
       core.int pageSize,
-      core.String view,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -334,6 +334,9 @@ class MattersResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
+    if (view != null) {
+      _queryParams["view"] = [view];
+    }
     if (state != null) {
       _queryParams["state"] = [state];
     }
@@ -342,9 +345,6 @@ class MattersResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (view != null) {
-      _queryParams["view"] = [view];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];

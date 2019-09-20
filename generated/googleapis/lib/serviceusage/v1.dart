@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.serviceusage.v1;
 
@@ -212,13 +212,13 @@ class OperationsResourceApi {
   ///
   /// Request parameters:
   ///
+  /// [filter] - The standard list filter.
+  ///
   /// [name] - The name of the operation's parent resource.
   ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
-  ///
-  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -231,10 +231,10 @@ class OperationsResourceApi {
   /// If the used [http_1.Client] completes with an error when making a REST
   /// call, this method will complete with the same error.
   async.Future<ListOperationsResponse> list(
-      {core.String name,
+      {core.String filter,
+      core.String name,
       core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -243,6 +243,9 @@ class OperationsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (name != null) {
       _queryParams["name"] = [name];
     }
@@ -251,9 +254,6 @@ class OperationsResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -280,6 +280,7 @@ class ServicesResourceApi {
   /// enabling
   /// any service fails, then the entire batch fails, and no state changes
   /// occur.
+  /// To enable a single service, use the `EnableService` method instead.
   ///
   /// [request] - The metadata request object.
   ///
@@ -522,9 +523,6 @@ class ServicesResourceApi {
   /// `projects/123` where `123` is the project number.
   /// Value must have pattern "^[^/]+/[^/]+$".
   ///
-  /// [filter] - Only list services that conform to the given filter.
-  /// The allowed filter strings are `state:ENABLED` and `state:DISABLED`.
-  ///
   /// [pageToken] - Token identifying which result to start with, which is
   /// returned by a
   /// previous list call.
@@ -532,6 +530,9 @@ class ServicesResourceApi {
   /// [pageSize] - Requested size of the next page of data.
   /// Requested page size cannot exceed 200.
   ///  If not set, the default page size is 50.
+  ///
+  /// [filter] - Only list services that conform to the given filter.
+  /// The allowed filter strings are `state:ENABLED` and `state:DISABLED`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -544,9 +545,9 @@ class ServicesResourceApi {
   /// If the used [http_1.Client] completes with an error when making a REST
   /// call, this method will complete with the same error.
   async.Future<ListServicesResponse> list(core.String parent,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -558,14 +559,14 @@ class ServicesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1177,9 +1178,6 @@ class BatchEnableServicesRequest {
   /// Enabling services requires that each service is public or is shared with
   /// the user enabling the service.
   ///
-  /// Two or more services must be specified. To enable a single service,
-  /// use the `EnableService` method instead.
-  ///
   /// A single request can enable a maximum of 20 services at a time. If more
   /// than 20 services are specified, the request will fail, and no state
   /// changes
@@ -1744,6 +1742,12 @@ class Documentation {
   /// **NOTE:** All service configuration rules follow "last one wins" order.
   core.List<DocumentationRule> rules;
 
+  /// Specifies the service root url if the default one (the service name
+  /// from the yaml file) is not suitable. This can be seen in any fully
+  /// specified service urls as well as sections that show a base that other
+  /// urls are relative to.
+  core.String serviceRootUrl;
+
   /// A short summary of what the service does. Can only be provided by
   /// plain text.
   core.String summary;
@@ -1768,6 +1772,9 @@ class Documentation {
               (value) => new DocumentationRule.fromJson(value))
           .toList();
     }
+    if (_json.containsKey("serviceRootUrl")) {
+      serviceRootUrl = _json["serviceRootUrl"];
+    }
     if (_json.containsKey("summary")) {
       summary = _json["summary"];
     }
@@ -1787,6 +1794,9 @@ class Documentation {
     }
     if (rules != null) {
       _json["rules"] = rules.map((value) => (value).toJson()).toList();
+    }
+    if (serviceRootUrl != null) {
+      _json["serviceRootUrl"] = serviceRootUrl;
     }
     if (summary != null) {
       _json["summary"] = summary;
@@ -2259,6 +2269,46 @@ class Field {
     }
     if (typeUrl != null) {
       _json["typeUrl"] = typeUrl;
+    }
+    return _json;
+  }
+}
+
+/// Response message for getting service identity.
+class GetServiceIdentityResponse {
+  /// Service identity that service producer can use to access consumer
+  /// resources. If exists is true, it contains email and unique_id. If exists
+  /// is
+  /// false, it contains pre-constructed email and empty unique_id.
+  ServiceIdentity identity;
+
+  /// Service identity state.
+  /// Possible string values are:
+  /// - "IDENTITY_STATE_UNSPECIFIED" : Default service identity state. This
+  /// value is used if the state is
+  /// omitted.
+  /// - "ACTIVE" : Service identity has been created and can be used.
+  core.String state;
+
+  GetServiceIdentityResponse();
+
+  GetServiceIdentityResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("identity")) {
+      identity = new ServiceIdentity.fromJson(_json["identity"]);
+    }
+    if (_json.containsKey("state")) {
+      state = _json["state"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (identity != null) {
+      _json["identity"] = (identity).toJson();
+    }
+    if (state != null) {
+      _json["state"] = state;
     }
     return _json;
   }
@@ -4694,10 +4744,7 @@ class QuotaLimit {
   /// display name generated from the configuration.
   core.String displayName;
 
-  /// Duration of this limit in textual notation. Example: "100s", "24h", "1d".
-  /// For duration longer than a day, only multiple of days is supported. We
-  /// support only "100s" and "1d" for now. Additional support will be added in
-  /// the future. "0" indicates indefinite duration.
+  /// Duration of this limit in textual notation. Must be "100s" or "1d".
   ///
   /// Used by group-based quotas only.
   core.String duration;
@@ -4891,6 +4938,41 @@ class QuotaOverride {
     }
     if (overrideValue != null) {
       _json["overrideValue"] = overrideValue;
+    }
+    return _json;
+  }
+}
+
+/// Service identity for a service. This is the identity that service producer
+/// should use to access consumer resources.
+class ServiceIdentity {
+  /// The email address of the service account that a service producer would use
+  /// to access consumer resources.
+  core.String email;
+
+  /// The unique and stable id of the service account.
+  /// https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts#ServiceAccount
+  core.String uniqueId;
+
+  ServiceIdentity();
+
+  ServiceIdentity.fromJson(core.Map _json) {
+    if (_json.containsKey("email")) {
+      email = _json["email"];
+    }
+    if (_json.containsKey("uniqueId")) {
+      uniqueId = _json["uniqueId"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (email != null) {
+      _json["email"] = email;
+    }
+    if (uniqueId != null) {
+      _json["uniqueId"] = uniqueId;
     }
     return _json;
   }

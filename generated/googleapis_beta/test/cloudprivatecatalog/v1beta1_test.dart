@@ -78,7 +78,7 @@ checkGoogleCloudPrivatecatalogV1beta1Catalog(
   buildCounterGoogleCloudPrivatecatalogV1beta1Catalog--;
 }
 
-buildUnnamed4824() {
+buildUnnamed5214() {
   var o = new core.Map<core.String, core.Object>();
   o["x"] = {
     'list': [1, 2, 3],
@@ -93,7 +93,7 @@ buildUnnamed4824() {
   return o;
 }
 
-checkUnnamed4824(core.Map<core.String, core.Object> o) {
+checkUnnamed5214(core.Map<core.String, core.Object> o) {
   unittest.expect(o, unittest.hasLength(2));
   var casted1 = (o["x"]) as core.Map;
   unittest.expect(casted1, unittest.hasLength(3));
@@ -114,7 +114,7 @@ buildGoogleCloudPrivatecatalogV1beta1Product() {
   if (buildCounterGoogleCloudPrivatecatalogV1beta1Product < 3) {
     o.assetType = "foo";
     o.createTime = "foo";
-    o.displayMetadata = buildUnnamed4824();
+    o.displayMetadata = buildUnnamed5214();
     o.iconUri = "foo";
     o.name = "foo";
     o.updateTime = "foo";
@@ -129,7 +129,7 @@ checkGoogleCloudPrivatecatalogV1beta1Product(
   if (buildCounterGoogleCloudPrivatecatalogV1beta1Product < 3) {
     unittest.expect(o.assetType, unittest.equals('foo'));
     unittest.expect(o.createTime, unittest.equals('foo'));
-    checkUnnamed4824(o.displayMetadata);
+    checkUnnamed5214(o.displayMetadata);
     unittest.expect(o.iconUri, unittest.equals('foo'));
     unittest.expect(o.name, unittest.equals('foo'));
     unittest.expect(o.updateTime, unittest.equals('foo'));
@@ -137,14 +137,14 @@ checkGoogleCloudPrivatecatalogV1beta1Product(
   buildCounterGoogleCloudPrivatecatalogV1beta1Product--;
 }
 
-buildUnnamed4825() {
+buildUnnamed5215() {
   var o = new core.List<api.GoogleCloudPrivatecatalogV1beta1Catalog>();
   o.add(buildGoogleCloudPrivatecatalogV1beta1Catalog());
   o.add(buildGoogleCloudPrivatecatalogV1beta1Catalog());
   return o;
 }
 
-checkUnnamed4825(core.List<api.GoogleCloudPrivatecatalogV1beta1Catalog> o) {
+checkUnnamed5215(core.List<api.GoogleCloudPrivatecatalogV1beta1Catalog> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudPrivatecatalogV1beta1Catalog(o[0]);
   checkGoogleCloudPrivatecatalogV1beta1Catalog(o[1]);
@@ -155,7 +155,7 @@ buildGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse() {
   var o = new api.GoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse();
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse++;
   if (buildCounterGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse < 3) {
-    o.catalogs = buildUnnamed4825();
+    o.catalogs = buildUnnamed5215();
     o.nextPageToken = "foo";
   }
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse--;
@@ -166,20 +166,20 @@ checkGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse(
     api.GoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse o) {
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse++;
   if (buildCounterGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse < 3) {
-    checkUnnamed4825(o.catalogs);
+    checkUnnamed5215(o.catalogs);
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
   }
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse--;
 }
 
-buildUnnamed4826() {
+buildUnnamed5216() {
   var o = new core.List<api.GoogleCloudPrivatecatalogV1beta1Product>();
   o.add(buildGoogleCloudPrivatecatalogV1beta1Product());
   o.add(buildGoogleCloudPrivatecatalogV1beta1Product());
   return o;
 }
 
-checkUnnamed4826(core.List<api.GoogleCloudPrivatecatalogV1beta1Product> o) {
+checkUnnamed5216(core.List<api.GoogleCloudPrivatecatalogV1beta1Product> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudPrivatecatalogV1beta1Product(o[0]);
   checkGoogleCloudPrivatecatalogV1beta1Product(o[1]);
@@ -191,7 +191,7 @@ buildGoogleCloudPrivatecatalogV1beta1SearchProductsResponse() {
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchProductsResponse++;
   if (buildCounterGoogleCloudPrivatecatalogV1beta1SearchProductsResponse < 3) {
     o.nextPageToken = "foo";
-    o.products = buildUnnamed4826();
+    o.products = buildUnnamed5216();
   }
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchProductsResponse--;
   return o;
@@ -202,19 +202,19 @@ checkGoogleCloudPrivatecatalogV1beta1SearchProductsResponse(
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchProductsResponse++;
   if (buildCounterGoogleCloudPrivatecatalogV1beta1SearchProductsResponse < 3) {
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
-    checkUnnamed4826(o.products);
+    checkUnnamed5216(o.products);
   }
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchProductsResponse--;
 }
 
-buildUnnamed4827() {
+buildUnnamed5217() {
   var o = new core.List<api.GoogleCloudPrivatecatalogV1beta1Version>();
   o.add(buildGoogleCloudPrivatecatalogV1beta1Version());
   o.add(buildGoogleCloudPrivatecatalogV1beta1Version());
   return o;
 }
 
-checkUnnamed4827(core.List<api.GoogleCloudPrivatecatalogV1beta1Version> o) {
+checkUnnamed5217(core.List<api.GoogleCloudPrivatecatalogV1beta1Version> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudPrivatecatalogV1beta1Version(o[0]);
   checkGoogleCloudPrivatecatalogV1beta1Version(o[1]);
@@ -226,7 +226,7 @@ buildGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse() {
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse++;
   if (buildCounterGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse < 3) {
     o.nextPageToken = "foo";
-    o.versions = buildUnnamed4827();
+    o.versions = buildUnnamed5217();
   }
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse--;
   return o;
@@ -237,12 +237,12 @@ checkGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse(
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse++;
   if (buildCounterGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse < 3) {
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
-    checkUnnamed4827(o.versions);
+    checkUnnamed5217(o.versions);
   }
   buildCounterGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse--;
 }
 
-buildUnnamed4828() {
+buildUnnamed5218() {
   var o = new core.Map<core.String, core.Object>();
   o["x"] = {
     'list': [1, 2, 3],
@@ -257,7 +257,7 @@ buildUnnamed4828() {
   return o;
 }
 
-checkUnnamed4828(core.Map<core.String, core.Object> o) {
+checkUnnamed5218(core.Map<core.String, core.Object> o) {
   unittest.expect(o, unittest.hasLength(2));
   var casted3 = (o["x"]) as core.Map;
   unittest.expect(casted3, unittest.hasLength(3));
@@ -276,7 +276,7 @@ buildGoogleCloudPrivatecatalogV1beta1Version() {
   var o = new api.GoogleCloudPrivatecatalogV1beta1Version();
   buildCounterGoogleCloudPrivatecatalogV1beta1Version++;
   if (buildCounterGoogleCloudPrivatecatalogV1beta1Version < 3) {
-    o.asset = buildUnnamed4828();
+    o.asset = buildUnnamed5218();
     o.createTime = "foo";
     o.description = "foo";
     o.name = "foo";
@@ -290,7 +290,7 @@ checkGoogleCloudPrivatecatalogV1beta1Version(
     api.GoogleCloudPrivatecatalogV1beta1Version o) {
   buildCounterGoogleCloudPrivatecatalogV1beta1Version++;
   if (buildCounterGoogleCloudPrivatecatalogV1beta1Version < 3) {
-    checkUnnamed4828(o.asset);
+    checkUnnamed5218(o.asset);
     unittest.expect(o.createTime, unittest.equals('foo'));
     unittest.expect(o.description, unittest.equals('foo'));
     unittest.expect(o.name, unittest.equals('foo'));
@@ -366,9 +366,9 @@ main() {
       api.FoldersCatalogsResourceApi res =
           new api.CloudprivatecatalogApi(mock).folders.catalogs;
       var arg_resource = "foo";
+      var arg_query = "foo";
       var arg_pageToken = "foo";
       var arg_pageSize = 42;
-      var arg_query = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -401,11 +401,11 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
+        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(
             queryMap["pageToken"].first, unittest.equals(arg_pageToken));
         unittest.expect(core.int.parse(queryMap["pageSize"].first),
             unittest.equals(arg_pageSize));
-        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -417,9 +417,9 @@ main() {
       }), true);
       res
           .search(arg_resource,
+              query: arg_query,
               pageToken: arg_pageToken,
               pageSize: arg_pageSize,
-              query: arg_query,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse(response);
@@ -500,9 +500,9 @@ main() {
       api.FoldersVersionsResourceApi res =
           new api.CloudprivatecatalogApi(mock).folders.versions;
       var arg_resource = "foo";
-      var arg_query = "foo";
       var arg_pageToken = "foo";
       var arg_pageSize = 42;
+      var arg_query = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -535,11 +535,11 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
-        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(
             queryMap["pageToken"].first, unittest.equals(arg_pageToken));
         unittest.expect(core.int.parse(queryMap["pageSize"].first),
             unittest.equals(arg_pageSize));
+        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -551,9 +551,9 @@ main() {
       }), true);
       res
           .search(arg_resource,
-              query: arg_query,
               pageToken: arg_pageToken,
               pageSize: arg_pageSize,
+              query: arg_query,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse(response);
@@ -567,9 +567,9 @@ main() {
       api.OrganizationsCatalogsResourceApi res =
           new api.CloudprivatecatalogApi(mock).organizations.catalogs;
       var arg_resource = "foo";
+      var arg_query = "foo";
       var arg_pageToken = "foo";
       var arg_pageSize = 42;
-      var arg_query = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -602,11 +602,11 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
+        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(
             queryMap["pageToken"].first, unittest.equals(arg_pageToken));
         unittest.expect(core.int.parse(queryMap["pageSize"].first),
             unittest.equals(arg_pageSize));
-        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -618,9 +618,9 @@ main() {
       }), true);
       res
           .search(arg_resource,
+              query: arg_query,
               pageToken: arg_pageToken,
               pageSize: arg_pageSize,
-              query: arg_query,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse(response);
@@ -634,9 +634,9 @@ main() {
       api.OrganizationsProductsResourceApi res =
           new api.CloudprivatecatalogApi(mock).organizations.products;
       var arg_resource = "foo";
-      var arg_query = "foo";
       var arg_pageToken = "foo";
       var arg_pageSize = 42;
+      var arg_query = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -669,11 +669,11 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
-        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(
             queryMap["pageToken"].first, unittest.equals(arg_pageToken));
         unittest.expect(core.int.parse(queryMap["pageSize"].first),
             unittest.equals(arg_pageSize));
+        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -685,9 +685,9 @@ main() {
       }), true);
       res
           .search(arg_resource,
-              query: arg_query,
               pageToken: arg_pageToken,
               pageSize: arg_pageSize,
+              query: arg_query,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkGoogleCloudPrivatecatalogV1beta1SearchProductsResponse(response);
@@ -701,9 +701,9 @@ main() {
       api.OrganizationsVersionsResourceApi res =
           new api.CloudprivatecatalogApi(mock).organizations.versions;
       var arg_resource = "foo";
+      var arg_query = "foo";
       var arg_pageToken = "foo";
       var arg_pageSize = 42;
-      var arg_query = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -736,11 +736,11 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
+        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(
             queryMap["pageToken"].first, unittest.equals(arg_pageToken));
         unittest.expect(core.int.parse(queryMap["pageSize"].first),
             unittest.equals(arg_pageSize));
-        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -752,9 +752,9 @@ main() {
       }), true);
       res
           .search(arg_resource,
+              query: arg_query,
               pageToken: arg_pageToken,
               pageSize: arg_pageSize,
-              query: arg_query,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkGoogleCloudPrivatecatalogV1beta1SearchVersionsResponse(response);
@@ -768,9 +768,9 @@ main() {
       api.ProjectsCatalogsResourceApi res =
           new api.CloudprivatecatalogApi(mock).projects.catalogs;
       var arg_resource = "foo";
+      var arg_query = "foo";
       var arg_pageToken = "foo";
       var arg_pageSize = 42;
-      var arg_query = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -803,11 +803,11 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
+        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(
             queryMap["pageToken"].first, unittest.equals(arg_pageToken));
         unittest.expect(core.int.parse(queryMap["pageSize"].first),
             unittest.equals(arg_pageSize));
-        unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -819,9 +819,9 @@ main() {
       }), true);
       res
           .search(arg_resource,
+              query: arg_query,
               pageToken: arg_pageToken,
               pageSize: arg_pageSize,
-              query: arg_query,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkGoogleCloudPrivatecatalogV1beta1SearchCatalogsResponse(response);
@@ -835,9 +835,9 @@ main() {
       api.ProjectsProductsResourceApi res =
           new api.CloudprivatecatalogApi(mock).projects.products;
       var arg_resource = "foo";
-      var arg_pageSize = 42;
       var arg_query = "foo";
       var arg_pageToken = "foo";
+      var arg_pageSize = 42;
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -870,11 +870,11 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
-        unittest.expect(core.int.parse(queryMap["pageSize"].first),
-            unittest.equals(arg_pageSize));
         unittest.expect(queryMap["query"].first, unittest.equals(arg_query));
         unittest.expect(
             queryMap["pageToken"].first, unittest.equals(arg_pageToken));
+        unittest.expect(core.int.parse(queryMap["pageSize"].first),
+            unittest.equals(arg_pageSize));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -886,9 +886,9 @@ main() {
       }), true);
       res
           .search(arg_resource,
-              pageSize: arg_pageSize,
               query: arg_query,
               pageToken: arg_pageToken,
+              pageSize: arg_pageSize,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkGoogleCloudPrivatecatalogV1beta1SearchProductsResponse(response);

@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.bigtableadmin.v2;
 
@@ -251,11 +251,11 @@ class OperationsProjectsOperationsResourceApi {
   /// [name] - The name of the operation's parent resource.
   /// Value must have pattern "^operations/projects/.+$".
   ///
-  /// [filter] - The standard list filter.
-  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
+  ///
+  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -268,9 +268,9 @@ class OperationsProjectsOperationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListOperationsResponse> list(core.String name,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -282,14 +282,14 @@ class OperationsProjectsOperationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -823,13 +823,13 @@ class ProjectsInstancesAppProfilesResourceApi {
   /// `projects/<project>/instances/<instance>`.
   /// Value must have pattern "^projects/[^/]+/instances/[^/]+$".
   ///
+  /// [ignoreWarnings] - If true, ignore safety checks when creating the app
+  /// profile.
+  ///
   /// [appProfileId] - The ID to be used when referring to the new app profile
   /// within its
   /// instance, e.g., just `myprofile` rather than
   /// `projects/myproject/instances/myinstance/appProfiles/myprofile`.
-  ///
-  /// [ignoreWarnings] - If true, ignore safety checks when creating the app
-  /// profile.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -842,8 +842,8 @@ class ProjectsInstancesAppProfilesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<AppProfile> create(AppProfile request, core.String parent,
-      {core.String appProfileId,
-      core.bool ignoreWarnings,
+      {core.bool ignoreWarnings,
+      core.String appProfileId,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -858,11 +858,11 @@ class ProjectsInstancesAppProfilesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (appProfileId != null) {
-      _queryParams["appProfileId"] = [appProfileId];
-    }
     if (ignoreWarnings != null) {
       _queryParams["ignoreWarnings"] = ["${ignoreWarnings}"];
+    }
+    if (appProfileId != null) {
+      _queryParams["appProfileId"] = [appProfileId];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -995,7 +995,15 @@ class ProjectsInstancesAppProfilesResourceApi {
   /// [pageToken] - The value of `next_page_token` returned by a previous call.
   ///
   /// [pageSize] - Maximum number of results per page.
-  /// CURRENTLY UNIMPLEMENTED AND IGNORED.
+  ///
+  /// A page_size of zero lets the server choose the number of items to return.
+  /// A page_size which is strictly positive will return at most that many
+  /// items.
+  /// A negative page_size will cause an error.
+  ///
+  /// Following the first request, subsequent paginated calls are not required
+  /// to pass a page_size. If a page_size is set in subsequent calls, it must
+  /// match the page_size given in the first request.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1054,11 +1062,11 @@ class ProjectsInstancesAppProfilesResourceApi {
   /// Value must have pattern
   /// "^projects/[^/]+/instances/[^/]+/appProfiles/[^/]+$".
   ///
-  /// [ignoreWarnings] - If true, ignore safety checks when updating the app
-  /// profile.
-  ///
   /// [updateMask] - The subset of app profile fields which should be replaced.
   /// If unset, all fields will be replaced.
+  ///
+  /// [ignoreWarnings] - If true, ignore safety checks when updating the app
+  /// profile.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1071,7 +1079,7 @@ class ProjectsInstancesAppProfilesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Operation> patch(AppProfile request, core.String name,
-      {core.bool ignoreWarnings, core.String updateMask, core.String $fields}) {
+      {core.String updateMask, core.bool ignoreWarnings, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -1085,11 +1093,11 @@ class ProjectsInstancesAppProfilesResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (ignoreWarnings != null) {
-      _queryParams["ignoreWarnings"] = ["${ignoreWarnings}"];
-    }
     if (updateMask != null) {
       _queryParams["updateMask"] = [updateMask];
+    }
+    if (ignoreWarnings != null) {
+      _queryParams["ignoreWarnings"] = ["${ignoreWarnings}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1769,6 +1777,15 @@ class ProjectsInstancesTablesResourceApi {
   /// Values are of the form `projects/<project>/instances/<instance>`.
   /// Value must have pattern "^projects/[^/]+/instances/[^/]+$".
   ///
+  /// [view] - The view to be applied to the returned tables' fields.
+  /// Defaults to `NAME_ONLY` if unspecified; no others are currently supported.
+  /// Possible string values are:
+  /// - "VIEW_UNSPECIFIED" : A VIEW_UNSPECIFIED.
+  /// - "NAME_ONLY" : A NAME_ONLY.
+  /// - "SCHEMA_VIEW" : A SCHEMA_VIEW.
+  /// - "REPLICATION_VIEW" : A REPLICATION_VIEW.
+  /// - "FULL" : A FULL.
+  ///
   /// [pageToken] - The value of `next_page_token` returned by a previous call.
   ///
   /// [pageSize] - Maximum number of results per page.
@@ -1782,15 +1799,6 @@ class ProjectsInstancesTablesResourceApi {
   /// to pass a page_size. If a page_size is set in subsequent calls, it must
   /// match the page_size given in the first request.
   ///
-  /// [view] - The view to be applied to the returned tables' fields.
-  /// Defaults to `NAME_ONLY` if unspecified; no others are currently supported.
-  /// Possible string values are:
-  /// - "VIEW_UNSPECIFIED" : A VIEW_UNSPECIFIED.
-  /// - "NAME_ONLY" : A NAME_ONLY.
-  /// - "SCHEMA_VIEW" : A SCHEMA_VIEW.
-  /// - "REPLICATION_VIEW" : A REPLICATION_VIEW.
-  /// - "FULL" : A FULL.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1802,9 +1810,9 @@ class ProjectsInstancesTablesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListTablesResponse> list(core.String parent,
-      {core.String pageToken,
+      {core.String view,
+      core.String pageToken,
       core.int pageSize,
-      core.String view,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1816,14 +1824,14 @@ class ProjectsInstancesTablesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (view != null) {
+      _queryParams["view"] = [view];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (view != null) {
-      _queryParams["view"] = [view];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2064,11 +2072,11 @@ class ProjectsLocationsResourceApi {
   /// [name] - The resource that owns the locations collection, if applicable.
   /// Value must have pattern "^projects/[^/]+$".
   ///
-  /// [filter] - The standard list filter.
-  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
+  ///
+  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2081,9 +2089,9 @@ class ProjectsLocationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListLocationsResponse> list(core.String name,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -2095,14 +2103,14 @@ class ProjectsLocationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2137,7 +2145,7 @@ class AppProfile {
   /// details.
   core.String etag;
 
-  /// Use a multi-cluster routing policy that may pick any cluster.
+  /// Use a multi-cluster routing policy.
   MultiClusterRoutingUseAny multiClusterRoutingUseAny;
 
   /// (`OutputOnly`)
@@ -2212,7 +2220,7 @@ class AppProfile {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -2224,7 +2232,7 @@ class AppProfile {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -2232,7 +2240,7 @@ class AppProfile {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -2240,9 +2248,9 @@ class AppProfile {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig> auditLogConfigs;
@@ -2287,7 +2295,7 @@ class AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -2297,7 +2305,7 @@ class AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -2355,7 +2363,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -2545,8 +2553,7 @@ class Cluster {
 
 /// The state of a table's data in a particular cluster.
 class ClusterState {
-  /// Output only.
-  /// The state of replication for the table in this cluster.
+  /// Output only. The state of replication for the table in this cluster.
   /// Possible string values are:
   /// - "STATE_NOT_KNOWN" : The replication state of the table is unknown in
   /// this cluster.
@@ -2850,6 +2857,7 @@ class CreateTableRequest {
 
   /// The name by which the new table should be referred to within the parent
   /// instance, e.g., `foobar` rather than `<parent>/tables/foobar`.
+  /// Maximum 50 characters.
   core.String tableId;
 
   CreateTableRequest();
@@ -3102,13 +3110,55 @@ class GenerateConsistencyTokenResponse {
 
 /// Request message for `GetIamPolicy` method.
 class GetIamPolicyRequest {
+  /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
+  /// `GetIamPolicy`. This field is only used by Cloud IAM.
+  GetPolicyOptions options;
+
   GetIamPolicyRequest();
 
-  GetIamPolicyRequest.fromJson(core.Map _json) {}
+  GetIamPolicyRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("options")) {
+      options = new GetPolicyOptions.fromJson(_json["options"]);
+    }
+  }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (options != null) {
+      _json["options"] = (options).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Encapsulates settings provided to GetIamPolicy.
+class GetPolicyOptions {
+  /// Optional. The policy format version to be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  core.int requestedPolicyVersion;
+
+  GetPolicyOptions();
+
+  GetPolicyOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("requestedPolicyVersion")) {
+      requestedPolicyVersion = _json["requestedPolicyVersion"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (requestedPolicyVersion != null) {
+      _json["requestedPolicyVersion"] = requestedPolicyVersion;
+    }
     return _json;
   }
 }
@@ -3644,10 +3694,11 @@ class ModifyColumnFamiliesRequest {
   }
 }
 
-/// Read/write requests may be routed to any cluster in the instance, and will
-/// fail over to another cluster in the event of transient errors or delays.
-/// Choosing this option sacrifices read-your-writes consistency to improve
-/// availability.
+/// Read/write requests are routed to the nearest cluster in the instance, and
+/// will fail over to the nearest cluster that is available in the event of
+/// transient errors or delays. Clusters in a region are considered
+/// equidistant. Choosing this option sacrifices read-your-writes consistency
+/// to improve availability.
 class MultiClusterRoutingUseAny {
   MultiClusterRoutingUseAny();
 
@@ -3683,7 +3734,7 @@ class Operation {
   /// The server-assigned name, which is only unique within the same service
   /// that
   /// originally returns it. If you use the default HTTP mapping, the
-  /// `name` should have the format of `operations/some/unique/name`.
+  /// `name` should be a resource name ending with `operations/{unique_id}`.
   core.String name;
 
   /// The normal response of the operation in case of success.  If the original
@@ -3841,7 +3892,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -3852,7 +3903,14 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();
@@ -3937,7 +3995,7 @@ class SetIamPolicyRequest {
 }
 
 /// Unconditionally routes all read/write requests to a specific cluster.
-/// This option preserves read-your-writes consistency, but does not improve
+/// This option preserves read-your-writes consistency but does not improve
 /// availability.
 class SingleClusterRouting {
   /// Whether or not `CheckAndMutateRow` and `ReadModifyWriteRow` requests are
@@ -4005,58 +4063,11 @@ class Split {
 
 /// The `Status` type defines a logical error model that is suitable for
 /// different programming environments, including REST APIs and RPC APIs. It is
-/// used by [gRPC](https://github.com/grpc). The error model is designed to be:
+/// used by [gRPC](https://github.com/grpc). Each `Status` message contains
+/// three pieces of data: error code, error message, and error details.
 ///
-/// - Simple to use and understand for most users
-/// - Flexible enough to meet unexpected needs
-///
-/// # Overview
-///
-/// The `Status` message contains three pieces of data: error code, error
-/// message, and error details. The error code should be an enum value of
-/// google.rpc.Code, but it may accept additional error codes if needed.  The
-/// error message should be a developer-facing English message that helps
-/// developers *understand* and *resolve* the error. If a localized user-facing
-/// error message is needed, put the localized message in the error details or
-/// localize it in the client. The optional error details may contain arbitrary
-/// information about the error. There is a predefined set of error detail types
-/// in the package `google.rpc` that can be used for common error conditions.
-///
-/// # Language mapping
-///
-/// The `Status` message is the logical representation of the error model, but
-/// it
-/// is not necessarily the actual wire format. When the `Status` message is
-/// exposed in different client libraries and different wire protocols, it can
-/// be
-/// mapped differently. For example, it will likely be mapped to some exceptions
-/// in Java, but more likely mapped to some error codes in C.
-///
-/// # Other uses
-///
-/// The error model and the `Status` message can be used in a variety of
-/// environments, either with or without APIs, to provide a
-/// consistent developer experience across different environments.
-///
-/// Example uses of this error model include:
-///
-/// - Partial errors. If a service needs to return partial errors to the client,
-/// it may embed the `Status` in the normal response to indicate the partial
-///     errors.
-///
-/// - Workflow errors. A typical workflow has multiple steps. Each step may
-///     have a `Status` message for error reporting.
-///
-/// - Batch operations. If a client uses batch request and batch response, the
-///     `Status` message should be used directly inside batch response, one for
-///     each error sub-response.
-///
-/// - Asynchronous operations. If an API call embeds asynchronous operation
-///     results in its response, the status of those operations should be
-///     represented directly using the `Status` message.
-///
-/// - Logging. If some API errors are stored in logs, the message `Status` could
-/// be used directly after any stripping needed for security/privacy reasons.
+/// You can find out more about this error model and how to work with it in the
+/// [API Design Guide](https://cloud.google.com/apis/design/errors).
 class Status {
   /// The status code, which should be an enum value of google.rpc.Code.
   core.int code;
@@ -4109,8 +4120,7 @@ class Status {
 /// A collection of user data indexed by row, column, and timestamp.
 /// Each table is served using the resources of its parent cluster.
 class Table {
-  /// Output only.
-  /// Map from cluster ID to per-cluster table state.
+  /// Output only. Map from cluster ID to per-cluster table state.
   /// If it could not be determined whether or not the table has data in a
   /// particular cluster (for example, if its zone is unavailable), then
   /// there will be an entry for the cluster with UNKNOWN `replication_status`.
@@ -4134,8 +4144,7 @@ class Table {
   /// - "MILLIS" : The table keeps data versioned at a granularity of 1ms.
   core.String granularity;
 
-  /// Output only.
-  /// The unique name of the table. Values are of the form
+  /// Output only. The unique name of the table. Values are of the form
   /// `projects/<project>/instances/<instance>/tables/_a-zA-Z0-9*`.
   /// Views: `NAME_ONLY`, `SCHEMA_VIEW`, `REPLICATION_VIEW`, `FULL`
   core.String name;

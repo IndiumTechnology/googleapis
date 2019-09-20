@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.speech.v1;
 
@@ -99,13 +99,13 @@ class OperationsResourceApi {
   ///
   /// Request parameters:
   ///
+  /// [filter] - The standard list filter.
+  ///
   /// [name] - The name of the operation's parent resource.
   ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
-  ///
-  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -118,10 +118,10 @@ class OperationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListOperationsResponse> list(
-      {core.String name,
+      {core.String filter,
+      core.String name,
       core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -130,6 +130,9 @@ class OperationsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (name != null) {
       _queryParams["name"] = [name];
     }
@@ -138,9 +141,6 @@ class OperationsResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -246,11 +246,11 @@ class ProjectsLocationsOperationsResourceApi {
   /// [name] - The name of the operation's parent resource.
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
   ///
-  /// [pageToken] - The standard list page token.
-  ///
   /// [pageSize] - The standard list page size.
   ///
   /// [filter] - The standard list filter.
+  ///
+  /// [pageToken] - The standard list page token.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -263,9 +263,9 @@ class ProjectsLocationsOperationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListOperationsResponse> list(core.String name,
-      {core.String pageToken,
-      core.int pageSize,
+      {core.int pageSize,
       core.String filter,
+      core.String pageToken,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -277,14 +277,14 @@ class ProjectsLocationsOperationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
     }
     if (filter != null) {
       _queryParams["filter"] = [filter];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -633,7 +633,7 @@ class Operation {
 /// Contains audio data in the encoding specified in the `RecognitionConfig`.
 /// Either `content` or `uri` must be supplied. Supplying both or neither
 /// returns google.rpc.Code.INVALID_ARGUMENT. See
-/// [content limits](/speech-to-text/quotas#content).
+/// [content limits](https://cloud.google.com/speech-to-text/quotas#content).
 class RecognitionAudio {
   /// The audio data bytes encoded as specified in
   /// `RecognitionConfig`. Note: as with all bytes fields, proto buffers use a
@@ -759,8 +759,10 @@ class RecognitionConfig {
   /// *Required* The language of the supplied audio as a
   /// [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag.
   /// Example: "en-US".
-  /// See [Language Support](/speech-to-text/docs/languages)
-  /// for a list of the currently supported language codes.
+  /// See [Language
+  /// Support](https://cloud.google.com/speech-to-text/docs/languages) for a
+  /// list
+  /// of the currently supported language codes.
   core.String languageCode;
 
   /// *Optional* Maximum number of recognition hypotheses to be returned.
@@ -826,7 +828,9 @@ class RecognitionConfig {
 
   /// *Optional* array of SpeechContext.
   /// A means to provide context to assist the speech recognition. For more
-  /// information, see [Phrase Hints](/speech-to-text/docs/basics#phrase-hints).
+  /// information, see
+  /// [speech
+  /// adaptation](https://cloud.google.com/speech-to-text/docs/context-strength).
   core.List<SpeechContext> speechContexts;
 
   /// *Optional* Set to true to use an enhanced model for speech recognition.
@@ -1155,7 +1159,7 @@ class SpeechContext {
   /// to improve the accuracy for specific words and phrases, for example, if
   /// specific commands are typically spoken by the user. This can also be used
   /// to add additional words to the vocabulary of the recognizer. See
-  /// [usage limits](/speech-to-text/quotas#content).
+  /// [usage limits](https://cloud.google.com/speech-to-text/quotas#content).
   ///
   /// List items can also be set to classes for groups of words that represent
   /// common concepts that occur in natural language. For example, rather than

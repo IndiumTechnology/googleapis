@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.people.v1;
 
@@ -550,6 +550,95 @@ class PeopleResourceApi {
     return _response.then((data) => new Empty.fromJson(data));
   }
 
+  /// Delete a contact's photo.
+  ///
+  /// Request parameters:
+  ///
+  /// [resourceName] - The resource name of the contact whose photo will be
+  /// deleted.
+  /// Value must have pattern "^people/[^/]+$".
+  ///
+  /// [personFields] - **Optional.** Not specifying any fields will skip the
+  /// post mutate read.
+  /// A field mask to restrict which fields on the person are
+  /// returned. Multiple fields can be specified by separating them with commas.
+  /// Valid values are:
+  ///
+  /// * addresses
+  /// * ageRanges
+  /// * biographies
+  /// * birthdays
+  /// * braggingRights
+  /// * coverPhotos
+  /// * emailAddresses
+  /// * events
+  /// * genders
+  /// * imClients
+  /// * interests
+  /// * locales
+  /// * memberships
+  /// * metadata
+  /// * names
+  /// * nicknames
+  /// * occupations
+  /// * organizations
+  /// * phoneNumbers
+  /// * photos
+  /// * relations
+  /// * relationshipInterests
+  /// * relationshipStatuses
+  /// * residences
+  /// * sipAddresses
+  /// * skills
+  /// * taglines
+  /// * urls
+  /// * userDefined
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [DeleteContactPhotoResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<DeleteContactPhotoResponse> deleteContactPhoto(
+      core.String resourceName,
+      {core.String personFields,
+      core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (resourceName == null) {
+      throw new core.ArgumentError("Parameter resourceName is required.");
+    }
+    if (personFields != null) {
+      _queryParams["personFields"] = [personFields];
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' +
+        commons.Escaper.ecapeVariableReserved('$resourceName') +
+        ':deleteContactPhoto';
+
+    var _response = _requester.request(_url, "DELETE",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new DeleteContactPhotoResponse.fromJson(data));
+  }
+
   /// Provides information about a person by specifying a resource name. Use
   /// `people/me` to indicate the authenticated user.
   /// <br>
@@ -661,6 +750,18 @@ class PeopleResourceApi {
   ///
   /// Request parameters:
   ///
+  /// [resourceNames] - The resource names of the people to provide information
+  /// about.
+  ///
+  /// - To get information about the authenticated user, specify `people/me`.
+  /// - To get information about a google account, specify
+  ///   `people/`<var>account_id</var>.
+  /// - To get information about a contact, specify the resource name that
+  ///   identifies the contact as returned by
+  /// [`people.connections.list`](/people/api/rest/v1/people.connections/list).
+  ///
+  /// You can include up to 50 resource names in one request.
+  ///
   /// [personFields] - **Required.** A field mask to restrict which fields on
   /// each person are
   /// returned. Multiple fields can be specified by separating them with commas.
@@ -701,18 +802,6 @@ class PeopleResourceApi {
   /// response. Each path should start with `person.`: for example,
   /// `person.names` or `person.photos`.
   ///
-  /// [resourceNames] - The resource names of the people to provide information
-  /// about.
-  ///
-  /// - To get information about the authenticated user, specify `people/me`.
-  /// - To get information about a google account, specify
-  ///   `people/`<var>account_id</var>.
-  /// - To get information about a contact, specify the resource name that
-  ///   identifies the contact as returned by
-  /// [`people.connections.list`](/people/api/rest/v1/people.connections/list).
-  ///
-  /// You can include up to 50 resource names in one request.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -724,9 +813,9 @@ class PeopleResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<GetPeopleResponse> getBatchGet(
-      {core.String personFields,
+      {core.List<core.String> resourceNames,
+      core.String personFields,
       core.String requestMask_includeField,
-      core.List<core.String> resourceNames,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -735,14 +824,14 @@ class PeopleResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
+    if (resourceNames != null) {
+      _queryParams["resourceNames"] = resourceNames;
+    }
     if (personFields != null) {
       _queryParams["personFields"] = [personFields];
     }
     if (requestMask_includeField != null) {
       _queryParams["requestMask.includeField"] = [requestMask_includeField];
-    }
-    if (resourceNames != null) {
-      _queryParams["resourceNames"] = resourceNames;
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -767,10 +856,11 @@ class PeopleResourceApi {
   /// The request throws a 400 error if `person.metadata.sources` is not
   /// specified for the contact to be updated.
   /// <br>
-  /// The request throws a 412 error if `person.metadata.sources.etag` is
-  /// different than the contact's etag, which indicates the contact has changed
-  /// since its data was read. Clients should get the latest person and re-apply
-  /// their updates to the latest person.
+  /// The request throws a 400 error with an error with reason
+  /// `"failedPrecondition"` if `person.metadata.sources.etag` is different than
+  /// the contact's etag, which indicates the contact has changed since its data
+  /// was read. Clients should get the latest person and re-apply their updates
+  /// to the latest person.
   ///
   /// [request] - The metadata request object.
   ///
@@ -852,6 +942,59 @@ class PeopleResourceApi {
         downloadOptions: _downloadOptions);
     return _response.then((data) => new Person.fromJson(data));
   }
+
+  /// Update a contact's photo.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [resourceName] - Person resource name
+  /// Value must have pattern "^people/[^/]+$".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [UpdateContactPhotoResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<UpdateContactPhotoResponse> updateContactPhoto(
+      UpdateContactPhotoRequest request, core.String resourceName,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (resourceName == null) {
+      throw new core.ArgumentError("Parameter resourceName is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v1/' +
+        commons.Escaper.ecapeVariableReserved('$resourceName') +
+        ':updateContactPhoto';
+
+    var _response = _requester.request(_url, "PATCH",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response
+        .then((data) => new UpdateContactPhotoResponse.fromJson(data));
+  }
 }
 
 class PeopleConnectionsResourceApi {
@@ -870,28 +1013,6 @@ class PeopleConnectionsResourceApi {
   /// [resourceName] - The resource name to return connections for. Only
   /// `people/me` is valid.
   /// Value must have pattern "^people/[^/]+$".
-  ///
-  /// [requestSyncToken] - Whether the response should include a sync token,
-  /// which can be used to get
-  /// all changes since the last request. For subsequent sync requests use the
-  /// `sync_token` param instead. Initial sync requests that specify
-  /// `request_sync_token` have an additional rate limit.
-  ///
-  /// [pageToken] - The token of the page to be returned.
-  ///
-  /// [pageSize] - The number of connections to include in the response. Valid
-  /// values are
-  /// between 1 and 2000, inclusive. Defaults to 100.
-  ///
-  /// [requestMask_includeField] - **Required.** Comma-separated list of person
-  /// fields to be included in the
-  /// response. Each path should start with `person.`: for example,
-  /// `person.names` or `person.photos`.
-  ///
-  /// [syncToken] - A sync token returned by a previous call to
-  /// `people.connections.list`.
-  /// Only resources changed since the sync token was created will be returned.
-  /// Sync requests that specify `sync_token` have an additional rate limit.
   ///
   /// [personFields] - **Required.** A field mask to restrict which fields on
   /// each person are
@@ -937,6 +1058,28 @@ class PeopleConnectionsResourceApi {
   /// - "FIRST_NAME_ASCENDING" : A FIRST_NAME_ASCENDING.
   /// - "LAST_NAME_ASCENDING" : A LAST_NAME_ASCENDING.
   ///
+  /// [requestSyncToken] - Whether the response should include a sync token,
+  /// which can be used to get
+  /// all changes since the last request. For subsequent sync requests use the
+  /// `sync_token` param instead. Initial sync requests that specify
+  /// `request_sync_token` have an additional rate limit.
+  ///
+  /// [pageToken] - The token of the page to be returned.
+  ///
+  /// [pageSize] - The number of connections to include in the response. Valid
+  /// values are
+  /// between 1 and 2000, inclusive. Defaults to 100.
+  ///
+  /// [requestMask_includeField] - **Required.** Comma-separated list of person
+  /// fields to be included in the
+  /// response. Each path should start with `person.`: for example,
+  /// `person.names` or `person.photos`.
+  ///
+  /// [syncToken] - A sync token returned by a previous call to
+  /// `people.connections.list`.
+  /// Only resources changed since the sync token was created will be returned.
+  /// Sync requests that specify `sync_token` have an additional rate limit.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -948,13 +1091,13 @@ class PeopleConnectionsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListConnectionsResponse> list(core.String resourceName,
-      {core.bool requestSyncToken,
+      {core.String personFields,
+      core.String sortOrder,
+      core.bool requestSyncToken,
       core.String pageToken,
       core.int pageSize,
       core.String requestMask_includeField,
       core.String syncToken,
-      core.String personFields,
-      core.String sortOrder,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -965,6 +1108,12 @@ class PeopleConnectionsResourceApi {
 
     if (resourceName == null) {
       throw new core.ArgumentError("Parameter resourceName is required.");
+    }
+    if (personFields != null) {
+      _queryParams["personFields"] = [personFields];
+    }
+    if (sortOrder != null) {
+      _queryParams["sortOrder"] = [sortOrder];
     }
     if (requestSyncToken != null) {
       _queryParams["requestSyncToken"] = ["${requestSyncToken}"];
@@ -980,12 +1129,6 @@ class PeopleConnectionsResourceApi {
     }
     if (syncToken != null) {
       _queryParams["syncToken"] = [syncToken];
-    }
-    if (personFields != null) {
-      _queryParams["personFields"] = [personFields];
-    }
-    if (sortOrder != null) {
-      _queryParams["sortOrder"] = [sortOrder];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1598,14 +1741,19 @@ class CreateContactGroupRequest {
   }
 }
 
-/// Represents a whole calendar date, for example a date of birth. The time
-/// of day and time zone are either specified elsewhere or are not
-/// significant. The date is relative to the
-/// [Proleptic Gregorian
-/// Calendar](https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar).
-/// The day may be 0 to represent a year and month where the day is not
-/// significant. The year may be 0 to represent a month and day independent
-/// of year; for example, anniversary date.
+/// Represents a whole or partial calendar date, e.g. a birthday. The time of
+/// day
+/// and time zone are either specified elsewhere or are not significant. The
+/// date
+/// is relative to the Proleptic Gregorian Calendar. This can represent:
+///
+/// * A full date, with non-zero year, month and day values
+/// * A month and day value, with a zero year, e.g. an anniversary
+/// * A year on its own, with zero month and day values
+/// * A year and month value, with a zero day, e.g. a credit card expiration
+/// date
+///
+/// Related types are google.type.TimeOfDay and `google.protobuf.Timestamp`.
 class Date {
   /// Day of month. Must be from 1 to 31 and valid for the year and month, or 0
   /// if specifying a year by itself or a year and month where the day is not
@@ -1645,6 +1793,30 @@ class Date {
     }
     if (year != null) {
       _json["year"] = year;
+    }
+    return _json;
+  }
+}
+
+/// The response for deleteing a contact's photo.
+class DeleteContactPhotoResponse {
+  /// The updated person, if person_fields is set in the
+  /// DeleteContactPhotoRequest; otherwise this will be unset.
+  Person person;
+
+  DeleteContactPhotoResponse();
+
+  DeleteContactPhotoResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("person")) {
+      person = new Person.fromJson(_json["person"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (person != null) {
+      _json["person"] = (person).toJson();
     }
     return _json;
   }
@@ -2281,12 +2453,21 @@ class ModifyContactGroupMembersRequest {
 
 /// The response to a modify contact group members request.
 class ModifyContactGroupMembersResponse {
+  /// The contact people resource names that cannot be removed from their
+  /// last contact group.
+  core.List<core.String> canNotRemoveLastContactGroupResourceNames;
+
   /// The contact people resource names that were not found.
   core.List<core.String> notFoundResourceNames;
 
   ModifyContactGroupMembersResponse();
 
   ModifyContactGroupMembersResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("canNotRemoveLastContactGroupResourceNames")) {
+      canNotRemoveLastContactGroupResourceNames =
+          (_json["canNotRemoveLastContactGroupResourceNames"] as core.List)
+              .cast<core.String>();
+    }
     if (_json.containsKey("notFoundResourceNames")) {
       notFoundResourceNames =
           (_json["notFoundResourceNames"] as core.List).cast<core.String>();
@@ -2296,6 +2477,10 @@ class ModifyContactGroupMembersResponse {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (canNotRemoveLastContactGroupResourceNames != null) {
+      _json["canNotRemoveLastContactGroupResourceNames"] =
+          canNotRemoveLastContactGroupResourceNames;
+    }
     if (notFoundResourceNames != null) {
       _json["notFoundResourceNames"] = notFoundResourceNames;
     }
@@ -3849,6 +4034,104 @@ class UpdateContactGroupRequest {
         new core.Map<core.String, core.Object>();
     if (contactGroup != null) {
       _json["contactGroup"] = (contactGroup).toJson();
+    }
+    return _json;
+  }
+}
+
+/// A request to update an existing contact's photo.
+/// All requests must have a valid photo format: JPEG or PNG.
+class UpdateContactPhotoRequest {
+  /// **Optional.** Not specifying any fields will skip the post mutate read.
+  /// A field mask to restrict which fields on the person are
+  /// returned. Multiple fields can be specified by separating them with commas.
+  /// Valid values are:
+  ///
+  /// * addresses
+  /// * ageRanges
+  /// * biographies
+  /// * birthdays
+  /// * braggingRights
+  /// * coverPhotos
+  /// * emailAddresses
+  /// * events
+  /// * genders
+  /// * imClients
+  /// * interests
+  /// * locales
+  /// * memberships
+  /// * metadata
+  /// * names
+  /// * nicknames
+  /// * occupations
+  /// * organizations
+  /// * phoneNumbers
+  /// * photos
+  /// * relations
+  /// * relationshipInterests
+  /// * relationshipStatuses
+  /// * residences
+  /// * sipAddresses
+  /// * skills
+  /// * taglines
+  /// * urls
+  /// * userDefined
+  core.String personFields;
+
+  /// Raw photo bytes
+  core.String photoBytes;
+  core.List<core.int> get photoBytesAsBytes {
+    return convert.base64.decode(photoBytes);
+  }
+
+  set photoBytesAsBytes(core.List<core.int> _bytes) {
+    photoBytes =
+        convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
+  }
+
+  UpdateContactPhotoRequest();
+
+  UpdateContactPhotoRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("personFields")) {
+      personFields = _json["personFields"];
+    }
+    if (_json.containsKey("photoBytes")) {
+      photoBytes = _json["photoBytes"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (personFields != null) {
+      _json["personFields"] = personFields;
+    }
+    if (photoBytes != null) {
+      _json["photoBytes"] = photoBytes;
+    }
+    return _json;
+  }
+}
+
+/// The response for updating a contact's photo.
+class UpdateContactPhotoResponse {
+  /// The updated person, if person_fields is set in the
+  /// UpdateContactPhotoRequest; otherwise this will be unset.
+  Person person;
+
+  UpdateContactPhotoResponse();
+
+  UpdateContactPhotoResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("person")) {
+      person = new Person.fromJson(_json["person"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (person != null) {
+      _json["person"] = (person).toJson();
     }
     return _json;
   }

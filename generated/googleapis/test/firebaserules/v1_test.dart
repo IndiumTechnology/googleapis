@@ -117,7 +117,7 @@ checkFile(api.File o) {
   buildCounterFile--;
 }
 
-buildUnnamed2139() {
+buildUnnamed4708() {
   var o = new core.List<core.Object>();
   o.add({
     'list': [1, 2, 3],
@@ -132,7 +132,7 @@ buildUnnamed2139() {
   return o;
 }
 
-checkUnnamed2139(core.List<core.Object> o) {
+checkUnnamed4708(core.List<core.Object> o) {
   unittest.expect(o, unittest.hasLength(2));
   var casted2 = (o[0]) as core.Map;
   unittest.expect(casted2, unittest.hasLength(3));
@@ -151,7 +151,7 @@ buildFunctionCall() {
   var o = new api.FunctionCall();
   buildCounterFunctionCall++;
   if (buildCounterFunctionCall < 3) {
-    o.args = buildUnnamed2139();
+    o.args = buildUnnamed4708();
     o.function = "foo";
   }
   buildCounterFunctionCall--;
@@ -161,20 +161,20 @@ buildFunctionCall() {
 checkFunctionCall(api.FunctionCall o) {
   buildCounterFunctionCall++;
   if (buildCounterFunctionCall < 3) {
-    checkUnnamed2139(o.args);
+    checkUnnamed4708(o.args);
     unittest.expect(o.function, unittest.equals('foo'));
   }
   buildCounterFunctionCall--;
 }
 
-buildUnnamed2140() {
+buildUnnamed4709() {
   var o = new core.List<api.Arg>();
   o.add(buildArg());
   o.add(buildArg());
   return o;
 }
 
-checkUnnamed2140(core.List<api.Arg> o) {
+checkUnnamed4709(core.List<api.Arg> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkArg(o[0]);
   checkArg(o[1]);
@@ -185,7 +185,7 @@ buildFunctionMock() {
   var o = new api.FunctionMock();
   buildCounterFunctionMock++;
   if (buildCounterFunctionMock < 3) {
-    o.args = buildUnnamed2140();
+    o.args = buildUnnamed4709();
     o.function = "foo";
     o.result = buildResult();
   }
@@ -196,7 +196,7 @@ buildFunctionMock() {
 checkFunctionMock(api.FunctionMock o) {
   buildCounterFunctionMock++;
   if (buildCounterFunctionMock < 3) {
-    checkUnnamed2140(o.args);
+    checkUnnamed4709(o.args);
     unittest.expect(o.function, unittest.equals('foo'));
     checkResult(o.result);
   }
@@ -255,14 +255,14 @@ checkIssue(api.Issue o) {
   buildCounterIssue--;
 }
 
-buildUnnamed2141() {
+buildUnnamed4710() {
   var o = new core.List<api.Release>();
   o.add(buildRelease());
   o.add(buildRelease());
   return o;
 }
 
-checkUnnamed2141(core.List<api.Release> o) {
+checkUnnamed4710(core.List<api.Release> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkRelease(o[0]);
   checkRelease(o[1]);
@@ -274,7 +274,7 @@ buildListReleasesResponse() {
   buildCounterListReleasesResponse++;
   if (buildCounterListReleasesResponse < 3) {
     o.nextPageToken = "foo";
-    o.releases = buildUnnamed2141();
+    o.releases = buildUnnamed4710();
   }
   buildCounterListReleasesResponse--;
   return o;
@@ -284,19 +284,19 @@ checkListReleasesResponse(api.ListReleasesResponse o) {
   buildCounterListReleasesResponse++;
   if (buildCounterListReleasesResponse < 3) {
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
-    checkUnnamed2141(o.releases);
+    checkUnnamed4710(o.releases);
   }
   buildCounterListReleasesResponse--;
 }
 
-buildUnnamed2142() {
+buildUnnamed4711() {
   var o = new core.List<api.Ruleset>();
   o.add(buildRuleset());
   o.add(buildRuleset());
   return o;
 }
 
-checkUnnamed2142(core.List<api.Ruleset> o) {
+checkUnnamed4711(core.List<api.Ruleset> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkRuleset(o[0]);
   checkRuleset(o[1]);
@@ -308,7 +308,7 @@ buildListRulesetsResponse() {
   buildCounterListRulesetsResponse++;
   if (buildCounterListRulesetsResponse < 3) {
     o.nextPageToken = "foo";
-    o.rulesets = buildUnnamed2142();
+    o.rulesets = buildUnnamed4711();
   }
   buildCounterListRulesetsResponse--;
   return o;
@@ -318,7 +318,7 @@ checkListRulesetsResponse(api.ListRulesetsResponse o) {
   buildCounterListRulesetsResponse++;
   if (buildCounterListRulesetsResponse < 3) {
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
-    checkUnnamed2142(o.rulesets);
+    checkUnnamed4711(o.rulesets);
   }
   buildCounterListRulesetsResponse--;
 }
@@ -400,14 +400,14 @@ checkRuleset(api.Ruleset o) {
   buildCounterRuleset--;
 }
 
-buildUnnamed2143() {
+buildUnnamed4712() {
   var o = new core.List<api.File>();
   o.add(buildFile());
   o.add(buildFile());
   return o;
 }
 
-checkUnnamed2143(core.List<api.File> o) {
+checkUnnamed4712(core.List<api.File> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkFile(o[0]);
   checkFile(o[1]);
@@ -418,7 +418,7 @@ buildSource() {
   var o = new api.Source();
   buildCounterSource++;
   if (buildCounterSource < 3) {
-    o.files = buildUnnamed2143();
+    o.files = buildUnnamed4712();
   }
   buildCounterSource--;
   return o;
@@ -427,7 +427,7 @@ buildSource() {
 checkSource(api.Source o) {
   buildCounterSource++;
   if (buildCounterSource < 3) {
-    checkUnnamed2143(o.files);
+    checkUnnamed4712(o.files);
   }
   buildCounterSource--;
 }
@@ -455,14 +455,14 @@ checkSourcePosition(api.SourcePosition o) {
   buildCounterSourcePosition--;
 }
 
-buildUnnamed2144() {
+buildUnnamed4713() {
   var o = new core.List<api.FunctionMock>();
   o.add(buildFunctionMock());
   o.add(buildFunctionMock());
   return o;
 }
 
-checkUnnamed2144(core.List<api.FunctionMock> o) {
+checkUnnamed4713(core.List<api.FunctionMock> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkFunctionMock(o[0]);
   checkFunctionMock(o[1]);
@@ -474,7 +474,8 @@ buildTestCase() {
   buildCounterTestCase++;
   if (buildCounterTestCase < 3) {
     o.expectation = "foo";
-    o.functionMocks = buildUnnamed2144();
+    o.functionMocks = buildUnnamed4713();
+    o.pathEncoding = "foo";
     o.request = {
       'list': [1, 2, 3],
       'bool': true,
@@ -494,7 +495,8 @@ checkTestCase(api.TestCase o) {
   buildCounterTestCase++;
   if (buildCounterTestCase < 3) {
     unittest.expect(o.expectation, unittest.equals('foo'));
-    checkUnnamed2144(o.functionMocks);
+    checkUnnamed4713(o.functionMocks);
+    unittest.expect(o.pathEncoding, unittest.equals('foo'));
     var casted5 = (o.request) as core.Map;
     unittest.expect(casted5, unittest.hasLength(3));
     unittest.expect(casted5["list"], unittest.equals([1, 2, 3]));
@@ -509,40 +511,40 @@ checkTestCase(api.TestCase o) {
   buildCounterTestCase--;
 }
 
-buildUnnamed2145() {
+buildUnnamed4714() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed2145(core.List<core.String> o) {
+checkUnnamed4714(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed2146() {
+buildUnnamed4715() {
   var o = new core.List<api.FunctionCall>();
   o.add(buildFunctionCall());
   o.add(buildFunctionCall());
   return o;
 }
 
-checkUnnamed2146(core.List<api.FunctionCall> o) {
+checkUnnamed4715(core.List<api.FunctionCall> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkFunctionCall(o[0]);
   checkFunctionCall(o[1]);
 }
 
-buildUnnamed2147() {
+buildUnnamed4716() {
   var o = new core.List<api.VisitedExpression>();
   o.add(buildVisitedExpression());
   o.add(buildVisitedExpression());
   return o;
 }
 
-checkUnnamed2147(core.List<api.VisitedExpression> o) {
+checkUnnamed4716(core.List<api.VisitedExpression> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkVisitedExpression(o[0]);
   checkVisitedExpression(o[1]);
@@ -553,11 +555,11 @@ buildTestResult() {
   var o = new api.TestResult();
   buildCounterTestResult++;
   if (buildCounterTestResult < 3) {
-    o.debugMessages = buildUnnamed2145();
+    o.debugMessages = buildUnnamed4714();
     o.errorPosition = buildSourcePosition();
-    o.functionCalls = buildUnnamed2146();
+    o.functionCalls = buildUnnamed4715();
     o.state = "foo";
-    o.visitedExpressions = buildUnnamed2147();
+    o.visitedExpressions = buildUnnamed4716();
   }
   buildCounterTestResult--;
   return o;
@@ -566,11 +568,11 @@ buildTestResult() {
 checkTestResult(api.TestResult o) {
   buildCounterTestResult++;
   if (buildCounterTestResult < 3) {
-    checkUnnamed2145(o.debugMessages);
+    checkUnnamed4714(o.debugMessages);
     checkSourcePosition(o.errorPosition);
-    checkUnnamed2146(o.functionCalls);
+    checkUnnamed4715(o.functionCalls);
     unittest.expect(o.state, unittest.equals('foo'));
-    checkUnnamed2147(o.visitedExpressions);
+    checkUnnamed4716(o.visitedExpressions);
   }
   buildCounterTestResult--;
 }
@@ -596,27 +598,27 @@ checkTestRulesetRequest(api.TestRulesetRequest o) {
   buildCounterTestRulesetRequest--;
 }
 
-buildUnnamed2148() {
+buildUnnamed4717() {
   var o = new core.List<api.Issue>();
   o.add(buildIssue());
   o.add(buildIssue());
   return o;
 }
 
-checkUnnamed2148(core.List<api.Issue> o) {
+checkUnnamed4717(core.List<api.Issue> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkIssue(o[0]);
   checkIssue(o[1]);
 }
 
-buildUnnamed2149() {
+buildUnnamed4718() {
   var o = new core.List<api.TestResult>();
   o.add(buildTestResult());
   o.add(buildTestResult());
   return o;
 }
 
-checkUnnamed2149(core.List<api.TestResult> o) {
+checkUnnamed4718(core.List<api.TestResult> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkTestResult(o[0]);
   checkTestResult(o[1]);
@@ -627,8 +629,8 @@ buildTestRulesetResponse() {
   var o = new api.TestRulesetResponse();
   buildCounterTestRulesetResponse++;
   if (buildCounterTestRulesetResponse < 3) {
-    o.issues = buildUnnamed2148();
-    o.testResults = buildUnnamed2149();
+    o.issues = buildUnnamed4717();
+    o.testResults = buildUnnamed4718();
   }
   buildCounterTestRulesetResponse--;
   return o;
@@ -637,20 +639,20 @@ buildTestRulesetResponse() {
 checkTestRulesetResponse(api.TestRulesetResponse o) {
   buildCounterTestRulesetResponse++;
   if (buildCounterTestRulesetResponse < 3) {
-    checkUnnamed2148(o.issues);
-    checkUnnamed2149(o.testResults);
+    checkUnnamed4717(o.issues);
+    checkUnnamed4718(o.testResults);
   }
   buildCounterTestRulesetResponse--;
 }
 
-buildUnnamed2150() {
+buildUnnamed4719() {
   var o = new core.List<api.TestCase>();
   o.add(buildTestCase());
   o.add(buildTestCase());
   return o;
 }
 
-checkUnnamed2150(core.List<api.TestCase> o) {
+checkUnnamed4719(core.List<api.TestCase> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkTestCase(o[0]);
   checkTestCase(o[1]);
@@ -661,7 +663,7 @@ buildTestSuite() {
   var o = new api.TestSuite();
   buildCounterTestSuite++;
   if (buildCounterTestSuite < 3) {
-    o.testCases = buildUnnamed2150();
+    o.testCases = buildUnnamed4719();
   }
   buildCounterTestSuite--;
   return o;
@@ -670,7 +672,7 @@ buildTestSuite() {
 checkTestSuite(api.TestSuite o) {
   buildCounterTestSuite++;
   if (buildCounterTestSuite < 3) {
-    checkUnnamed2150(o.testCases);
+    checkUnnamed4719(o.testCases);
   }
   buildCounterTestSuite--;
 }
@@ -1455,9 +1457,9 @@ main() {
       api.ProjectsRulesetsResourceApi res =
           new api.FirebaserulesApi(mock).projects.rulesets;
       var arg_name = "foo";
+      var arg_pageSize = 42;
       var arg_filter = "foo";
       var arg_pageToken = "foo";
-      var arg_pageSize = 42;
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -1490,11 +1492,11 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
+        unittest.expect(core.int.parse(queryMap["pageSize"].first),
+            unittest.equals(arg_pageSize));
         unittest.expect(queryMap["filter"].first, unittest.equals(arg_filter));
         unittest.expect(
             queryMap["pageToken"].first, unittest.equals(arg_pageToken));
-        unittest.expect(core.int.parse(queryMap["pageSize"].first),
-            unittest.equals(arg_pageSize));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -1505,9 +1507,9 @@ main() {
       }), true);
       res
           .list(arg_name,
+              pageSize: arg_pageSize,
               filter: arg_filter,
               pageToken: arg_pageToken,
-              pageSize: arg_pageSize,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkListRulesetsResponse(response);

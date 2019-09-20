@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.dlp.v2;
 
@@ -27,6 +27,7 @@ class DlpApi {
   final commons.ApiRequester _requester;
 
   InfoTypesResourceApi get infoTypes => new InfoTypesResourceApi(_requester);
+  LocationsResourceApi get locations => new LocationsResourceApi(_requester);
   OrganizationsResourceApi get organizations =>
       new OrganizationsResourceApi(_requester);
   ProjectsResourceApi get projects => new ProjectsResourceApi(_requester);
@@ -58,6 +59,10 @@ class InfoTypesResourceApi {
   /// parts of the
   /// API. Defaults to supported_by=INSPECT.
   ///
+  /// [location] - The geographic location to list info types. Reserved for
+  /// future
+  /// extensions.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -69,7 +74,10 @@ class InfoTypesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<GooglePrivacyDlpV2ListInfoTypesResponse> list(
-      {core.String languageCode, core.String filter, core.String $fields}) {
+      {core.String languageCode,
+      core.String filter,
+      core.String location,
+      core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -83,6 +91,9 @@ class InfoTypesResourceApi {
     if (filter != null) {
       _queryParams["filter"] = [filter];
     }
+    if (location != null) {
+      _queryParams["location"] = [location];
+    }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
     }
@@ -90,6 +101,68 @@ class InfoTypesResourceApi {
     _url = 'v2/infoTypes';
 
     var _response = _requester.request(_url, "GET",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then(
+        (data) => new GooglePrivacyDlpV2ListInfoTypesResponse.fromJson(data));
+  }
+}
+
+class LocationsResourceApi {
+  final commons.ApiRequester _requester;
+
+  LocationsResourceApi(commons.ApiRequester client) : _requester = client;
+
+  /// Returns a list of the sensitive information types that the DLP API
+  /// supports. See https://cloud.google.com/dlp/docs/infotypes-reference to
+  /// learn more.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [location] - The geographic location to list info types. Reserved for
+  /// future
+  /// extensions.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GooglePrivacyDlpV2ListInfoTypesResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GooglePrivacyDlpV2ListInfoTypesResponse> infoTypes(
+      GooglePrivacyDlpV2ListInfoTypesRequest request, core.String location,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (location == null) {
+      throw new core.ArgumentError("Parameter location is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2/locations/' +
+        commons.Escaper.ecapeVariable('$location') +
+        '/infoTypes';
+
+    var _response = _requester.request(_url, "POST",
         body: _body,
         queryParams: _queryParams,
         uploadOptions: _uploadOptions,
@@ -1761,24 +1834,6 @@ class ProjectsDlpJobsResourceApi {
   /// [parent] - The parent resource name, for example projects/my-project-id.
   /// Value must have pattern "^projects/[^/]+$".
   ///
-  /// [pageToken] - The standard list page token.
-  ///
-  /// [pageSize] - The standard list page size.
-  ///
-  /// [orderBy] - Optional comma separated list of fields to order by,
-  /// followed by `asc` or `desc` postfix. This list is case-insensitive,
-  /// default sorting order is ascending, redundant space characters are
-  /// insignificant.
-  ///
-  /// Example: `name asc, end_time asc, create_time desc`
-  ///
-  /// Supported fields are:
-  ///
-  /// - `create_time`: corresponds to time the job was created.
-  /// - `end_time`: corresponds to time the job ended.
-  /// - `name`: corresponds to job's name.
-  /// - `state`: corresponds to `state`
-  ///
   /// [type] - The type of job. Defaults to `DlpJobType.INSPECT`
   /// Possible string values are:
   /// - "DLP_JOB_TYPE_UNSPECIFIED" : A DLP_JOB_TYPE_UNSPECIFIED.
@@ -1814,6 +1869,24 @@ class ProjectsDlpJobsResourceApi {
   ///
   /// The length of this field should be no more than 500 characters.
   ///
+  /// [pageToken] - The standard list page token.
+  ///
+  /// [pageSize] - The standard list page size.
+  ///
+  /// [orderBy] - Optional comma separated list of fields to order by,
+  /// followed by `asc` or `desc` postfix. This list is case-insensitive,
+  /// default sorting order is ascending, redundant space characters are
+  /// insignificant.
+  ///
+  /// Example: `name asc, end_time asc, create_time desc`
+  ///
+  /// Supported fields are:
+  ///
+  /// - `create_time`: corresponds to time the job was created.
+  /// - `end_time`: corresponds to time the job ended.
+  /// - `name`: corresponds to job's name.
+  /// - `state`: corresponds to `state`
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1825,11 +1898,11 @@ class ProjectsDlpJobsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<GooglePrivacyDlpV2ListDlpJobsResponse> list(core.String parent,
-      {core.String pageToken,
+      {core.String type,
+      core.String filter,
+      core.String pageToken,
       core.int pageSize,
       core.String orderBy,
-      core.String type,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1841,6 +1914,12 @@ class ProjectsDlpJobsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (type != null) {
+      _queryParams["type"] = [type];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
@@ -1849,12 +1928,6 @@ class ProjectsDlpJobsResourceApi {
     }
     if (orderBy != null) {
       _queryParams["orderBy"] = [orderBy];
-    }
-    if (type != null) {
-      _queryParams["type"] = [type];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2703,6 +2776,146 @@ class ProjectsLocationsContentResourceApi {
         downloadOptions: _downloadOptions);
     return _response.then((data) =>
         new GooglePrivacyDlpV2DeidentifyContentResponse.fromJson(data));
+  }
+
+  /// Finds potentially sensitive info in content.
+  /// This method has limits on input size, processing time, and output size.
+  ///
+  /// When no InfoTypes or CustomInfoTypes are specified in this request, the
+  /// system will automatically choose what detectors to run. By default this
+  /// may
+  /// be all types, but may change over time as detectors are updated.
+  ///
+  /// For how to guides, see https://cloud.google.com/dlp/docs/inspecting-images
+  /// and https://cloud.google.com/dlp/docs/inspecting-text,
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - The parent resource name, for example projects/my-project-id.
+  /// Value must have pattern "^projects/[^/]+$".
+  ///
+  /// [location] - The geographic location to process content inspection.
+  /// Reserved for future
+  /// extensions.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GooglePrivacyDlpV2InspectContentResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GooglePrivacyDlpV2InspectContentResponse> inspect(
+      GooglePrivacyDlpV2InspectContentRequest request,
+      core.String parent,
+      core.String location,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (location == null) {
+      throw new core.ArgumentError("Parameter location is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/locations/' +
+        commons.Escaper.ecapeVariable('$location') +
+        '/content:inspect';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then(
+        (data) => new GooglePrivacyDlpV2InspectContentResponse.fromJson(data));
+  }
+
+  /// Re-identifies content that has been de-identified.
+  /// See
+  /// https://cloud.google.com/dlp/docs/pseudonymization#re-identification_in_free_text_code_example
+  /// to learn more.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - The parent resource name.
+  /// Value must have pattern "^projects/[^/]+$".
+  ///
+  /// [location] - The geographic location to process content reidentification.
+  /// Reserved for
+  /// future extensions.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GooglePrivacyDlpV2ReidentifyContentResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GooglePrivacyDlpV2ReidentifyContentResponse> reidentify(
+      GooglePrivacyDlpV2ReidentifyContentRequest request,
+      core.String parent,
+      core.String location,
+      {core.String $fields}) {
+    var _url;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia;
+    var _uploadOptions;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body;
+
+    if (request != null) {
+      _body = convert.json.encode((request).toJson());
+    }
+    if (parent == null) {
+      throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (location == null) {
+      throw new core.ArgumentError("Parameter location is required.");
+    }
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _url = 'v2/' +
+        commons.Escaper.ecapeVariableReserved('$parent') +
+        '/locations/' +
+        commons.Escaper.ecapeVariable('$location') +
+        '/content:reidentify';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) =>
+        new GooglePrivacyDlpV2ReidentifyContentResponse.fromJson(data));
   }
 }
 
@@ -4583,6 +4796,11 @@ class GooglePrivacyDlpV2CryptoDeterministicConfig {
   /// custom info type 'Surrogate'. This facilitates reversal of the
   /// surrogate when it occurs in free text.
   ///
+  /// Note: For record transformations where the entire cell in a table is being
+  /// transformed, surrogates are optional to use. Surrogates are used to denote
+  /// the location of the token and are necessary for re-identification in free
+  /// form text.
+  ///
   /// In order for inspection to work properly, the name of this info type must
   /// not occur naturally anywhere in your data; otherwise, inspection may
   /// either
@@ -4597,7 +4815,7 @@ class GooglePrivacyDlpV2CryptoDeterministicConfig {
   /// that are highly improbable to exist in your data.
   /// For example, assuming your data is entered from a regular ASCII keyboard,
   /// the symbol with the hex code point 29DD might be used like so:
-  /// ⧝MY_TOKEN_TYPE
+  /// ⧝MY_TOKEN_TYPE.
   GooglePrivacyDlpV2InfoType surrogateInfoType;
 
   GooglePrivacyDlpV2CryptoDeterministicConfig();
@@ -6827,6 +7045,10 @@ class GooglePrivacyDlpV2InspectContentRequest {
   /// The item to inspect.
   GooglePrivacyDlpV2ContentItem item;
 
+  /// The geographic location to process content inspection. Reserved for future
+  /// extensions.
+  core.String location;
+
   GooglePrivacyDlpV2InspectContentRequest();
 
   GooglePrivacyDlpV2InspectContentRequest.fromJson(core.Map _json) {
@@ -6839,6 +7061,9 @@ class GooglePrivacyDlpV2InspectContentRequest {
     }
     if (_json.containsKey("item")) {
       item = new GooglePrivacyDlpV2ContentItem.fromJson(_json["item"]);
+    }
+    if (_json.containsKey("location")) {
+      location = _json["location"];
     }
   }
 
@@ -6853,6 +7078,9 @@ class GooglePrivacyDlpV2InspectContentRequest {
     }
     if (item != null) {
       _json["item"] = (item).toJson();
+    }
+    if (location != null) {
+      _json["location"] = location;
     }
     return _json;
   }
@@ -7200,7 +7428,7 @@ class GooglePrivacyDlpV2JobTrigger {
   /// Unique resource name for the triggeredJob, assigned by the service when
   /// the
   /// triggeredJob is created, for example
-  /// `projects/dlp-test-project/triggeredJobs/53234423`.
+  /// `projects/dlp-test-project/jobTriggers/53234423`.
   core.String name;
 
   /// A status for this trigger. [required]
@@ -8187,6 +8415,41 @@ class GooglePrivacyDlpV2ListDlpJobsResponse {
     }
     if (nextPageToken != null) {
       _json["nextPageToken"] = nextPageToken;
+    }
+    return _json;
+  }
+}
+
+/// Request for the list of infoTypes.
+class GooglePrivacyDlpV2ListInfoTypesRequest {
+  /// Optional filter to only return infoTypes supported by certain parts of the
+  /// API. Defaults to supported_by=INSPECT.
+  core.String filter;
+
+  /// Optional BCP-47 language code for localized infoType friendly
+  /// names. If omitted, or if localized strings are not available,
+  /// en-US strings will be returned.
+  core.String languageCode;
+
+  GooglePrivacyDlpV2ListInfoTypesRequest();
+
+  GooglePrivacyDlpV2ListInfoTypesRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("filter")) {
+      filter = _json["filter"];
+    }
+    if (_json.containsKey("languageCode")) {
+      languageCode = _json["languageCode"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (filter != null) {
+      _json["filter"] = filter;
+    }
+    if (languageCode != null) {
+      _json["languageCode"] = languageCode;
     }
     return _json;
   }
@@ -9415,6 +9678,10 @@ class GooglePrivacyDlpV2ReidentifyContentRequest {
   /// The item to re-identify. Will be treated as text.
   GooglePrivacyDlpV2ContentItem item;
 
+  /// The geographic location to process content reidentification.  Reserved for
+  /// future extensions.
+  core.String location;
+
   /// Configuration for the re-identification of the content item.
   /// This field shares the same proto message type that is used for
   /// de-identification, however its usage here is for the reversal of the
@@ -9448,6 +9715,9 @@ class GooglePrivacyDlpV2ReidentifyContentRequest {
     if (_json.containsKey("item")) {
       item = new GooglePrivacyDlpV2ContentItem.fromJson(_json["item"]);
     }
+    if (_json.containsKey("location")) {
+      location = _json["location"];
+    }
     if (_json.containsKey("reidentifyConfig")) {
       reidentifyConfig = new GooglePrivacyDlpV2DeidentifyConfig.fromJson(
           _json["reidentifyConfig"]);
@@ -9468,6 +9738,9 @@ class GooglePrivacyDlpV2ReidentifyContentRequest {
     }
     if (item != null) {
       _json["item"] = (item).toJson();
+    }
+    if (location != null) {
+      _json["location"] = location;
     }
     if (reidentifyConfig != null) {
       _json["reidentifyConfig"] = (reidentifyConfig).toJson();

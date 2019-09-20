@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.calendar.v3;
 
@@ -3730,7 +3730,7 @@ class ConferenceData {
   /// - "eventHangout": unset.
   /// - "eventNamedHangout": the name of the Hangout.
   /// - "hangoutsMeet": the 10-letter meeting code, for example "aaa-bbbb-ccc".
-  /// Optional.
+  /// - "addOn": defined by 3P conference provider.  Optional.
   core.String conferenceId;
 
   /// The conference solution, such as Hangouts or Hangouts Meet.
@@ -4676,9 +4676,9 @@ class Event {
   /// time. Immutable.
   EventDateTime originalStartTime;
 
-  /// Whether this is a private event copy where changes are not shared with
-  /// other copies on other calendars. Optional. Immutable. The default is
-  /// False.
+  /// If set to True, Event propagation is disabled. Note that it is not the
+  /// same thing as Private event properties. Optional. Immutable. The default
+  /// is False.
   core.bool privateCopy;
 
   /// List of RRULE, EXRULE, RDATE and EXDATE lines for a recurring event, as

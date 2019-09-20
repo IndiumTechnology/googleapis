@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.docs.v1;
 
@@ -1400,25 +1400,34 @@ class Document {
 
 /// The style of the document.
 class DocumentStyle {
-  /// The background of the document.
+  /// The background of the document. Documents cannot have a transparent
+  /// background color.
   Background background;
 
   /// The ID of the default footer. If not set, there is no default footer.
+  ///
+  /// This property is read-only.
   core.String defaultFooterId;
 
   /// The ID of the default header. If not set, there is no default header.
+  ///
+  /// This property is read-only.
   core.String defaultHeaderId;
 
   /// The ID of the footer used only for even pages. The value of
   /// use_even_page_header_footer determines
   /// whether to use the default_footer_id or this value for the
   /// footer on even pages. If not set, there is no even page footer.
+  ///
+  /// This property is read-only.
   core.String evenPageFooterId;
 
   /// The ID of the header used only for even pages. The value of
   /// use_even_page_header_footer determines
   /// whether to use the default_header_id or this value for the
   /// header on even pages. If not set, there is no even page header.
+  ///
+  /// This property is read-only.
   core.String evenPageHeaderId;
 
   /// The ID of the footer used only for the first page. If not set then
@@ -1426,6 +1435,8 @@ class DocumentStyle {
   /// use_first_page_header_footer determines
   /// whether to use the default_footer_id or this value for the
   /// footer on the first page. If not set, there is no first page footer.
+  ///
+  /// This property is read-only.
   core.String firstPageFooterId;
 
   /// The ID of the header used only for the first page. If not set then
@@ -1433,18 +1444,34 @@ class DocumentStyle {
   /// The value of use_first_page_header_footer determines
   /// whether to use the default_header_id or this value for the
   /// header on the first page. If not set, there is no first page header.
+  ///
+  /// This property is read-only.
   core.String firstPageHeaderId;
 
   /// The bottom page margin.
+  ///
+  /// Updating the bottom page margin on the document style clears the bottom
+  /// page margin on all section styles.
   Dimension marginBottom;
 
   /// The left page margin.
+  ///
+  /// Updating the left page margin on the document style clears the left page
+  /// margin on all section styles. It may also cause columns to resize in all
+  /// sections.
   Dimension marginLeft;
 
   /// The right page margin.
+  ///
+  /// Updating the right page margin on the document style clears the right page
+  /// margin on all section styles. It may also cause columns to resize in all
+  /// sections.
   Dimension marginRight;
 
   /// The top page margin.
+  ///
+  /// Updating the top page margin on the document style clears the top page
+  /// margin on all section styles.
   Dimension marginTop;
 
   /// The page number from which to start counting the number of pages.
@@ -1455,10 +1482,14 @@ class DocumentStyle {
 
   /// Indicates whether to use the even page header / footer IDs for the even
   /// pages.
+  ///
+  /// This property is read-only.
   core.bool useEvenPageHeaderFooter;
 
   /// Indicates whether to use the first page header / footer IDs for the first
   /// page.
+  ///
+  /// This property is read-only.
   core.bool useFirstPageHeaderFooter;
 
   DocumentStyle();
@@ -3480,6 +3511,38 @@ class Location {
   }
 }
 
+/// Merges cells in a Table.
+class MergeTableCellsRequest {
+  /// The table range specifying which cells of the table to merge.
+  ///
+  /// Any text in the cells being merged will be concatenated and stored in the
+  /// "head" cell of the range. This is the upper-left cell of the range when
+  /// the content direction is left to right, and the upper-right cell of the
+  /// range otherwise.
+  ///
+  /// If the range is non-rectangular (which can occur in some cases where the
+  /// range covers cells that are already merged or where the table is
+  /// non-rectangular), a 400 bad request error is returned.
+  TableRange tableRange;
+
+  MergeTableCellsRequest();
+
+  MergeTableCellsRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("tableRange")) {
+      tableRange = new TableRange.fromJson(_json["tableRange"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (tableRange != null) {
+      _json["tableRange"] = (tableRange).toJson();
+    }
+    return _json;
+  }
+}
+
 /// A collection of Ranges with the same named range
 /// ID.
 ///
@@ -4508,7 +4571,9 @@ class ParagraphStyle {
   core.String direction;
 
   /// The heading ID of the paragraph. If empty, then this paragraph is not a
-  /// heading. This property is read-only.
+  /// heading.
+  ///
+  /// This property is read-only.
   core.String headingId;
 
   /// The amount of indentation for the paragraph on the side that corresponds
@@ -4580,7 +4645,9 @@ class ParagraphStyle {
   core.String spacingMode;
 
   /// A list of the tab stops for this paragraph. The list of tab stops is not
-  /// inherited. This property is read-only.
+  /// inherited.
+  ///
+  /// This property is read-only.
   core.List<TabStop> tabStops;
 
   ParagraphStyle();
@@ -5289,6 +5356,65 @@ class ReplaceAllTextResponse {
   }
 }
 
+/// Replaces an existing image with a new image.
+///
+/// Replacing an image removes some image effects from the existing image in
+/// order to
+/// mirror the behavior of the Docs editor.
+class ReplaceImageRequest {
+  /// The ID of the existing image that will be replaced.
+  core.String imageObjectId;
+
+  /// The replacement method.
+  /// Possible string values are:
+  /// - "IMAGE_REPLACE_METHOD_UNSPECIFIED" : Unspecified image replace method.
+  /// This value must not be used.
+  /// - "CENTER_CROP" : Scales and centers the image to fill the bounds of the
+  /// original image.
+  /// The image may be cropped in order to fill the original image's bounds. The
+  /// rendered size of the image will be the same as that of the original image.
+  core.String imageReplaceMethod;
+
+  /// The URI of the new image.
+  ///
+  /// The image is fetched once at insertion time and a copy is stored for
+  /// display inside the document. Images must be less than 50MB in size, cannot
+  /// exceed 25 megapixels, and must be in one of PNG, JPEG, or GIF format.
+  ///
+  /// The provided URI can be at most 2 kB in length. The URI itself is saved
+  /// with the image, and exposed via the ImageProperties.source_uri field.
+  core.String uri;
+
+  ReplaceImageRequest();
+
+  ReplaceImageRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("imageObjectId")) {
+      imageObjectId = _json["imageObjectId"];
+    }
+    if (_json.containsKey("imageReplaceMethod")) {
+      imageReplaceMethod = _json["imageReplaceMethod"];
+    }
+    if (_json.containsKey("uri")) {
+      uri = _json["uri"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (imageObjectId != null) {
+      _json["imageObjectId"] = imageObjectId;
+    }
+    if (imageReplaceMethod != null) {
+      _json["imageReplaceMethod"] = imageReplaceMethod;
+    }
+    if (uri != null) {
+      _json["uri"] = uri;
+    }
+    return _json;
+  }
+}
+
 /// A single update to apply to a document.
 class Request {
   /// Creates a named range.
@@ -5333,11 +5459,26 @@ class Request {
   /// Inserts text at the specified location.
   InsertTextRequest insertText;
 
+  /// Merges cells in a table.
+  MergeTableCellsRequest mergeTableCells;
+
   /// Replaces all instances of the specified text.
   ReplaceAllTextRequest replaceAllText;
 
+  /// Replaces an image in the document.
+  ReplaceImageRequest replaceImage;
+
+  /// Unmerges cells in a table.
+  UnmergeTableCellsRequest unmergeTableCells;
+
+  /// Updates the style of the document.
+  UpdateDocumentStyleRequest updateDocumentStyle;
+
   /// Updates the paragraph style at the specified range.
   UpdateParagraphStyleRequest updateParagraphStyle;
+
+  /// Updates the style of table cells.
+  UpdateTableCellStyleRequest updateTableCellStyle;
 
   /// Updates the properties of columns in a table.
   UpdateTableColumnPropertiesRequest updateTableColumnProperties;
@@ -5405,13 +5546,32 @@ class Request {
     if (_json.containsKey("insertText")) {
       insertText = new InsertTextRequest.fromJson(_json["insertText"]);
     }
+    if (_json.containsKey("mergeTableCells")) {
+      mergeTableCells =
+          new MergeTableCellsRequest.fromJson(_json["mergeTableCells"]);
+    }
     if (_json.containsKey("replaceAllText")) {
       replaceAllText =
           new ReplaceAllTextRequest.fromJson(_json["replaceAllText"]);
     }
+    if (_json.containsKey("replaceImage")) {
+      replaceImage = new ReplaceImageRequest.fromJson(_json["replaceImage"]);
+    }
+    if (_json.containsKey("unmergeTableCells")) {
+      unmergeTableCells =
+          new UnmergeTableCellsRequest.fromJson(_json["unmergeTableCells"]);
+    }
+    if (_json.containsKey("updateDocumentStyle")) {
+      updateDocumentStyle =
+          new UpdateDocumentStyleRequest.fromJson(_json["updateDocumentStyle"]);
+    }
     if (_json.containsKey("updateParagraphStyle")) {
       updateParagraphStyle = new UpdateParagraphStyleRequest.fromJson(
           _json["updateParagraphStyle"]);
+    }
+    if (_json.containsKey("updateTableCellStyle")) {
+      updateTableCellStyle = new UpdateTableCellStyleRequest.fromJson(
+          _json["updateTableCellStyle"]);
     }
     if (_json.containsKey("updateTableColumnProperties")) {
       updateTableColumnProperties =
@@ -5473,11 +5633,26 @@ class Request {
     if (insertText != null) {
       _json["insertText"] = (insertText).toJson();
     }
+    if (mergeTableCells != null) {
+      _json["mergeTableCells"] = (mergeTableCells).toJson();
+    }
     if (replaceAllText != null) {
       _json["replaceAllText"] = (replaceAllText).toJson();
     }
+    if (replaceImage != null) {
+      _json["replaceImage"] = (replaceImage).toJson();
+    }
+    if (unmergeTableCells != null) {
+      _json["unmergeTableCells"] = (unmergeTableCells).toJson();
+    }
+    if (updateDocumentStyle != null) {
+      _json["updateDocumentStyle"] = (updateDocumentStyle).toJson();
+    }
     if (updateParagraphStyle != null) {
       _json["updateParagraphStyle"] = (updateParagraphStyle).toJson();
+    }
+    if (updateTableCellStyle != null) {
+      _json["updateTableCellStyle"] = (updateTableCellStyle).toJson();
     }
     if (updateTableColumnProperties != null) {
       _json["updateTableColumnProperties"] =
@@ -6627,8 +6802,13 @@ class TableCell {
 }
 
 /// A border around a table cell.
+///
+/// Table cell borders cannot be transparent. To hide a table cell border, make
+/// its width 0.
 class TableCellBorder {
   /// The color of the border.
+  ///
+  /// This color cannot be transparent.
   OptionalColor color;
 
   /// The dash style of the border.
@@ -6739,7 +6919,9 @@ class TableCellStyle {
   /// The top border of the cell.
   TableCellBorder borderTop;
 
-  /// The column span of the cell. This property is read-only.
+  /// The column span of the cell.
+  ///
+  /// This property is read-only.
   core.int columnSpan;
 
   /// The alignment of the content in the table cell. The default alignment
@@ -6772,7 +6954,9 @@ class TableCellStyle {
   /// The top padding of the cell.
   Dimension paddingTop;
 
-  /// The row span of the cell. This property is read-only.
+  /// The row span of the cell.
+  ///
+  /// This property is read-only.
   core.int rowSpan;
 
   TableCellStyle();
@@ -7075,6 +7259,62 @@ class TableOfContents {
     }
     if (suggestedInsertionIds != null) {
       _json["suggestedInsertionIds"] = suggestedInsertionIds;
+    }
+    return _json;
+  }
+}
+
+/// A table range represents a reference to a subset of a table.
+///
+/// It's important to note that the cells specified by a table range do not
+/// necessarily form a rectangle. For example, let's say we have a 3 x 3 table
+/// where all the cells of the last row are merged together. The table looks
+/// like this:
+///
+///
+///      [             ]
+///
+/// A table range with table cell location = (table_start_location, row = 0,
+/// column = 0), row span = 3 and column span = 2 specifies the following cells:
+///
+///       x     x
+///      [ x    x    x ]
+class TableRange {
+  /// The column span of the table range.
+  core.int columnSpan;
+
+  /// The row span of the table range.
+  core.int rowSpan;
+
+  /// The cell location where the table range starts.
+  TableCellLocation tableCellLocation;
+
+  TableRange();
+
+  TableRange.fromJson(core.Map _json) {
+    if (_json.containsKey("columnSpan")) {
+      columnSpan = _json["columnSpan"];
+    }
+    if (_json.containsKey("rowSpan")) {
+      rowSpan = _json["rowSpan"];
+    }
+    if (_json.containsKey("tableCellLocation")) {
+      tableCellLocation =
+          new TableCellLocation.fromJson(_json["tableCellLocation"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (columnSpan != null) {
+      _json["columnSpan"] = columnSpan;
+    }
+    if (rowSpan != null) {
+      _json["rowSpan"] = rowSpan;
+    }
+    if (tableCellLocation != null) {
+      _json["tableCellLocation"] = (tableCellLocation).toJson();
     }
     return _json;
   }
@@ -7618,6 +7858,81 @@ class TextStyleSuggestionState {
   }
 }
 
+/// Unmerges cells in a Table.
+class UnmergeTableCellsRequest {
+  /// The table range specifying which cells of the table to unmerge.
+  ///
+  /// All merged cells in this range will be unmerged, and cells that are
+  /// already
+  /// unmerged will not be affected. If the range has no merged cells, the
+  /// request will do nothing.
+  ///
+  /// If there is text in any of the merged cells, the text will remain in the
+  /// "head" cell of the resulting block of unmerged cells. The "head" cell is
+  /// the upper-left cell when the content direction is from left to right, and
+  /// the upper-right otherwise.
+  TableRange tableRange;
+
+  UnmergeTableCellsRequest();
+
+  UnmergeTableCellsRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("tableRange")) {
+      tableRange = new TableRange.fromJson(_json["tableRange"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (tableRange != null) {
+      _json["tableRange"] = (tableRange).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Updates the DocumentStyle.
+class UpdateDocumentStyleRequest {
+  /// The styles to set on the document.
+  ///
+  /// Certain document style changes may cause other changes in order to mirror
+  /// the behavior of the Docs editor. See the documentation of DocumentStyle
+  /// for more information.
+  DocumentStyle documentStyle;
+
+  /// The fields that should be updated.
+  ///
+  /// At least one field must be specified. The root `document_style` is
+  /// implied and should not be specified. A single `"*"` can be used as
+  /// short-hand for listing every field.
+  ///
+  /// For example to update the background, set `fields` to `"background"`.
+  core.String fields;
+
+  UpdateDocumentStyleRequest();
+
+  UpdateDocumentStyleRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("documentStyle")) {
+      documentStyle = new DocumentStyle.fromJson(_json["documentStyle"]);
+    }
+    if (_json.containsKey("fields")) {
+      fields = _json["fields"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (documentStyle != null) {
+      _json["documentStyle"] = (documentStyle).toJson();
+    }
+    if (fields != null) {
+      _json["fields"] = fields;
+    }
+    return _json;
+  }
+}
+
 /// Update the styling of all paragraphs that overlap with the given range.
 class UpdateParagraphStyleRequest {
   /// The fields that should be updated.
@@ -7668,6 +7983,82 @@ class UpdateParagraphStyleRequest {
     }
     if (range != null) {
       _json["range"] = (range).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Updates the style of a range of table cells.
+class UpdateTableCellStyleRequest {
+  /// The fields that should be updated.
+  ///
+  /// At least one field must be specified. The root `tableCellStyle` is implied
+  /// and should not be specified. A single `"*"` can be used as short-hand for
+  /// listing every field.
+  ///
+  /// For example to update the table cell background color, set `fields` to
+  /// `"backgroundColor"`.
+  ///
+  /// To reset a property to its default value, include its field name in the
+  /// field mask but leave the field itself unset.
+  core.String fields;
+
+  /// The style to set on the table cells.
+  ///
+  /// When updating borders, if a cell shares a border with an adjacent cell,
+  /// the
+  /// corresponding border property of the adjacent cell is updated as well.
+  /// Borders that are merged and invisible are not updated.
+  ///
+  /// Since updating a border shared by adjacent cells in the same request can
+  /// cause conflicting border updates, border updates are applied in the
+  /// following order:
+  ///
+  /// - `border_right`
+  /// - `border_left`
+  /// - `border_bottom`
+  /// - `border_top`
+  TableCellStyle tableCellStyle;
+
+  /// The table range representing the subset of the table to which the updates
+  /// are applied.
+  TableRange tableRange;
+
+  /// The location where the table starts in the document. When specified, the
+  /// updates are applied to all the cells in the table.
+  Location tableStartLocation;
+
+  UpdateTableCellStyleRequest();
+
+  UpdateTableCellStyleRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("fields")) {
+      fields = _json["fields"];
+    }
+    if (_json.containsKey("tableCellStyle")) {
+      tableCellStyle = new TableCellStyle.fromJson(_json["tableCellStyle"]);
+    }
+    if (_json.containsKey("tableRange")) {
+      tableRange = new TableRange.fromJson(_json["tableRange"]);
+    }
+    if (_json.containsKey("tableStartLocation")) {
+      tableStartLocation = new Location.fromJson(_json["tableStartLocation"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (fields != null) {
+      _json["fields"] = fields;
+    }
+    if (tableCellStyle != null) {
+      _json["tableCellStyle"] = (tableCellStyle).toJson();
+    }
+    if (tableRange != null) {
+      _json["tableRange"] = (tableRange).toJson();
+    }
+    if (tableStartLocation != null) {
+      _json["tableStartLocation"] = (tableStartLocation).toJson();
     }
     return _json;
   }
@@ -7815,6 +8206,8 @@ class UpdateTextStyleRequest {
   ///
   /// If the range fully contains a paragraph belonging to a list, the
   /// paragraph's bullet is also updated with the matching text style.
+  ///
+  /// Ranges cannot be inserted inside a relative UpdateTextStyleRequest.
   Range range;
 
   /// The styles to set on the text.

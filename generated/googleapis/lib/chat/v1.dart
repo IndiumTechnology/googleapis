@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.chat.v1;
 
@@ -199,12 +199,12 @@ class SpacesMembersResourceApi {
   /// Example: spaces/AAAAMpdlehY
   /// Value must have pattern "^spaces/[^/]+$".
   ///
-  /// [pageToken] - A token identifying a page of results the server should
-  /// return.
-  ///
   /// [pageSize] - Requested page size. The value is capped at 1000.
   /// Server may return fewer results than requested.
   /// If unspecified, server will default to 100.
+  ///
+  /// [pageToken] - A token identifying a page of results the server should
+  /// return.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -217,7 +217,7 @@ class SpacesMembersResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListMembershipsResponse> list(core.String parent,
-      {core.String pageToken, core.int pageSize, core.String $fields}) {
+      {core.int pageSize, core.String pageToken, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -228,11 +228,11 @@ class SpacesMembersResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];

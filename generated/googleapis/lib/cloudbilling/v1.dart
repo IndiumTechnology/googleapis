@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudbilling.v1;
 
@@ -156,6 +156,13 @@ class BillingAccountsResourceApi {
   /// See the operation documentation for the appropriate value for this field.
   /// Value must have pattern "^billingAccounts/[^/]+$".
   ///
+  /// [options_requestedPolicyVersion] - Optional. The policy format version to
+  /// be returned.
+  /// Acceptable values are 0, 1, and 3.
+  /// If the value is 0, or the field is omitted, policy format version 1 will
+  /// be
+  /// returned.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -167,7 +174,7 @@ class BillingAccountsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Policy> getIamPolicy(core.String resource,
-      {core.String $fields}) {
+      {core.int options_requestedPolicyVersion, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -177,6 +184,11 @@ class BillingAccountsResourceApi {
 
     if (resource == null) {
       throw new core.ArgumentError("Parameter resource is required.");
+    }
+    if (options_requestedPolicyVersion != null) {
+      _queryParams["options.requestedPolicyVersion"] = [
+        "${options_requestedPolicyVersion}"
+      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -201,13 +213,6 @@ class BillingAccountsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [filter] - Options for how to filter the returned billing accounts.
-  /// Currently this only supports filtering for
-  /// [subaccounts](https://cloud.google.com/billing/docs/concepts) under a
-  /// single provided reseller billing account.
-  /// (e.g. "master_billing_account=billingAccounts/012345-678901-ABCDEF").
-  /// Boolean algebra and other fields are not currently supported.
-  ///
   /// [pageToken] - A token identifying a page of results to return. This should
   /// be a
   /// `next_page_token` value returned from a previous `ListBillingAccounts`
@@ -216,6 +221,13 @@ class BillingAccountsResourceApi {
   /// [pageSize] - Requested page size. The maximum page size is 100; this is
   /// also the
   /// default.
+  ///
+  /// [filter] - Options for how to filter the returned billing accounts.
+  /// Currently this only supports filtering for
+  /// [subaccounts](https://cloud.google.com/billing/docs/concepts) under a
+  /// single provided reseller billing account.
+  /// (e.g. "master_billing_account=billingAccounts/012345-678901-ABCDEF").
+  /// Boolean algebra and other fields are not currently supported.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -228,9 +240,9 @@ class BillingAccountsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListBillingAccountsResponse> list(
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -239,14 +251,14 @@ class BillingAccountsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -725,6 +737,11 @@ class ServicesSkusResourceApi {
   /// Example: "services/DA34-426B-A397"
   /// Value must have pattern "^services/[^/]+$".
   ///
+  /// [currencyCode] - The ISO 4217 currency code for the pricing info in the
+  /// response proto.
+  /// Will use the conversion rate as of start_time.
+  /// Optional. If not specified USD will be used.
+  ///
   /// [endTime] - Optional exclusive end time of the time range for which the
   /// pricing
   /// versions will be returned. Timestamps in the future are not allowed.
@@ -748,11 +765,6 @@ class ServicesSkusResourceApi {
   ///
   /// [pageSize] - Requested page size. Defaults to 5000.
   ///
-  /// [currencyCode] - The ISO 4217 currency code for the pricing info in the
-  /// response proto.
-  /// Will use the conversion rate as of start_time.
-  /// Optional. If not specified USD will be used.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -764,11 +776,11 @@ class ServicesSkusResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListSkusResponse> list(core.String parent,
-      {core.String endTime,
+      {core.String currencyCode,
+      core.String endTime,
       core.String pageToken,
       core.String startTime,
       core.int pageSize,
-      core.String currencyCode,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -779,6 +791,9 @@ class ServicesSkusResourceApi {
 
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
+    }
+    if (currencyCode != null) {
+      _queryParams["currencyCode"] = [currencyCode];
     }
     if (endTime != null) {
       _queryParams["endTime"] = [endTime];
@@ -791,9 +806,6 @@ class ServicesSkusResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (currencyCode != null) {
-      _queryParams["currencyCode"] = [currencyCode];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -882,7 +894,7 @@ class AggregationInfo {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -894,7 +906,7 @@ class AggregationInfo {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -902,7 +914,7 @@ class AggregationInfo {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -910,9 +922,9 @@ class AggregationInfo {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig> auditLogConfigs;
@@ -957,7 +969,7 @@ class AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -967,12 +979,17 @@ class AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
   /// Follows the same format of Binding.members.
   core.List<core.String> exemptedMembers;
+
+  /// Specifies whether principals can be exempted for the same LogType in
+  /// lower-level resource policies. If true, any lower-level exemptions will
+  /// be ignored.
+  core.bool ignoreChildExemptions;
 
   /// The log type that this config enables.
   /// Possible string values are:
@@ -989,6 +1006,9 @@ class AuditLogConfig {
       exemptedMembers =
           (_json["exemptedMembers"] as core.List).cast<core.String>();
     }
+    if (_json.containsKey("ignoreChildExemptions")) {
+      ignoreChildExemptions = _json["ignoreChildExemptions"];
+    }
     if (_json.containsKey("logType")) {
       logType = _json["logType"];
     }
@@ -999,6 +1019,9 @@ class AuditLogConfig {
         new core.Map<core.String, core.Object>();
     if (exemptedMembers != null) {
       _json["exemptedMembers"] = exemptedMembers;
+    }
+    if (ignoreChildExemptions != null) {
+      _json["ignoreChildExemptions"] = ignoreChildExemptions;
     }
     if (logType != null) {
       _json["logType"] = logType;
@@ -1086,7 +1109,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -1510,7 +1533,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);

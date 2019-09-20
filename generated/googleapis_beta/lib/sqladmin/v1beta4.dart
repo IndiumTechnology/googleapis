@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.sqladmin.v1beta4;
 
@@ -2570,7 +2570,8 @@ class UsersResourceApi {
   ///
   /// [name] - Name of the user in the instance.
   ///
-  /// [host] - Host of the user in the instance.
+  /// [host] - Host of the user in the instance. For a MySQL instance, it's
+  /// required; For a PostgreSQL instance, it's optional.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2786,6 +2787,14 @@ class BackupRun {
   /// The description of this run, only applicable to on-demand backups.
   core.String description;
 
+  /// Disk encryption configuration specific to a backup. Applies only to Second
+  /// Generation instances.
+  DiskEncryptionConfiguration diskEncryptionConfiguration;
+
+  /// Disk encryption status specific to a backup. Applies only to Second
+  /// Generation instances.
+  DiskEncryptionStatus diskEncryptionStatus;
+
   /// The time the backup operation completed in UTC timezone in RFC 3339
   /// format, for example 2012-11-15T16:19:00.094Z.
   core.DateTime endTime;
@@ -2834,6 +2843,14 @@ class BackupRun {
     if (_json.containsKey("description")) {
       description = _json["description"];
     }
+    if (_json.containsKey("diskEncryptionConfiguration")) {
+      diskEncryptionConfiguration = new DiskEncryptionConfiguration.fromJson(
+          _json["diskEncryptionConfiguration"]);
+    }
+    if (_json.containsKey("diskEncryptionStatus")) {
+      diskEncryptionStatus =
+          new DiskEncryptionStatus.fromJson(_json["diskEncryptionStatus"]);
+    }
     if (_json.containsKey("endTime")) {
       endTime = core.DateTime.parse(_json["endTime"]);
     }
@@ -2877,6 +2894,13 @@ class BackupRun {
         new core.Map<core.String, core.Object>();
     if (description != null) {
       _json["description"] = description;
+    }
+    if (diskEncryptionConfiguration != null) {
+      _json["diskEncryptionConfiguration"] =
+          (diskEncryptionConfiguration).toJson();
+    }
+    if (diskEncryptionStatus != null) {
+      _json["diskEncryptionStatus"] = (diskEncryptionStatus).toJson();
     }
     if (endTime != null) {
       _json["endTime"] = (endTime).toIso8601String();
@@ -4145,6 +4169,74 @@ class FlagsListResponse {
   }
 }
 
+class ImportContextBakImportOptionsEncryptionOptions {
+  /// Path to the Certificate (.cer) in Cloud Storage, in the form
+  /// gs://bucketName/fileName. The instance must have write permissions to the
+  /// bucket and read access to the file.
+  core.String certPath;
+
+  /// Password that encrypts the private key
+  core.String pvkPassword;
+
+  /// Path to the Certificate Private Key (.pvk) in Cloud Storage, in the form
+  /// gs://bucketName/fileName. The instance must have write permissions to the
+  /// bucket and read access to the file.
+  core.String pvkPath;
+
+  ImportContextBakImportOptionsEncryptionOptions();
+
+  ImportContextBakImportOptionsEncryptionOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("certPath")) {
+      certPath = _json["certPath"];
+    }
+    if (_json.containsKey("pvkPassword")) {
+      pvkPassword = _json["pvkPassword"];
+    }
+    if (_json.containsKey("pvkPath")) {
+      pvkPath = _json["pvkPath"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (certPath != null) {
+      _json["certPath"] = certPath;
+    }
+    if (pvkPassword != null) {
+      _json["pvkPassword"] = pvkPassword;
+    }
+    if (pvkPath != null) {
+      _json["pvkPath"] = pvkPath;
+    }
+    return _json;
+  }
+}
+
+/// Import parameters specific to SQL Server .BAK files
+class ImportContextBakImportOptions {
+  ImportContextBakImportOptionsEncryptionOptions encryptionOptions;
+
+  ImportContextBakImportOptions();
+
+  ImportContextBakImportOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("encryptionOptions")) {
+      encryptionOptions =
+          new ImportContextBakImportOptionsEncryptionOptions.fromJson(
+              _json["encryptionOptions"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (encryptionOptions != null) {
+      _json["encryptionOptions"] = (encryptionOptions).toJson();
+    }
+    return _json;
+  }
+}
+
 /// Options for importing data as CSV.
 class ImportContextCsvImportOptions {
   /// The columns to which CSV data is imported. If not specified, all columns
@@ -4180,6 +4272,9 @@ class ImportContextCsvImportOptions {
 
 /// Database instance import context.
 class ImportContext {
+  /// Import parameters specific to SQL Server .BAK files
+  ImportContextBakImportOptions bakImportOptions;
+
   /// Options for importing data as CSV.
   ImportContextCsvImportOptions csvImportOptions;
 
@@ -4209,6 +4304,10 @@ class ImportContext {
   ImportContext();
 
   ImportContext.fromJson(core.Map _json) {
+    if (_json.containsKey("bakImportOptions")) {
+      bakImportOptions =
+          new ImportContextBakImportOptions.fromJson(_json["bakImportOptions"]);
+    }
     if (_json.containsKey("csvImportOptions")) {
       csvImportOptions =
           new ImportContextCsvImportOptions.fromJson(_json["csvImportOptions"]);
@@ -4233,6 +4332,9 @@ class ImportContext {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (bakImportOptions != null) {
+      _json["bakImportOptions"] = (bakImportOptions).toJson();
+    }
     if (csvImportOptions != null) {
       _json["csvImportOptions"] = (csvImportOptions).toJson();
     }

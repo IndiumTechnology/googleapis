@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudasset.v1;
 
@@ -108,6 +108,17 @@ class V1ResourceApi {
   /// "projects/12345").
   /// Value must have pattern "^[^/]+/[^/]+$".
   ///
+  /// [contentType] - Required. The content type.
+  /// Possible string values are:
+  /// - "CONTENT_TYPE_UNSPECIFIED" : A CONTENT_TYPE_UNSPECIFIED.
+  /// - "RESOURCE" : A RESOURCE.
+  /// - "IAM_POLICY" : A IAM_POLICY.
+  /// - "ORG_POLICY" : A ORG_POLICY.
+  /// - "ACCESS_POLICY" : A ACCESS_POLICY.
+  ///
+  /// [readTimeWindow_endTime] - End time of the time window (inclusive).
+  /// Current timestamp if not specified.
+  ///
   /// [readTimeWindow_startTime] - Start time of the time window (exclusive).
   ///
   /// [assetNames] - A list of the full names of the assets. For example:
@@ -121,15 +132,6 @@ class V1ResourceApi {
   /// The request becomes a no-op if the asset name list is empty, and the max
   /// size of the asset name list is 100 in one request.
   ///
-  /// [contentType] - Required. The content type.
-  /// Possible string values are:
-  /// - "CONTENT_TYPE_UNSPECIFIED" : A CONTENT_TYPE_UNSPECIFIED.
-  /// - "RESOURCE" : A RESOURCE.
-  /// - "IAM_POLICY" : A IAM_POLICY.
-  ///
-  /// [readTimeWindow_endTime] - End time of the time window (inclusive).
-  /// Current timestamp if not specified.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -142,10 +144,10 @@ class V1ResourceApi {
   /// this method will complete with the same error.
   async.Future<BatchGetAssetsHistoryResponse> batchGetAssetsHistory(
       core.String parent,
-      {core.String readTimeWindow_startTime,
-      core.List<core.String> assetNames,
-      core.String contentType,
+      {core.String contentType,
       core.String readTimeWindow_endTime,
+      core.String readTimeWindow_startTime,
+      core.List<core.String> assetNames,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -157,17 +159,17 @@ class V1ResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (readTimeWindow_startTime != null) {
-      _queryParams["readTimeWindow.startTime"] = [readTimeWindow_startTime];
-    }
-    if (assetNames != null) {
-      _queryParams["assetNames"] = assetNames;
-    }
     if (contentType != null) {
       _queryParams["contentType"] = [contentType];
     }
     if (readTimeWindow_endTime != null) {
       _queryParams["readTimeWindow.endTime"] = [readTimeWindow_endTime];
+    }
+    if (readTimeWindow_startTime != null) {
+      _queryParams["readTimeWindow.startTime"] = [readTimeWindow_startTime];
+    }
+    if (assetNames != null) {
+      _queryParams["assetNames"] = assetNames;
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -250,6 +252,9 @@ class V1ResourceApi {
 /// Cloud asset. This includes all Google Cloud Platform resources,
 /// Cloud IAM policies, and other non-GCP assets.
 class Asset {
+  GoogleIdentityAccesscontextmanagerV1AccessLevel accessLevel;
+  GoogleIdentityAccesscontextmanagerV1AccessPolicy accessPolicy;
+
   /// Type of the asset. Example: "compute.googleapis.com/Disk".
   core.String assetType;
 
@@ -271,10 +276,21 @@ class Asset {
 
   /// Representation of the resource.
   Resource resource;
+  GoogleIdentityAccesscontextmanagerV1ServicePerimeter servicePerimeter;
 
   Asset();
 
   Asset.fromJson(core.Map _json) {
+    if (_json.containsKey("accessLevel")) {
+      accessLevel =
+          new GoogleIdentityAccesscontextmanagerV1AccessLevel.fromJson(
+              _json["accessLevel"]);
+    }
+    if (_json.containsKey("accessPolicy")) {
+      accessPolicy =
+          new GoogleIdentityAccesscontextmanagerV1AccessPolicy.fromJson(
+              _json["accessPolicy"]);
+    }
     if (_json.containsKey("assetType")) {
       assetType = _json["assetType"];
     }
@@ -293,11 +309,22 @@ class Asset {
     if (_json.containsKey("resource")) {
       resource = new Resource.fromJson(_json["resource"]);
     }
+    if (_json.containsKey("servicePerimeter")) {
+      servicePerimeter =
+          new GoogleIdentityAccesscontextmanagerV1ServicePerimeter.fromJson(
+              _json["servicePerimeter"]);
+    }
   }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (accessLevel != null) {
+      _json["accessLevel"] = (accessLevel).toJson();
+    }
+    if (accessPolicy != null) {
+      _json["accessPolicy"] = (accessPolicy).toJson();
+    }
     if (assetType != null) {
       _json["assetType"] = assetType;
     }
@@ -312,6 +339,9 @@ class Asset {
     }
     if (resource != null) {
       _json["resource"] = (resource).toJson();
+    }
+    if (servicePerimeter != null) {
+      _json["servicePerimeter"] = (servicePerimeter).toJson();
     }
     return _json;
   }
@@ -337,7 +367,7 @@ class Asset {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -349,7 +379,7 @@ class Asset {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -357,7 +387,7 @@ class Asset {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -365,9 +395,9 @@ class Asset {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig> auditLogConfigs;
@@ -412,7 +442,7 @@ class AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -422,7 +452,7 @@ class AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -487,6 +517,56 @@ class BatchGetAssetsHistoryResponse {
   }
 }
 
+/// A BigQuery destination.
+class BigQueryDestination {
+  /// Required. The BigQuery dataset in format
+  /// "projects/projectId/datasets/datasetId", to which the snapshot result
+  /// should be exported. If this dataset does not exist, the export call
+  /// returns
+  /// an error.
+  core.String dataset;
+
+  /// If the destination table already exists and this flag is `TRUE`, the
+  /// table will be overwritten by the contents of assets snapshot. If the flag
+  /// is not set and the destination table already exists, the export call
+  /// returns an error.
+  core.bool force;
+
+  /// Required. The BigQuery table to which the snapshot result should be
+  /// written. If this table does not exist, a new table with the given name
+  /// will be created.
+  core.String table;
+
+  BigQueryDestination();
+
+  BigQueryDestination.fromJson(core.Map _json) {
+    if (_json.containsKey("dataset")) {
+      dataset = _json["dataset"];
+    }
+    if (_json.containsKey("force")) {
+      force = _json["force"];
+    }
+    if (_json.containsKey("table")) {
+      table = _json["table"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (dataset != null) {
+      _json["dataset"] = dataset;
+    }
+    if (force != null) {
+      _json["force"] = force;
+    }
+    if (table != null) {
+      _json["table"] = table;
+    }
+    return _json;
+  }
+}
+
 /// Associates `members` with a `role`.
 class Binding {
   /// The condition that is associated with this binding.
@@ -505,7 +585,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -569,6 +649,9 @@ class ExportAssetsRequest {
   /// - "CONTENT_TYPE_UNSPECIFIED" : Unspecified content type.
   /// - "RESOURCE" : Resource metadata.
   /// - "IAM_POLICY" : The actual IAM policy set on a resource.
+  /// - "ORG_POLICY" : The Cloud Organization Policy set on an asset.
+  /// - "ACCESS_POLICY" : The Cloud Access context mananger Policy set on an
+  /// asset.
   core.String contentType;
 
   /// Required. Output configuration indicating where the results will be output
@@ -1112,6 +1195,588 @@ class GoogleCloudOrgpolicyV1RestoreDefault {
   }
 }
 
+/// An `AccessLevel` is a label that can be applied to requests to GCP services,
+/// along with a list of requirements necessary for the label to be applied.
+class GoogleIdentityAccesscontextmanagerV1AccessLevel {
+  /// A `BasicLevel` composed of `Conditions`.
+  GoogleIdentityAccesscontextmanagerV1BasicLevel basic;
+
+  /// Output only. Time the `AccessLevel` was created in UTC.
+  core.String createTime;
+
+  /// Description of the `AccessLevel` and its use. Does not affect behavior.
+  core.String description;
+
+  /// Required. Resource name for the Access Level. The `short_name` component
+  /// must begin with a letter and only include alphanumeric and '_'. Format:
+  /// `accessPolicies/{policy_id}/accessLevels/{short_name}`
+  core.String name;
+
+  /// Human readable title. Must be unique within the Policy.
+  core.String title;
+
+  /// Output only. Time the `AccessLevel` was updated in UTC.
+  core.String updateTime;
+
+  GoogleIdentityAccesscontextmanagerV1AccessLevel();
+
+  GoogleIdentityAccesscontextmanagerV1AccessLevel.fromJson(core.Map _json) {
+    if (_json.containsKey("basic")) {
+      basic = new GoogleIdentityAccesscontextmanagerV1BasicLevel.fromJson(
+          _json["basic"]);
+    }
+    if (_json.containsKey("createTime")) {
+      createTime = _json["createTime"];
+    }
+    if (_json.containsKey("description")) {
+      description = _json["description"];
+    }
+    if (_json.containsKey("name")) {
+      name = _json["name"];
+    }
+    if (_json.containsKey("title")) {
+      title = _json["title"];
+    }
+    if (_json.containsKey("updateTime")) {
+      updateTime = _json["updateTime"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (basic != null) {
+      _json["basic"] = (basic).toJson();
+    }
+    if (createTime != null) {
+      _json["createTime"] = createTime;
+    }
+    if (description != null) {
+      _json["description"] = description;
+    }
+    if (name != null) {
+      _json["name"] = name;
+    }
+    if (title != null) {
+      _json["title"] = title;
+    }
+    if (updateTime != null) {
+      _json["updateTime"] = updateTime;
+    }
+    return _json;
+  }
+}
+
+/// `AccessPolicy` is a container for `AccessLevels` (which define the necessary
+/// attributes to use GCP services) and `ServicePerimeters` (which define
+/// regions
+/// of services able to freely pass data within a perimeter). An access policy
+/// is
+/// globally visible within an organization, and the restrictions it specifies
+/// apply to all projects within an organization.
+class GoogleIdentityAccesscontextmanagerV1AccessPolicy {
+  /// Output only. Time the `AccessPolicy` was created in UTC.
+  core.String createTime;
+
+  /// Output only. Resource name of the `AccessPolicy`. Format:
+  /// `accessPolicies/{policy_id}`
+  core.String name;
+
+  /// Required. The parent of this `AccessPolicy` in the Cloud Resource
+  /// Hierarchy. Currently immutable once created. Format:
+  /// `organizations/{organization_id}`
+  core.String parent;
+
+  /// Required. Human readable title. Does not affect behavior.
+  core.String title;
+
+  /// Output only. Time the `AccessPolicy` was updated in UTC.
+  core.String updateTime;
+
+  GoogleIdentityAccesscontextmanagerV1AccessPolicy();
+
+  GoogleIdentityAccesscontextmanagerV1AccessPolicy.fromJson(core.Map _json) {
+    if (_json.containsKey("createTime")) {
+      createTime = _json["createTime"];
+    }
+    if (_json.containsKey("name")) {
+      name = _json["name"];
+    }
+    if (_json.containsKey("parent")) {
+      parent = _json["parent"];
+    }
+    if (_json.containsKey("title")) {
+      title = _json["title"];
+    }
+    if (_json.containsKey("updateTime")) {
+      updateTime = _json["updateTime"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (createTime != null) {
+      _json["createTime"] = createTime;
+    }
+    if (name != null) {
+      _json["name"] = name;
+    }
+    if (parent != null) {
+      _json["parent"] = parent;
+    }
+    if (title != null) {
+      _json["title"] = title;
+    }
+    if (updateTime != null) {
+      _json["updateTime"] = updateTime;
+    }
+    return _json;
+  }
+}
+
+/// `BasicLevel` is an `AccessLevel` using a set of recommended features.
+class GoogleIdentityAccesscontextmanagerV1BasicLevel {
+  /// How the `conditions` list should be combined to determine if a request is
+  /// granted this `AccessLevel`. If AND is used, each `Condition` in
+  /// `conditions` must be satisfied for the `AccessLevel` to be applied. If OR
+  /// is used, at least one `Condition` in `conditions` must be satisfied for
+  /// the
+  /// `AccessLevel` to be applied. Default behavior is AND.
+  /// Possible string values are:
+  /// - "AND" : All `Conditions` must be true for the `BasicLevel` to be true.
+  /// - "OR" : If at least one `Condition` is true, then the `BasicLevel` is
+  /// true.
+  core.String combiningFunction;
+
+  /// Required. A list of requirements for the `AccessLevel` to be granted.
+  core.List<GoogleIdentityAccesscontextmanagerV1Condition> conditions;
+
+  GoogleIdentityAccesscontextmanagerV1BasicLevel();
+
+  GoogleIdentityAccesscontextmanagerV1BasicLevel.fromJson(core.Map _json) {
+    if (_json.containsKey("combiningFunction")) {
+      combiningFunction = _json["combiningFunction"];
+    }
+    if (_json.containsKey("conditions")) {
+      conditions = (_json["conditions"] as core.List)
+          .map<GoogleIdentityAccesscontextmanagerV1Condition>((value) =>
+              new GoogleIdentityAccesscontextmanagerV1Condition.fromJson(value))
+          .toList();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (combiningFunction != null) {
+      _json["combiningFunction"] = combiningFunction;
+    }
+    if (conditions != null) {
+      _json["conditions"] =
+          conditions.map((value) => (value).toJson()).toList();
+    }
+    return _json;
+  }
+}
+
+/// A condition necessary for an `AccessLevel` to be granted. The Condition is
+/// an
+/// AND over its fields. So a Condition is true if: 1) the request IP is from
+/// one
+/// of the listed subnetworks AND 2) the originating device complies with the
+/// listed device policy AND 3) all listed access levels are granted AND 4) the
+/// request was sent at a time allowed by the DateTimeRestriction.
+class GoogleIdentityAccesscontextmanagerV1Condition {
+  /// Device specific restrictions, all restrictions must hold for the
+  /// Condition to be true. If not specified, all devices are allowed.
+  GoogleIdentityAccesscontextmanagerV1DevicePolicy devicePolicy;
+
+  /// CIDR block IP subnetwork specification. May be IPv4 or IPv6. Note that for
+  /// a CIDR IP address block, the specified IP address portion must be properly
+  /// truncated (i.e. all the host bits must be zero) or the input is considered
+  /// malformed. For example, "192.0.2.0/24" is accepted but "192.0.2.1/24" is
+  /// not. Similarly, for IPv6, "2001:db8::/32" is accepted whereas
+  /// "2001:db8::1/32" is not. The originating IP of a request must be in one of
+  /// the listed subnets in order for this Condition to be true. If empty, all
+  /// IP
+  /// addresses are allowed.
+  core.List<core.String> ipSubnetworks;
+
+  /// The request must be made by one of the provided user or service
+  /// accounts. Groups are not supported.
+  /// Syntax:
+  /// `user:{emailid}`
+  /// `serviceAccount:{emailid}`
+  /// If not specified, a request may come from any user.
+  core.List<core.String> members;
+
+  /// Whether to negate the Condition. If true, the Condition becomes a NAND
+  /// over
+  /// its non-empty fields, each field must be false for the Condition overall
+  /// to
+  /// be satisfied. Defaults to false.
+  core.bool negate;
+
+  /// The request must originate from one of the provided countries/regions.
+  /// Must be valid ISO 3166-1 alpha-2 codes.
+  core.List<core.String> regions;
+
+  /// A list of other access levels defined in the same `Policy`, referenced by
+  /// resource name. Referencing an `AccessLevel` which does not exist is an
+  /// error. All access levels listed must be granted for the Condition
+  /// to be true. Example:
+  /// "`accessPolicies/MY_POLICY/accessLevels/LEVEL_NAME"`
+  core.List<core.String> requiredAccessLevels;
+
+  GoogleIdentityAccesscontextmanagerV1Condition();
+
+  GoogleIdentityAccesscontextmanagerV1Condition.fromJson(core.Map _json) {
+    if (_json.containsKey("devicePolicy")) {
+      devicePolicy =
+          new GoogleIdentityAccesscontextmanagerV1DevicePolicy.fromJson(
+              _json["devicePolicy"]);
+    }
+    if (_json.containsKey("ipSubnetworks")) {
+      ipSubnetworks = (_json["ipSubnetworks"] as core.List).cast<core.String>();
+    }
+    if (_json.containsKey("members")) {
+      members = (_json["members"] as core.List).cast<core.String>();
+    }
+    if (_json.containsKey("negate")) {
+      negate = _json["negate"];
+    }
+    if (_json.containsKey("regions")) {
+      regions = (_json["regions"] as core.List).cast<core.String>();
+    }
+    if (_json.containsKey("requiredAccessLevels")) {
+      requiredAccessLevels =
+          (_json["requiredAccessLevels"] as core.List).cast<core.String>();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (devicePolicy != null) {
+      _json["devicePolicy"] = (devicePolicy).toJson();
+    }
+    if (ipSubnetworks != null) {
+      _json["ipSubnetworks"] = ipSubnetworks;
+    }
+    if (members != null) {
+      _json["members"] = members;
+    }
+    if (negate != null) {
+      _json["negate"] = negate;
+    }
+    if (regions != null) {
+      _json["regions"] = regions;
+    }
+    if (requiredAccessLevels != null) {
+      _json["requiredAccessLevels"] = requiredAccessLevels;
+    }
+    return _json;
+  }
+}
+
+/// `DevicePolicy` specifies device specific restrictions necessary to acquire a
+/// given access level. A `DevicePolicy` specifies requirements for requests
+/// from
+/// devices to be granted access levels, it does not do any enforcement on the
+/// device. `DevicePolicy` acts as an AND over all specified fields, and each
+/// repeated field is an OR over its elements. Any unset fields are ignored. For
+/// example, if the proto is { os_type : DESKTOP_WINDOWS, os_type :
+/// DESKTOP_LINUX, encryption_status: ENCRYPTED}, then the DevicePolicy will be
+/// true for requests originating from encrypted Linux desktops and encrypted
+/// Windows desktops.
+class GoogleIdentityAccesscontextmanagerV1DevicePolicy {
+  /// Allowed device management levels, an empty list allows all management
+  /// levels.
+  core.List<core.String> allowedDeviceManagementLevels;
+
+  /// Allowed encryptions statuses, an empty list allows all statuses.
+  core.List<core.String> allowedEncryptionStatuses;
+
+  /// Allowed OS versions, an empty list allows all types and all versions.
+  core.List<GoogleIdentityAccesscontextmanagerV1OsConstraint> osConstraints;
+
+  /// Whether the device needs to be approved by the customer admin.
+  core.bool requireAdminApproval;
+
+  /// Whether the device needs to be corp owned.
+  core.bool requireCorpOwned;
+
+  /// Whether or not screenlock is required for the DevicePolicy to be true.
+  /// Defaults to `false`.
+  core.bool requireScreenlock;
+
+  GoogleIdentityAccesscontextmanagerV1DevicePolicy();
+
+  GoogleIdentityAccesscontextmanagerV1DevicePolicy.fromJson(core.Map _json) {
+    if (_json.containsKey("allowedDeviceManagementLevels")) {
+      allowedDeviceManagementLevels =
+          (_json["allowedDeviceManagementLevels"] as core.List)
+              .cast<core.String>();
+    }
+    if (_json.containsKey("allowedEncryptionStatuses")) {
+      allowedEncryptionStatuses =
+          (_json["allowedEncryptionStatuses"] as core.List).cast<core.String>();
+    }
+    if (_json.containsKey("osConstraints")) {
+      osConstraints = (_json["osConstraints"] as core.List)
+          .map<GoogleIdentityAccesscontextmanagerV1OsConstraint>((value) =>
+              new GoogleIdentityAccesscontextmanagerV1OsConstraint.fromJson(
+                  value))
+          .toList();
+    }
+    if (_json.containsKey("requireAdminApproval")) {
+      requireAdminApproval = _json["requireAdminApproval"];
+    }
+    if (_json.containsKey("requireCorpOwned")) {
+      requireCorpOwned = _json["requireCorpOwned"];
+    }
+    if (_json.containsKey("requireScreenlock")) {
+      requireScreenlock = _json["requireScreenlock"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (allowedDeviceManagementLevels != null) {
+      _json["allowedDeviceManagementLevels"] = allowedDeviceManagementLevels;
+    }
+    if (allowedEncryptionStatuses != null) {
+      _json["allowedEncryptionStatuses"] = allowedEncryptionStatuses;
+    }
+    if (osConstraints != null) {
+      _json["osConstraints"] =
+          osConstraints.map((value) => (value).toJson()).toList();
+    }
+    if (requireAdminApproval != null) {
+      _json["requireAdminApproval"] = requireAdminApproval;
+    }
+    if (requireCorpOwned != null) {
+      _json["requireCorpOwned"] = requireCorpOwned;
+    }
+    if (requireScreenlock != null) {
+      _json["requireScreenlock"] = requireScreenlock;
+    }
+    return _json;
+  }
+}
+
+/// A restriction on the OS type and version of devices making requests.
+class GoogleIdentityAccesscontextmanagerV1OsConstraint {
+  /// The minimum allowed OS version. If not set, any version of this OS
+  /// satisfies the constraint. Format: `"major.minor.patch"`.
+  /// Examples: `"10.5.301"`, `"9.2.1"`.
+  core.String minimumVersion;
+
+  /// Required. The allowed OS type.
+  /// Possible string values are:
+  /// - "OS_UNSPECIFIED" : The operating system of the device is not specified
+  /// or not known.
+  /// - "DESKTOP_MAC" : A desktop Mac operating system.
+  /// - "DESKTOP_WINDOWS" : A desktop Windows operating system.
+  /// - "DESKTOP_LINUX" : A desktop Linux operating system.
+  /// - "DESKTOP_CHROME_OS" : A desktop ChromeOS operating system.
+  core.String osType;
+
+  /// Only allows requests from devices with a verified Chrome OS.
+  /// Verifications includes requirements that the device is enterprise-managed,
+  /// conformant to Dasher domain policies, and the caller has permission to
+  /// call
+  /// the API targeted by the request.
+  core.bool requireVerifiedChromeOs;
+
+  GoogleIdentityAccesscontextmanagerV1OsConstraint();
+
+  GoogleIdentityAccesscontextmanagerV1OsConstraint.fromJson(core.Map _json) {
+    if (_json.containsKey("minimumVersion")) {
+      minimumVersion = _json["minimumVersion"];
+    }
+    if (_json.containsKey("osType")) {
+      osType = _json["osType"];
+    }
+    if (_json.containsKey("requireVerifiedChromeOs")) {
+      requireVerifiedChromeOs = _json["requireVerifiedChromeOs"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (minimumVersion != null) {
+      _json["minimumVersion"] = minimumVersion;
+    }
+    if (osType != null) {
+      _json["osType"] = osType;
+    }
+    if (requireVerifiedChromeOs != null) {
+      _json["requireVerifiedChromeOs"] = requireVerifiedChromeOs;
+    }
+    return _json;
+  }
+}
+
+/// `ServicePerimeter` describes a set of GCP resources which can freely import
+/// and export data amongst themselves, but not export outside of the
+/// `ServicePerimeter`. If a request with a source within this
+/// `ServicePerimeter`
+/// has a target outside of the `ServicePerimeter`, the request will be blocked.
+/// Otherwise the request is allowed. There are two types of Service Perimeter -
+/// Regular and Bridge. Regular Service Perimeters cannot overlap, a single GCP
+/// project can only belong to a single regular Service Perimeter. Service
+/// Perimeter Bridges can contain only GCP projects as members, a single GCP
+/// project may belong to multiple Service Perimeter Bridges.
+class GoogleIdentityAccesscontextmanagerV1ServicePerimeter {
+  /// Output only. Time the `ServicePerimeter` was created in UTC.
+  core.String createTime;
+
+  /// Description of the `ServicePerimeter` and its use. Does not affect
+  /// behavior.
+  core.String description;
+
+  /// Required. Resource name for the ServicePerimeter.  The `short_name`
+  /// component must begin with a letter and only include alphanumeric and '_'.
+  /// Format: `accessPolicies/{policy_id}/servicePerimeters/{short_name}`
+  core.String name;
+
+  /// Perimeter type indicator. A single project is
+  /// allowed to be a member of single regular perimeter, but multiple service
+  /// perimeter bridges. A project cannot be a included in a perimeter bridge
+  /// without being included in regular perimeter. For perimeter bridges,
+  /// the restricted service list as well as access level lists must be
+  /// empty.
+  /// Possible string values are:
+  /// - "PERIMETER_TYPE_REGULAR" : Regular Perimeter.
+  /// - "PERIMETER_TYPE_BRIDGE" : Perimeter Bridge.
+  core.String perimeterType;
+
+  /// Current ServicePerimeter configuration. Specifies sets of resources,
+  /// restricted services and access levels that determine perimeter
+  /// content and boundaries.
+  GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig status;
+
+  /// Human readable title. Must be unique within the Policy.
+  core.String title;
+
+  /// Output only. Time the `ServicePerimeter` was updated in UTC.
+  core.String updateTime;
+
+  GoogleIdentityAccesscontextmanagerV1ServicePerimeter();
+
+  GoogleIdentityAccesscontextmanagerV1ServicePerimeter.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("createTime")) {
+      createTime = _json["createTime"];
+    }
+    if (_json.containsKey("description")) {
+      description = _json["description"];
+    }
+    if (_json.containsKey("name")) {
+      name = _json["name"];
+    }
+    if (_json.containsKey("perimeterType")) {
+      perimeterType = _json["perimeterType"];
+    }
+    if (_json.containsKey("status")) {
+      status = new GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig
+          .fromJson(_json["status"]);
+    }
+    if (_json.containsKey("title")) {
+      title = _json["title"];
+    }
+    if (_json.containsKey("updateTime")) {
+      updateTime = _json["updateTime"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (createTime != null) {
+      _json["createTime"] = createTime;
+    }
+    if (description != null) {
+      _json["description"] = description;
+    }
+    if (name != null) {
+      _json["name"] = name;
+    }
+    if (perimeterType != null) {
+      _json["perimeterType"] = perimeterType;
+    }
+    if (status != null) {
+      _json["status"] = (status).toJson();
+    }
+    if (title != null) {
+      _json["title"] = title;
+    }
+    if (updateTime != null) {
+      _json["updateTime"] = updateTime;
+    }
+    return _json;
+  }
+}
+
+/// `ServicePerimeterConfig` specifies a set of GCP resources that describe
+/// specific Service Perimeter configuration.
+class GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig {
+  /// A list of `AccessLevel` resource names that allow resources within the
+  /// `ServicePerimeter` to be accessed from the internet. `AccessLevels` listed
+  /// must be in the same policy as this `ServicePerimeter`. Referencing a
+  /// nonexistent `AccessLevel` is a syntax error. If no `AccessLevel` names are
+  /// listed, resources within the perimeter can only be accessed via GCP calls
+  /// with request origins within the perimeter. Example:
+  /// `"accessPolicies/MY_POLICY/accessLevels/MY_LEVEL"`.
+  /// For Service Perimeter Bridge, must be empty.
+  core.List<core.String> accessLevels;
+
+  /// A list of GCP resources that are inside of the service perimeter.
+  /// Currently only projects are allowed. Format: `projects/{project_number}`
+  core.List<core.String> resources;
+
+  /// GCP services that are subject to the Service Perimeter restrictions. For
+  /// example, if `storage.googleapis.com` is specified, access to the storage
+  /// buckets inside the perimeter must meet the perimeter's access
+  /// restrictions.
+  core.List<core.String> restrictedServices;
+
+  GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig();
+
+  GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("accessLevels")) {
+      accessLevels = (_json["accessLevels"] as core.List).cast<core.String>();
+    }
+    if (_json.containsKey("resources")) {
+      resources = (_json["resources"] as core.List).cast<core.String>();
+    }
+    if (_json.containsKey("restrictedServices")) {
+      restrictedServices =
+          (_json["restrictedServices"] as core.List).cast<core.String>();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (accessLevels != null) {
+      _json["accessLevels"] = accessLevels;
+    }
+    if (resources != null) {
+      _json["resources"] = resources;
+    }
+    if (restrictedServices != null) {
+      _json["restrictedServices"] = restrictedServices;
+    }
+    return _json;
+  }
+}
+
 /// This resource represents a long-running operation that is the result of a
 /// network API call.
 class Operation {
@@ -1197,12 +1862,22 @@ class Operation {
 
 /// Output configuration for export assets destination.
 class OutputConfig {
+  /// Destination on BigQuery. The output table stores the fields in asset
+  /// proto as columns in BigQuery. The resource/iam_policy field is converted
+  /// to a record with each field to a column, except metadata to a single JSON
+  /// string.
+  BigQueryDestination bigqueryDestination;
+
   /// Destination on Cloud Storage.
   GcsDestination gcsDestination;
 
   OutputConfig();
 
   OutputConfig.fromJson(core.Map _json) {
+    if (_json.containsKey("bigqueryDestination")) {
+      bigqueryDestination =
+          new BigQueryDestination.fromJson(_json["bigqueryDestination"]);
+    }
     if (_json.containsKey("gcsDestination")) {
       gcsDestination = new GcsDestination.fromJson(_json["gcsDestination"]);
     }
@@ -1211,6 +1886,9 @@ class OutputConfig {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (bigqueryDestination != null) {
+      _json["bigqueryDestination"] = (bigqueryDestination).toJson();
+    }
     if (gcsDestination != null) {
       _json["gcsDestination"] = (gcsDestination).toJson();
     }
@@ -1283,7 +1961,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -1294,7 +1972,14 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();

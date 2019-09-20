@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.containeranalysis.v1beta1;
 
@@ -325,13 +325,13 @@ class ProjectsNotesResourceApi {
   /// `projects/[PROJECT_ID]`.
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [filter] - The filter expression.
+  ///
   /// [pageToken] - Token to provide to skip to a particular spot in the list.
   ///
   /// [pageSize] - Number of notes to return in the list. Must be positive. Max
   /// allowed page
   /// size is 1000. If not specified, page size defaults to 20.
-  ///
-  /// [filter] - The filter expression.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -344,9 +344,9 @@ class ProjectsNotesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListNotesResponse> list(core.String parent,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -358,14 +358,14 @@ class ProjectsNotesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -580,11 +580,11 @@ class ProjectsNotesOccurrencesResourceApi {
   /// `projects/[PROVIDER_ID]/notes/[NOTE_ID]`.
   /// Value must have pattern "^projects/[^/]+/notes/[^/]+$".
   ///
-  /// [filter] - The filter expression.
-  ///
   /// [pageToken] - Token to provide to skip to a particular spot in the list.
   ///
   /// [pageSize] - Number of occurrences to return in the list.
+  ///
+  /// [filter] - The filter expression.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -597,9 +597,9 @@ class ProjectsNotesOccurrencesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListNoteOccurrencesResponse> list(core.String name,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -611,14 +611,14 @@ class ProjectsNotesOccurrencesResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1015,13 +1015,13 @@ class ProjectsOccurrencesResourceApi {
   /// `projects/[PROJECT_ID]`.
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [filter] - The filter expression.
+  ///
   /// [pageToken] - Token to provide to skip to a particular spot in the list.
   ///
   /// [pageSize] - Number of occurrences to return in the list. Must be
   /// positive. Max allowed
   /// page size is 1000. If not specified, page size defaults to 20.
-  ///
-  /// [filter] - The filter expression.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1034,9 +1034,9 @@ class ProjectsOccurrencesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListOccurrencesResponse> list(core.String parent,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1048,14 +1048,14 @@ class ProjectsOccurrencesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1547,151 +1547,6 @@ class Attestation {
   }
 }
 
-/// Specifies the audit configuration for a service.
-/// The configuration determines which permission types are logged, and what
-/// identities, if any, are exempted from logging.
-/// An AuditConfig must have one or more AuditLogConfigs.
-///
-/// If there are AuditConfigs for both `allServices` and a specific service,
-/// the union of the two AuditConfigs is used for that service: the log_types
-/// specified in each AuditConfig are enabled, and the exempted_members in each
-/// AuditLogConfig are exempted.
-///
-/// Example Policy with multiple AuditConfigs:
-///
-///     {
-///       "audit_configs": [
-///         {
-///           "service": "allServices"
-///           "audit_log_configs": [
-///             {
-///               "log_type": "DATA_READ",
-///               "exempted_members": [
-///                 "user:foo@gmail.com"
-///               ]
-///             },
-///             {
-///               "log_type": "DATA_WRITE",
-///             },
-///             {
-///               "log_type": "ADMIN_READ",
-///             }
-///           ]
-///         },
-///         {
-///           "service": "fooservice.googleapis.com"
-///           "audit_log_configs": [
-///             {
-///               "log_type": "DATA_READ",
-///             },
-///             {
-///               "log_type": "DATA_WRITE",
-///               "exempted_members": [
-///                 "user:bar@gmail.com"
-///               ]
-///             }
-///           ]
-///         }
-///       ]
-///     }
-///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
-class AuditConfig {
-  /// The configuration for logging of each type of permission.
-  core.List<AuditLogConfig> auditLogConfigs;
-
-  /// Specifies a service that will be enabled for audit logging.
-  /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
-  /// `allServices` is a special value that covers all services.
-  core.String service;
-
-  AuditConfig();
-
-  AuditConfig.fromJson(core.Map _json) {
-    if (_json.containsKey("auditLogConfigs")) {
-      auditLogConfigs = (_json["auditLogConfigs"] as core.List)
-          .map<AuditLogConfig>((value) => new AuditLogConfig.fromJson(value))
-          .toList();
-    }
-    if (_json.containsKey("service")) {
-      service = _json["service"];
-    }
-  }
-
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (auditLogConfigs != null) {
-      _json["auditLogConfigs"] =
-          auditLogConfigs.map((value) => (value).toJson()).toList();
-    }
-    if (service != null) {
-      _json["service"] = service;
-    }
-    return _json;
-  }
-}
-
-/// Provides the configuration for logging a type of permissions.
-/// Example:
-///
-///     {
-///       "audit_log_configs": [
-///         {
-///           "log_type": "DATA_READ",
-///           "exempted_members": [
-///             "user:foo@gmail.com"
-///           ]
-///         },
-///         {
-///           "log_type": "DATA_WRITE",
-///         }
-///       ]
-///     }
-///
-/// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
-class AuditLogConfig {
-  /// Specifies the identities that do not cause logging for this type of
-  /// permission.
-  /// Follows the same format of Binding.members.
-  core.List<core.String> exemptedMembers;
-
-  /// The log type that this config enables.
-  /// Possible string values are:
-  /// - "LOG_TYPE_UNSPECIFIED" : Default case. Should never be this.
-  /// - "ADMIN_READ" : Admin reads. Example: CloudIAM getIamPolicy
-  /// - "DATA_WRITE" : Data writes. Example: CloudSQL Users create
-  /// - "DATA_READ" : Data reads. Example: CloudSQL Users list
-  core.String logType;
-
-  AuditLogConfig();
-
-  AuditLogConfig.fromJson(core.Map _json) {
-    if (_json.containsKey("exemptedMembers")) {
-      exemptedMembers =
-          (_json["exemptedMembers"] as core.List).cast<core.String>();
-    }
-    if (_json.containsKey("logType")) {
-      logType = _json["logType"];
-    }
-  }
-
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (exemptedMembers != null) {
-      _json["exemptedMembers"] = exemptedMembers;
-    }
-    if (logType != null) {
-      _json["logType"] = logType;
-    }
-    return _json;
-  }
-}
-
 /// Note kind that represents a logical attestation "role" or "authority". For
 /// example, an organization might have one `Authority` for "QA" and one for
 /// "build". This note is intended to act strictly as a grouping mechanism for
@@ -1881,7 +1736,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -2634,8 +2489,6 @@ class Detail {
   /// obsolete details.
   core.bool isObsolete;
 
-  /// Deprecated, do not use. Use fixed_location instead.
-  ///
   /// The max version of the package in which the vulnerability exists.
   Version maxAffectedVersion;
 
@@ -2651,6 +2504,11 @@ class Detail {
 
   /// The severity (eg: distro assigned severity) for this vulnerability.
   core.String severityName;
+
+  /// The time this information was last changed at the source. This is an
+  /// upstream timestamp from the underlying information source - e.g. Ubuntu
+  /// security tracker.
+  core.String sourceUpdateTime;
 
   Detail();
 
@@ -2683,6 +2541,9 @@ class Detail {
     if (_json.containsKey("severityName")) {
       severityName = _json["severityName"];
     }
+    if (_json.containsKey("sourceUpdateTime")) {
+      sourceUpdateTime = _json["sourceUpdateTime"];
+    }
   }
 
   core.Map<core.String, core.Object> toJson() {
@@ -2714,6 +2575,9 @@ class Detail {
     }
     if (severityName != null) {
       _json["severityName"] = severityName;
+    }
+    if (sourceUpdateTime != null) {
+      _json["sourceUpdateTime"] = sourceUpdateTime;
     }
     return _json;
   }
@@ -3260,13 +3124,55 @@ class GerritSourceContext {
 
 /// Request message for `GetIamPolicy` method.
 class GetIamPolicyRequest {
+  /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
+  /// `GetIamPolicy`. This field is only used by Cloud IAM.
+  GetPolicyOptions options;
+
   GetIamPolicyRequest();
 
-  GetIamPolicyRequest.fromJson(core.Map _json) {}
+  GetIamPolicyRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("options")) {
+      options = new GetPolicyOptions.fromJson(_json["options"]);
+    }
+  }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (options != null) {
+      _json["options"] = (options).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Encapsulates settings provided to GetIamPolicy.
+class GetPolicyOptions {
+  /// Optional. The policy format version to be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  core.int requestedPolicyVersion;
+
+  GetPolicyOptions();
+
+  GetPolicyOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("requestedPolicyVersion")) {
+      requestedPolicyVersion = _json["requestedPolicyVersion"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (requestedPolicyVersion != null) {
+      _json["requestedPolicyVersion"] = requestedPolicyVersion;
+    }
     return _json;
   }
 }
@@ -4514,9 +4420,6 @@ class PgpSignedAttestation {
 /// For a description of IAM and its features, see the
 /// [IAM developer's guide](https://cloud.google.com/iam/docs).
 class Policy {
-  /// Specifies cloud audit logging configuration for this policy.
-  core.List<AuditConfig> auditConfigs;
-
   /// Associates a list of `members` to a `role`.
   /// `bindings` with no members will result in an error.
   core.List<Binding> bindings;
@@ -4531,7 +4434,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -4542,17 +4445,19 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();
 
   Policy.fromJson(core.Map _json) {
-    if (_json.containsKey("auditConfigs")) {
-      auditConfigs = (_json["auditConfigs"] as core.List)
-          .map<AuditConfig>((value) => new AuditConfig.fromJson(value))
-          .toList();
-    }
     if (_json.containsKey("bindings")) {
       bindings = (_json["bindings"] as core.List)
           .map<Binding>((value) => new Binding.fromJson(value))
@@ -4569,10 +4474,6 @@ class Policy {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
-    if (auditConfigs != null) {
-      _json["auditConfigs"] =
-          auditConfigs.map((value) => (value).toJson()).toList();
-    }
     if (bindings != null) {
       _json["bindings"] = bindings.map((value) => (value).toJson()).toList();
     }
@@ -4801,22 +4702,11 @@ class SetIamPolicyRequest {
   /// might reject them.
   Policy policy;
 
-  /// OPTIONAL: A FieldMask specifying which fields of the policy to modify.
-  /// Only
-  /// the fields in the mask will be modified. If no mask is provided, the
-  /// following default mask is used:
-  /// paths: "bindings, etag"
-  /// This field is only used by Cloud IAM.
-  core.String updateMask;
-
   SetIamPolicyRequest();
 
   SetIamPolicyRequest.fromJson(core.Map _json) {
     if (_json.containsKey("policy")) {
       policy = new Policy.fromJson(_json["policy"]);
-    }
-    if (_json.containsKey("updateMask")) {
-      updateMask = _json["updateMask"];
     }
   }
 
@@ -4825,9 +4715,6 @@ class SetIamPolicyRequest {
         new core.Map<core.String, core.Object>();
     if (policy != null) {
       _json["policy"] = (policy).toJson();
-    }
-    if (updateMask != null) {
-      _json["updateMask"] = updateMask;
     }
     return _json;
   }
@@ -5224,6 +5111,11 @@ class Vulnerability {
   /// - "CRITICAL" : Critical severity.
   core.String severity;
 
+  /// The time this information was last changed at the source. This is an
+  /// upstream timestamp from the underlying information source - e.g. Ubuntu
+  /// security tracker.
+  core.String sourceUpdateTime;
+
   /// Windows details get their own format because the information format and
   /// model don't match a normal detail. Specifically Windows updates are done
   /// as
@@ -5248,6 +5140,9 @@ class Vulnerability {
     if (_json.containsKey("severity")) {
       severity = _json["severity"];
     }
+    if (_json.containsKey("sourceUpdateTime")) {
+      sourceUpdateTime = _json["sourceUpdateTime"];
+    }
     if (_json.containsKey("windowsDetails")) {
       windowsDetails = (_json["windowsDetails"] as core.List)
           .map<WindowsDetail>((value) => new WindowsDetail.fromJson(value))
@@ -5269,6 +5164,9 @@ class Vulnerability {
     }
     if (severity != null) {
       _json["severity"] = severity;
+    }
+    if (sourceUpdateTime != null) {
+      _json["sourceUpdateTime"] = sourceUpdateTime;
     }
     if (windowsDetails != null) {
       _json["windowsDetails"] =

@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudtrace.v2;
 
@@ -586,6 +586,32 @@ class Span {
   /// The [SPAN_ID] portion of the span's resource name.
   core.String spanId;
 
+  /// Distinguishes between spans generated in a particular context. For
+  /// example,
+  /// two spans with the same name may be distinguished using `CLIENT` (caller)
+  /// and `SERVER` (callee) to identify an RPC call.
+  /// Possible string values are:
+  /// - "SPAN_KIND_UNSPECIFIED" : Unspecified. Do NOT use as default.
+  /// Implementations MAY assume SpanKind.INTERNAL to be default.
+  /// - "INTERNAL" : Indicates that the span is used internally. Default value.
+  /// - "SERVER" : Indicates that the span covers server-side handling of an RPC
+  /// or other
+  /// remote network request.
+  /// - "CLIENT" : Indicates that the span covers the client-side wrapper around
+  /// an RPC or
+  /// other remote request.
+  /// - "PRODUCER" : Indicates that the span describes producer sending a
+  /// message to a broker.
+  /// Unlike client and  server, there is no direct critical path latency
+  /// relationship between producer and consumer spans (e.g. publishing a
+  /// message to a pubsub service).
+  /// - "CONSUMER" : Indicates that the span describes consumer recieving a
+  /// message from a
+  /// broker. Unlike client and  server, there is no direct critical path
+  /// latency relationship between producer and consumer spans (e.g. receiving
+  /// a message from a pubsub service subscription).
+  core.String spanKind;
+
   /// Stack trace captured at the start of the span.
   StackTrace stackTrace;
 
@@ -632,6 +658,9 @@ class Span {
     if (_json.containsKey("spanId")) {
       spanId = _json["spanId"];
     }
+    if (_json.containsKey("spanKind")) {
+      spanKind = _json["spanKind"];
+    }
     if (_json.containsKey("stackTrace")) {
       stackTrace = new StackTrace.fromJson(_json["stackTrace"]);
     }
@@ -675,6 +704,9 @@ class Span {
     }
     if (spanId != null) {
       _json["spanId"] = spanId;
+    }
+    if (spanKind != null) {
+      _json["spanKind"] = spanKind;
     }
     if (stackTrace != null) {
       _json["stackTrace"] = (stackTrace).toJson();

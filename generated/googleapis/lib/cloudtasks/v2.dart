@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudtasks.v2;
 
@@ -101,11 +101,11 @@ class ProjectsLocationsResourceApi {
   /// [name] - The resource that owns the locations collection, if applicable.
   /// Value must have pattern "^projects/[^/]+$".
   ///
+  /// [filter] - The standard list filter.
+  ///
   /// [pageToken] - The standard list page token.
   ///
   /// [pageSize] - The standard list page size.
-  ///
-  /// [filter] - The standard list filter.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -118,9 +118,9 @@ class ProjectsLocationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListLocationsResponse> list(core.String name,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -132,14 +132,14 @@ class ProjectsLocationsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -186,9 +186,7 @@ class ProjectsLocationsQueuesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required.
-  ///
-  /// The location name in which the queue will be created.
+  /// [parent] - Required. The location name in which the queue will be created.
   /// For example: `projects/PROJECT_ID/locations/LOCATION_ID`
   ///
   /// The list of allowed locations can be obtained by calling Cloud
@@ -253,9 +251,7 @@ class ProjectsLocationsQueuesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The queue name. For example:
+  /// [name] - Required. The queue name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/queues/[^/]+$".
   ///
@@ -299,9 +295,7 @@ class ProjectsLocationsQueuesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The resource name of the queue. For example:
+  /// [name] - Required. The resource name of the queue. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/queues/[^/]+$".
   ///
@@ -409,19 +403,9 @@ class ProjectsLocationsQueuesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required.
-  ///
-  /// The location name.
+  /// [parent] - Required. The location name.
   /// For example: `projects/PROJECT_ID/locations/LOCATION_ID`
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+$".
-  ///
-  /// [pageSize] - Requested page size.
-  ///
-  /// The maximum page size is 9800. If unspecified, the page size will
-  /// be the maximum. Fewer queues than requested might be returned,
-  /// even if more queues exist; use the
-  /// next_page_token in the
-  /// response to determine if more queues exist.
   ///
   /// [filter] - `filter` can be used to specify a subset of queues. Any Queue
   /// field can be used as a filter and several operators as supported.
@@ -444,6 +428,14 @@ class ProjectsLocationsQueuesResourceApi {
   /// method. It is an error to switch the value of the
   /// filter while iterating through pages.
   ///
+  /// [pageSize] - Requested page size.
+  ///
+  /// The maximum page size is 9800. If unspecified, the page size will
+  /// be the maximum. Fewer queues than requested might be returned,
+  /// even if more queues exist; use the
+  /// next_page_token in the
+  /// response to determine if more queues exist.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -455,9 +447,9 @@ class ProjectsLocationsQueuesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListQueuesResponse> list(core.String parent,
-      {core.int pageSize,
-      core.String filter,
+      {core.String filter,
       core.String pageToken,
+      core.int pageSize,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -469,14 +461,14 @@ class ProjectsLocationsQueuesResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
-    }
     if (filter != null) {
       _queryParams["filter"] = [filter];
     }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -596,9 +588,7 @@ class ProjectsLocationsQueuesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The queue name. For example:
+  /// [name] - Required. The queue name. For example:
   /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/queues/[^/]+$".
   ///
@@ -654,9 +644,7 @@ class ProjectsLocationsQueuesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The queue name. For example:
+  /// [name] - Required. The queue name. For example:
   /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/queues/[^/]+$".
   ///
@@ -718,9 +706,7 @@ class ProjectsLocationsQueuesResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The queue name. For example:
+  /// [name] - Required. The queue name. For example:
   /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/queues/[^/]+$".
   ///
@@ -906,9 +892,7 @@ class ProjectsLocationsQueuesTasksResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required.
-  ///
-  /// The queue name. For example:
+  /// [parent] - Required. The queue name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
   ///
   /// The queue must already exist.
@@ -962,9 +946,7 @@ class ProjectsLocationsQueuesTasksResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The task name. For example:
+  /// [name] - Required. The task name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/queues/[^/]+/tasks/[^/]+$".
@@ -1009,9 +991,7 @@ class ProjectsLocationsQueuesTasksResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The task name. For example:
+  /// [name] - Required. The task name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/queues/[^/]+/tasks/[^/]+$".
@@ -1086,21 +1066,9 @@ class ProjectsLocationsQueuesTasksResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required.
-  ///
-  /// The queue name. For example:
+  /// [parent] - Required. The queue name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
   /// Value must have pattern "^projects/[^/]+/locations/[^/]+/queues/[^/]+$".
-  ///
-  /// [pageSize] - Maximum page size.
-  ///
-  /// Fewer tasks than requested might be returned, even if more tasks exist;
-  /// use
-  /// next_page_token in the response to
-  /// determine if more tasks exist.
-  ///
-  /// The maximum page size is 1000. If unspecified, the page size will be the
-  /// maximum.
   ///
   /// [responseView] - The response_view specifies which subset of the Task will
   /// be
@@ -1130,6 +1098,16 @@ class ProjectsLocationsQueuesTasksResourceApi {
   ///
   /// The page token is valid for only 2 hours.
   ///
+  /// [pageSize] - Maximum page size.
+  ///
+  /// Fewer tasks than requested might be returned, even if more tasks exist;
+  /// use
+  /// next_page_token in the response to
+  /// determine if more tasks exist.
+  ///
+  /// The maximum page size is 1000. If unspecified, the page size will be the
+  /// maximum.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1141,9 +1119,9 @@ class ProjectsLocationsQueuesTasksResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListTasksResponse> list(core.String parent,
-      {core.int pageSize,
-      core.String responseView,
+      {core.String responseView,
       core.String pageToken,
+      core.int pageSize,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1155,14 +1133,14 @@ class ProjectsLocationsQueuesTasksResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
-    }
     if (responseView != null) {
       _queryParams["responseView"] = [responseView];
     }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1208,9 +1186,7 @@ class ProjectsLocationsQueuesTasksResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required.
-  ///
-  /// The task name. For example:
+  /// [name] - Required. The task name. For example:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
   /// Value must have pattern
   /// "^projects/[^/]+/locations/[^/]+/queues/[^/]+/tasks/[^/]+$".
@@ -1284,11 +1260,10 @@ class ProjectsLocationsQueuesTasksResourceApi {
 /// The AppEngineRouting used to construct the URL that the task is
 /// delivered to can be set at the queue-level or task-level:
 ///
-/// * If set,
-///    app_engine_routing_override
-///    is used for all tasks in the queue, no matter what the setting
-///    is for the
-///    task-level app_engine_routing.
+/// * If app_engine_routing_override is set on the
+///    queue, this value is used for all
+///    tasks in the queue, no matter what the setting is for the task-level
+///    app_engine_routing.
 ///
 ///
 /// The `url` that the task will be sent to is:
@@ -1321,10 +1296,10 @@ class ProjectsLocationsQueuesTasksResourceApi {
 class AppEngineHttpRequest {
   /// Task-level setting for App Engine routing.
   ///
-  /// If set,
-  /// app_engine_routing_override
-  /// is used for all tasks in the queue, no matter what the setting is for the
-  /// task-level app_engine_routing.
+  /// * If app_engine_routing_override is set on the
+  ///    queue, this value is used for all
+  ///    tasks in the queue, no matter what the setting is for the task-level
+  ///    app_engine_routing.
   AppEngineRouting appEngineRouting;
 
   /// HTTP request body.
@@ -1473,6 +1448,13 @@ class AppEngineHttpRequest {
 /// routing](https://cloud.google.com/appengine/docs/standard/python/how-requests-are-routed),
 /// and [App Engine Flex request
 /// routing](https://cloud.google.com/appengine/docs/flexible/python/how-requests-are-routed).
+///
+/// Using AppEngineRouting requires
+/// [`appengine.applications.get`](https://cloud.google.com/appengine/docs/admin-api/access-control)
+/// Google IAM permission for the project
+/// and the following scope:
+///
+/// `https://www.googleapis.com/auth/cloud-platform`
 class AppEngineRouting {
   /// Output only. The host that the task is sent to.
   ///
@@ -1651,7 +1633,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -1730,9 +1712,7 @@ class CreateTaskRequest {
   /// permission on the Queue resource.
   core.String responseView;
 
-  /// Required.
-  ///
-  /// The task to add.
+  /// Required. The task to add.
   ///
   /// Task names have the following format:
   /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`.
@@ -1876,13 +1856,55 @@ class Expr {
 
 /// Request message for `GetIamPolicy` method.
 class GetIamPolicyRequest {
+  /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
+  /// `GetIamPolicy`. This field is only used by Cloud IAM.
+  GetPolicyOptions options;
+
   GetIamPolicyRequest();
 
-  GetIamPolicyRequest.fromJson(core.Map _json) {}
+  GetIamPolicyRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("options")) {
+      options = new GetPolicyOptions.fromJson(_json["options"]);
+    }
+  }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (options != null) {
+      _json["options"] = (options).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Encapsulates settings provided to GetIamPolicy.
+class GetPolicyOptions {
+  /// Optional. The policy format version to be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  core.int requestedPolicyVersion;
+
+  GetPolicyOptions();
+
+  GetPolicyOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("requestedPolicyVersion")) {
+      requestedPolicyVersion = _json["requestedPolicyVersion"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (requestedPolicyVersion != null) {
+      _json["requestedPolicyVersion"] = requestedPolicyVersion;
+    }
     return _json;
   }
 }
@@ -2146,7 +2168,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -2157,7 +2179,14 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();
@@ -2408,7 +2437,7 @@ class RateLimits {
   /// value of
   /// max_dispatches_per_second.
   ///
-  /// For App Engine queues that were created or updated using
+  /// For queues that were created or updated using
   /// `queue.yaml/xml`, `max_burst_size` is equal to
   /// [bucket_size](https://cloud.google.com/appengine/docs/standard/python/config/queueref#bucket_size).
   /// Since `max_burst_size` is output only, if
@@ -2443,8 +2472,7 @@ class RateLimits {
   /// If unspecified when the queue is created, Cloud Tasks will pick the
   /// default.
   ///
-  /// * For App Engine queues, the maximum allowed value
-  ///   is 500.
+  /// * The maximum allowed value is 500.
   ///
   ///
   /// This field has the same meaning as
@@ -2854,9 +2882,7 @@ class Task {
   /// Output only. The number of attempts which have received a response.
   core.int responseCount;
 
-  /// The time when the task is scheduled to be attempted.
-  ///
-  /// For App Engine queues, this is when the task will be attempted or retried.
+  /// The time when the task is scheduled to be attempted or retried.
   ///
   /// `schedule_time` will be truncated to the nearest microsecond.
   core.String scheduleTime;

@@ -31,8 +31,19 @@
     "ownerDomain": "google.com",
     "ownerName": "Google",
     "parameters": {
-        "fields": {
-            "description": "Selector specifying which fields to include in a partial response.",
+        "upload_protocol": {
+            "description": "Upload protocol for media (e.g. \"raw\", \"multipart\").",
+            "location": "query",
+            "type": "string"
+        },
+        "prettyPrint": {
+            "default": "true",
+            "description": "Returns response with indentations and line breaks.",
+            "location": "query",
+            "type": "boolean"
+        },
+        "quotaUser": {
+            "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
             "location": "query",
             "type": "string"
         },
@@ -41,13 +52,8 @@
             "location": "query",
             "type": "string"
         },
-        "callback": {
-            "description": "JSONP",
-            "location": "query",
-            "type": "string"
-        },
-        "oauth_token": {
-            "description": "OAuth 2.0 token for the current user.",
+        "fields": {
+            "description": "Selector specifying which fields to include in a partial response.",
             "location": "query",
             "type": "string"
         },
@@ -61,6 +67,16 @@
                 "v1 error format",
                 "v2 error format"
             ],
+            "location": "query",
+            "type": "string"
+        },
+        "oauth_token": {
+            "description": "OAuth 2.0 token for the current user.",
+            "location": "query",
+            "type": "string"
+        },
+        "callback": {
+            "description": "JSONP",
             "location": "query",
             "type": "string"
         },
@@ -80,31 +96,15 @@
             "location": "query",
             "type": "string"
         },
-        "access_token": {
-            "description": "OAuth access token.",
-            "location": "query",
-            "type": "string"
-        },
         "key": {
             "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
             "location": "query",
             "type": "string"
         },
-        "upload_protocol": {
-            "description": "Upload protocol for media (e.g. \"raw\", \"multipart\").",
+        "access_token": {
+            "description": "OAuth access token.",
             "location": "query",
             "type": "string"
-        },
-        "quotaUser": {
-            "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
-            "location": "query",
-            "type": "string"
-        },
-        "prettyPrint": {
-            "default": "true",
-            "description": "Returns response with indentations and line breaks.",
-            "location": "query",
-            "type": "boolean"
         }
     },
     "protocol": "rest",
@@ -144,6 +144,17 @@
                         "parent"
                     ],
                     "parameters": {
+                        "pageToken": {
+                            "description": "Token identifying which result to start with, which is returned by a\nprevious list call.",
+                            "location": "query",
+                            "type": "string"
+                        },
+                        "pageSize": {
+                            "description": "Requested size of the next page of data.\nRequested page size cannot exceed 200.\n If not set, the default page size is 50.",
+                            "format": "int32",
+                            "location": "query",
+                            "type": "integer"
+                        },
                         "parent": {
                             "description": "Parent to search for services on.\n\nAn example name would be:\n`projects/123` where `123` is the project number.",
                             "location": "path",
@@ -155,17 +166,6 @@
                             "description": "Only list services that conform to the given filter.\nThe allowed filter strings are `state:ENABLED` and `state:DISABLED`.",
                             "location": "query",
                             "type": "string"
-                        },
-                        "pageToken": {
-                            "description": "Token identifying which result to start with, which is returned by a\nprevious list call.",
-                            "location": "query",
-                            "type": "string"
-                        },
-                        "pageSize": {
-                            "description": "Requested size of the next page of data.\nRequested page size cannot exceed 200.\n If not set, the default page size is 50.",
-                            "format": "int32",
-                            "location": "query",
-                            "type": "integer"
                         }
                     },
                     "path": "v1/{+parent}/services",
@@ -206,7 +206,7 @@
                     ]
                 },
                 "batchEnable": {
-                    "description": "Enable multiple services on a project. The operation is atomic: if enabling\nany service fails, then the entire batch fails, and no state changes occur.",
+                    "description": "Enable multiple services on a project. The operation is atomic: if enabling\nany service fails, then the entire batch fails, and no state changes occur.\nTo enable a single service, use the `EnableService` method instead.",
                     "httpMethod": "POST",
                     "id": "serviceusage.services.batchEnable",
                     "parameterOrder": [
@@ -271,6 +271,11 @@
                     "id": "serviceusage.operations.list",
                     "parameterOrder": [],
                     "parameters": {
+                        "filter": {
+                            "description": "The standard list filter.",
+                            "location": "query",
+                            "type": "string"
+                        },
                         "name": {
                             "description": "The name of the operation's parent resource.",
                             "location": "query",
@@ -286,11 +291,6 @@
                             "format": "int32",
                             "location": "query",
                             "type": "integer"
-                        },
-                        "filter": {
-                            "description": "The standard list filter.",
-                            "location": "query",
-                            "type": "string"
                         }
                     },
                     "path": "v1/operations",
@@ -383,9 +383,304 @@
             }
         }
     },
-    "revision": "20190625",
+    "revision": "20190918",
     "rootUrl": "https://serviceusage.googleapis.com/",
     "schemas": {
+        "DocumentationRule": {
+            "description": "A documentation rule provides information about individual API elements.",
+            "id": "DocumentationRule",
+            "properties": {
+                "deprecationDescription": {
+                    "description": "Deprecation description of the selected element(s). It can be provided if\nan element is marked as `deprecated`.",
+                    "type": "string"
+                },
+                "selector": {
+                    "description": "The selector is a comma-separated list of patterns. Each pattern is a\nqualified name of the element which may end in \"*\", indicating a wildcard.\nWildcards are only allowed at the end and for a whole component of the\nqualified name, i.e. \"foo.*\" is ok, but not \"foo.b*\" or \"foo.*.bar\". A\nwildcard will match one or more components. To specify a default for all\napplicable elements, the whole pattern \"*\" is used.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Description of the selected API(s).",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContextRule": {
+            "description": "A context rule provides information about the context for an individual API\nelement.",
+            "id": "ContextRule",
+            "properties": {
+                "allowedRequestExtensions": {
+                    "description": "A list of full type names or extension IDs of extensions allowed in grpc\nside channel from client to backend.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "allowedResponseExtensions": {
+                    "description": "A list of full type names or extension IDs of extensions allowed in grpc\nside channel from backend to client.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "selector": {
+                    "description": "Selects the methods to which this rule applies.\n\nRefer to selector for syntax details.",
+                    "type": "string"
+                },
+                "provided": {
+                    "description": "A list of full type names of provided contexts.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "requested": {
+                    "description": "A list of full type names of requested contexts.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "SourceContext": {
+            "description": "`SourceContext` represents information about the source of a\nprotobuf element, like the file in which it is defined.",
+            "id": "SourceContext",
+            "properties": {
+                "fileName": {
+                    "description": "The path-qualified name of the .proto file that contained the associated\nprotobuf element.  For example: `\"google/protobuf/source_context.proto\"`.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "MetricDescriptor": {
+            "description": "Defines a metric type and its schema. Once a metric descriptor is created,\ndeleting or altering it stops data collection and makes the metric type's\nexisting data unusable.",
+            "id": "MetricDescriptor",
+            "properties": {
+                "type": {
+                    "description": "The metric type, including its DNS name prefix. The type is not\nURL-encoded.  All user-defined metric types have the DNS name\n`custom.googleapis.com` or `external.googleapis.com`.  Metric types should\nuse a natural hierarchical grouping. For example:\n\n    \"custom.googleapis.com/invoice/paid/amount\"\n    \"external.googleapis.com/prometheus/up\"\n    \"appengine.googleapis.com/http/server/response_latencies\"",
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "MetricDescriptorMetadata",
+                    "description": "Optional. Metadata which can be used to guide usage of the metric."
+                },
+                "valueType": {
+                    "description": "Whether the measurement is an integer, a floating-point number, etc.\nSome combinations of `metric_kind` and `value_type` might not be supported.",
+                    "enum": [
+                        "VALUE_TYPE_UNSPECIFIED",
+                        "BOOL",
+                        "INT64",
+                        "DOUBLE",
+                        "STRING",
+                        "DISTRIBUTION",
+                        "MONEY"
+                    ],
+                    "enumDescriptions": [
+                        "Do not use this default value.",
+                        "The value is a boolean.\nThis value type can be used only if the metric kind is `GAUGE`.",
+                        "The value is a signed 64-bit integer.",
+                        "The value is a double precision floating point number.",
+                        "The value is a text string.\nThis value type can be used only if the metric kind is `GAUGE`.",
+                        "The value is a `Distribution`.",
+                        "The value is money."
+                    ],
+                    "type": "string"
+                },
+                "metricKind": {
+                    "description": "Whether the metric records instantaneous values, changes to a value, etc.\nSome combinations of `metric_kind` and `value_type` might not be supported.",
+                    "enum": [
+                        "METRIC_KIND_UNSPECIFIED",
+                        "GAUGE",
+                        "DELTA",
+                        "CUMULATIVE"
+                    ],
+                    "enumDescriptions": [
+                        "Do not use this default value.",
+                        "An instantaneous measurement of a value.",
+                        "The change in a value during a time interval.",
+                        "A value accumulated over a time interval.  Cumulative\nmeasurements in a time series should have the same start time\nand increasing end times, until an event resets the cumulative\nvalue to zero and sets a new start time for the following\npoints."
+                    ],
+                    "type": "string"
+                },
+                "displayName": {
+                    "description": "A concise name for the metric, which can be displayed in user interfaces.\nUse sentence case without an ending period, for example \"Request count\".\nThis field is optional but it is recommended to be set for any metrics\nassociated with user-visible concepts, such as Quota.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "A detailed description of the metric, which can be used in documentation.",
+                    "type": "string"
+                },
+                "unit": {
+                    "description": "The unit in which the metric value is reported. It is only applicable\nif the `value_type` is `INT64`, `DOUBLE`, or `DISTRIBUTION`. The\nsupported units are a subset of [The Unified Code for Units of\nMeasure](http://unitsofmeasure.org/ucum.html) standard:\n\n**Basic units (UNIT)**\n\n* `bit`   bit\n* `By`    byte\n* `s`     second\n* `min`   minute\n* `h`     hour\n* `d`     day\n\n**Prefixes (PREFIX)**\n\n* `k`     kilo    (10**3)\n* `M`     mega    (10**6)\n* `G`     giga    (10**9)\n* `T`     tera    (10**12)\n* `P`     peta    (10**15)\n* `E`     exa     (10**18)\n* `Z`     zetta   (10**21)\n* `Y`     yotta   (10**24)\n* `m`     milli   (10**-3)\n* `u`     micro   (10**-6)\n* `n`     nano    (10**-9)\n* `p`     pico    (10**-12)\n* `f`     femto   (10**-15)\n* `a`     atto    (10**-18)\n* `z`     zepto   (10**-21)\n* `y`     yocto   (10**-24)\n* `Ki`    kibi    (2**10)\n* `Mi`    mebi    (2**20)\n* `Gi`    gibi    (2**30)\n* `Ti`    tebi    (2**40)\n\n**Grammar**\n\nThe grammar also includes these connectors:\n\n* `/`    division (as an infix operator, e.g. `1/s`).\n* `.`    multiplication (as an infix operator, e.g. `GBy.d`)\n\nThe grammar for a unit is as follows:\n\n    Expression = Component { \".\" Component } { \"/\" Component } ;\n\n    Component = ( [ PREFIX ] UNIT | \"%\" ) [ Annotation ]\n              | Annotation\n              | \"1\"\n              ;\n\n    Annotation = \"{\" NAME \"}\" ;\n\nNotes:\n\n* `Annotation` is just a comment if it follows a `UNIT` and is\n   equivalent to `1` if it is used alone. For examples,\n   `{requests}/s == 1/s`, `By{transmitted}/s == By/s`.\n* `NAME` is a sequence of non-blank printable ASCII characters not\n   containing '{' or '}'.\n* `1` represents dimensionless value 1, such as in `1/s`.\n* `%` represents dimensionless value 1/100, and annotates values giving\n   a percentage.",
+                    "type": "string"
+                },
+                "labels": {
+                    "description": "The set of labels that can be used to describe a specific\ninstance of this metric type. For example, the\n`appengine.googleapis.com/http/server/response_latencies` metric\ntype has a label for the HTTP response code, `response_code`, so\nyou can look at latencies for successful responses or just\nfor responses that failed.",
+                    "items": {
+                        "$ref": "LabelDescriptor"
+                    },
+                    "type": "array"
+                },
+                "launchStage": {
+                    "description": "Optional. The launch stage of the metric definition.",
+                    "enum": [
+                        "LAUNCH_STAGE_UNSPECIFIED",
+                        "EARLY_ACCESS",
+                        "ALPHA",
+                        "BETA",
+                        "GA",
+                        "DEPRECATED"
+                    ],
+                    "enumDescriptions": [
+                        "Do not use this default value.",
+                        "Early Access features are limited to a closed group of testers. To use\nthese features, you must sign up in advance and sign a Trusted Tester\nagreement (which includes confidentiality provisions). These features may\nbe unstable, changed in backward-incompatible ways, and are not\nguaranteed to be released.",
+                        "Alpha is a limited availability test for releases before they are cleared\nfor widespread use. By Alpha, all significant design issues are resolved\nand we are in the process of verifying functionality. Alpha customers\nneed to apply for access, agree to applicable terms, and have their\nprojects whitelisted. Alpha releases don’t have to be feature complete,\nno SLAs are provided, and there are no technical support obligations, but\nthey will be far enough along that customers can actually use them in\ntest environments or for limited-use tests -- just like they would in\nnormal production cases.",
+                        "Beta is the point at which we are ready to open a release for any\ncustomer to use. There are no SLA or technical support obligations in a\nBeta release. Products will be complete from a feature perspective, but\nmay have some open outstanding issues. Beta releases are suitable for\nlimited production use cases.",
+                        "GA features are open to all developers and are considered stable and\nfully qualified for production use.",
+                        "Deprecated features are scheduled to be shut down and removed. For more\ninformation, see the “Deprecation Policy” section of our [Terms of\nService](https://cloud.google.com/terms/)\nand the [Google Cloud Platform Subject to the Deprecation\nPolicy](https://cloud.google.com/terms/deprecation) documentation."
+                    ],
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The resource name of the metric descriptor.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Billing": {
+            "description": "Billing related configuration of the service.\n\nThe following example shows how to configure monitored resources and metrics\nfor billing:\n\n    monitored_resources:\n    - type: library.googleapis.com/branch\n      labels:\n      - key: /city\n        description: The city where the library branch is located in.\n      - key: /name\n        description: The name of the branch.\n    metrics:\n    - name: library.googleapis.com/book/borrowed_count\n      metric_kind: DELTA\n      value_type: INT64\n    billing:\n      consumer_destinations:\n      - monitored_resource: library.googleapis.com/branch\n        metrics:\n        - library.googleapis.com/book/borrowed_count",
+            "id": "Billing",
+            "properties": {
+                "consumerDestinations": {
+                    "description": "Billing configurations for sending metrics to the consumer project.\nThere can be multiple consumer destinations per service, each one must have\na different monitored resource type. A metric can be used in at most\none consumer destination.",
+                    "items": {
+                        "$ref": "BillingDestination"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "ListServicesResponse": {
+            "description": "Response message for the `ListServices` method.",
+            "id": "ListServicesResponse",
+            "properties": {
+                "services": {
+                    "description": "The available services for the requested project.",
+                    "items": {
+                        "$ref": "GoogleApiServiceusageV1Service"
+                    },
+                    "type": "array"
+                },
+                "nextPageToken": {
+                    "description": "Token that can be passed to `ListServices` to resume a paginated\nquery.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Endpoint": {
+            "description": "`Endpoint` describes a network endpoint that serves a set of APIs.\nA service may expose any number of endpoints, and all endpoints share the\nsame service configuration, such as quota configuration and monitoring\nconfiguration.\n\nExample service configuration:\n\n    name: library-example.googleapis.com\n    endpoints:\n      # Below entry makes 'google.example.library.v1.Library'\n      # API be served from endpoint address library-example.googleapis.com.\n      # It also allows HTTP OPTIONS calls to be passed to the backend, for\n      # it to decide whether the subsequent cross-origin request is\n      # allowed to proceed.\n    - name: library-example.googleapis.com\n      allow_cors: true",
+            "id": "Endpoint",
+            "properties": {
+                "aliases": {
+                    "description": "DEPRECATED: This field is no longer supported. Instead of using aliases,\nplease specify multiple google.api.Endpoint for each of the intended\naliases.\n\nAdditional names that this endpoint will be hosted on.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "features": {
+                    "description": "The list of features enabled on this endpoint.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "allowCors": {
+                    "description": "Allowing\n[CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), aka\ncross-domain traffic, would allow the backends served from this endpoint to\nreceive and respond to HTTP OPTIONS requests. The response will be used by\nthe browser to determine whether the subsequent cross-origin request is\nallowed to proceed.",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "The canonical name of this endpoint.",
+                    "type": "string"
+                },
+                "target": {
+                    "description": "The specification of an Internet routable address of API frontend that will\nhandle requests to this [API\nEndpoint](https://cloud.google.com/apis/design/glossary). It should be\neither a valid IPv4 address or a fully-qualified domain name. For example,\n\"8.8.8.8\" or \"myservice.appspot.com\".",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "OAuthRequirements": {
+            "description": "OAuth scopes are a way to define data and permissions on data. For example,\nthere are scopes defined for \"Read-only access to Google Calendar\" and\n\"Access to Cloud Platform\". Users can consent to a scope for an application,\ngiving it permission to access that data on their behalf.\n\nOAuth scope specifications should be fairly coarse grained; a user will need\nto see and understand the text description of what your scope means.\n\nIn most cases: use one or at most two OAuth scopes for an entire family of\nproducts. If your product has multiple APIs, you should probably be sharing\nthe OAuth scope across all of those APIs.\n\nWhen you need finer grained OAuth consent screens: talk with your product\nmanagement about how developers will use them in practice.\n\nPlease note that even though each of the canonical scopes is enough for a\nrequest to be accepted and passed to the backend, a request can still fail\ndue to the backend requiring additional scopes or permissions.",
+            "id": "OAuthRequirements",
+            "properties": {
+                "canonicalScopes": {
+                    "description": "The list of publicly documented OAuth scopes that are allowed access. An\nOAuth token containing any of these scopes will be accepted.\n\nExample:\n\n     canonical_scopes: https://www.googleapis.com/auth/calendar,\n                       https://www.googleapis.com/auth/calendar.read",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Usage": {
+            "description": "Configuration controlling usage of a service.",
+            "id": "Usage",
+            "properties": {
+                "producerNotificationChannel": {
+                    "description": "The full resource name of a channel used for sending notifications to the\nservice producer.\n\nGoogle Service Management currently only supports\n[Google Cloud Pub/Sub](https://cloud.google.com/pubsub) as a notification\nchannel. To use Google Cloud Pub/Sub as the channel, this must be the name\nof a Cloud Pub/Sub topic that uses the Cloud Pub/Sub topic name format\ndocumented in https://cloud.google.com/pubsub/docs/overview.",
+                    "type": "string"
+                },
+                "rules": {
+                    "description": "A list of usage rules that apply to individual API methods.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
+                    "items": {
+                        "$ref": "UsageRule"
+                    },
+                    "type": "array"
+                },
+                "requirements": {
+                    "description": "Requirements that must be satisfied before a consumer project can use the\nservice. Each requirement is of the form <service.name>/<requirement-id>;\nfor example 'serviceusage.googleapis.com/billing-enabled'.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "Context": {
+            "description": "`Context` defines which contexts an API requests.\n\nExample:\n\n    context:\n      rules:\n      - selector: \"*\"\n        requested:\n        - google.rpc.context.ProjectContext\n        - google.rpc.context.OriginContext\n\nThe above specifies that all methods in the API request\n`google.rpc.context.ProjectContext` and\n`google.rpc.context.OriginContext`.\n\nAvailable context types are defined in package\n`google.rpc.context`.\n\nThis also provides mechanism to whitelist any protobuf message extension that\ncan be sent in grpc metadata using “x-goog-ext-<extension_id>-bin” and\n“x-goog-ext-<extension_id>-jspb” format. For example, list any service\nspecific protobuf types that can appear in grpc metadata as follows in your\nyaml file:\n\nExample:\n\n    context:\n      rules:\n       - selector: \"google.example.library.v1.LibraryService.CreateBook\"\n         allowed_request_extensions:\n         - google.foo.v1.NewExtension\n         allowed_response_extensions:\n         - google.foo.v1.NewExtension\n\nYou can also specify extension ID instead of fully qualified extension name\nhere.",
+            "id": "Context",
+            "properties": {
+                "rules": {
+                    "description": "A list of RPC context rules that apply to individual API methods.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
+                    "items": {
+                        "$ref": "ContextRule"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "ServiceIdentity": {
+            "description": "Service identity for a service. This is the identity that service producer\nshould use to access consumer resources.",
+            "id": "ServiceIdentity",
+            "properties": {
+                "uniqueId": {
+                    "description": "The unique and stable id of the service account.\nhttps://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts#ServiceAccount",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "The email address of the service account that a service producer would use\nto access consumer resources.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "DisableServiceResponse": {
             "description": "Response message for the `DisableService` method.\nThis response message is assigned to the `response` field of the returned\nOperation when that operation is done.",
             "id": "DisableServiceResponse",
@@ -401,6 +696,13 @@
             "description": "A description of a log type. Example in YAML format:\n\n    - name: library.googleapis.com/activity_history\n      description: The history of borrowing and returning library items.\n      display_name: Activity\n      labels:\n      - key: /customer_id\n        description: Identifier of a library customer",
             "id": "LogDescriptor",
             "properties": {
+                "labels": {
+                    "description": "The set of labels that are available to describe a specific log entry.\nRuntime requests that contain labels not specified here are\nconsidered invalid.",
+                    "items": {
+                        "$ref": "LabelDescriptor"
+                    },
+                    "type": "array"
+                },
                 "name": {
                     "description": "The name of the log. It must be less than 512 characters long and can\ninclude the following characters: upper- and lower-case alphanumeric\ncharacters [A-Za-z0-9], and punctuation characters including\nslash, underscore, hyphen, period [/_-.].",
                     "type": "string"
@@ -412,13 +714,6 @@
                 "displayName": {
                     "description": "The human-readable name for this log. This information appears on\nthe user interface and should be concise.",
                     "type": "string"
-                },
-                "labels": {
-                    "description": "The set of labels that are available to describe a specific log entry.\nRuntime requests that contain labels not specified here are\nconsidered invalid.",
-                    "items": {
-                        "$ref": "LabelDescriptor"
-                    },
-                    "type": "array"
                 }
             },
             "type": "object"
@@ -427,6 +722,14 @@
             "description": "An object that describes the schema of a MonitoredResource object using a\ntype name and a set of labels.  For example, the monitored resource\ndescriptor for Google Compute Engine VM instances has a type of\n`\"gce_instance\"` and specifies the use of the labels `\"instance_id\"` and\n`\"zone\"` to identify particular VM instances.\n\nDifferent APIs can support different monitored resource types. APIs generally\nprovide a `list` method that returns the monitored resource descriptors used\nby the API.",
             "id": "MonitoredResourceDescriptor",
             "properties": {
+                "name": {
+                    "description": "Optional. The resource name of the monitored resource descriptor:\n`\"projects/{project_id}/monitoredResourceDescriptors/{type}\"` where\n{type} is the value of the `type` field in this object and\n{project_id} is a project ID that provides API-specific context for\naccessing the type.  APIs that do not use project information can use the\nresource name format `\"monitoredResourceDescriptors/{type}\"`.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Required. The monitored resource type. For example, the type\n`\"cloudsql_database\"` represents databases in Google Cloud SQL.\nThe maximum length of this value is 256 characters.",
+                    "type": "string"
+                },
                 "displayName": {
                     "description": "Optional. A concise name for the monitored resource type that might be\ndisplayed in user interfaces. It should be a Title Cased Noun Phrase,\nwithout any article or other determiners. For example,\n`\"Google Cloud SQL Database\"`.",
                     "type": "string"
@@ -461,14 +764,6 @@
                         "$ref": "LabelDescriptor"
                     },
                     "type": "array"
-                },
-                "name": {
-                    "description": "Optional. The resource name of the monitored resource descriptor:\n`\"projects/{project_id}/monitoredResourceDescriptors/{type}\"` where\n{type} is the value of the `type` field in this object and\n{project_id} is a project ID that provides API-specific context for\naccessing the type.  APIs that do not use project information can use the\nresource name format `\"monitoredResourceDescriptors/{type}\"`.",
-                    "type": "string"
-                },
-                "type": {
-                    "description": "Required. The monitored resource type. For example, the type\n`\"cloudsql_database\"` represents databases in Google Cloud SQL.\nThe maximum length of this value is 256 characters.",
-                    "type": "string"
                 }
             },
             "type": "object"
@@ -477,13 +772,13 @@
             "description": "A custom error rule.",
             "id": "CustomErrorRule",
             "properties": {
-                "selector": {
-                    "description": "Selects messages to which this rule applies.\n\nRefer to selector for syntax details.",
-                    "type": "string"
-                },
                 "isErrorType": {
                     "description": "Mark this message as possible payload in error response.  Otherwise,\nobjects of this type will be filtered when they appear in error payload.",
                     "type": "boolean"
+                },
+                "selector": {
+                    "description": "Selects messages to which this rule applies.\n\nRefer to selector for syntax details.",
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -517,16 +812,16 @@
             "description": "Configuration of a specific billing destination (Currently only support\nbill against consumer project).",
             "id": "BillingDestination",
             "properties": {
+                "monitoredResource": {
+                    "description": "The monitored resource type. The type must be defined in\nService.monitored_resources section.",
+                    "type": "string"
+                },
                 "metrics": {
                     "description": "Names of the metrics to report to this billing destination.\nEach name must be defined in Service.metrics section.",
                     "items": {
                         "type": "string"
                     },
                     "type": "array"
-                },
-                "monitoredResource": {
-                    "description": "The monitored resource type. The type must be defined in\nService.monitored_resources section.",
-                    "type": "string"
                 }
             },
             "type": "object"
@@ -542,7 +837,7 @@
             "id": "BatchEnableServicesRequest",
             "properties": {
                 "serviceIds": {
-                    "description": "The identifiers of the services to enable on the project.\n\nA valid identifier would be:\nserviceusage.googleapis.com\n\nEnabling services requires that each service is public or is shared with\nthe user enabling the service.\n\nTwo or more services must be specified. To enable a single service,\nuse the `EnableService` method instead.\n\nA single request can enable a maximum of 20 services at a time. If more\nthan 20 services are specified, the request will fail, and no state changes\nwill occur.",
+                    "description": "The identifiers of the services to enable on the project.\n\nA valid identifier would be:\nserviceusage.googleapis.com\n\nEnabling services requires that each service is public or is shared with\nthe user enabling the service.\n\nA single request can enable a maximum of 20 services at a time. If more\nthan 20 services are specified, the request will fail, and no state changes\nwill occur.",
                     "items": {
                         "type": "string"
                     },
@@ -574,12 +869,12 @@
             "description": "User-defined authentication requirements, including support for\n[JSON Web Token\n(JWT)](https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32).",
             "id": "AuthRequirement",
             "properties": {
-                "audiences": {
-                    "description": "NOTE: This will be deprecated soon, once AuthProvider.audiences is\nimplemented and accepted in all the runtime components.\n\nThe list of JWT\n[audiences](https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32#section-4.1.3).\nthat are allowed to access. A JWT containing any of these audiences will\nbe accepted. When this setting is absent, only JWTs with audience\n\"https://Service_name/API_name\"\nwill be accepted. For example, if no audiences are in the setting,\nLibraryService API will only accept JWTs with the following audience\n\"https://library-example.googleapis.com/google.example.library.v1.LibraryService\".\n\nExample:\n\n    audiences: bookstore_android.apps.googleusercontent.com,\n               bookstore_web.apps.googleusercontent.com",
-                    "type": "string"
-                },
                 "providerId": {
                     "description": "id from authentication provider.\n\nExample:\n\n    provider_id: bookstore_auth",
+                    "type": "string"
+                },
+                "audiences": {
+                    "description": "NOTE: This will be deprecated soon, once AuthProvider.audiences is\nimplemented and accepted in all the runtime components.\n\nThe list of JWT\n[audiences](https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32#section-4.1.3).\nthat are allowed to access. A JWT containing any of these audiences will\nbe accepted. When this setting is absent, only JWTs with audience\n\"https://Service_name/API_name\"\nwill be accepted. For example, if no audiences are in the setting,\nLibraryService API will only accept JWTs with the following audience\n\"https://library-example.googleapis.com/google.example.library.v1.LibraryService\".\n\nExample:\n\n    audiences: bookstore_android.apps.googleusercontent.com,\n               bookstore_web.apps.googleusercontent.com",
                     "type": "string"
                 }
             },
@@ -589,13 +884,6 @@
             "description": "`Documentation` provides the information for describing a service.\n\nExample:\n<pre><code>documentation:\n  summary: >\n    The Google Calendar API gives access\n    to most calendar features.\n  pages:\n  - name: Overview\n    content: &#40;== include google/foo/overview.md ==&#41;\n  - name: Tutorial\n    content: &#40;== include google/foo/tutorial.md ==&#41;\n    subpages;\n    - name: Java\n      content: &#40;== include google/foo/tutorial_java.md ==&#41;\n  rules:\n  - selector: google.calendar.Calendar.Get\n    description: >\n      ...\n  - selector: google.calendar.Calendar.Put\n    description: >\n      ...\n</code></pre>\nDocumentation is provided in markdown syntax. In addition to\nstandard markdown features, definition lists, tables and fenced\ncode blocks are supported. Section headers can be provided and are\ninterpreted relative to the section nesting of the context where\na documentation fragment is embedded.\n\nDocumentation from the IDL is merged with documentation defined\nvia the config at normalization time, where documentation provided\nby config rules overrides IDL provided.\n\nA number of constructs specific to the API platform are supported\nin documentation text.\n\nIn order to reference a proto element, the following\nnotation can be used:\n<pre><code>&#91;fully.qualified.proto.name]&#91;]</code></pre>\nTo override the display text used for the link, this can be used:\n<pre><code>&#91;display text]&#91;fully.qualified.proto.name]</code></pre>\nText can be excluded from doc using the following notation:\n<pre><code>&#40;-- internal comment --&#41;</code></pre>\n\nA few directives are available in documentation. Note that\ndirectives must appear on a single line to be properly\nidentified. The `include` directive includes a markdown file from\nan external source:\n<pre><code>&#40;== include path/to/file ==&#41;</code></pre>\nThe `resource_for` directive marks a message to be the resource of\na collection in REST view. If it is not specified, tools attempt\nto infer the resource from the operations in a collection:\n<pre><code>&#40;== resource_for v1.shelves.books ==&#41;</code></pre>\nThe directive `suppress_warning` does not directly affect documentation\nand is documented together with service config validation.",
             "id": "Documentation",
             "properties": {
-                "rules": {
-                    "description": "A list of documentation rules that apply to individual API elements.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
-                    "items": {
-                        "$ref": "DocumentationRule"
-                    },
-                    "type": "array"
-                },
                 "overview": {
                     "description": "Declares a single overview page. For example:\n<pre><code>documentation:\n  summary: ...\n  overview: &#40;== include overview.md ==&#41;\n</code></pre>\nThis is a shortcut for the following declaration (using pages style):\n<pre><code>documentation:\n  summary: ...\n  pages:\n  - name: Overview\n    content: &#40;== include overview.md ==&#41;\n</code></pre>\nNote: you cannot specify both `overview` field and `pages` field.",
                     "type": "string"
@@ -607,12 +895,23 @@
                     },
                     "type": "array"
                 },
-                "summary": {
-                    "description": "A short summary of what the service does. Can only be provided by\nplain text.",
+                "serviceRootUrl": {
+                    "description": "Specifies the service root url if the default one (the service name\nfrom the yaml file) is not suitable. This can be seen in any fully\nspecified service urls as well as sections that show a base that other\nurls are relative to.",
                     "type": "string"
                 },
                 "documentationRootUrl": {
                     "description": "The URL to the root of documentation.",
+                    "type": "string"
+                },
+                "rules": {
+                    "description": "A list of documentation rules that apply to individual API elements.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
+                    "items": {
+                        "$ref": "DocumentationRule"
+                    },
+                    "type": "array"
+                },
+                "summary": {
+                    "description": "A short summary of what the service does. Can only be provided by\nplain text.",
                     "type": "string"
                 }
             },
@@ -683,10 +982,6 @@
             "description": "Authentication rules for the service.\n\nBy default, if a method has any authentication requirements, every request\nmust include a valid credential matching one of the requirements.\nIt's an error to include more than one kind of credential in a single\nrequest.\n\nIf a method doesn't have any auth requirements, request credentials will be\nignored.",
             "id": "AuthenticationRule",
             "properties": {
-                "oauth": {
-                    "$ref": "OAuthRequirements",
-                    "description": "The requirements for OAuth credentials."
-                },
                 "requirements": {
                     "description": "Requirements for additional authentication providers.",
                     "items": {
@@ -701,6 +996,10 @@
                 "allowWithoutCredential": {
                     "description": "If true, the service accepts API keys without any other credential.",
                     "type": "boolean"
+                },
+                "oauth": {
+                    "$ref": "OAuthRequirements",
+                    "description": "The requirements for OAuth credentials."
                 }
             },
             "type": "object"
@@ -709,27 +1008,6 @@
             "description": "Api is a light-weight descriptor for an API Interface.\n\nInterfaces are also described as \"protocol buffer services\" in some contexts,\nsuch as by the \"service\" keyword in a .proto file, but they are different\nfrom API Services, which represent a concrete implementation of an interface\nas opposed to simply a description of methods and bindings. They are also\nsometimes simply referred to as \"APIs\" in other contexts, such as the name of\nthis message itself. See https://cloud.google.com/apis/design/glossary for\ndetailed terminology.",
             "id": "Api",
             "properties": {
-                "mixins": {
-                    "description": "Included interfaces. See Mixin.",
-                    "items": {
-                        "$ref": "Mixin"
-                    },
-                    "type": "array"
-                },
-                "options": {
-                    "description": "Any metadata attached to the interface.",
-                    "items": {
-                        "$ref": "Option"
-                    },
-                    "type": "array"
-                },
-                "methods": {
-                    "description": "The methods of this interface, in unspecified order.",
-                    "items": {
-                        "$ref": "Method"
-                    },
-                    "type": "array"
-                },
                 "name": {
                     "description": "The fully qualified name of this interface, including package name\nfollowed by the interface's simple name.",
                     "type": "string"
@@ -753,6 +1031,27 @@
                 "version": {
                     "description": "A version string for this interface. If specified, must have the form\n`major-version.minor-version`, as in `1.10`. If the minor version is\nomitted, it defaults to zero. If the entire version field is empty, the\nmajor version is derived from the package name, as outlined below. If the\nfield is not empty, the version in the package name will be verified to be\nconsistent with what is provided here.\n\nThe versioning schema uses [semantic\nversioning](http://semver.org) where the major version number\nindicates a breaking change and the minor version an additive,\nnon-breaking change. Both version numbers are signals to users\nwhat to expect from different versions, and should be carefully\nchosen based on the product plan.\n\nThe major version is also reflected in the package name of the\ninterface, which must end in `v<major-version>`, as in\n`google.feature.v1`. For major versions 0 and 1, the suffix can\nbe omitted. Zero major versions must only be used for\nexperimental, non-GA interfaces.\n",
                     "type": "string"
+                },
+                "mixins": {
+                    "description": "Included interfaces. See Mixin.",
+                    "items": {
+                        "$ref": "Mixin"
+                    },
+                    "type": "array"
+                },
+                "options": {
+                    "description": "Any metadata attached to the interface.",
+                    "items": {
+                        "$ref": "Option"
+                    },
+                    "type": "array"
+                },
+                "methods": {
+                    "description": "The methods of this interface, in unspecified order.",
+                    "items": {
+                        "$ref": "Method"
+                    },
+                    "type": "array"
                 }
             },
             "type": "object"
@@ -782,6 +1081,42 @@
             "description": "`Service` is the root object of Google service configuration schema. It\ndescribes basic information about a service, such as the name and the\ntitle, and delegates other aspects to sub-sections. Each sub-section is\neither a proto message or a repeated proto message that configures a\nspecific aspect, such as auth. See each proto message definition for details.\n\nExample:\n\n    type: google.api.Service\n    config_version: 3\n    name: calendar.googleapis.com\n    title: Google Calendar API\n    apis:\n    - name: google.calendar.v3.Calendar\n    authentication:\n      providers:\n      - id: google_calendar_auth\n        jwks_uri: https://www.googleapis.com/oauth2/v1/certs\n        issuer: https://securetoken.google.com\n      rules:\n      - selector: \"*\"\n        requirements:\n          provider_id: google_calendar_auth",
             "id": "GoogleApiService",
             "properties": {
+                "control": {
+                    "$ref": "Control",
+                    "description": "Configuration for the service control plane."
+                },
+                "configVersion": {
+                    "description": "The semantic version of the service configuration. The config version\naffects the interpretation of the service configuration. For example,\ncertain features are enabled by default for certain config versions.\nThe latest config version is `3`.",
+                    "format": "uint32",
+                    "type": "integer"
+                },
+                "monitoring": {
+                    "$ref": "Monitoring",
+                    "description": "Monitoring configuration."
+                },
+                "systemTypes": {
+                    "description": "A list of all proto message types included in this API service.\nIt serves similar purpose as [google.api.Service.types], except that\nthese types are not needed by user-defined APIs. Therefore, they will not\nshow up in the generated discovery doc. This field should only be used\nto define system APIs in ESF.",
+                    "items": {
+                        "$ref": "Type"
+                    },
+                    "type": "array"
+                },
+                "producerProjectId": {
+                    "description": "The Google project that owns this service.",
+                    "type": "string"
+                },
+                "quota": {
+                    "$ref": "Quota",
+                    "description": "Quota configuration."
+                },
+                "name": {
+                    "description": "The service name, which is a DNS-like logical identifier for the\nservice, such as `calendar.googleapis.com`. The service name\ntypically goes through DNS verification to make sure the owner\nof the service also owns the DNS name.",
+                    "type": "string"
+                },
+                "billing": {
+                    "$ref": "Billing",
+                    "description": "Billing configuration."
+                },
                 "customError": {
                     "$ref": "CustomError",
                     "description": "Custom error configuration."
@@ -838,16 +1173,16 @@
                     "$ref": "Documentation",
                     "description": "Additional API documentation."
                 },
+                "logging": {
+                    "$ref": "Logging",
+                    "description": "Logging configuration."
+                },
                 "monitoredResources": {
                     "description": "Defines the monitored resources used by this service. This is required\nby the Service.monitoring and Service.logging configurations.",
                     "items": {
                         "$ref": "MonitoredResourceDescriptor"
                     },
                     "type": "array"
-                },
-                "logging": {
-                    "$ref": "Logging",
-                    "description": "Logging configuration."
                 },
                 "context": {
                     "$ref": "Context",
@@ -878,42 +1213,6 @@
                 "authentication": {
                     "$ref": "Authentication",
                     "description": "Auth configuration."
-                },
-                "control": {
-                    "$ref": "Control",
-                    "description": "Configuration for the service control plane."
-                },
-                "configVersion": {
-                    "description": "The semantic version of the service configuration. The config version\naffects the interpretation of the service configuration. For example,\ncertain features are enabled by default for certain config versions.\nThe latest config version is `3`.",
-                    "format": "uint32",
-                    "type": "integer"
-                },
-                "monitoring": {
-                    "$ref": "Monitoring",
-                    "description": "Monitoring configuration."
-                },
-                "systemTypes": {
-                    "description": "A list of all proto message types included in this API service.\nIt serves similar purpose as [google.api.Service.types], except that\nthese types are not needed by user-defined APIs. Therefore, they will not\nshow up in the generated discovery doc. This field should only be used\nto define system APIs in ESF.",
-                    "items": {
-                        "$ref": "Type"
-                    },
-                    "type": "array"
-                },
-                "producerProjectId": {
-                    "description": "The Google project that owns this service.",
-                    "type": "string"
-                },
-                "quota": {
-                    "$ref": "Quota",
-                    "description": "Quota configuration."
-                },
-                "name": {
-                    "description": "The service name, which is a DNS-like logical identifier for the\nservice, such as `calendar.googleapis.com`. The service name\ntypically goes through DNS verification to make sure the owner\nof the service also owns the DNS name.",
-                    "type": "string"
-                },
-                "billing": {
-                    "$ref": "Billing",
-                    "description": "Billing configuration."
                 }
             },
             "type": "object"
@@ -947,17 +1246,17 @@
             "description": "`Authentication` defines the authentication configuration for an API.\n\nExample for an API targeted for external use:\n\n    name: calendar.googleapis.com\n    authentication:\n      providers:\n      - id: google_calendar_auth\n        jwks_uri: https://www.googleapis.com/oauth2/v1/certs\n        issuer: https://securetoken.google.com\n      rules:\n      - selector: \"*\"\n        requirements:\n          provider_id: google_calendar_auth",
             "id": "Authentication",
             "properties": {
-                "rules": {
-                    "description": "A list of authentication rules that apply to individual API methods.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
-                    "items": {
-                        "$ref": "AuthenticationRule"
-                    },
-                    "type": "array"
-                },
                 "providers": {
                     "description": "Defines a set of authentication providers that a service supports.",
                     "items": {
                         "$ref": "AuthProvider"
+                    },
+                    "type": "array"
+                },
+                "rules": {
+                    "description": "A list of authentication rules that apply to individual API methods.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
+                    "items": {
+                        "$ref": "AuthenticationRule"
                     },
                     "type": "array"
                 }
@@ -968,6 +1267,10 @@
             "description": "This resource represents a long-running operation that is the result of a\nnetwork API call.",
             "id": "Operation",
             "properties": {
+                "done": {
+                    "description": "If the value is `false`, it means the operation is still in progress.\nIf `true`, the operation is completed, and either `error` or `response` is\navailable.",
+                    "type": "boolean"
+                },
                 "response": {
                     "additionalProperties": {
                         "description": "Properties of the object. Contains field @type with type URL.",
@@ -991,10 +1294,6 @@
                     },
                     "description": "Service-specific metadata associated with the operation.  It typically\ncontains progress information and common metadata such as create time.\nSome services might not provide such metadata.  Any method that returns a\nlong-running operation should document the metadata type, if any.",
                     "type": "object"
-                },
-                "done": {
-                    "description": "If the value is `false`, it means the operation is still in progress.\nIf `true`, the operation is completed, and either `error` or `response` is\navailable.",
-                    "type": "boolean"
                 }
             },
             "type": "object"
@@ -1003,6 +1302,13 @@
             "description": "Represents a documentation page. A page can contain subpages to represent\nnested documentation set structure.",
             "id": "Page",
             "properties": {
+                "subpages": {
+                    "description": "Subpages of this page. The order of subpages specified here will be\nhonored in the generated docset.",
+                    "items": {
+                        "$ref": "Page"
+                    },
+                    "type": "array"
+                },
                 "name": {
                     "description": "The name of the page. It will be used as an identity of the page to\ngenerate URI of the page, text of the link to this page in navigation,\netc. The full page name (start from the root page name to this page\nconcatenated with `.`) can be used as reference to the page in your\ndocumentation. For example:\n<pre><code>pages:\n- name: Tutorial\n  content: &#40;== include tutorial.md ==&#41;\n  subpages:\n  - name: Java\n    content: &#40;== include tutorial_java.md ==&#41;\n</code></pre>\nYou can reference `Java` page using Markdown reference link syntax:\n`Java`.",
                     "type": "string"
@@ -1010,13 +1316,6 @@
                 "content": {
                     "description": "The Markdown content of the page. You can use <code>&#40;== include {path}\n==&#41;</code> to include content from a Markdown file.",
                     "type": "string"
-                },
-                "subpages": {
-                    "description": "Subpages of this page. The order of subpages specified here will be\nhonored in the generated docset.",
-                    "items": {
-                        "$ref": "Page"
-                    },
-                    "type": "array"
                 }
             },
             "type": "object"
@@ -1025,22 +1324,6 @@
             "description": "The configuration of the service.",
             "id": "GoogleApiServiceusageV1ServiceConfig",
             "properties": {
-                "usage": {
-                    "$ref": "Usage",
-                    "description": "Configuration controlling usage of this service."
-                },
-                "quota": {
-                    "$ref": "Quota",
-                    "description": "Quota configuration."
-                },
-                "name": {
-                    "description": "The DNS address at which this service is available.\n\nAn example DNS address would be:\n`calendar.googleapis.com`.",
-                    "type": "string"
-                },
-                "authentication": {
-                    "$ref": "Authentication",
-                    "description": "Auth configuration. Contains only the OAuth rules."
-                },
                 "title": {
                     "description": "The product title for this service.",
                     "type": "string"
@@ -1062,6 +1345,22 @@
                 "documentation": {
                     "$ref": "Documentation",
                     "description": "Additional API documentation. Contains only the summary and the\ndocumentation URL."
+                },
+                "usage": {
+                    "$ref": "Usage",
+                    "description": "Configuration controlling usage of this service."
+                },
+                "quota": {
+                    "$ref": "Quota",
+                    "description": "Quota configuration."
+                },
+                "name": {
+                    "description": "The DNS address at which this service is available.\n\nAn example DNS address would be:\n`calendar.googleapis.com`.",
+                    "type": "string"
+                },
+                "authentication": {
+                    "$ref": "Authentication",
+                    "description": "Auth configuration. Contains only the OAuth rules."
                 }
             },
             "type": "object"
@@ -1070,15 +1369,6 @@
             "description": "The `Status` type defines a logical error model that is suitable for\ndifferent programming environments, including REST APIs and RPC APIs. It is\nused by [gRPC](https://github.com/grpc). Each `Status` message contains\nthree pieces of data: error code, error message, and error details.\n\nYou can find out more about this error model and how to work with it in the\n[API Design Guide](https://cloud.google.com/apis/design/errors).",
             "id": "Status",
             "properties": {
-                "code": {
-                    "description": "The status code, which should be an enum value of google.rpc.Code.",
-                    "format": "int32",
-                    "type": "integer"
-                },
-                "message": {
-                    "description": "A developer-facing error message, which should be in English. Any\nuser-facing error message should be localized and sent in the\ngoogle.rpc.Status.details field, or localized by the client.",
-                    "type": "string"
-                },
                 "details": {
                     "description": "A list of messages that carry the error details.  There is a common set of\nmessage types for APIs to use.",
                     "items": {
@@ -1089,6 +1379,15 @@
                         "type": "object"
                     },
                     "type": "array"
+                },
+                "code": {
+                    "description": "The status code, which should be an enum value of google.rpc.Code.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "message": {
+                    "description": "A developer-facing error message, which should be in English. Any\nuser-facing error message should be localized and sent in the\ngoogle.rpc.Status.details field, or localized by the client.",
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -1124,13 +1423,6 @@
             "description": "Enum value definition.",
             "id": "EnumValue",
             "properties": {
-                "options": {
-                    "description": "Protocol buffer options.",
-                    "items": {
-                        "$ref": "Option"
-                    },
-                    "type": "array"
-                },
                 "number": {
                     "description": "Enum value number.",
                     "format": "int32",
@@ -1139,6 +1431,13 @@
                 "name": {
                     "description": "Enum value name.",
                     "type": "string"
+                },
+                "options": {
+                    "description": "Protocol buffer options.",
+                    "items": {
+                        "$ref": "Option"
+                    },
+                    "type": "array"
                 }
             },
             "type": "object"
@@ -1155,35 +1454,6 @@
                     "description": "A list of operations that matches the specified filter in the request.",
                     "items": {
                         "$ref": "Operation"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "CustomHttpPattern": {
-            "description": "A custom pattern is used for defining custom HTTP verb.",
-            "id": "CustomHttpPattern",
-            "properties": {
-                "path": {
-                    "description": "The path matched by this custom verb.",
-                    "type": "string"
-                },
-                "kind": {
-                    "description": "The name of this custom HTTP verb.",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "OperationMetadata": {
-            "description": "The operation metadata returned for the batchend services operation.",
-            "id": "OperationMetadata",
-            "properties": {
-                "resourceNames": {
-                    "description": "The full name of the resources that this operation is directly\nassociated with.",
-                    "items": {
-                        "type": "string"
                     },
                     "type": "array"
                 }
@@ -1213,15 +1483,57 @@
             },
             "type": "object"
         },
+        "OperationMetadata": {
+            "description": "The operation metadata returned for the batchend services operation.",
+            "id": "OperationMetadata",
+            "properties": {
+                "resourceNames": {
+                    "description": "The full name of the resources that this operation is directly\nassociated with.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "CustomHttpPattern": {
+            "description": "A custom pattern is used for defining custom HTTP verb.",
+            "id": "CustomHttpPattern",
+            "properties": {
+                "path": {
+                    "description": "The path matched by this custom verb.",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "The name of this custom HTTP verb.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SystemParameterRule": {
+            "description": "Define a system parameter rule mapping system parameter definitions to\nmethods.",
+            "id": "SystemParameterRule",
+            "properties": {
+                "selector": {
+                    "description": "Selects the methods to which this rule applies. Use '*' to indicate all\nmethods in all APIs.\n\nRefer to selector for syntax details.",
+                    "type": "string"
+                },
+                "parameters": {
+                    "description": "Define parameters. Multiple names may be defined for a parameter.\nFor a given method call, only one of them should be used. If multiple\nnames are used the behavior is implementation-dependent.\nIf none of the specified names are present the behavior is\nparameter-dependent.",
+                    "items": {
+                        "$ref": "SystemParameter"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
         "MetricDescriptorMetadata": {
             "description": "Additional annotations that can be used to guide the usage of a metric.",
             "id": "MetricDescriptorMetadata",
             "properties": {
-                "samplePeriod": {
-                    "description": "The sampling period of metric data points. For metrics which are written\nperiodically, consecutive data points are stored at this time interval,\nexcluding data loss due to errors. Metrics with a higher granularity have\na smaller sampling period.",
-                    "format": "google-duration",
-                    "type": "string"
-                },
                 "ingestDelay": {
                     "description": "The delay of data points caused by ingestion. Data points older than this\nage are guaranteed to be ingested and available to be read, excluding\ndata loss due to errors.",
                     "format": "google-duration",
@@ -1246,24 +1558,11 @@
                         "Deprecated features are scheduled to be shut down and removed. For more\ninformation, see the “Deprecation Policy” section of our [Terms of\nService](https://cloud.google.com/terms/)\nand the [Google Cloud Platform Subject to the Deprecation\nPolicy](https://cloud.google.com/terms/deprecation) documentation."
                     ],
                     "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "SystemParameterRule": {
-            "description": "Define a system parameter rule mapping system parameter definitions to\nmethods.",
-            "id": "SystemParameterRule",
-            "properties": {
-                "selector": {
-                    "description": "Selects the methods to which this rule applies. Use '*' to indicate all\nmethods in all APIs.\n\nRefer to selector for syntax details.",
-                    "type": "string"
                 },
-                "parameters": {
-                    "description": "Define parameters. Multiple names may be defined for a parameter.\nFor a given method call, only one of them should be used. If multiple\nnames are used the behavior is implementation-dependent.\nIf none of the specified names are present the behavior is\nparameter-dependent.",
-                    "items": {
-                        "$ref": "SystemParameter"
-                    },
-                    "type": "array"
+                "samplePeriod": {
+                    "description": "The sampling period of metric data points. For metrics which are written\nperiodically, consecutive data points are stored at this time interval,\nexcluding data loss due to errors. Metrics with a higher granularity have\na smaller sampling period.",
+                    "format": "google-duration",
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -1303,12 +1602,12 @@
                     "$ref": "CustomHttpPattern",
                     "description": "The custom pattern is used for specifying an HTTP method that is not\nincluded in the `pattern` field, such as HEAD, or \"*\" to leave the\nHTTP method unspecified for this rule. The wild-card rule is useful\nfor services that provide content to Web (HTML) clients."
                 },
-                "patch": {
-                    "description": "Maps to HTTP PATCH. Used for updating a resource.",
-                    "type": "string"
-                },
                 "get": {
                     "description": "Maps to HTTP GET. Used for listing and getting information about\nresources.",
+                    "type": "string"
+                },
+                "patch": {
+                    "description": "Maps to HTTP PATCH. Used for updating a resource.",
                     "type": "string"
                 },
                 "put": {
@@ -1322,16 +1621,16 @@
             "description": "Configuration of a specific monitoring destination (the producer project\nor the consumer project).",
             "id": "MonitoringDestination",
             "properties": {
+                "monitoredResource": {
+                    "description": "The monitored resource type. The type must be defined in\nService.monitored_resources section.",
+                    "type": "string"
+                },
                 "metrics": {
                     "description": "Types of the metrics to report to this monitoring destination.\nEach type must be defined in Service.metrics section.",
                     "items": {
                         "type": "string"
                     },
                     "type": "array"
-                },
-                "monitoredResource": {
-                    "description": "The monitored resource type. The type must be defined in\nService.monitored_resources section.",
-                    "type": "string"
                 }
             },
             "type": "object"
@@ -1371,24 +1670,6 @@
             },
             "type": "object"
         },
-        "LoggingDestination": {
-            "description": "Configuration of a specific logging destination (the producer project\nor the consumer project).",
-            "id": "LoggingDestination",
-            "properties": {
-                "monitoredResource": {
-                    "description": "The monitored resource type. The type must be defined in the\nService.monitored_resources section.",
-                    "type": "string"
-                },
-                "logs": {
-                    "description": "Names of the logs to be sent to this destination. Each name must\nbe defined in the Service.logs section. If the log name is\nnot a domain scoped name, it will be automatically prefixed with\nthe service name followed by \"/\".",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
         "BatchCreateConsumerOverridesResponse": {
             "description": "Response message for BatchCreateConsumerOverrides",
             "id": "BatchCreateConsumerOverridesResponse",
@@ -1403,10 +1684,32 @@
             },
             "type": "object"
         },
+        "LoggingDestination": {
+            "description": "Configuration of a specific logging destination (the producer project\nor the consumer project).",
+            "id": "LoggingDestination",
+            "properties": {
+                "logs": {
+                    "description": "Names of the logs to be sent to this destination. Each name must\nbe defined in the Service.logs section. If the log name is\nnot a domain scoped name, it will be automatically prefixed with\nthe service name followed by \"/\".",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "monitoredResource": {
+                    "description": "The monitored resource type. The type must be defined in the\nService.monitored_resources section.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "Option": {
             "description": "A protocol buffer option, which can be attached to a message, field,\nenumeration, etc.",
             "id": "Option",
             "properties": {
+                "name": {
+                    "description": "The option's name. For protobuf built-in options (options defined in\ndescriptor.proto), this is the short name. For example, `\"map_entry\"`.\nFor custom options, it should be the fully-qualified name. For example,\n`\"google.api.http\"`.",
+                    "type": "string"
+                },
                 "value": {
                     "additionalProperties": {
                         "description": "Properties of the object. Contains field @type with type URL.",
@@ -1414,10 +1717,6 @@
                     },
                     "description": "The option's value packed in an Any message. If the value is a primitive,\nthe corresponding wrapper type defined in google/protobuf/wrappers.proto\nshould be used. If the value is an enum, it should be stored as an int32\nvalue using the google.protobuf.Int32Value type.",
                     "type": "object"
-                },
-                "name": {
-                    "description": "The option's name. For protobuf built-in options (options defined in\ndescriptor.proto), this is the short name. For example, `\"map_entry\"`.\nFor custom options, it should be the fully-qualified name. For example,\n`\"google.api.http\"`.",
-                    "type": "string"
                 }
             },
             "type": "object"
@@ -1447,30 +1746,16 @@
             "description": "`QuotaLimit` defines a specific limit that applies over a specified duration\nfor a limit type. There can be at most one limit for a duration and limit\ntype combination defined within a `QuotaGroup`.",
             "id": "QuotaLimit",
             "properties": {
-                "duration": {
-                    "description": "Duration of this limit in textual notation. Example: \"100s\", \"24h\", \"1d\".\nFor duration longer than a day, only multiple of days is supported. We\nsupport only \"100s\" and \"1d\" for now. Additional support will be added in\nthe future. \"0\" indicates indefinite duration.\n\nUsed by group-based quotas only.",
-                    "type": "string"
-                },
-                "freeTier": {
-                    "description": "Free tier value displayed in the Developers Console for this limit.\nThe free tier is the number of tokens that will be subtracted from the\nbilled amount when billing is enabled.\nThis field can only be set on a limit with duration \"1d\", in a billable\ngroup; it is invalid on any other limit. If this field is not set, it\ndefaults to 0, indicating that there is no free tier for this service.\n\nUsed by group-based quotas only.",
-                    "format": "int64",
-                    "type": "string"
-                },
-                "defaultLimit": {
-                    "description": "Default number of tokens that can be consumed during the specified\nduration. This is the number of tokens assigned when a client\napplication developer activates the service for his/her project.\n\nSpecifying a value of 0 will block all requests. This can be used if you\nare provisioning quota to selected consumers and blocking others.\nSimilarly, a value of -1 will indicate an unlimited quota. No other\nnegative values are allowed.\n\nUsed by group-based quotas only.",
-                    "format": "int64",
-                    "type": "string"
-                },
                 "description": {
                     "description": "Optional. User-visible, extended description for this quota limit.\nShould be used only when more context is needed to understand this limit\nthan provided by the limit's display name (see: `display_name`).",
                     "type": "string"
                 },
-                "metric": {
-                    "description": "The name of the metric this quota limit applies to. The quota limits with\nthe same metric will be checked together during runtime. The metric must be\ndefined within the service config.",
-                    "type": "string"
-                },
                 "displayName": {
                     "description": "User-visible display name for this limit.\nOptional. If not set, the UI will provide a default display name based on\nthe quota configuration. This field can be used to override the default\ndisplay name generated from the configuration.",
+                    "type": "string"
+                },
+                "metric": {
+                    "description": "The name of the metric this quota limit applies to. The quota limits with\nthe same metric will be checked together during runtime. The metric must be\ndefined within the service config.",
                     "type": "string"
                 },
                 "values": {
@@ -1493,6 +1778,20 @@
                 "name": {
                     "description": "Name of the quota limit.\n\nThe name must be provided, and it must be unique within the service. The\nname can only include alphanumeric characters as well as '-'.\n\nThe maximum length of the limit name is 64 characters.",
                     "type": "string"
+                },
+                "duration": {
+                    "description": "Duration of this limit in textual notation. Must be \"100s\" or \"1d\".\n\nUsed by group-based quotas only.",
+                    "type": "string"
+                },
+                "freeTier": {
+                    "description": "Free tier value displayed in the Developers Console for this limit.\nThe free tier is the number of tokens that will be subtracted from the\nbilled amount when billing is enabled.\nThis field can only be set on a limit with duration \"1d\", in a billable\ngroup; it is invalid on any other limit. If this field is not set, it\ndefaults to 0, indicating that there is no free tier for this service.\n\nUsed by group-based quotas only.",
+                    "format": "int64",
+                    "type": "string"
+                },
+                "defaultLimit": {
+                    "description": "Default number of tokens that can be consumed during the specified\nduration. This is the number of tokens assigned when a client\napplication developer activates the service for his/her project.\n\nSpecifying a value of 0 will block all requests. This can be used if you\nare provisioning quota to selected consumers and blocking others.\nSimilarly, a value of -1 will indicate an unlimited quota. No other\nnegative values are allowed.\n\nUsed by group-based quotas only.",
+                    "format": "int64",
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -1501,21 +1800,6 @@
             "description": "Method represents a method of an API interface.",
             "id": "Method",
             "properties": {
-                "responseTypeUrl": {
-                    "description": "The URL of the output message type.",
-                    "type": "string"
-                },
-                "options": {
-                    "description": "Any metadata attached to the method.",
-                    "items": {
-                        "$ref": "Option"
-                    },
-                    "type": "array"
-                },
-                "responseStreaming": {
-                    "description": "If true, the response is streamed.",
-                    "type": "boolean"
-                },
                 "name": {
                     "description": "The simple name of this method.",
                     "type": "string"
@@ -1539,21 +1823,21 @@
                         "Syntax `proto3`."
                     ],
                     "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "EnableFailure": {
-            "description": "Provides error messages for the failing services.",
-            "id": "EnableFailure",
-            "properties": {
-                "serviceId": {
-                    "description": "The service id of a service that could not be enabled.",
+                },
+                "responseTypeUrl": {
+                    "description": "The URL of the output message type.",
                     "type": "string"
                 },
-                "errorMessage": {
-                    "description": "An error message describing why the service could not be enabled.",
-                    "type": "string"
+                "options": {
+                    "description": "Any metadata attached to the method.",
+                    "items": {
+                        "$ref": "Option"
+                    },
+                    "type": "array"
+                },
+                "responseStreaming": {
+                    "description": "If true, the response is streamed.",
+                    "type": "boolean"
                 }
             },
             "type": "object"
@@ -1573,21 +1857,36 @@
             },
             "type": "object"
         },
+        "EnableFailure": {
+            "description": "Provides error messages for the failing services.",
+            "id": "EnableFailure",
+            "properties": {
+                "errorMessage": {
+                    "description": "An error message describing why the service could not be enabled.",
+                    "type": "string"
+                },
+                "serviceId": {
+                    "description": "The service id of a service that could not be enabled.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "CustomError": {
             "description": "Customize service error responses.  For example, list any service\nspecific protobuf types that can appear in error detail lists of\nerror responses.\n\nExample:\n\n    custom_error:\n      types:\n      - google.foo.v1.CustomError\n      - google.foo.v1.AnotherError",
             "id": "CustomError",
             "properties": {
-                "rules": {
-                    "description": "The list of custom error rules that apply to individual API messages.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
-                    "items": {
-                        "$ref": "CustomErrorRule"
-                    },
-                    "type": "array"
-                },
                 "types": {
                     "description": "The list of custom error detail types, e.g. 'google.foo.v1.CustomError'.",
                     "items": {
                         "type": "string"
+                    },
+                    "type": "array"
+                },
+                "rules": {
+                    "description": "The list of custom error rules that apply to individual API messages.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
+                    "items": {
+                        "$ref": "CustomErrorRule"
                     },
                     "type": "array"
                 }
@@ -1645,10 +1944,6 @@
             "description": "A service that is available for use by the consumer.",
             "id": "GoogleApiServiceusageV1Service",
             "properties": {
-                "name": {
-                    "description": "The resource name of the consumer and service.\n\nA valid name would be:\n- projects/123/services/serviceusage.googleapis.com",
-                    "type": "string"
-                },
                 "parent": {
                     "description": "The resource name of the consumer.\n\nA valid name would be:\n- projects/123",
                     "type": "string"
@@ -1670,6 +1965,10 @@
                         "The service has been explicitly enabled for use by this consumer."
                     ],
                     "type": "string"
+                },
+                "name": {
+                    "description": "The resource name of the consumer and service.\n\nA valid name would be:\n- projects/123/services/serviceusage.googleapis.com",
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -1678,16 +1977,16 @@
             "description": "Define a parameter's name and location. The parameter may be passed as either\nan HTTP header or a URL query parameter, and if both are passed the behavior\nis implementation-dependent.",
             "id": "SystemParameter",
             "properties": {
+                "urlQueryParameter": {
+                    "description": "Define the URL query parameter name to use for the parameter. It is case\nsensitive.",
+                    "type": "string"
+                },
                 "httpHeader": {
                     "description": "Define the HTTP header name to use for the parameter. It is case\ninsensitive.",
                     "type": "string"
                 },
                 "name": {
                     "description": "Define the name of the parameter, such as \"api_key\" . It is case sensitive.",
-                    "type": "string"
-                },
-                "urlQueryParameter": {
-                    "description": "Define the URL query parameter name to use for the parameter. It is case\nsensitive.",
                     "type": "string"
                 }
             },
@@ -1824,6 +2123,22 @@
             "description": "Enum type definition.",
             "id": "Enum",
             "properties": {
+                "sourceContext": {
+                    "$ref": "SourceContext",
+                    "description": "The source context."
+                },
+                "syntax": {
+                    "description": "The source syntax.",
+                    "enum": [
+                        "SYNTAX_PROTO2",
+                        "SYNTAX_PROTO3"
+                    ],
+                    "enumDescriptions": [
+                        "Syntax `proto2`.",
+                        "Syntax `proto3`."
+                    ],
+                    "type": "string"
+                },
                 "name": {
                     "description": "Enum type name.",
                     "type": "string"
@@ -1841,20 +2156,27 @@
                         "$ref": "Option"
                     },
                     "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "GetServiceIdentityResponse": {
+            "description": "Response message for getting service identity.",
+            "id": "GetServiceIdentityResponse",
+            "properties": {
+                "identity": {
+                    "$ref": "ServiceIdentity",
+                    "description": "Service identity that service producer can use to access consumer\nresources. If exists is true, it contains email and unique_id. If exists is\nfalse, it contains pre-constructed email and empty unique_id."
                 },
-                "sourceContext": {
-                    "$ref": "SourceContext",
-                    "description": "The source context."
-                },
-                "syntax": {
-                    "description": "The source syntax.",
+                "state": {
+                    "description": "Service identity state.",
                     "enum": [
-                        "SYNTAX_PROTO2",
-                        "SYNTAX_PROTO3"
+                        "IDENTITY_STATE_UNSPECIFIED",
+                        "ACTIVE"
                     ],
                     "enumDescriptions": [
-                        "Syntax `proto2`.",
-                        "Syntax `proto3`."
+                        "Default service identity state. This value is used if the state is\nomitted.",
+                        "Service identity has been created and can be used."
                     ],
                     "type": "string"
                 }
@@ -1865,14 +2187,6 @@
             "description": "A description of a label.",
             "id": "LabelDescriptor",
             "properties": {
-                "key": {
-                    "description": "The label key.",
-                    "type": "string"
-                },
-                "description": {
-                    "description": "A human-readable description for the label.",
-                    "type": "string"
-                },
                 "valueType": {
                     "description": "The type of data that can be assigned to the label.",
                     "enum": [
@@ -1885,6 +2199,14 @@
                         "Boolean; true or false.",
                         "A 64-bit signed integer."
                     ],
+                    "type": "string"
+                },
+                "key": {
+                    "description": "The label key.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "A human-readable description for the label.",
                     "type": "string"
                 }
             },
@@ -1936,10 +2258,6 @@
                     },
                     "type": "array"
                 },
-                "sourceContext": {
-                    "$ref": "SourceContext",
-                    "description": "The source context."
-                },
                 "syntax": {
                     "description": "The source syntax.",
                     "enum": [
@@ -1951,6 +2269,10 @@
                         "Syntax `proto3`."
                     ],
                     "type": "string"
+                },
+                "sourceContext": {
+                    "$ref": "SourceContext",
+                    "description": "The source context."
                 }
             },
             "type": "object"
@@ -1963,286 +2285,6 @@
                     "description": "A list of API backend rules that apply to individual API methods.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
                     "items": {
                         "$ref": "BackendRule"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "DocumentationRule": {
-            "description": "A documentation rule provides information about individual API elements.",
-            "id": "DocumentationRule",
-            "properties": {
-                "selector": {
-                    "description": "The selector is a comma-separated list of patterns. Each pattern is a\nqualified name of the element which may end in \"*\", indicating a wildcard.\nWildcards are only allowed at the end and for a whole component of the\nqualified name, i.e. \"foo.*\" is ok, but not \"foo.b*\" or \"foo.*.bar\". A\nwildcard will match one or more components. To specify a default for all\napplicable elements, the whole pattern \"*\" is used.",
-                    "type": "string"
-                },
-                "description": {
-                    "description": "Description of the selected API(s).",
-                    "type": "string"
-                },
-                "deprecationDescription": {
-                    "description": "Deprecation description of the selected element(s). It can be provided if\nan element is marked as `deprecated`.",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "ContextRule": {
-            "description": "A context rule provides information about the context for an individual API\nelement.",
-            "id": "ContextRule",
-            "properties": {
-                "requested": {
-                    "description": "A list of full type names of requested contexts.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "allowedRequestExtensions": {
-                    "description": "A list of full type names or extension IDs of extensions allowed in grpc\nside channel from client to backend.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "allowedResponseExtensions": {
-                    "description": "A list of full type names or extension IDs of extensions allowed in grpc\nside channel from backend to client.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "selector": {
-                    "description": "Selects the methods to which this rule applies.\n\nRefer to selector for syntax details.",
-                    "type": "string"
-                },
-                "provided": {
-                    "description": "A list of full type names of provided contexts.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "Billing": {
-            "description": "Billing related configuration of the service.\n\nThe following example shows how to configure monitored resources and metrics\nfor billing:\n\n    monitored_resources:\n    - type: library.googleapis.com/branch\n      labels:\n      - key: /city\n        description: The city where the library branch is located in.\n      - key: /name\n        description: The name of the branch.\n    metrics:\n    - name: library.googleapis.com/book/borrowed_count\n      metric_kind: DELTA\n      value_type: INT64\n    billing:\n      consumer_destinations:\n      - monitored_resource: library.googleapis.com/branch\n        metrics:\n        - library.googleapis.com/book/borrowed_count",
-            "id": "Billing",
-            "properties": {
-                "consumerDestinations": {
-                    "description": "Billing configurations for sending metrics to the consumer project.\nThere can be multiple consumer destinations per service, each one must have\na different monitored resource type. A metric can be used in at most\none consumer destination.",
-                    "items": {
-                        "$ref": "BillingDestination"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "MetricDescriptor": {
-            "description": "Defines a metric type and its schema. Once a metric descriptor is created,\ndeleting or altering it stops data collection and makes the metric type's\nexisting data unusable.",
-            "id": "MetricDescriptor",
-            "properties": {
-                "metadata": {
-                    "$ref": "MetricDescriptorMetadata",
-                    "description": "Optional. Metadata which can be used to guide usage of the metric."
-                },
-                "type": {
-                    "description": "The metric type, including its DNS name prefix. The type is not\nURL-encoded.  All user-defined metric types have the DNS name\n`custom.googleapis.com` or `external.googleapis.com`.  Metric types should\nuse a natural hierarchical grouping. For example:\n\n    \"custom.googleapis.com/invoice/paid/amount\"\n    \"external.googleapis.com/prometheus/up\"\n    \"appengine.googleapis.com/http/server/response_latencies\"",
-                    "type": "string"
-                },
-                "valueType": {
-                    "description": "Whether the measurement is an integer, a floating-point number, etc.\nSome combinations of `metric_kind` and `value_type` might not be supported.",
-                    "enum": [
-                        "VALUE_TYPE_UNSPECIFIED",
-                        "BOOL",
-                        "INT64",
-                        "DOUBLE",
-                        "STRING",
-                        "DISTRIBUTION",
-                        "MONEY"
-                    ],
-                    "enumDescriptions": [
-                        "Do not use this default value.",
-                        "The value is a boolean.\nThis value type can be used only if the metric kind is `GAUGE`.",
-                        "The value is a signed 64-bit integer.",
-                        "The value is a double precision floating point number.",
-                        "The value is a text string.\nThis value type can be used only if the metric kind is `GAUGE`.",
-                        "The value is a `Distribution`.",
-                        "The value is money."
-                    ],
-                    "type": "string"
-                },
-                "metricKind": {
-                    "description": "Whether the metric records instantaneous values, changes to a value, etc.\nSome combinations of `metric_kind` and `value_type` might not be supported.",
-                    "enum": [
-                        "METRIC_KIND_UNSPECIFIED",
-                        "GAUGE",
-                        "DELTA",
-                        "CUMULATIVE"
-                    ],
-                    "enumDescriptions": [
-                        "Do not use this default value.",
-                        "An instantaneous measurement of a value.",
-                        "The change in a value during a time interval.",
-                        "A value accumulated over a time interval.  Cumulative\nmeasurements in a time series should have the same start time\nand increasing end times, until an event resets the cumulative\nvalue to zero and sets a new start time for the following\npoints."
-                    ],
-                    "type": "string"
-                },
-                "description": {
-                    "description": "A detailed description of the metric, which can be used in documentation.",
-                    "type": "string"
-                },
-                "displayName": {
-                    "description": "A concise name for the metric, which can be displayed in user interfaces.\nUse sentence case without an ending period, for example \"Request count\".\nThis field is optional but it is recommended to be set for any metrics\nassociated with user-visible concepts, such as Quota.",
-                    "type": "string"
-                },
-                "unit": {
-                    "description": "The unit in which the metric value is reported. It is only applicable\nif the `value_type` is `INT64`, `DOUBLE`, or `DISTRIBUTION`. The\nsupported units are a subset of [The Unified Code for Units of\nMeasure](http://unitsofmeasure.org/ucum.html) standard:\n\n**Basic units (UNIT)**\n\n* `bit`   bit\n* `By`    byte\n* `s`     second\n* `min`   minute\n* `h`     hour\n* `d`     day\n\n**Prefixes (PREFIX)**\n\n* `k`     kilo    (10**3)\n* `M`     mega    (10**6)\n* `G`     giga    (10**9)\n* `T`     tera    (10**12)\n* `P`     peta    (10**15)\n* `E`     exa     (10**18)\n* `Z`     zetta   (10**21)\n* `Y`     yotta   (10**24)\n* `m`     milli   (10**-3)\n* `u`     micro   (10**-6)\n* `n`     nano    (10**-9)\n* `p`     pico    (10**-12)\n* `f`     femto   (10**-15)\n* `a`     atto    (10**-18)\n* `z`     zepto   (10**-21)\n* `y`     yocto   (10**-24)\n* `Ki`    kibi    (2**10)\n* `Mi`    mebi    (2**20)\n* `Gi`    gibi    (2**30)\n* `Ti`    tebi    (2**40)\n\n**Grammar**\n\nThe grammar also includes these connectors:\n\n* `/`    division (as an infix operator, e.g. `1/s`).\n* `.`    multiplication (as an infix operator, e.g. `GBy.d`)\n\nThe grammar for a unit is as follows:\n\n    Expression = Component { \".\" Component } { \"/\" Component } ;\n\n    Component = ( [ PREFIX ] UNIT | \"%\" ) [ Annotation ]\n              | Annotation\n              | \"1\"\n              ;\n\n    Annotation = \"{\" NAME \"}\" ;\n\nNotes:\n\n* `Annotation` is just a comment if it follows a `UNIT` and is\n   equivalent to `1` if it is used alone. For examples,\n   `{requests}/s == 1/s`, `By{transmitted}/s == By/s`.\n* `NAME` is a sequence of non-blank printable ASCII characters not\n   containing '{' or '}'.\n* `1` represents dimensionless value 1, such as in `1/s`.\n* `%` represents dimensionless value 1/100, and annotates values giving\n   a percentage.",
-                    "type": "string"
-                },
-                "labels": {
-                    "description": "The set of labels that can be used to describe a specific\ninstance of this metric type. For example, the\n`appengine.googleapis.com/http/server/response_latencies` metric\ntype has a label for the HTTP response code, `response_code`, so\nyou can look at latencies for successful responses or just\nfor responses that failed.",
-                    "items": {
-                        "$ref": "LabelDescriptor"
-                    },
-                    "type": "array"
-                },
-                "launchStage": {
-                    "description": "Optional. The launch stage of the metric definition.",
-                    "enum": [
-                        "LAUNCH_STAGE_UNSPECIFIED",
-                        "EARLY_ACCESS",
-                        "ALPHA",
-                        "BETA",
-                        "GA",
-                        "DEPRECATED"
-                    ],
-                    "enumDescriptions": [
-                        "Do not use this default value.",
-                        "Early Access features are limited to a closed group of testers. To use\nthese features, you must sign up in advance and sign a Trusted Tester\nagreement (which includes confidentiality provisions). These features may\nbe unstable, changed in backward-incompatible ways, and are not\nguaranteed to be released.",
-                        "Alpha is a limited availability test for releases before they are cleared\nfor widespread use. By Alpha, all significant design issues are resolved\nand we are in the process of verifying functionality. Alpha customers\nneed to apply for access, agree to applicable terms, and have their\nprojects whitelisted. Alpha releases don’t have to be feature complete,\nno SLAs are provided, and there are no technical support obligations, but\nthey will be far enough along that customers can actually use them in\ntest environments or for limited-use tests -- just like they would in\nnormal production cases.",
-                        "Beta is the point at which we are ready to open a release for any\ncustomer to use. There are no SLA or technical support obligations in a\nBeta release. Products will be complete from a feature perspective, but\nmay have some open outstanding issues. Beta releases are suitable for\nlimited production use cases.",
-                        "GA features are open to all developers and are considered stable and\nfully qualified for production use.",
-                        "Deprecated features are scheduled to be shut down and removed. For more\ninformation, see the “Deprecation Policy” section of our [Terms of\nService](https://cloud.google.com/terms/)\nand the [Google Cloud Platform Subject to the Deprecation\nPolicy](https://cloud.google.com/terms/deprecation) documentation."
-                    ],
-                    "type": "string"
-                },
-                "name": {
-                    "description": "The resource name of the metric descriptor.",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "SourceContext": {
-            "description": "`SourceContext` represents information about the source of a\nprotobuf element, like the file in which it is defined.",
-            "id": "SourceContext",
-            "properties": {
-                "fileName": {
-                    "description": "The path-qualified name of the .proto file that contained the associated\nprotobuf element.  For example: `\"google/protobuf/source_context.proto\"`.",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "ListServicesResponse": {
-            "description": "Response message for the `ListServices` method.",
-            "id": "ListServicesResponse",
-            "properties": {
-                "services": {
-                    "description": "The available services for the requested project.",
-                    "items": {
-                        "$ref": "GoogleApiServiceusageV1Service"
-                    },
-                    "type": "array"
-                },
-                "nextPageToken": {
-                    "description": "Token that can be passed to `ListServices` to resume a paginated\nquery.",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "Endpoint": {
-            "description": "`Endpoint` describes a network endpoint that serves a set of APIs.\nA service may expose any number of endpoints, and all endpoints share the\nsame service configuration, such as quota configuration and monitoring\nconfiguration.\n\nExample service configuration:\n\n    name: library-example.googleapis.com\n    endpoints:\n      # Below entry makes 'google.example.library.v1.Library'\n      # API be served from endpoint address library-example.googleapis.com.\n      # It also allows HTTP OPTIONS calls to be passed to the backend, for\n      # it to decide whether the subsequent cross-origin request is\n      # allowed to proceed.\n    - name: library-example.googleapis.com\n      allow_cors: true",
-            "id": "Endpoint",
-            "properties": {
-                "name": {
-                    "description": "The canonical name of this endpoint.",
-                    "type": "string"
-                },
-                "target": {
-                    "description": "The specification of an Internet routable address of API frontend that will\nhandle requests to this [API\nEndpoint](https://cloud.google.com/apis/design/glossary). It should be\neither a valid IPv4 address or a fully-qualified domain name. For example,\n\"8.8.8.8\" or \"myservice.appspot.com\".",
-                    "type": "string"
-                },
-                "aliases": {
-                    "description": "DEPRECATED: This field is no longer supported. Instead of using aliases,\nplease specify multiple google.api.Endpoint for each of the intended\naliases.\n\nAdditional names that this endpoint will be hosted on.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "features": {
-                    "description": "The list of features enabled on this endpoint.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "allowCors": {
-                    "description": "Allowing\n[CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), aka\ncross-domain traffic, would allow the backends served from this endpoint to\nreceive and respond to HTTP OPTIONS requests. The response will be used by\nthe browser to determine whether the subsequent cross-origin request is\nallowed to proceed.",
-                    "type": "boolean"
-                }
-            },
-            "type": "object"
-        },
-        "OAuthRequirements": {
-            "description": "OAuth scopes are a way to define data and permissions on data. For example,\nthere are scopes defined for \"Read-only access to Google Calendar\" and\n\"Access to Cloud Platform\". Users can consent to a scope for an application,\ngiving it permission to access that data on their behalf.\n\nOAuth scope specifications should be fairly coarse grained; a user will need\nto see and understand the text description of what your scope means.\n\nIn most cases: use one or at most two OAuth scopes for an entire family of\nproducts. If your product has multiple APIs, you should probably be sharing\nthe OAuth scope across all of those APIs.\n\nWhen you need finer grained OAuth consent screens: talk with your product\nmanagement about how developers will use them in practice.\n\nPlease note that even though each of the canonical scopes is enough for a\nrequest to be accepted and passed to the backend, a request can still fail\ndue to the backend requiring additional scopes or permissions.",
-            "id": "OAuthRequirements",
-            "properties": {
-                "canonicalScopes": {
-                    "description": "The list of publicly documented OAuth scopes that are allowed access. An\nOAuth token containing any of these scopes will be accepted.\n\nExample:\n\n     canonical_scopes: https://www.googleapis.com/auth/calendar,\n                       https://www.googleapis.com/auth/calendar.read",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "Usage": {
-            "description": "Configuration controlling usage of a service.",
-            "id": "Usage",
-            "properties": {
-                "rules": {
-                    "description": "A list of usage rules that apply to individual API methods.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
-                    "items": {
-                        "$ref": "UsageRule"
-                    },
-                    "type": "array"
-                },
-                "requirements": {
-                    "description": "Requirements that must be satisfied before a consumer project can use the\nservice. Each requirement is of the form <service.name>/<requirement-id>;\nfor example 'serviceusage.googleapis.com/billing-enabled'.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "producerNotificationChannel": {
-                    "description": "The full resource name of a channel used for sending notifications to the\nservice producer.\n\nGoogle Service Management currently only supports\n[Google Cloud Pub/Sub](https://cloud.google.com/pubsub) as a notification\nchannel. To use Google Cloud Pub/Sub as the channel, this must be the name\nof a Cloud Pub/Sub topic that uses the Cloud Pub/Sub topic name format\ndocumented in https://cloud.google.com/pubsub/docs/overview.",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "Context": {
-            "description": "`Context` defines which contexts an API requests.\n\nExample:\n\n    context:\n      rules:\n      - selector: \"*\"\n        requested:\n        - google.rpc.context.ProjectContext\n        - google.rpc.context.OriginContext\n\nThe above specifies that all methods in the API request\n`google.rpc.context.ProjectContext` and\n`google.rpc.context.OriginContext`.\n\nAvailable context types are defined in package\n`google.rpc.context`.\n\nThis also provides mechanism to whitelist any protobuf message extension that\ncan be sent in grpc metadata using “x-goog-ext-<extension_id>-bin” and\n“x-goog-ext-<extension_id>-jspb” format. For example, list any service\nspecific protobuf types that can appear in grpc metadata as follows in your\nyaml file:\n\nExample:\n\n    context:\n      rules:\n       - selector: \"google.example.library.v1.LibraryService.CreateBook\"\n         allowed_request_extensions:\n         - google.foo.v1.NewExtension\n         allowed_response_extensions:\n         - google.foo.v1.NewExtension\n\nYou can also specify extension ID instead of fully qualified extension name\nhere.",
-            "id": "Context",
-            "properties": {
-                "rules": {
-                    "description": "A list of RPC context rules that apply to individual API methods.\n\n**NOTE:** All service configuration rules follow \"last one wins\" order.",
-                    "items": {
-                        "$ref": "ContextRule"
                     },
                     "type": "array"
                 }

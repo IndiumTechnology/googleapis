@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.androidpublisher.v3;
 
@@ -3610,25 +3610,35 @@ class PurchasesVoidedpurchasesResourceApi {
   /// purchases need to be returned (for example, 'com.some.thing').
   ///
   /// [endTime] - The time, in milliseconds since the Epoch, of the newest
-  /// voided in-app product purchase that you want to see in the response. The
-  /// value of this parameter cannot be greater than the current time and is
-  /// ignored if a pagination token is set. Default value is current time. Note:
-  /// This filter is applied on the time at which the record is seen as voided
-  /// by our systems and not the actual voided time returned in the response.
+  /// voided purchase that you want to see in the response. The value of this
+  /// parameter cannot be greater than the current time and is ignored if a
+  /// pagination token is set. Default value is current time. Note: This filter
+  /// is applied on the time at which the record is seen as voided by our
+  /// systems and not the actual voided time returned in the response.
   ///
   /// [maxResults] - null
   ///
   /// [startIndex] - null
   ///
   /// [startTime] - The time, in milliseconds since the Epoch, of the oldest
-  /// voided in-app product purchase that you want to see in the response. The
-  /// value of this parameter cannot be older than 30 days and is ignored if a
-  /// pagination token is set. Default value is current time minus 30 days.
-  /// Note: This filter is applied on the time at which the record is seen as
-  /// voided by our systems and not the actual voided time returned in the
-  /// response.
+  /// voided purchase that you want to see in the response. The value of this
+  /// parameter cannot be older than 30 days and is ignored if a pagination
+  /// token is set. Default value is current time minus 30 days. Note: This
+  /// filter is applied on the time at which the record is seen as voided by our
+  /// systems and not the actual voided time returned in the response.
   ///
   /// [token] - null
+  ///
+  /// [type] - The type of voided purchases that you want to see in the
+  /// response. Possible values are:
+  /// - 0: Only voided in-app product purchases will be returned in the
+  /// response. This is the default value.
+  /// - 1: Both voided in-app purchases and voided subscription purchases will
+  /// be returned in the response.  Note: Before requesting to receive voided
+  /// subscription purchases, you must switch to use orderId in the response
+  /// which uniquely identifies one-time purchases and subscriptions. Otherwise,
+  /// you will receive multiple subscription orders with the same PurchaseToken,
+  /// because subscription renewal orders share the same PurchaseToken.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -3646,6 +3656,7 @@ class PurchasesVoidedpurchasesResourceApi {
       core.int startIndex,
       core.String startTime,
       core.String token,
+      core.int type,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -3671,6 +3682,9 @@ class PurchasesVoidedpurchasesResourceApi {
     }
     if (token != null) {
       _queryParams["token"] = [token];
+    }
+    if (type != null) {
+      _queryParams["type"] = ["${type}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -4682,6 +4696,9 @@ class Image {
   /// A sha1 hash of the image that was uploaded.
   core.String sha1;
 
+  /// A sha256 hash of the image that was uploaded.
+  core.String sha256;
+
   /// A URL that will serve a preview of the image.
   core.String url;
 
@@ -4693,6 +4710,9 @@ class Image {
     }
     if (_json.containsKey("sha1")) {
       sha1 = _json["sha1"];
+    }
+    if (_json.containsKey("sha256")) {
+      sha256 = _json["sha256"];
     }
     if (_json.containsKey("url")) {
       url = _json["url"];
@@ -4707,6 +4727,9 @@ class Image {
     }
     if (sha1 != null) {
       _json["sha1"] = sha1;
+    }
+    if (sha256 != null) {
+      _json["sha256"] = sha256;
     }
     if (url != null) {
       _json["url"] = url;
@@ -6156,19 +6179,11 @@ class Testers {
   /// this track.
   core.List<core.String> googleGroups;
 
-  /// A list of all Google+ Communities, as URLs, that define testers for this
-  /// track.
-  core.List<core.String> googlePlusCommunities;
-
   Testers();
 
   Testers.fromJson(core.Map _json) {
     if (_json.containsKey("googleGroups")) {
       googleGroups = (_json["googleGroups"] as core.List).cast<core.String>();
-    }
-    if (_json.containsKey("googlePlusCommunities")) {
-      googlePlusCommunities =
-          (_json["googlePlusCommunities"] as core.List).cast<core.String>();
     }
   }
 
@@ -6177,9 +6192,6 @@ class Testers {
         new core.Map<core.String, core.Object>();
     if (googleGroups != null) {
       _json["googleGroups"] = googleGroups;
-    }
-    if (googlePlusCommunities != null) {
-      _json["googlePlusCommunities"] = googlePlusCommunities;
     }
     return _json;
   }
@@ -6519,13 +6531,35 @@ class VoidedPurchase {
   /// service.
   core.String kind;
 
+  /// The order id which uniquely identifies a one-time purchase, subscription
+  /// purchase, or subscription renewal.
+  core.String orderId;
+
   /// The time at which the purchase was made, in milliseconds since the epoch
   /// (Jan 1, 1970).
   core.String purchaseTimeMillis;
 
-  /// The token that was generated when a purchase was made. This uniquely
-  /// identifies a purchase.
+  /// The token which uniquely identifies a one-time purchase or subscription.
+  /// To uniquely identify subscription renewals use order_id (available
+  /// starting from version 3 of the API).
   core.String purchaseToken;
+
+  /// The reason why the purchase was voided, possible values are:
+  /// - Other
+  /// - Remorse
+  /// - Not_received
+  /// - Defective
+  /// - Accidental_purchase
+  /// - Fraud
+  /// - Friendly_fraud
+  /// - Chargeback
+  core.int voidedReason;
+
+  /// The initiator of voided purchase, possible values are:
+  /// - User
+  /// - Developer
+  /// - Google
+  core.int voidedSource;
 
   /// The time at which the purchase was canceled/refunded/charged-back, in
   /// milliseconds since the epoch (Jan 1, 1970).
@@ -6537,11 +6571,20 @@ class VoidedPurchase {
     if (_json.containsKey("kind")) {
       kind = _json["kind"];
     }
+    if (_json.containsKey("orderId")) {
+      orderId = _json["orderId"];
+    }
     if (_json.containsKey("purchaseTimeMillis")) {
       purchaseTimeMillis = _json["purchaseTimeMillis"];
     }
     if (_json.containsKey("purchaseToken")) {
       purchaseToken = _json["purchaseToken"];
+    }
+    if (_json.containsKey("voidedReason")) {
+      voidedReason = _json["voidedReason"];
+    }
+    if (_json.containsKey("voidedSource")) {
+      voidedSource = _json["voidedSource"];
     }
     if (_json.containsKey("voidedTimeMillis")) {
       voidedTimeMillis = _json["voidedTimeMillis"];
@@ -6554,11 +6597,20 @@ class VoidedPurchase {
     if (kind != null) {
       _json["kind"] = kind;
     }
+    if (orderId != null) {
+      _json["orderId"] = orderId;
+    }
     if (purchaseTimeMillis != null) {
       _json["purchaseTimeMillis"] = purchaseTimeMillis;
     }
     if (purchaseToken != null) {
       _json["purchaseToken"] = purchaseToken;
+    }
+    if (voidedReason != null) {
+      _json["voidedReason"] = voidedReason;
+    }
+    if (voidedSource != null) {
+      _json["voidedSource"] = voidedSource;
     }
     if (voidedTimeMillis != null) {
       _json["voidedTimeMillis"] = voidedTimeMillis;

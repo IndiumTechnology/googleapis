@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudshell.v1;
 
@@ -350,6 +350,10 @@ class Environment {
   /// if another environment is started.
   core.String state;
 
+  /// Output only. Host to which clients can connect to initiate HTTPS or WSS
+  /// connections with the environment.
+  core.String webHost;
+
   Environment();
 
   Environment.fromJson(core.Map _json) {
@@ -378,6 +382,9 @@ class Environment {
     }
     if (_json.containsKey("state")) {
       state = _json["state"];
+    }
+    if (_json.containsKey("webHost")) {
+      webHost = _json["webHost"];
     }
   }
 
@@ -408,6 +415,9 @@ class Environment {
     }
     if (state != null) {
       _json["state"] = state;
+    }
+    if (webHost != null) {
+      _json["webHost"] = webHost;
     }
     return _json;
   }

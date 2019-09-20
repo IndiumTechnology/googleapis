@@ -201,66 +201,66 @@ checkClientCertificateConfig(api.ClientCertificateConfig o) {
   buildCounterClientCertificateConfig--;
 }
 
-buildUnnamed3767() {
+buildUnnamed1562() {
   var o = new core.List<api.StatusCondition>();
   o.add(buildStatusCondition());
   o.add(buildStatusCondition());
   return o;
 }
 
-checkUnnamed3767(core.List<api.StatusCondition> o) {
+checkUnnamed1562(core.List<api.StatusCondition> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkStatusCondition(o[0]);
   checkStatusCondition(o[1]);
 }
 
-buildUnnamed3768() {
+buildUnnamed1563() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3768(core.List<core.String> o) {
+checkUnnamed1563(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3769() {
+buildUnnamed1564() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3769(core.List<core.String> o) {
+checkUnnamed1564(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3770() {
+buildUnnamed1565() {
   var o = new core.List<api.NodePool>();
   o.add(buildNodePool());
   o.add(buildNodePool());
   return o;
 }
 
-checkUnnamed3770(core.List<api.NodePool> o) {
+checkUnnamed1565(core.List<api.NodePool> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkNodePool(o[0]);
   checkNodePool(o[1]);
 }
 
-buildUnnamed3771() {
+buildUnnamed1566() {
   var o = new core.Map<core.String, core.String>();
   o["x"] = "foo";
   o["y"] = "foo";
   return o;
 }
 
-checkUnnamed3771(core.Map<core.String, core.String> o) {
+checkUnnamed1566(core.Map<core.String, core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o["x"], unittest.equals('foo'));
   unittest.expect(o["y"], unittest.equals('foo'));
@@ -273,7 +273,7 @@ buildCluster() {
   if (buildCounterCluster < 3) {
     o.addonsConfig = buildAddonsConfig();
     o.clusterIpv4Cidr = "foo";
-    o.conditions = buildUnnamed3767();
+    o.conditions = buildUnnamed1562();
     o.createTime = "foo";
     o.currentMasterVersion = "foo";
     o.currentNodeCount = 42;
@@ -286,12 +286,12 @@ buildCluster() {
     o.expireTime = "foo";
     o.initialClusterVersion = "foo";
     o.initialNodeCount = 42;
-    o.instanceGroupUrls = buildUnnamed3768();
+    o.instanceGroupUrls = buildUnnamed1563();
     o.ipAllocationPolicy = buildIPAllocationPolicy();
     o.labelFingerprint = "foo";
     o.legacyAbac = buildLegacyAbac();
     o.location = "foo";
-    o.locations = buildUnnamed3769();
+    o.locations = buildUnnamed1564();
     o.loggingService = "foo";
     o.maintenancePolicy = buildMaintenancePolicy();
     o.masterAuth = buildMasterAuth();
@@ -303,9 +303,9 @@ buildCluster() {
     o.networkPolicy = buildNetworkPolicy();
     o.nodeConfig = buildNodeConfig();
     o.nodeIpv4CidrSize = 42;
-    o.nodePools = buildUnnamed3770();
+    o.nodePools = buildUnnamed1565();
     o.privateClusterConfig = buildPrivateClusterConfig();
-    o.resourceLabels = buildUnnamed3771();
+    o.resourceLabels = buildUnnamed1566();
     o.resourceUsageExportConfig = buildResourceUsageExportConfig();
     o.selfLink = "foo";
     o.servicesIpv4Cidr = "foo";
@@ -324,7 +324,7 @@ checkCluster(api.Cluster o) {
   if (buildCounterCluster < 3) {
     checkAddonsConfig(o.addonsConfig);
     unittest.expect(o.clusterIpv4Cidr, unittest.equals('foo'));
-    checkUnnamed3767(o.conditions);
+    checkUnnamed1562(o.conditions);
     unittest.expect(o.createTime, unittest.equals('foo'));
     unittest.expect(o.currentMasterVersion, unittest.equals('foo'));
     unittest.expect(o.currentNodeCount, unittest.equals(42));
@@ -337,12 +337,12 @@ checkCluster(api.Cluster o) {
     unittest.expect(o.expireTime, unittest.equals('foo'));
     unittest.expect(o.initialClusterVersion, unittest.equals('foo'));
     unittest.expect(o.initialNodeCount, unittest.equals(42));
-    checkUnnamed3768(o.instanceGroupUrls);
+    checkUnnamed1563(o.instanceGroupUrls);
     checkIPAllocationPolicy(o.ipAllocationPolicy);
     unittest.expect(o.labelFingerprint, unittest.equals('foo'));
     checkLegacyAbac(o.legacyAbac);
     unittest.expect(o.location, unittest.equals('foo'));
-    checkUnnamed3769(o.locations);
+    checkUnnamed1564(o.locations);
     unittest.expect(o.loggingService, unittest.equals('foo'));
     checkMaintenancePolicy(o.maintenancePolicy);
     checkMasterAuth(o.masterAuth);
@@ -354,9 +354,9 @@ checkCluster(api.Cluster o) {
     checkNetworkPolicy(o.networkPolicy);
     checkNodeConfig(o.nodeConfig);
     unittest.expect(o.nodeIpv4CidrSize, unittest.equals(42));
-    checkUnnamed3770(o.nodePools);
+    checkUnnamed1565(o.nodePools);
     checkPrivateClusterConfig(o.privateClusterConfig);
-    checkUnnamed3771(o.resourceLabels);
+    checkUnnamed1566(o.resourceLabels);
     checkResourceUsageExportConfig(o.resourceUsageExportConfig);
     unittest.expect(o.selfLink, unittest.equals('foo'));
     unittest.expect(o.servicesIpv4Cidr, unittest.equals('foo'));
@@ -369,14 +369,14 @@ checkCluster(api.Cluster o) {
   buildCounterCluster--;
 }
 
-buildUnnamed3772() {
+buildUnnamed1567() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3772(core.List<core.String> o) {
+checkUnnamed1567(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -389,7 +389,8 @@ buildClusterUpdate() {
   if (buildCounterClusterUpdate < 3) {
     o.desiredAddonsConfig = buildAddonsConfig();
     o.desiredImageType = "foo";
-    o.desiredLocations = buildUnnamed3772();
+    o.desiredIntraNodeVisibilityConfig = buildIntraNodeVisibilityConfig();
+    o.desiredLocations = buildUnnamed1567();
     o.desiredLoggingService = "foo";
     o.desiredMasterAuthorizedNetworksConfig =
         buildMasterAuthorizedNetworksConfig();
@@ -409,7 +410,8 @@ checkClusterUpdate(api.ClusterUpdate o) {
   if (buildCounterClusterUpdate < 3) {
     checkAddonsConfig(o.desiredAddonsConfig);
     unittest.expect(o.desiredImageType, unittest.equals('foo'));
-    checkUnnamed3772(o.desiredLocations);
+    checkIntraNodeVisibilityConfig(o.desiredIntraNodeVisibilityConfig);
+    checkUnnamed1567(o.desiredLocations);
     unittest.expect(o.desiredLoggingService, unittest.equals('foo'));
     checkMasterAuthorizedNetworksConfig(
         o.desiredMasterAuthorizedNetworksConfig);
@@ -555,14 +557,14 @@ checkEmpty(api.Empty o) {
   buildCounterEmpty--;
 }
 
-buildUnnamed3773() {
+buildUnnamed1568() {
   var o = new core.List<api.Jwk>();
   o.add(buildJwk());
   o.add(buildJwk());
   return o;
 }
 
-checkUnnamed3773(core.List<api.Jwk> o) {
+checkUnnamed1568(core.List<api.Jwk> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkJwk(o[0]);
   checkJwk(o[1]);
@@ -573,7 +575,8 @@ buildGetJSONWebKeysResponse() {
   var o = new api.GetJSONWebKeysResponse();
   buildCounterGetJSONWebKeysResponse++;
   if (buildCounterGetJSONWebKeysResponse < 3) {
-    o.keys = buildUnnamed3773();
+    o.cacheHeader = buildHttpCacheControlResponseHeader();
+    o.keys = buildUnnamed1568();
   }
   buildCounterGetJSONWebKeysResponse--;
   return o;
@@ -582,71 +585,72 @@ buildGetJSONWebKeysResponse() {
 checkGetJSONWebKeysResponse(api.GetJSONWebKeysResponse o) {
   buildCounterGetJSONWebKeysResponse++;
   if (buildCounterGetJSONWebKeysResponse < 3) {
-    checkUnnamed3773(o.keys);
+    checkHttpCacheControlResponseHeader(o.cacheHeader);
+    checkUnnamed1568(o.keys);
   }
   buildCounterGetJSONWebKeysResponse--;
 }
 
-buildUnnamed3774() {
+buildUnnamed1569() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3774(core.List<core.String> o) {
+checkUnnamed1569(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3775() {
+buildUnnamed1570() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3775(core.List<core.String> o) {
+checkUnnamed1570(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3776() {
+buildUnnamed1571() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3776(core.List<core.String> o) {
+checkUnnamed1571(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3777() {
+buildUnnamed1572() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3777(core.List<core.String> o) {
+checkUnnamed1572(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3778() {
+buildUnnamed1573() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3778(core.List<core.String> o) {
+checkUnnamed1573(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -657,13 +661,14 @@ buildGetOpenIDConfigResponse() {
   var o = new api.GetOpenIDConfigResponse();
   buildCounterGetOpenIDConfigResponse++;
   if (buildCounterGetOpenIDConfigResponse < 3) {
-    o.claimsSupported = buildUnnamed3774();
-    o.grantTypes = buildUnnamed3775();
-    o.idTokenSigningAlgValuesSupported = buildUnnamed3776();
+    o.cacheHeader = buildHttpCacheControlResponseHeader();
+    o.claimsSupported = buildUnnamed1569();
+    o.grantTypes = buildUnnamed1570();
+    o.idTokenSigningAlgValuesSupported = buildUnnamed1571();
     o.issuer = "foo";
     o.jwksUri = "foo";
-    o.responseTypesSupported = buildUnnamed3777();
-    o.subjectTypesSupported = buildUnnamed3778();
+    o.responseTypesSupported = buildUnnamed1572();
+    o.subjectTypesSupported = buildUnnamed1573();
   }
   buildCounterGetOpenIDConfigResponse--;
   return o;
@@ -672,13 +677,14 @@ buildGetOpenIDConfigResponse() {
 checkGetOpenIDConfigResponse(api.GetOpenIDConfigResponse o) {
   buildCounterGetOpenIDConfigResponse++;
   if (buildCounterGetOpenIDConfigResponse < 3) {
-    checkUnnamed3774(o.claimsSupported);
-    checkUnnamed3775(o.grantTypes);
-    checkUnnamed3776(o.idTokenSigningAlgValuesSupported);
+    checkHttpCacheControlResponseHeader(o.cacheHeader);
+    checkUnnamed1569(o.claimsSupported);
+    checkUnnamed1570(o.grantTypes);
+    checkUnnamed1571(o.idTokenSigningAlgValuesSupported);
     unittest.expect(o.issuer, unittest.equals('foo'));
     unittest.expect(o.jwksUri, unittest.equals('foo'));
-    checkUnnamed3777(o.responseTypesSupported);
-    checkUnnamed3778(o.subjectTypesSupported);
+    checkUnnamed1572(o.responseTypesSupported);
+    checkUnnamed1573(o.subjectTypesSupported);
   }
   buildCounterGetOpenIDConfigResponse--;
 }
@@ -700,6 +706,29 @@ checkHorizontalPodAutoscaling(api.HorizontalPodAutoscaling o) {
     unittest.expect(o.disabled, unittest.isTrue);
   }
   buildCounterHorizontalPodAutoscaling--;
+}
+
+core.int buildCounterHttpCacheControlResponseHeader = 0;
+buildHttpCacheControlResponseHeader() {
+  var o = new api.HttpCacheControlResponseHeader();
+  buildCounterHttpCacheControlResponseHeader++;
+  if (buildCounterHttpCacheControlResponseHeader < 3) {
+    o.age = "foo";
+    o.directive = "foo";
+    o.expires = "foo";
+  }
+  buildCounterHttpCacheControlResponseHeader--;
+  return o;
+}
+
+checkHttpCacheControlResponseHeader(api.HttpCacheControlResponseHeader o) {
+  buildCounterHttpCacheControlResponseHeader++;
+  if (buildCounterHttpCacheControlResponseHeader < 3) {
+    unittest.expect(o.age, unittest.equals('foo'));
+    unittest.expect(o.directive, unittest.equals('foo'));
+    unittest.expect(o.expires, unittest.equals('foo'));
+  }
+  buildCounterHttpCacheControlResponseHeader--;
 }
 
 core.int buildCounterHttpLoadBalancing = 0;
@@ -760,6 +789,25 @@ checkIPAllocationPolicy(api.IPAllocationPolicy o) {
     unittest.expect(o.useIpAliases, unittest.isTrue);
   }
   buildCounterIPAllocationPolicy--;
+}
+
+core.int buildCounterIntraNodeVisibilityConfig = 0;
+buildIntraNodeVisibilityConfig() {
+  var o = new api.IntraNodeVisibilityConfig();
+  buildCounterIntraNodeVisibilityConfig++;
+  if (buildCounterIntraNodeVisibilityConfig < 3) {
+    o.enabled = true;
+  }
+  buildCounterIntraNodeVisibilityConfig--;
+  return o;
+}
+
+checkIntraNodeVisibilityConfig(api.IntraNodeVisibilityConfig o) {
+  buildCounterIntraNodeVisibilityConfig++;
+  if (buildCounterIntraNodeVisibilityConfig < 3) {
+    unittest.expect(o.enabled, unittest.isTrue);
+  }
+  buildCounterIntraNodeVisibilityConfig--;
 }
 
 core.int buildCounterJwk = 0;
@@ -835,27 +883,27 @@ checkLegacyAbac(api.LegacyAbac o) {
   buildCounterLegacyAbac--;
 }
 
-buildUnnamed3779() {
+buildUnnamed1574() {
   var o = new core.List<api.Cluster>();
   o.add(buildCluster());
   o.add(buildCluster());
   return o;
 }
 
-checkUnnamed3779(core.List<api.Cluster> o) {
+checkUnnamed1574(core.List<api.Cluster> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkCluster(o[0]);
   checkCluster(o[1]);
 }
 
-buildUnnamed3780() {
+buildUnnamed1575() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3780(core.List<core.String> o) {
+checkUnnamed1575(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -866,8 +914,8 @@ buildListClustersResponse() {
   var o = new api.ListClustersResponse();
   buildCounterListClustersResponse++;
   if (buildCounterListClustersResponse < 3) {
-    o.clusters = buildUnnamed3779();
-    o.missingZones = buildUnnamed3780();
+    o.clusters = buildUnnamed1574();
+    o.missingZones = buildUnnamed1575();
   }
   buildCounterListClustersResponse--;
   return o;
@@ -876,20 +924,20 @@ buildListClustersResponse() {
 checkListClustersResponse(api.ListClustersResponse o) {
   buildCounterListClustersResponse++;
   if (buildCounterListClustersResponse < 3) {
-    checkUnnamed3779(o.clusters);
-    checkUnnamed3780(o.missingZones);
+    checkUnnamed1574(o.clusters);
+    checkUnnamed1575(o.missingZones);
   }
   buildCounterListClustersResponse--;
 }
 
-buildUnnamed3781() {
+buildUnnamed1576() {
   var o = new core.List<api.NodePool>();
   o.add(buildNodePool());
   o.add(buildNodePool());
   return o;
 }
 
-checkUnnamed3781(core.List<api.NodePool> o) {
+checkUnnamed1576(core.List<api.NodePool> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkNodePool(o[0]);
   checkNodePool(o[1]);
@@ -900,7 +948,7 @@ buildListNodePoolsResponse() {
   var o = new api.ListNodePoolsResponse();
   buildCounterListNodePoolsResponse++;
   if (buildCounterListNodePoolsResponse < 3) {
-    o.nodePools = buildUnnamed3781();
+    o.nodePools = buildUnnamed1576();
   }
   buildCounterListNodePoolsResponse--;
   return o;
@@ -909,32 +957,32 @@ buildListNodePoolsResponse() {
 checkListNodePoolsResponse(api.ListNodePoolsResponse o) {
   buildCounterListNodePoolsResponse++;
   if (buildCounterListNodePoolsResponse < 3) {
-    checkUnnamed3781(o.nodePools);
+    checkUnnamed1576(o.nodePools);
   }
   buildCounterListNodePoolsResponse--;
 }
 
-buildUnnamed3782() {
+buildUnnamed1577() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3782(core.List<core.String> o) {
+checkUnnamed1577(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3783() {
+buildUnnamed1578() {
   var o = new core.List<api.Operation>();
   o.add(buildOperation());
   o.add(buildOperation());
   return o;
 }
 
-checkUnnamed3783(core.List<api.Operation> o) {
+checkUnnamed1578(core.List<api.Operation> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkOperation(o[0]);
   checkOperation(o[1]);
@@ -945,8 +993,8 @@ buildListOperationsResponse() {
   var o = new api.ListOperationsResponse();
   buildCounterListOperationsResponse++;
   if (buildCounterListOperationsResponse < 3) {
-    o.missingZones = buildUnnamed3782();
-    o.operations = buildUnnamed3783();
+    o.missingZones = buildUnnamed1577();
+    o.operations = buildUnnamed1578();
   }
   buildCounterListOperationsResponse--;
   return o;
@@ -955,20 +1003,20 @@ buildListOperationsResponse() {
 checkListOperationsResponse(api.ListOperationsResponse o) {
   buildCounterListOperationsResponse++;
   if (buildCounterListOperationsResponse < 3) {
-    checkUnnamed3782(o.missingZones);
-    checkUnnamed3783(o.operations);
+    checkUnnamed1577(o.missingZones);
+    checkUnnamed1578(o.operations);
   }
   buildCounterListOperationsResponse--;
 }
 
-buildUnnamed3784() {
+buildUnnamed1579() {
   var o = new core.List<api.UsableSubnetwork>();
   o.add(buildUsableSubnetwork());
   o.add(buildUsableSubnetwork());
   return o;
 }
 
-checkUnnamed3784(core.List<api.UsableSubnetwork> o) {
+checkUnnamed1579(core.List<api.UsableSubnetwork> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkUsableSubnetwork(o[0]);
   checkUsableSubnetwork(o[1]);
@@ -980,7 +1028,7 @@ buildListUsableSubnetworksResponse() {
   buildCounterListUsableSubnetworksResponse++;
   if (buildCounterListUsableSubnetworksResponse < 3) {
     o.nextPageToken = "foo";
-    o.subnetworks = buildUnnamed3784();
+    o.subnetworks = buildUnnamed1579();
   }
   buildCounterListUsableSubnetworksResponse--;
   return o;
@@ -990,7 +1038,7 @@ checkListUsableSubnetworksResponse(api.ListUsableSubnetworksResponse o) {
   buildCounterListUsableSubnetworksResponse++;
   if (buildCounterListUsableSubnetworksResponse < 3) {
     unittest.expect(o.nextPageToken, unittest.equals('foo'));
-    checkUnnamed3784(o.subnetworks);
+    checkUnnamed1579(o.subnetworks);
   }
   buildCounterListUsableSubnetworksResponse--;
 }
@@ -1062,14 +1110,14 @@ checkMasterAuth(api.MasterAuth o) {
   buildCounterMasterAuth--;
 }
 
-buildUnnamed3785() {
+buildUnnamed1580() {
   var o = new core.List<api.CidrBlock>();
   o.add(buildCidrBlock());
   o.add(buildCidrBlock());
   return o;
 }
 
-checkUnnamed3785(core.List<api.CidrBlock> o) {
+checkUnnamed1580(core.List<api.CidrBlock> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkCidrBlock(o[0]);
   checkCidrBlock(o[1]);
@@ -1080,7 +1128,7 @@ buildMasterAuthorizedNetworksConfig() {
   var o = new api.MasterAuthorizedNetworksConfig();
   buildCounterMasterAuthorizedNetworksConfig++;
   if (buildCounterMasterAuthorizedNetworksConfig < 3) {
-    o.cidrBlocks = buildUnnamed3785();
+    o.cidrBlocks = buildUnnamed1580();
     o.enabled = true;
   }
   buildCounterMasterAuthorizedNetworksConfig--;
@@ -1090,7 +1138,7 @@ buildMasterAuthorizedNetworksConfig() {
 checkMasterAuthorizedNetworksConfig(api.MasterAuthorizedNetworksConfig o) {
   buildCounterMasterAuthorizedNetworksConfig++;
   if (buildCounterMasterAuthorizedNetworksConfig < 3) {
-    checkUnnamed3785(o.cidrBlocks);
+    checkUnnamed1580(o.cidrBlocks);
     unittest.expect(o.enabled, unittest.isTrue);
   }
   buildCounterMasterAuthorizedNetworksConfig--;
@@ -1120,6 +1168,7 @@ buildNetworkConfig() {
   var o = new api.NetworkConfig();
   buildCounterNetworkConfig++;
   if (buildCounterNetworkConfig < 3) {
+    o.enableIntraNodeVisibility = true;
     o.network = "foo";
     o.subnetwork = "foo";
   }
@@ -1130,6 +1179,7 @@ buildNetworkConfig() {
 checkNetworkConfig(api.NetworkConfig o) {
   buildCounterNetworkConfig++;
   if (buildCounterNetworkConfig < 3) {
+    unittest.expect(o.enableIntraNodeVisibility, unittest.isTrue);
     unittest.expect(o.network, unittest.equals('foo'));
     unittest.expect(o.subnetwork, unittest.equals('foo'));
   }
@@ -1176,79 +1226,79 @@ checkNetworkPolicyConfig(api.NetworkPolicyConfig o) {
   buildCounterNetworkPolicyConfig--;
 }
 
-buildUnnamed3786() {
+buildUnnamed1581() {
   var o = new core.List<api.AcceleratorConfig>();
   o.add(buildAcceleratorConfig());
   o.add(buildAcceleratorConfig());
   return o;
 }
 
-checkUnnamed3786(core.List<api.AcceleratorConfig> o) {
+checkUnnamed1581(core.List<api.AcceleratorConfig> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkAcceleratorConfig(o[0]);
   checkAcceleratorConfig(o[1]);
 }
 
-buildUnnamed3787() {
+buildUnnamed1582() {
   var o = new core.Map<core.String, core.String>();
   o["x"] = "foo";
   o["y"] = "foo";
   return o;
 }
 
-checkUnnamed3787(core.Map<core.String, core.String> o) {
+checkUnnamed1582(core.Map<core.String, core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o["x"], unittest.equals('foo'));
   unittest.expect(o["y"], unittest.equals('foo'));
 }
 
-buildUnnamed3788() {
+buildUnnamed1583() {
   var o = new core.Map<core.String, core.String>();
   o["x"] = "foo";
   o["y"] = "foo";
   return o;
 }
 
-checkUnnamed3788(core.Map<core.String, core.String> o) {
+checkUnnamed1583(core.Map<core.String, core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o["x"], unittest.equals('foo'));
   unittest.expect(o["y"], unittest.equals('foo'));
 }
 
-buildUnnamed3789() {
+buildUnnamed1584() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3789(core.List<core.String> o) {
+checkUnnamed1584(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3790() {
+buildUnnamed1585() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3790(core.List<core.String> o) {
+checkUnnamed1585(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3791() {
+buildUnnamed1586() {
   var o = new core.List<api.NodeTaint>();
   o.add(buildNodeTaint());
   o.add(buildNodeTaint());
   return o;
 }
 
-checkUnnamed3791(core.List<api.NodeTaint> o) {
+checkUnnamed1586(core.List<api.NodeTaint> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkNodeTaint(o[0]);
   checkNodeTaint(o[1]);
@@ -1259,20 +1309,20 @@ buildNodeConfig() {
   var o = new api.NodeConfig();
   buildCounterNodeConfig++;
   if (buildCounterNodeConfig < 3) {
-    o.accelerators = buildUnnamed3786();
+    o.accelerators = buildUnnamed1581();
     o.diskSizeGb = 42;
     o.diskType = "foo";
     o.imageType = "foo";
-    o.labels = buildUnnamed3787();
+    o.labels = buildUnnamed1582();
     o.localSsdCount = 42;
     o.machineType = "foo";
-    o.metadata = buildUnnamed3788();
+    o.metadata = buildUnnamed1583();
     o.minCpuPlatform = "foo";
-    o.oauthScopes = buildUnnamed3789();
+    o.oauthScopes = buildUnnamed1584();
     o.preemptible = true;
     o.serviceAccount = "foo";
-    o.tags = buildUnnamed3790();
-    o.taints = buildUnnamed3791();
+    o.tags = buildUnnamed1585();
+    o.taints = buildUnnamed1586();
   }
   buildCounterNodeConfig--;
   return o;
@@ -1281,20 +1331,20 @@ buildNodeConfig() {
 checkNodeConfig(api.NodeConfig o) {
   buildCounterNodeConfig++;
   if (buildCounterNodeConfig < 3) {
-    checkUnnamed3786(o.accelerators);
+    checkUnnamed1581(o.accelerators);
     unittest.expect(o.diskSizeGb, unittest.equals(42));
     unittest.expect(o.diskType, unittest.equals('foo'));
     unittest.expect(o.imageType, unittest.equals('foo'));
-    checkUnnamed3787(o.labels);
+    checkUnnamed1582(o.labels);
     unittest.expect(o.localSsdCount, unittest.equals(42));
     unittest.expect(o.machineType, unittest.equals('foo'));
-    checkUnnamed3788(o.metadata);
+    checkUnnamed1583(o.metadata);
     unittest.expect(o.minCpuPlatform, unittest.equals('foo'));
-    checkUnnamed3789(o.oauthScopes);
+    checkUnnamed1584(o.oauthScopes);
     unittest.expect(o.preemptible, unittest.isTrue);
     unittest.expect(o.serviceAccount, unittest.equals('foo'));
-    checkUnnamed3790(o.tags);
-    checkUnnamed3791(o.taints);
+    checkUnnamed1585(o.tags);
+    checkUnnamed1586(o.taints);
   }
   buildCounterNodeConfig--;
 }
@@ -1322,27 +1372,27 @@ checkNodeManagement(api.NodeManagement o) {
   buildCounterNodeManagement--;
 }
 
-buildUnnamed3792() {
+buildUnnamed1587() {
   var o = new core.List<api.StatusCondition>();
   o.add(buildStatusCondition());
   o.add(buildStatusCondition());
   return o;
 }
 
-checkUnnamed3792(core.List<api.StatusCondition> o) {
+checkUnnamed1587(core.List<api.StatusCondition> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkStatusCondition(o[0]);
   checkStatusCondition(o[1]);
 }
 
-buildUnnamed3793() {
+buildUnnamed1588() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3793(core.List<core.String> o) {
+checkUnnamed1588(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -1354,10 +1404,10 @@ buildNodePool() {
   buildCounterNodePool++;
   if (buildCounterNodePool < 3) {
     o.autoscaling = buildNodePoolAutoscaling();
-    o.conditions = buildUnnamed3792();
+    o.conditions = buildUnnamed1587();
     o.config = buildNodeConfig();
     o.initialNodeCount = 42;
-    o.instanceGroupUrls = buildUnnamed3793();
+    o.instanceGroupUrls = buildUnnamed1588();
     o.management = buildNodeManagement();
     o.maxPodsConstraint = buildMaxPodsConstraint();
     o.name = "foo";
@@ -1375,10 +1425,10 @@ checkNodePool(api.NodePool o) {
   buildCounterNodePool++;
   if (buildCounterNodePool < 3) {
     checkNodePoolAutoscaling(o.autoscaling);
-    checkUnnamed3792(o.conditions);
+    checkUnnamed1587(o.conditions);
     checkNodeConfig(o.config);
     unittest.expect(o.initialNodeCount, unittest.equals(42));
-    checkUnnamed3793(o.instanceGroupUrls);
+    checkUnnamed1588(o.instanceGroupUrls);
     checkNodeManagement(o.management);
     checkMaxPodsConstraint(o.maxPodsConstraint);
     unittest.expect(o.name, unittest.equals('foo'));
@@ -1437,27 +1487,27 @@ checkNodeTaint(api.NodeTaint o) {
   buildCounterNodeTaint--;
 }
 
-buildUnnamed3794() {
+buildUnnamed1589() {
   var o = new core.List<api.StatusCondition>();
   o.add(buildStatusCondition());
   o.add(buildStatusCondition());
   return o;
 }
 
-checkUnnamed3794(core.List<api.StatusCondition> o) {
+checkUnnamed1589(core.List<api.StatusCondition> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkStatusCondition(o[0]);
   checkStatusCondition(o[1]);
 }
 
-buildUnnamed3795() {
+buildUnnamed1590() {
   var o = new core.List<api.StatusCondition>();
   o.add(buildStatusCondition());
   o.add(buildStatusCondition());
   return o;
 }
 
-checkUnnamed3795(core.List<api.StatusCondition> o) {
+checkUnnamed1590(core.List<api.StatusCondition> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkStatusCondition(o[0]);
   checkStatusCondition(o[1]);
@@ -1468,12 +1518,12 @@ buildOperation() {
   var o = new api.Operation();
   buildCounterOperation++;
   if (buildCounterOperation < 3) {
-    o.clusterConditions = buildUnnamed3794();
+    o.clusterConditions = buildUnnamed1589();
     o.detail = "foo";
     o.endTime = "foo";
     o.location = "foo";
     o.name = "foo";
-    o.nodepoolConditions = buildUnnamed3795();
+    o.nodepoolConditions = buildUnnamed1590();
     o.operationType = "foo";
     o.selfLink = "foo";
     o.startTime = "foo";
@@ -1489,12 +1539,12 @@ buildOperation() {
 checkOperation(api.Operation o) {
   buildCounterOperation++;
   if (buildCounterOperation < 3) {
-    checkUnnamed3794(o.clusterConditions);
+    checkUnnamed1589(o.clusterConditions);
     unittest.expect(o.detail, unittest.equals('foo'));
     unittest.expect(o.endTime, unittest.equals('foo'));
     unittest.expect(o.location, unittest.equals('foo'));
     unittest.expect(o.name, unittest.equals('foo'));
-    checkUnnamed3795(o.nodepoolConditions);
+    checkUnnamed1590(o.nodepoolConditions);
     unittest.expect(o.operationType, unittest.equals('foo'));
     unittest.expect(o.selfLink, unittest.equals('foo'));
     unittest.expect(o.startTime, unittest.equals('foo'));
@@ -1583,40 +1633,40 @@ checkRollbackNodePoolUpgradeRequest(api.RollbackNodePoolUpgradeRequest o) {
   buildCounterRollbackNodePoolUpgradeRequest--;
 }
 
-buildUnnamed3796() {
+buildUnnamed1591() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3796(core.List<core.String> o) {
+checkUnnamed1591(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3797() {
+buildUnnamed1592() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3797(core.List<core.String> o) {
+checkUnnamed1592(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
 }
 
-buildUnnamed3798() {
+buildUnnamed1593() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3798(core.List<core.String> o) {
+checkUnnamed1593(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -1629,9 +1679,9 @@ buildServerConfig() {
   if (buildCounterServerConfig < 3) {
     o.defaultClusterVersion = "foo";
     o.defaultImageType = "foo";
-    o.validImageTypes = buildUnnamed3796();
-    o.validMasterVersions = buildUnnamed3797();
-    o.validNodeVersions = buildUnnamed3798();
+    o.validImageTypes = buildUnnamed1591();
+    o.validMasterVersions = buildUnnamed1592();
+    o.validNodeVersions = buildUnnamed1593();
   }
   buildCounterServerConfig--;
   return o;
@@ -1642,9 +1692,9 @@ checkServerConfig(api.ServerConfig o) {
   if (buildCounterServerConfig < 3) {
     unittest.expect(o.defaultClusterVersion, unittest.equals('foo'));
     unittest.expect(o.defaultImageType, unittest.equals('foo'));
-    checkUnnamed3796(o.validImageTypes);
-    checkUnnamed3797(o.validMasterVersions);
-    checkUnnamed3798(o.validNodeVersions);
+    checkUnnamed1591(o.validImageTypes);
+    checkUnnamed1592(o.validMasterVersions);
+    checkUnnamed1593(o.validNodeVersions);
   }
   buildCounterServerConfig--;
 }
@@ -1676,14 +1726,14 @@ checkSetAddonsConfigRequest(api.SetAddonsConfigRequest o) {
   buildCounterSetAddonsConfigRequest--;
 }
 
-buildUnnamed3799() {
+buildUnnamed1594() {
   var o = new core.Map<core.String, core.String>();
   o["x"] = "foo";
   o["y"] = "foo";
   return o;
 }
 
-checkUnnamed3799(core.Map<core.String, core.String> o) {
+checkUnnamed1594(core.Map<core.String, core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o["x"], unittest.equals('foo'));
   unittest.expect(o["y"], unittest.equals('foo'));
@@ -1698,7 +1748,7 @@ buildSetLabelsRequest() {
     o.labelFingerprint = "foo";
     o.name = "foo";
     o.projectId = "foo";
-    o.resourceLabels = buildUnnamed3799();
+    o.resourceLabels = buildUnnamed1594();
     o.zone = "foo";
   }
   buildCounterSetLabelsRequest--;
@@ -1712,7 +1762,7 @@ checkSetLabelsRequest(api.SetLabelsRequest o) {
     unittest.expect(o.labelFingerprint, unittest.equals('foo'));
     unittest.expect(o.name, unittest.equals('foo'));
     unittest.expect(o.projectId, unittest.equals('foo'));
-    checkUnnamed3799(o.resourceLabels);
+    checkUnnamed1594(o.resourceLabels);
     unittest.expect(o.zone, unittest.equals('foo'));
   }
   buildCounterSetLabelsRequest--;
@@ -1745,14 +1795,14 @@ checkSetLegacyAbacRequest(api.SetLegacyAbacRequest o) {
   buildCounterSetLegacyAbacRequest--;
 }
 
-buildUnnamed3800() {
+buildUnnamed1595() {
   var o = new core.List<core.String>();
   o.add("foo");
   o.add("foo");
   return o;
 }
 
-checkUnnamed3800(core.List<core.String> o) {
+checkUnnamed1595(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(o[0], unittest.equals('foo'));
   unittest.expect(o[1], unittest.equals('foo'));
@@ -1764,7 +1814,7 @@ buildSetLocationsRequest() {
   buildCounterSetLocationsRequest++;
   if (buildCounterSetLocationsRequest < 3) {
     o.clusterId = "foo";
-    o.locations = buildUnnamed3800();
+    o.locations = buildUnnamed1595();
     o.name = "foo";
     o.projectId = "foo";
     o.zone = "foo";
@@ -1777,7 +1827,7 @@ checkSetLocationsRequest(api.SetLocationsRequest o) {
   buildCounterSetLocationsRequest++;
   if (buildCounterSetLocationsRequest < 3) {
     unittest.expect(o.clusterId, unittest.equals('foo'));
-    checkUnnamed3800(o.locations);
+    checkUnnamed1595(o.locations);
     unittest.expect(o.name, unittest.equals('foo'));
     unittest.expect(o.projectId, unittest.equals('foo'));
     unittest.expect(o.zone, unittest.equals('foo'));
@@ -2142,14 +2192,14 @@ checkUpdateNodePoolRequest(api.UpdateNodePoolRequest o) {
   buildCounterUpdateNodePoolRequest--;
 }
 
-buildUnnamed3801() {
+buildUnnamed1596() {
   var o = new core.List<api.UsableSubnetworkSecondaryRange>();
   o.add(buildUsableSubnetworkSecondaryRange());
   o.add(buildUsableSubnetworkSecondaryRange());
   return o;
 }
 
-checkUnnamed3801(core.List<api.UsableSubnetworkSecondaryRange> o) {
+checkUnnamed1596(core.List<api.UsableSubnetworkSecondaryRange> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkUsableSubnetworkSecondaryRange(o[0]);
   checkUsableSubnetworkSecondaryRange(o[1]);
@@ -2162,7 +2212,7 @@ buildUsableSubnetwork() {
   if (buildCounterUsableSubnetwork < 3) {
     o.ipCidrRange = "foo";
     o.network = "foo";
-    o.secondaryIpRanges = buildUnnamed3801();
+    o.secondaryIpRanges = buildUnnamed1596();
     o.statusMessage = "foo";
     o.subnetwork = "foo";
   }
@@ -2175,7 +2225,7 @@ checkUsableSubnetwork(api.UsableSubnetwork o) {
   if (buildCounterUsableSubnetwork < 3) {
     unittest.expect(o.ipCidrRange, unittest.equals('foo'));
     unittest.expect(o.network, unittest.equals('foo'));
-    checkUnnamed3801(o.secondaryIpRanges);
+    checkUnnamed1596(o.secondaryIpRanges);
     unittest.expect(o.statusMessage, unittest.equals('foo'));
     unittest.expect(o.subnetwork, unittest.equals('foo'));
   }
@@ -2350,6 +2400,14 @@ main() {
     });
   });
 
+  unittest.group("obj-schema-HttpCacheControlResponseHeader", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildHttpCacheControlResponseHeader();
+      var od = new api.HttpCacheControlResponseHeader.fromJson(o.toJson());
+      checkHttpCacheControlResponseHeader(od);
+    });
+  });
+
   unittest.group("obj-schema-HttpLoadBalancing", () {
     unittest.test("to-json--from-json", () {
       var o = buildHttpLoadBalancing();
@@ -2363,6 +2421,14 @@ main() {
       var o = buildIPAllocationPolicy();
       var od = new api.IPAllocationPolicy.fromJson(o.toJson());
       checkIPAllocationPolicy(od);
+    });
+  });
+
+  unittest.group("obj-schema-IntraNodeVisibilityConfig", () {
+    unittest.test("to-json--from-json", () {
+      var o = buildIntraNodeVisibilityConfig();
+      var od = new api.IntraNodeVisibilityConfig.fromJson(o.toJson());
+      checkIntraNodeVisibilityConfig(od);
     });
   });
 
@@ -2724,9 +2790,9 @@ main() {
       api.ProjectsAggregatedUsableSubnetworksResourceApi res =
           new api.ContainerApi(mock).projects.aggregated.usableSubnetworks;
       var arg_parent = "foo";
+      var arg_filter = "foo";
       var arg_pageToken = "foo";
       var arg_pageSize = 42;
-      var arg_filter = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -2759,11 +2825,11 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
+        unittest.expect(queryMap["filter"].first, unittest.equals(arg_filter));
         unittest.expect(
             queryMap["pageToken"].first, unittest.equals(arg_pageToken));
         unittest.expect(core.int.parse(queryMap["pageSize"].first),
             unittest.equals(arg_pageSize));
-        unittest.expect(queryMap["filter"].first, unittest.equals(arg_filter));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -2774,9 +2840,9 @@ main() {
       }), true);
       res
           .list(arg_parent,
+              filter: arg_filter,
               pageToken: arg_pageToken,
               pageSize: arg_pageSize,
-              filter: arg_filter,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkListUsableSubnetworksResponse(response);
@@ -2962,9 +3028,9 @@ main() {
       api.ProjectsLocationsClustersResourceApi res =
           new api.ContainerApi(mock).projects.locations.clusters;
       var arg_name = "foo";
-      var arg_clusterId = "foo";
       var arg_projectId = "foo";
       var arg_zone = "foo";
+      var arg_clusterId = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -2998,10 +3064,10 @@ main() {
           }
         }
         unittest.expect(
-            queryMap["clusterId"].first, unittest.equals(arg_clusterId));
-        unittest.expect(
             queryMap["projectId"].first, unittest.equals(arg_projectId));
         unittest.expect(queryMap["zone"].first, unittest.equals(arg_zone));
+        unittest.expect(
+            queryMap["clusterId"].first, unittest.equals(arg_clusterId));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -3012,9 +3078,9 @@ main() {
       }), true);
       res
           .delete(arg_name,
-              clusterId: arg_clusterId,
               projectId: arg_projectId,
               zone: arg_zone,
+              clusterId: arg_clusterId,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkOperation(response);
@@ -3998,10 +4064,10 @@ main() {
       api.ProjectsLocationsClustersNodePoolsResourceApi res =
           new api.ContainerApi(mock).projects.locations.clusters.nodePools;
       var arg_name = "foo";
-      var arg_projectId = "foo";
-      var arg_zone = "foo";
       var arg_clusterId = "foo";
       var arg_nodePoolId = "foo";
+      var arg_projectId = "foo";
+      var arg_zone = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -4035,12 +4101,12 @@ main() {
           }
         }
         unittest.expect(
-            queryMap["projectId"].first, unittest.equals(arg_projectId));
-        unittest.expect(queryMap["zone"].first, unittest.equals(arg_zone));
-        unittest.expect(
             queryMap["clusterId"].first, unittest.equals(arg_clusterId));
         unittest.expect(
             queryMap["nodePoolId"].first, unittest.equals(arg_nodePoolId));
+        unittest.expect(
+            queryMap["projectId"].first, unittest.equals(arg_projectId));
+        unittest.expect(queryMap["zone"].first, unittest.equals(arg_zone));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -4051,10 +4117,10 @@ main() {
       }), true);
       res
           .get(arg_name,
-              projectId: arg_projectId,
-              zone: arg_zone,
               clusterId: arg_clusterId,
               nodePoolId: arg_nodePoolId,
+              projectId: arg_projectId,
+              zone: arg_zone,
               $fields: arg_$fields)
           .then(unittest.expectAsync1(((response) {
         checkNodePool(response);

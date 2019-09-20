@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.pubsub.v1;
 
@@ -245,6 +245,17 @@ class ProjectsSnapshotsResourceApi {
   /// See the operation documentation for the appropriate value for this field.
   /// Value must have pattern "^projects/[^/]+/snapshots/[^/]+$".
   ///
+  /// [options_requestedPolicyVersion] - Optional. The policy format version to
+  /// be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -256,7 +267,7 @@ class ProjectsSnapshotsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Policy> getIamPolicy(core.String resource,
-      {core.String $fields}) {
+      {core.int options_requestedPolicyVersion, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -266,6 +277,11 @@ class ProjectsSnapshotsResourceApi {
 
     if (resource == null) {
       throw new core.ArgumentError("Parameter resource is required.");
+    }
+    if (options_requestedPolicyVersion != null) {
+      _queryParams["options.requestedPolicyVersion"] = [
+        "${options_requestedPolicyVersion}"
+      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -758,6 +774,17 @@ class ProjectsSubscriptionsResourceApi {
   /// See the operation documentation for the appropriate value for this field.
   /// Value must have pattern "^projects/[^/]+/subscriptions/[^/]+$".
   ///
+  /// [options_requestedPolicyVersion] - Optional. The policy format version to
+  /// be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -769,7 +796,7 @@ class ProjectsSubscriptionsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Policy> getIamPolicy(core.String resource,
-      {core.String $fields}) {
+      {core.int options_requestedPolicyVersion, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -779,6 +806,11 @@ class ProjectsSubscriptionsResourceApi {
 
     if (resource == null) {
       throw new core.ArgumentError("Parameter resource is required.");
+    }
+    if (options_requestedPolicyVersion != null) {
+      _queryParams["options.requestedPolicyVersion"] = [
+        "${options_requestedPolicyVersion}"
+      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1427,6 +1459,17 @@ class ProjectsTopicsResourceApi {
   /// See the operation documentation for the appropriate value for this field.
   /// Value must have pattern "^projects/[^/]+/topics/[^/]+$".
   ///
+  /// [options_requestedPolicyVersion] - Optional. The policy format version to
+  /// be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1438,7 +1481,7 @@ class ProjectsTopicsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Policy> getIamPolicy(core.String resource,
-      {core.String $fields}) {
+      {core.int options_requestedPolicyVersion, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -1448,6 +1491,11 @@ class ProjectsTopicsResourceApi {
 
     if (resource == null) {
       throw new core.ArgumentError("Parameter resource is required.");
+    }
+    if (options_requestedPolicyVersion != null) {
+      _queryParams["options.requestedPolicyVersion"] = [
+        "${options_requestedPolicyVersion}"
+      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1932,7 +1980,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -2508,7 +2556,7 @@ class Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -2519,7 +2567,14 @@ class Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   Policy();
@@ -2679,8 +2734,9 @@ class PubsubMessage {
 
 /// Request for the `Pull` method.
 class PullRequest {
-  /// The maximum number of messages returned for this request. The Pub/Sub
-  /// system may return fewer than the number specified.
+  /// The maximum number of messages to return for this request. Must be a
+  /// positive integer. The Pub/Sub system may return fewer than the number
+  /// specified.
   core.int maxMessages;
 
   /// If this field set to true, the system will respond immediately even if
@@ -2745,27 +2801,27 @@ class PullResponse {
 
 /// Configuration for a push delivery endpoint.
 class PushConfig {
-  /// Endpoint configuration attributes.
+  /// Endpoint configuration attributes that can be used to control different
+  /// aspects of the message delivery.
   ///
-  /// Every endpoint has a set of API supported attributes that can be used to
-  /// control different aspects of the message delivery.
-  ///
-  /// The currently supported attribute is `x-goog-version`, which you can
+  /// The only currently supported attribute is `x-goog-version`, which you can
   /// use to change the format of the pushed message. This attribute
   /// indicates the version of the data expected by the endpoint. This
   /// controls the shape of the pushed message (i.e., its fields and metadata).
-  /// The endpoint version is based on the version of the Pub/Sub API.
   ///
   /// If not present during the `CreateSubscription` call, it will default to
-  /// the version of the API used to make such call. If not present during a
+  /// the version of the Pub/Sub API used to make such call. If not present in a
   /// `ModifyPushConfig` call, its value will not be changed. `GetSubscription`
   /// calls will always return a valid version, even if the subscription was
   /// created without this attribute.
   ///
-  /// The possible values for this attribute are:
+  /// The only supported values for the `x-goog-version` attribute are:
   ///
   /// * `v1beta1`: uses the push format defined in the v1beta1 Pub/Sub API.
   /// * `v1` or `v1beta2`: uses the push format defined in the v1 Pub/Sub API.
+  ///
+  /// For example:
+  /// <pre><code>attributes { "x-goog-version": "v1" } </code></pre>
   core.Map<core.String, core.String> attributes;
 
   /// If specified, Pub/Sub will generate and attach an OIDC JWT token as an

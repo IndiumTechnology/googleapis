@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.remotebuildexecution.v2;
 
@@ -74,16 +74,16 @@ class ActionResultsResourceApi {
   ///
   /// [sizeBytes] - The size of the blob, in bytes.
   ///
-  /// [inlineOutputFiles] - A hint to the server to inline the contents of the
-  /// listed output files.
-  /// Each path needs to exactly match one path in `output_files` in the
-  /// Command message.
-  ///
   /// [inlineStdout] - A hint to the server to request inlining stdout in the
   /// ActionResult message.
   ///
   /// [inlineStderr] - A hint to the server to request inlining stderr in the
   /// ActionResult message.
+  ///
+  /// [inlineOutputFiles] - A hint to the server to inline the contents of the
+  /// listed output files.
+  /// Each path needs to exactly match one path in `output_files` in the
+  /// Command message.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -97,9 +97,9 @@ class ActionResultsResourceApi {
   /// this method will complete with the same error.
   async.Future<BuildBazelRemoteExecutionV2ActionResult> get(
       core.String instanceName, core.String hash, core.String sizeBytes,
-      {core.List<core.String> inlineOutputFiles,
-      core.bool inlineStdout,
+      {core.bool inlineStdout,
       core.bool inlineStderr,
+      core.List<core.String> inlineOutputFiles,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -117,14 +117,14 @@ class ActionResultsResourceApi {
     if (sizeBytes == null) {
       throw new core.ArgumentError("Parameter sizeBytes is required.");
     }
-    if (inlineOutputFiles != null) {
-      _queryParams["inlineOutputFiles"] = inlineOutputFiles;
-    }
     if (inlineStdout != null) {
       _queryParams["inlineStdout"] = ["${inlineStdout}"];
     }
     if (inlineStderr != null) {
       _queryParams["inlineStderr"] = ["${inlineStderr}"];
+    }
+    if (inlineOutputFiles != null) {
+      _queryParams["inlineOutputFiles"] = inlineOutputFiles;
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -661,16 +661,16 @@ class BlobsResourceApi {
   ///
   /// [sizeBytes] - The size of the blob, in bytes.
   ///
+  /// [pageToken] - A page token, which must be a value received in a previous
+  /// GetTreeResponse.
+  /// If present, the server will use it to return the following page of
+  /// results.
+  ///
   /// [pageSize] - A maximum page size to request. If present, the server will
   /// request no more
   /// than this many items. Regardless of whether a page size is specified, the
   /// server may place its own limit on the number of items to be returned and
   /// require the client to retrieve more items using a subsequent request.
-  ///
-  /// [pageToken] - A page token, which must be a value received in a previous
-  /// GetTreeResponse.
-  /// If present, the server will use it to return the following page of
-  /// results.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -684,7 +684,7 @@ class BlobsResourceApi {
   /// this method will complete with the same error.
   async.Future<BuildBazelRemoteExecutionV2GetTreeResponse> getTree(
       core.String instanceName, core.String hash, core.String sizeBytes,
-      {core.int pageSize, core.String pageToken, core.String $fields}) {
+      {core.String pageToken, core.int pageSize, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -701,11 +701,11 @@ class BlobsResourceApi {
     if (sizeBytes == null) {
       throw new core.ArgumentError("Parameter sizeBytes is required.");
     }
-    if (pageSize != null) {
-      _queryParams["pageSize"] = ["${pageSize}"];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
+    }
+    if (pageSize != null) {
+      _queryParams["pageSize"] = ["${pageSize}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -3386,6 +3386,40 @@ class GoogleDevtoolsRemotebuildbotCommandStatus {
   }
 }
 
+/// AcceleratorConfig defines the accelerator cards to attach to the VM.
+class GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig {
+  /// The number of guest accelerator cards exposed to each VM.
+  core.String acceleratorCount;
+
+  /// The type of accelerator to attach to each VM, e.g. "nvidia-tesla-k80" for
+  /// nVidia Tesla K80.
+  core.String acceleratorType;
+
+  GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig();
+
+  GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig.fromJson(
+      core.Map _json) {
+    if (_json.containsKey("acceleratorCount")) {
+      acceleratorCount = _json["acceleratorCount"];
+    }
+    if (_json.containsKey("acceleratorType")) {
+      acceleratorType = _json["acceleratorType"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (acceleratorCount != null) {
+      _json["acceleratorCount"] = acceleratorCount;
+    }
+    if (acceleratorType != null) {
+      _json["acceleratorType"] = acceleratorType;
+    }
+    return _json;
+  }
+}
+
 /// The request used for `CreateInstance`.
 class GoogleDevtoolsRemotebuildexecutionAdminV1alphaCreateInstanceRequest {
   /// Specifies the instance to create.
@@ -3715,21 +3749,31 @@ class GoogleDevtoolsRemotebuildexecutionAdminV1alphaListInstancesResponse {
 }
 
 class GoogleDevtoolsRemotebuildexecutionAdminV1alphaListWorkerPoolsRequest {
-  /// Optional. A filter to constrain the pools returned. Filters have the form:
+  /// Optional. A filter expression that filters resources listed in
+  /// the response. The expression must specify the field name, a comparison
+  /// operator, and the value that you want to use for filtering. The value
+  /// must be a string, a number, or a boolean. String values are
+  /// case-insensitive.
+  /// The comparison operator must be either `:`, `=`, `!=`, `>`, `>=`, `<=` or
+  /// `<`.
+  /// The `:` operator can be used with string fields to match substrings.
+  /// For non-string fields it is equivalent to the `=` operator.
+  /// The `:*` comparison can be used to test  whether a key has been defined.
   ///
-  /// <field> <operator> <value> [[AND|OR] <field> <operator> <value>]...
+  /// You can also filter on nested fields.
   ///
-  /// <field> is the path for a field or map key in the Pool proto message.
-  /// e.g. "configuration.disk_size_gb" or "configuration.labels.key".
-  /// <operator> can be one of "<", "<=", ">=", ">", "=", "!=", ":".
-  /// ":" is a HAS operation for strings and repeated primitive fields.
-  /// <value> is the value to test, case-insensitive for strings. "*" stands for
-  /// any value and can be used to test for key presence.
-  /// Parenthesis determine AND/OR precedence. In space separated restrictions,
-  /// AND is implicit, e.g. "a = b x = y" is equivalent to "a = b AND x = y".
+  /// To filter on multiple expressions, you can separate expression using
+  /// `AND` and `OR` operators, using parentheses to specify precedence. If
+  /// neither operator is specified, `AND` is assumed.
   ///
-  /// Example filter:
-  /// configuration.labels.key1 = * AND (state = RUNNING OR state = UPDATING)
+  /// Examples:
+  ///
+  /// Include only pools with more than 100 reserved workers:
+  /// `(worker_count > 100) (worker_config.reserved = true)`
+  ///
+  /// Include only pools with a certain label or machines of the n1-standard
+  /// family:
+  /// `worker_config.labels.key1 : * OR worker_config.machine_type: n1-standard`
   core.String filter;
 
   /// Resource name of the instance.
@@ -3836,6 +3880,9 @@ class GoogleDevtoolsRemotebuildexecutionAdminV1alphaUpdateWorkerPoolRequest {
 /// Defines the configuration to be used for a creating workers in
 /// the worker pool.
 class GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig {
+  /// The accelerator card attached to each VM.
+  GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig accelerator;
+
   /// Required. Size of the disk attached to the worker, in GB.
   /// See https://cloud.google.com/compute/docs/disks/
   core.String diskSizeGb;
@@ -3850,8 +3897,8 @@ class GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig {
   /// Label keys and values can be no longer than 63 characters, can only
   /// contain
   /// lowercase letters, numeric characters, underscores and dashes.
-  /// International letters are permitted. Keys must start with a letter but
-  /// values are optional.
+  /// International letters are permitted. Label keys must start with a letter.
+  /// Label values are optional.
   /// There can not be more than 64 labels per resource.
   core.Map<core.String, core.String> labels;
 
@@ -3865,6 +3912,14 @@ class GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig {
   /// See [CPU Platforms](https://cloud.google.com/compute/docs/cpu-platforms).
   core.String minCpuPlatform;
 
+  /// Determines the type of network access granted to workers. Possible values:
+  ///
+  /// - "public": Workers can connect to the public internet.
+  /// - "private": Workers can only connect to Google APIs and services.
+  /// - "restricted-private": Workers can only connect to Google APIs that are
+  ///   reachable through `restricted.googleapis.com` (`199.36.153.4/30`).
+  core.String networkAccess;
+
   /// Determines whether the worker is reserved (equivalent to a Compute Engine
   /// on-demand VM and therefore won't be preempted).
   /// See [Preemptible VMs](https://cloud.google.com/preemptible-vms/) for more
@@ -3875,6 +3930,11 @@ class GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig {
 
   GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig.fromJson(
       core.Map _json) {
+    if (_json.containsKey("accelerator")) {
+      accelerator =
+          new GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
+              .fromJson(_json["accelerator"]);
+    }
     if (_json.containsKey("diskSizeGb")) {
       diskSizeGb = _json["diskSizeGb"];
     }
@@ -3890,6 +3950,9 @@ class GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig {
     if (_json.containsKey("minCpuPlatform")) {
       minCpuPlatform = _json["minCpuPlatform"];
     }
+    if (_json.containsKey("networkAccess")) {
+      networkAccess = _json["networkAccess"];
+    }
     if (_json.containsKey("reserved")) {
       reserved = _json["reserved"];
     }
@@ -3898,6 +3961,9 @@ class GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (accelerator != null) {
+      _json["accelerator"] = (accelerator).toJson();
+    }
     if (diskSizeGb != null) {
       _json["diskSizeGb"] = diskSizeGb;
     }
@@ -3912,6 +3978,9 @@ class GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig {
     }
     if (minCpuPlatform != null) {
       _json["minCpuPlatform"] = minCpuPlatform;
+    }
+    if (networkAccess != null) {
+      _json["networkAccess"] = networkAccess;
     }
     if (reserved != null) {
       _json["reserved"] = reserved;

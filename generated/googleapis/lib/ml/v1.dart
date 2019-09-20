@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.ml.v1;
 
@@ -312,6 +312,17 @@ class ProjectsJobsResourceApi {
   /// See the operation documentation for the appropriate value for this field.
   /// Value must have pattern "^projects/[^/]+/jobs/[^/]+$".
   ///
+  /// [options_requestedPolicyVersion] - Optional. The policy format version to
+  /// be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -323,7 +334,7 @@ class ProjectsJobsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<GoogleIamV1Policy> getIamPolicy(core.String resource,
-      {core.String $fields}) {
+      {core.int options_requestedPolicyVersion, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -333,6 +344,11 @@ class ProjectsJobsResourceApi {
 
     if (resource == null) {
       throw new core.ArgumentError("Parameter resource is required.");
+    }
+    if (options_requestedPolicyVersion != null) {
+      _queryParams["options.requestedPolicyVersion"] = [
+        "${options_requestedPolicyVersion}"
+      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -913,6 +929,17 @@ class ProjectsModelsResourceApi {
   /// See the operation documentation for the appropriate value for this field.
   /// Value must have pattern "^projects/[^/]+/models/[^/]+$".
   ///
+  /// [options_requestedPolicyVersion] - Optional. The policy format version to
+  /// be returned.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Requests for policies with any conditional bindings must specify version
+  /// 3.
+  /// Policies without any conditional bindings may specify any valid value or
+  /// leave the field unset.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -924,7 +951,7 @@ class ProjectsModelsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<GoogleIamV1Policy> getIamPolicy(core.String resource,
-      {core.String $fields}) {
+      {core.int options_requestedPolicyVersion, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -934,6 +961,11 @@ class ProjectsModelsResourceApi {
 
     if (resource == null) {
       throw new core.ArgumentError("Parameter resource is required.");
+    }
+    if (options_requestedPolicyVersion != null) {
+      _queryParams["options.requestedPolicyVersion"] = [
+        "${options_requestedPolicyVersion}"
+      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1403,8 +1435,6 @@ class ProjectsModelsVersionsResourceApi {
   /// [parent] - Required. The name of the model for which to list the version.
   /// Value must have pattern "^projects/[^/]+/models/[^/]+$".
   ///
-  /// [filter] - Optional. Specifies the subset of versions to retrieve.
-  ///
   /// [pageToken] - Optional. A page token to request the next page of results.
   ///
   /// You get the token from the `next_page_token` field of the response from
@@ -1417,6 +1447,8 @@ class ProjectsModelsVersionsResourceApi {
   ///
   /// The default value is 20, and the maximum page size is 100.
   ///
+  /// [filter] - Optional. Specifies the subset of versions to retrieve.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1428,9 +1460,9 @@ class ProjectsModelsVersionsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<GoogleCloudMlV1ListVersionsResponse> list(core.String parent,
-      {core.String filter,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1442,14 +1474,14 @@ class ProjectsModelsVersionsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1925,6 +1957,7 @@ class GoogleCloudMlV1AcceleratorConfig {
   /// - "NVIDIA_TESLA_P4" : Nvidia Tesla P4 GPU.
   /// - "NVIDIA_TESLA_T4" : Nvidia Tesla T4 GPU.
   /// - "TPU_V2" : TPU v2.
+  /// - "TPU_V3" : TPU v3.
   core.String type;
 
   GoogleCloudMlV1AcceleratorConfig();
@@ -3421,10 +3454,22 @@ class GoogleCloudMlV1ReplicaConfig {
   /// containers](/ml-engine/docs/distributed-training-containers).
   core.String imageUri;
 
-  /// TensorFlow version used in the custom container. This field is required if
-  /// the replica is a TPU worker that uses a custom container. Otherwise, do
-  /// not
-  /// specify this field.
+  /// The AI Platform runtime version that includes a TensorFlow version
+  /// matching
+  /// the one used in the custom container. This field is required if the
+  /// replica
+  /// is a TPU worker that uses a custom container. Otherwise, do not specify
+  /// this field. This must be a [runtime version that currently supports
+  /// training with
+  /// TPUs](/ml-engine/docs/tensorflow/runtime-version-list#tpu-support).
+  ///
+  /// Note that the version of TensorFlow included in a runtime version may
+  /// differ from the numbering of the runtime version itself, because it may
+  /// have a different [patch
+  /// version](https://www.tensorflow.org/guide/version_compat#semantic_versioning_20).
+  /// In this field, you must specify the runtime version (TensorFlow minor
+  /// version). For example, if your custom container runs TensorFlow `1.x.y`,
+  /// specify `1.x`.
   core.String tpuTfVersion;
 
   GoogleCloudMlV1ReplicaConfig();
@@ -3453,6 +3498,68 @@ class GoogleCloudMlV1ReplicaConfig {
     }
     if (tpuTfVersion != null) {
       _json["tpuTfVersion"] = tpuTfVersion;
+    }
+    return _json;
+  }
+}
+
+/// Configuration for logging request-response pairs to a BigQuery table.
+/// Online prediction requests to a model version and the responses to these
+/// requests are converted to raw strings and saved to the specified BigQuery
+/// table. Logging is constrained by [BigQuery quotas and
+/// limits](/bigquery/quotas). If your project exceeds BigQuery quotas or
+/// limits,
+/// AI Platform Prediction does not log request-response pairs, but it continues
+/// to serve predictions.
+///
+/// If you are using [continuous
+/// evaluation](/ml-engine/docs/continuous-evaluation/), you do not need to
+/// specify this configuration manually. Setting up continuous evaluation
+/// automatically enables logging of request-response pairs.
+class GoogleCloudMlV1RequestLoggingConfig {
+  /// Required. Fully qualified BigQuery table name in the following format:
+  /// "<var>project_id</var>.<var>dataset_name</var>.<var>table_name</var>"
+  ///
+  /// The specifcied table must already exist, and the "Cloud ML Service Agent"
+  /// for your project must have permission to write to it. The table must have
+  /// the following [schema](/bigquery/docs/schemas):
+  ///
+  /// <table>
+  ///   <tr><th>Field name</th><th style="display: table-cell">Type</th>
+  ///     <th style="display: table-cell">Mode</th></tr>
+  ///   <tr><td>model</td><td>STRING</td><td>REQUIRED</td></tr>
+  ///   <tr><td>model_version</td><td>STRING</td><td>REQUIRED</td></tr>
+  ///   <tr><td>time</td><td>TIMESTAMP</td><td>REQUIRED</td></tr>
+  ///   <tr><td>raw_data</td><td>STRING</td><td>REQUIRED</td></tr>
+  ///   <tr><td>raw_prediction</td><td>STRING</td><td>NULLABLE</td></tr>
+  ///   <tr><td>groundtruth</td><td>STRING</td><td>NULLABLE</td></tr>
+  /// </table>
+  core.String bigqueryTableName;
+
+  /// Percentage of requests to be logged, expressed as a fraction from 0 to 1.
+  /// For example, if you want to log 10% of requests, enter `0.1`. The sampling
+  /// window is the lifetime of the model version. Defaults to 0.
+  core.double samplingPercentage;
+
+  GoogleCloudMlV1RequestLoggingConfig();
+
+  GoogleCloudMlV1RequestLoggingConfig.fromJson(core.Map _json) {
+    if (_json.containsKey("bigqueryTableName")) {
+      bigqueryTableName = _json["bigqueryTableName"];
+    }
+    if (_json.containsKey("samplingPercentage")) {
+      samplingPercentage = _json["samplingPercentage"].toDouble();
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (bigqueryTableName != null) {
+      _json["bigqueryTableName"] = bigqueryTableName;
+    }
+    if (samplingPercentage != null) {
+      _json["samplingPercentage"] = samplingPercentage;
     }
     return _json;
   }
@@ -3623,9 +3730,6 @@ class GoogleCloudMlV1TrainingInput {
   /// You must set this value when `scaleTier` is set to `CUSTOM`.
   core.String masterType;
 
-  /// Optional. The maximum job running time. The default is 7 days.
-  core.String maxRunningTime;
-
   /// Required. The Google Cloud Storage location of the packages with
   /// the training program and any additional dependencies.
   /// The maximum number of package URIs is 100.
@@ -3792,9 +3896,6 @@ class GoogleCloudMlV1TrainingInput {
     if (_json.containsKey("masterType")) {
       masterType = _json["masterType"];
     }
-    if (_json.containsKey("maxRunningTime")) {
-      maxRunningTime = _json["maxRunningTime"];
-    }
     if (_json.containsKey("packageUris")) {
       packageUris = (_json["packageUris"] as core.List).cast<core.String>();
     }
@@ -3852,9 +3953,6 @@ class GoogleCloudMlV1TrainingInput {
     }
     if (masterType != null) {
       _json["masterType"] = masterType;
-    }
-    if (maxRunningTime != null) {
-      _json["maxRunningTime"] = maxRunningTime;
     }
     if (packageUris != null) {
       _json["packageUris"] = packageUris;
@@ -4096,7 +4194,7 @@ class GoogleCloudMlV1Version {
   /// on the selected number of nodes.
   GoogleCloudMlV1ManualScaling manualScaling;
 
-  /// Required.The name specified for the version when it was created.
+  /// Required. The name specified for the version when it was created.
   ///
   /// The version name must be unique within the model it is created in.
   core.String name;
@@ -4180,6 +4278,10 @@ class GoogleCloudMlV1Version {
   /// versions.
   core.String pythonVersion;
 
+  /// Optional. Configures the request-response pair logging on predictions from
+  /// this Version.
+  GoogleCloudMlV1RequestLoggingConfig requestLoggingConfig;
+
   /// Optional. The AI Platform runtime version to use for this deployment.
   /// If not set, AI Platform uses the default stable version, 1.0. For more
   /// information, see the
@@ -4260,6 +4362,10 @@ class GoogleCloudMlV1Version {
     if (_json.containsKey("pythonVersion")) {
       pythonVersion = _json["pythonVersion"];
     }
+    if (_json.containsKey("requestLoggingConfig")) {
+      requestLoggingConfig = new GoogleCloudMlV1RequestLoggingConfig.fromJson(
+          _json["requestLoggingConfig"]);
+    }
     if (_json.containsKey("runtimeVersion")) {
       runtimeVersion = _json["runtimeVersion"];
     }
@@ -4322,6 +4428,9 @@ class GoogleCloudMlV1Version {
     if (pythonVersion != null) {
       _json["pythonVersion"] = pythonVersion;
     }
+    if (requestLoggingConfig != null) {
+      _json["requestLoggingConfig"] = (requestLoggingConfig).toJson();
+    }
     if (runtimeVersion != null) {
       _json["runtimeVersion"] = runtimeVersion;
     }
@@ -4355,7 +4464,7 @@ class GoogleCloudMlV1Version {
 ///             {
 ///               "log_type": "DATA_READ",
 ///               "exempted_members": [
-///                 "user:foo@gmail.com"
+///                 "user:jose@example.com"
 ///               ]
 ///             },
 ///             {
@@ -4367,7 +4476,7 @@ class GoogleCloudMlV1Version {
 ///           ]
 ///         },
 ///         {
-///           "service": "fooservice.googleapis.com"
+///           "service": "sampleservice.googleapis.com"
 ///           "audit_log_configs": [
 ///             {
 ///               "log_type": "DATA_READ",
@@ -4375,7 +4484,7 @@ class GoogleCloudMlV1Version {
 ///             {
 ///               "log_type": "DATA_WRITE",
 ///               "exempted_members": [
-///                 "user:bar@gmail.com"
+///                 "user:aliya@example.com"
 ///               ]
 ///             }
 ///           ]
@@ -4383,9 +4492,9 @@ class GoogleCloudMlV1Version {
 ///       ]
 ///     }
 ///
-/// For fooservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts foo@gmail.com from DATA_READ logging, and
-/// bar@gmail.com from DATA_WRITE logging.
+/// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
+/// logging. It also exempts jose@example.com from DATA_READ logging, and
+/// aliya@example.com from DATA_WRITE logging.
 class GoogleIamV1AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<GoogleIamV1AuditLogConfig> auditLogConfigs;
@@ -4431,7 +4540,7 @@ class GoogleIamV1AuditConfig {
 ///         {
 ///           "log_type": "DATA_READ",
 ///           "exempted_members": [
-///             "user:foo@gmail.com"
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
@@ -4441,7 +4550,7 @@ class GoogleIamV1AuditConfig {
 ///     }
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-/// foo@gmail.com from DATA_READ logging.
+/// jose@example.com from DATA_READ logging.
 class GoogleIamV1AuditLogConfig {
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -4499,7 +4608,7 @@ class GoogleIamV1Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -4612,7 +4721,7 @@ class GoogleIamV1Policy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);
@@ -4623,7 +4732,14 @@ class GoogleIamV1Policy {
         convert.base64.encode(_bytes).replaceAll("/", "_").replaceAll("+", "-");
   }
 
-  /// Deprecated.
+  /// Specifies the format of the policy.
+  ///
+  /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+  /// rejected.
+  ///
+  /// Policies with any conditional bindings must specify version 3. Policies
+  /// without any conditional bindings may specify any valid value or leave the
+  /// field unset.
   core.int version;
 
   GoogleIamV1Policy();

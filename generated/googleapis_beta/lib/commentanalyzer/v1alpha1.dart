@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.commentanalyzer.v1alpha1;
 
@@ -133,6 +133,7 @@ class CommentsResourceApi {
 }
 
 /// The comment analysis request message.
+/// LINT.IfChange
 class AnalyzeCommentRequest {
   /// Opaque token that is echoed from the request to the response.
   core.String clientToken;

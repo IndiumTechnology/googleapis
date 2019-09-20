@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.oslogin.v1alpha;
 
@@ -63,10 +63,6 @@ class UsersResourceApi {
   /// [name] - The unique ID for the user in format `users/{user}`.
   /// Value must have pattern "^users/[^/]+$".
   ///
-  /// [projectId] - The project ID of the Google Cloud Platform project.
-  ///
-  /// [systemId] - A system ID for filtering the results of the request.
-  ///
   /// [operatingSystemType] - The type of operating system associated with the
   /// account.
   /// Possible string values are:
@@ -74,6 +70,10 @@ class UsersResourceApi {
   /// OPERATING_SYSTEM_TYPE_UNSPECIFIED.
   /// - "LINUX" : A LINUX.
   /// - "WINDOWS" : A WINDOWS.
+  ///
+  /// [projectId] - The project ID of the Google Cloud Platform project.
+  ///
+  /// [systemId] - A system ID for filtering the results of the request.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -86,9 +86,9 @@ class UsersResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<LoginProfile> getLoginProfile(core.String name,
-      {core.String projectId,
+      {core.String operatingSystemType,
+      core.String projectId,
       core.String systemId,
-      core.String operatingSystemType,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -100,14 +100,14 @@ class UsersResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (operatingSystemType != null) {
+      _queryParams["operatingSystemType"] = [operatingSystemType];
+    }
     if (projectId != null) {
       _queryParams["projectId"] = [projectId];
     }
     if (systemId != null) {
       _queryParams["systemId"] = [systemId];
-    }
-    if (operatingSystemType != null) {
-      _queryParams["operatingSystemType"] = [operatingSystemType];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];

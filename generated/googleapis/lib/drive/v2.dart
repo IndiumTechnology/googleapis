@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.drive.v2;
 
@@ -7619,12 +7619,17 @@ class FileCapabilities {
   /// Whether the current user can download this file.
   core.bool canDownload;
 
-  /// Whether the current user can edit this file.
+  /// Whether the current user can edit this file. Other factors may limit the
+  /// type of changes a user can make to a file. For example, see
+  /// canChangeCopyRequiresWriterPermission or canModifyContent.
   core.bool canEdit;
 
   /// Whether the current user can list the children of this folder. This is
   /// always false when the item is not a folder.
   core.bool canListChildren;
+
+  /// Whether the current user can modify the content of this file.
+  core.bool canModifyContent;
 
   /// Whether the current user can move children of this folder outside of the
   /// shared drive. This is false when the item is not a folder. Only populated
@@ -7732,6 +7737,9 @@ class FileCapabilities {
     if (_json.containsKey("canListChildren")) {
       canListChildren = _json["canListChildren"];
     }
+    if (_json.containsKey("canModifyContent")) {
+      canModifyContent = _json["canModifyContent"];
+    }
     if (_json.containsKey("canMoveChildrenOutOfDrive")) {
       canMoveChildrenOutOfDrive = _json["canMoveChildrenOutOfDrive"];
     }
@@ -7824,6 +7832,9 @@ class FileCapabilities {
     }
     if (canListChildren != null) {
       _json["canListChildren"] = canListChildren;
+    }
+    if (canModifyContent != null) {
+      _json["canModifyContent"] = canModifyContent;
     }
     if (canMoveChildrenOutOfDrive != null) {
       _json["canMoveChildrenOutOfDrive"] = canMoveChildrenOutOfDrive;

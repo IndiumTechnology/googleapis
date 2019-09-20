@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.cloudsearch.v1;
 
@@ -243,15 +243,15 @@ class DebugDatasourcesItemsUnmappedidsResourceApi {
   /// datasources/{source_id}/items/{ID}
   /// Value must have pattern "^datasources/[^/]+/items/[^/]+$".
   ///
+  /// [debugOptions_enableDebugging] - If you are asked by Google to help with
+  /// debugging, set this field.
+  /// Otherwise, ignore this field.
+  ///
   /// [pageToken] - The next_page_token value returned from a previous List
   /// request, if any.
   ///
   /// [pageSize] - Maximum number of items to fetch in a request.
   /// Defaults to 100.
-  ///
-  /// [debugOptions_enableDebugging] - If you are asked by Google to help with
-  /// debugging, set this field.
-  /// Otherwise, ignore this field.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -264,9 +264,9 @@ class DebugDatasourcesItemsUnmappedidsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListUnmappedIdentitiesResponse> list(core.String parent,
-      {core.String pageToken,
+      {core.bool debugOptions_enableDebugging,
+      core.String pageToken,
       core.int pageSize,
-      core.bool debugOptions_enableDebugging,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -278,16 +278,16 @@ class DebugDatasourcesItemsUnmappedidsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (debugOptions_enableDebugging != null) {
+      _queryParams["debugOptions.enableDebugging"] = [
+        "${debugOptions_enableDebugging}"
+      ];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (debugOptions_enableDebugging != null) {
-      _queryParams["debugOptions.enableDebugging"] = [
-        "${debugOptions_enableDebugging}"
-      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -334,10 +334,6 @@ class DebugIdentitysourcesItemsResourceApi {
   /// identitysources/{source_id}}
   /// Value must have pattern "^identitysources/[^/]+$".
   ///
-  /// [groupResourceName] - null
-  ///
-  /// [userResourceName] - null
-  ///
   /// [pageToken] - The next_page_token value returned from a previous List
   /// request, if any.
   ///
@@ -347,6 +343,10 @@ class DebugIdentitysourcesItemsResourceApi {
   /// [debugOptions_enableDebugging] - If you are asked by Google to help with
   /// debugging, set this field.
   /// Otherwise, ignore this field.
+  ///
+  /// [groupResourceName] - null
+  ///
+  /// [userResourceName] - null
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -360,11 +360,11 @@ class DebugIdentitysourcesItemsResourceApi {
   /// this method will complete with the same error.
   async.Future<ListItemNamesForUnmappedIdentityResponse>
       listForunmappedidentity(core.String parent,
-          {core.String groupResourceName,
-          core.String userResourceName,
-          core.String pageToken,
+          {core.String pageToken,
           core.int pageSize,
           core.bool debugOptions_enableDebugging,
+          core.String groupResourceName,
+          core.String userResourceName,
           core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -376,12 +376,6 @@ class DebugIdentitysourcesItemsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (groupResourceName != null) {
-      _queryParams["groupResourceName"] = [groupResourceName];
-    }
-    if (userResourceName != null) {
-      _queryParams["userResourceName"] = [userResourceName];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
@@ -392,6 +386,12 @@ class DebugIdentitysourcesItemsResourceApi {
       _queryParams["debugOptions.enableDebugging"] = [
         "${debugOptions_enableDebugging}"
       ];
+    }
+    if (groupResourceName != null) {
+      _queryParams["groupResourceName"] = [groupResourceName];
+    }
+    if (userResourceName != null) {
+      _queryParams["userResourceName"] = [userResourceName];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -426,6 +426,10 @@ class DebugIdentitysourcesUnmappedidsResourceApi {
   /// identitysources/{source_id}
   /// Value must have pattern "^identitysources/[^/]+$".
   ///
+  /// [debugOptions_enableDebugging] - If you are asked by Google to help with
+  /// debugging, set this field.
+  /// Otherwise, ignore this field.
+  ///
   /// [pageToken] - The next_page_token value returned from a previous List
   /// request, if any.
   ///
@@ -441,10 +445,6 @@ class DebugIdentitysourcesUnmappedidsResourceApi {
   /// - "TOO_MANY_MAPPINGS_FOUND" : A TOO_MANY_MAPPINGS_FOUND.
   /// - "INTERNAL_ERROR" : A INTERNAL_ERROR.
   ///
-  /// [debugOptions_enableDebugging] - If you are asked by Google to help with
-  /// debugging, set this field.
-  /// Otherwise, ignore this field.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -456,10 +456,10 @@ class DebugIdentitysourcesUnmappedidsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListUnmappedIdentitiesResponse> list(core.String parent,
-      {core.String pageToken,
+      {core.bool debugOptions_enableDebugging,
+      core.String pageToken,
       core.int pageSize,
       core.String resolutionStatusCode,
-      core.bool debugOptions_enableDebugging,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -471,6 +471,11 @@ class DebugIdentitysourcesUnmappedidsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (debugOptions_enableDebugging != null) {
+      _queryParams["debugOptions.enableDebugging"] = [
+        "${debugOptions_enableDebugging}"
+      ];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
@@ -479,11 +484,6 @@ class DebugIdentitysourcesUnmappedidsResourceApi {
     }
     if (resolutionStatusCode != null) {
       _queryParams["resolutionStatusCode"] = [resolutionStatusCode];
-    }
-    if (debugOptions_enableDebugging != null) {
-      _queryParams["debugOptions.enableDebugging"] = [
-        "${debugOptions_enableDebugging}"
-      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -703,6 +703,12 @@ class IndexingDatasourcesItemsResourceApi {
   /// Format: datasources/{source_id}/items/{item_id}
   /// Value must have pattern "^datasources/[^/]+/items/[^/]+$".
   ///
+  /// [mode] - Required. The RequestMode for this request.
+  /// Possible string values are:
+  /// - "UNSPECIFIED" : A UNSPECIFIED.
+  /// - "SYNCHRONOUS" : A SYNCHRONOUS.
+  /// - "ASYNCHRONOUS" : A ASYNCHRONOUS.
+  ///
   /// [connectorName] - Name of connector making this call.
   /// <br />Format: datasources/{source_id}/connectors/{ID}
   ///
@@ -721,12 +727,6 @@ class IndexingDatasourcesItemsResourceApi {
   /// debugging, set this field.
   /// Otherwise, ignore this field.
   ///
-  /// [mode] - Required. The RequestMode for this request.
-  /// Possible string values are:
-  /// - "UNSPECIFIED" : A UNSPECIFIED.
-  /// - "SYNCHRONOUS" : A SYNCHRONOUS.
-  /// - "ASYNCHRONOUS" : A ASYNCHRONOUS.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -738,10 +738,10 @@ class IndexingDatasourcesItemsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<Operation> delete(core.String name,
-      {core.String connectorName,
+      {core.String mode,
+      core.String connectorName,
       core.String version,
       core.bool debugOptions_enableDebugging,
-      core.String mode,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -753,6 +753,9 @@ class IndexingDatasourcesItemsResourceApi {
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
     }
+    if (mode != null) {
+      _queryParams["mode"] = [mode];
+    }
     if (connectorName != null) {
       _queryParams["connectorName"] = [connectorName];
     }
@@ -763,9 +766,6 @@ class IndexingDatasourcesItemsResourceApi {
       _queryParams["debugOptions.enableDebugging"] = [
         "${debugOptions_enableDebugging}"
       ];
-    }
-    if (mode != null) {
-      _queryParams["mode"] = [mode];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -964,6 +964,15 @@ class IndexingDatasourcesItemsResourceApi {
   /// datasources/{source_id}
   /// Value must have pattern "^datasources/[^/]+$".
   ///
+  /// [brief] - When set to true, the indexing system only populates the
+  /// following fields:
+  /// name,
+  /// version,
+  /// metadata.hash,
+  /// structured_data.hash,
+  /// content.hash.
+  /// <br />If this value is false, then all the fields are populated in Item.
+  ///
   /// [pageToken] - The next_page_token value returned from a previous List
   /// request, if any.
   ///
@@ -979,15 +988,6 @@ class IndexingDatasourcesItemsResourceApi {
   /// [connectorName] - Name of connector making this call.
   /// <br />Format: datasources/{source_id}/connectors/{ID}
   ///
-  /// [brief] - When set to true, the indexing system only populates the
-  /// following fields:
-  /// name,
-  /// version,
-  /// metadata.hash,
-  /// structured_data.hash,
-  /// content.hash.
-  /// <br />If this value is false, then all the fields are populated in Item.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -999,11 +999,11 @@ class IndexingDatasourcesItemsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListItemsResponse> list(core.String name,
-      {core.String pageToken,
+      {core.bool brief,
+      core.String pageToken,
       core.int pageSize,
       core.bool debugOptions_enableDebugging,
       core.String connectorName,
-      core.bool brief,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1014,6 +1014,9 @@ class IndexingDatasourcesItemsResourceApi {
 
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (brief != null) {
+      _queryParams["brief"] = ["${brief}"];
     }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
@@ -1028,9 +1031,6 @@ class IndexingDatasourcesItemsResourceApi {
     }
     if (connectorName != null) {
       _queryParams["connectorName"] = [connectorName];
-    }
-    if (brief != null) {
-      _queryParams["brief"] = ["${brief}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1237,9 +1237,9 @@ class IndexingDatasourcesItemsResourceApi {
   }
 
   /// Creates an upload session for uploading item content. For items smaller
-  /// than 100 KiB, it's easier to embed the content
+  /// than 100 KB, it's easier to embed the content
   /// inline within
-  /// update.
+  /// an index request.
   ///
   /// [request] - The metadata request object.
   ///
@@ -1301,15 +1301,22 @@ class MediaResourceApi {
   /// Uploads media for indexing.
   ///
   /// The upload endpoint supports direct and resumable upload protocols and
-  /// is intended for large items that can not be inlined during index requests.
-  /// To
-  /// index large content:
+  /// is intended for large items that can not be
+  /// [inlined during index
+  /// requests](https://developers.google.com/cloud-search/docs/reference/rest/v1/indexing.datasources.items#itemcontent).
+  /// To index large content:
   ///
-  /// 1. Call upload to begin
-  ///    a session and get the item reference.
-  /// 1. Upload the content using the item reference's resource name.
-  /// 1. Call index with the item
-  ///    reference as the content.
+  /// 1. Call
+  ///    indexing.datasources.items.upload
+  ///    with the resource name to begin an upload session and retrieve the
+  ///    UploadItemRef.
+  /// 1. Call media.upload to upload the content using the same resource name
+  /// from step 1.
+  /// 1. Call indexing.datasources.items.index
+  ///    to index the item. Populate the
+  /// [ItemContent](/cloud-search/docs/reference/rest/v1/indexing.datasources.items#ItemContent)
+  ///    with the UploadItemRef from step 1.
+  ///
   ///
   /// For additional information, see
   /// [Create a content connector using the REST
@@ -1552,7 +1559,9 @@ class QuerySourcesResourceApi {
   /// "Australia/Sydney". These IDs are defined by
   /// [Unicode Common Locale Data Repository (CLDR)](http://cldr.unicode.org/)
   /// project, and currently available in the file
-  /// [timezone.xml](http://unicode.org/repos/cldr/trunk/common/bcp47/timezone.xml)
+  /// [timezone.xml](http://unicode.org/repos/cldr/trunk/common/bcp47/timezone.xml).
+  /// This field is used to correctly interpret date and time queries.
+  /// If this field is not specified, the default time zone (UTC) is used.
   ///
   /// [pageToken] - Number of sources to return in the response.
   ///
@@ -1793,15 +1802,15 @@ class SettingsDatasourcesResourceApi {
   ///
   /// Request parameters:
   ///
+  /// [debugOptions_enableDebugging] - If you are asked by Google to help with
+  /// debugging, set this field.
+  /// Otherwise, ignore this field.
+  ///
   /// [pageToken] - Starting index of the results.
   ///
   /// [pageSize] - Maximum number of datasources to fetch in a request.
   /// The max value is 100.
   /// <br />The default value is 10
-  ///
-  /// [debugOptions_enableDebugging] - If you are asked by Google to help with
-  /// debugging, set this field.
-  /// Otherwise, ignore this field.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1814,9 +1823,9 @@ class SettingsDatasourcesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListDataSourceResponse> list(
-      {core.String pageToken,
+      {core.bool debugOptions_enableDebugging,
+      core.String pageToken,
       core.int pageSize,
-      core.bool debugOptions_enableDebugging,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1825,16 +1834,16 @@ class SettingsDatasourcesResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
+    if (debugOptions_enableDebugging != null) {
+      _queryParams["debugOptions.enableDebugging"] = [
+        "${debugOptions_enableDebugging}"
+      ];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (debugOptions_enableDebugging != null) {
-      _queryParams["debugOptions.enableDebugging"] = [
-        "${debugOptions_enableDebugging}"
-      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2065,15 +2074,15 @@ class SettingsSearchapplicationsResourceApi {
   ///
   /// Request parameters:
   ///
-  /// [debugOptions_enableDebugging] - If you are asked by Google to help with
-  /// debugging, set this field.
-  /// Otherwise, ignore this field.
-  ///
   /// [pageToken] - The next_page_token value returned from a previous List
   /// request, if any.
   /// <br/> The default value is 10
   ///
   /// [pageSize] - The maximum number of items to return.
+  ///
+  /// [debugOptions_enableDebugging] - If you are asked by Google to help with
+  /// debugging, set this field.
+  /// Otherwise, ignore this field.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2086,9 +2095,9 @@ class SettingsSearchapplicationsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListSearchApplicationsResponse> list(
-      {core.bool debugOptions_enableDebugging,
-      core.String pageToken,
+      {core.String pageToken,
       core.int pageSize,
+      core.bool debugOptions_enableDebugging,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -2097,16 +2106,16 @@ class SettingsSearchapplicationsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
-    if (debugOptions_enableDebugging != null) {
-      _queryParams["debugOptions.enableDebugging"] = [
-        "${debugOptions_enableDebugging}"
-      ];
-    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
+    }
+    if (debugOptions_enableDebugging != null) {
+      _queryParams["debugOptions.enableDebugging"] = [
+        "${debugOptions_enableDebugging}"
+      ];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2339,6 +2348,10 @@ class StatsIndexDatasourcesResourceApi {
   /// in the following format: "datasources/{source_id}"
   /// Value must have pattern "^datasources/[^/]+$".
   ///
+  /// [toDate_year] - Year of date. Must be from 1 to 9999.
+  ///
+  /// [fromDate_month] - Month of date. Must be from 1 to 12.
+  ///
   /// [fromDate_day] - Day of month. Must be from 1 to 31 and valid for the year
   /// and month.
   ///
@@ -2348,10 +2361,6 @@ class StatsIndexDatasourcesResourceApi {
   /// and month.
   ///
   /// [toDate_month] - Month of date. Must be from 1 to 12.
-  ///
-  /// [toDate_year] - Year of date. Must be from 1 to 9999.
-  ///
-  /// [fromDate_month] - Month of date. Must be from 1 to 12.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -2364,12 +2373,12 @@ class StatsIndexDatasourcesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<GetDataSourceIndexStatsResponse> get(core.String name,
-      {core.int fromDate_day,
+      {core.int toDate_year,
+      core.int fromDate_month,
+      core.int fromDate_day,
       core.int fromDate_year,
       core.int toDate_day,
       core.int toDate_month,
-      core.int toDate_year,
-      core.int fromDate_month,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -2380,6 +2389,12 @@ class StatsIndexDatasourcesResourceApi {
 
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (toDate_year != null) {
+      _queryParams["toDate.year"] = ["${toDate_year}"];
+    }
+    if (fromDate_month != null) {
+      _queryParams["fromDate.month"] = ["${fromDate_month}"];
     }
     if (fromDate_day != null) {
       _queryParams["fromDate.day"] = ["${fromDate_day}"];
@@ -2392,12 +2407,6 @@ class StatsIndexDatasourcesResourceApi {
     }
     if (toDate_month != null) {
       _queryParams["toDate.month"] = ["${toDate_month}"];
-    }
-    if (toDate_year != null) {
-      _queryParams["toDate.year"] = ["${toDate_year}"];
-    }
-    if (fromDate_month != null) {
-      _queryParams["fromDate.month"] = ["${fromDate_month}"];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -6198,6 +6207,9 @@ class PropertyDefinition {
   /// properties.
   core.bool isSortable;
 
+  /// Indicates that the property can be used for generating query suggestions.
+  core.bool isSuggestable;
+
   /// Indicates that users can perform wildcard search for this
   /// property. Only supported for Text properties. IsReturnable must be true to
   /// set this option. In a given datasource maximum of 5 properties can be
@@ -6265,6 +6277,9 @@ class PropertyDefinition {
     if (_json.containsKey("isSortable")) {
       isSortable = _json["isSortable"];
     }
+    if (_json.containsKey("isSuggestable")) {
+      isSuggestable = _json["isSuggestable"];
+    }
     if (_json.containsKey("isWildcardSearchable")) {
       isWildcardSearchable = _json["isWildcardSearchable"];
     }
@@ -6320,6 +6335,9 @@ class PropertyDefinition {
     }
     if (isSortable != null) {
       _json["isSortable"] = isSortable;
+    }
+    if (isSuggestable != null) {
+      _json["isSuggestable"] = isSuggestable;
     }
     if (isWildcardSearchable != null) {
       _json["isWildcardSearchable"] = isWildcardSearchable;
@@ -6558,11 +6576,15 @@ class QueryInterpretation {
   /// is not used to fetch the search results.
   /// - "BLEND" : The natural language results is mixed with results from
   /// original query.
-  /// - "REPLACE" : The results only contain natural language results.
+  /// - "REPLACE" : The results from original query are replaced. The reason for
+  /// replacing
+  /// the results from original query is populated in the 'Reason' field below.
   core.String interpretationType;
 
-  /// The interpretation of the query used in search. For example, query "email
-  /// from john" will be interpreted as "from:john source:mail"
+  /// The interpretation of the query used in search. For example, queries with
+  /// natural language intent like "email from john" will be interpreted as
+  /// "from:john source:mail". This field will not be filled when the reason is
+  /// NO_RESULTS_FOUND_FOR_USER_QUERY.
   core.String interpretedQuery;
 
   QueryInterpretation();
@@ -6914,7 +6936,9 @@ class RequestOptions {
   /// "Australia/Sydney". These IDs are defined by
   /// [Unicode Common Locale Data Repository (CLDR)](http://cldr.unicode.org/)
   /// project, and currently available in the file
-  /// [timezone.xml](http://unicode.org/repos/cldr/trunk/common/bcp47/timezone.xml)
+  /// [timezone.xml](http://unicode.org/repos/cldr/trunk/common/bcp47/timezone.xml).
+  /// This field is used to correctly interpret date and time queries.
+  /// If this field is not specified, the default time zone (UTC) is used.
   core.String timeZone;
 
   RequestOptions();
@@ -8037,13 +8061,6 @@ class SourceConfig {
 /// and source diversity in search results, you can set a condition to reduce
 /// repetitive results by source.
 class SourceCrowdingConfig {
-  /// Use a field to control results crowding. For example, if you want to
-  /// control overly similar results from Gmail topics, use `thread_id`.
-  /// For similar pages from Google Sites, you can use `webspace_id`.
-  /// When matching query results contain the same field value in
-  /// `GenericMetadata`, crowding limits are set on those records.
-  core.String field;
-
   /// Maximum number of results allowed from a source.
   /// No limits will be set on results if this value is less than or equal to 0.
   core.int numResults;
@@ -8052,41 +8069,25 @@ class SourceCrowdingConfig {
   /// No limits will be set on results if this value is less than or equal to 0.
   core.int numSuggestions;
 
-  /// Control results by content source. This option limits the total number
-  /// of results from a given source and ignores field-based crowding control.
-  core.bool source;
-
   SourceCrowdingConfig();
 
   SourceCrowdingConfig.fromJson(core.Map _json) {
-    if (_json.containsKey("field")) {
-      field = _json["field"];
-    }
     if (_json.containsKey("numResults")) {
       numResults = _json["numResults"];
     }
     if (_json.containsKey("numSuggestions")) {
       numSuggestions = _json["numSuggestions"];
     }
-    if (_json.containsKey("source")) {
-      source = _json["source"];
-    }
   }
 
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
-    if (field != null) {
-      _json["field"] = field;
-    }
     if (numResults != null) {
       _json["numResults"] = numResults;
     }
     if (numSuggestions != null) {
       _json["numSuggestions"] = numSuggestions;
-    }
-    if (source != null) {
-      _json["source"] = source;
     }
     return _json;
   }

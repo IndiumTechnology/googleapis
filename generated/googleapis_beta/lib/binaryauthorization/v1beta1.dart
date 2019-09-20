@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.binaryauthorization.v1beta1;
 
@@ -319,7 +319,7 @@ class ProjectsAttestorsResourceApi {
   ///
   /// [options_requestedPolicyVersion] - Optional. The policy format version to
   /// be returned.
-  /// Acceptable values are 0 and 1.
+  /// Acceptable values are 0, 1, and 3.
   /// If the value is 0, or the field is omitted, policy format version 1 will
   /// be
   /// returned.
@@ -617,7 +617,7 @@ class ProjectsPolicyResourceApi {
   ///
   /// [options_requestedPolicyVersion] - Optional. The policy format version to
   /// be returned.
-  /// Acceptable values are 0 and 1.
+  /// Acceptable values are 0, 1, and 3.
   /// If the value is 0, or the field is omitted, policy format version 1 will
   /// be
   /// returned.
@@ -1023,7 +1023,7 @@ class Binding {
   ///    who is authenticated with a Google account or a service account.
   ///
   /// * `user:{emailid}`: An email address that represents a specific Google
-  ///    account. For example, `alice@gmail.com` .
+  ///    account. For example, `alice@example.com` .
   ///
   ///
   /// * `serviceAccount:{emailid}`: An email address that represents a service
@@ -1216,7 +1216,7 @@ class IamPolicy {
   /// policy.
   ///
   /// If no `etag` is provided in the call to `setIamPolicy`, then the existing
-  /// policy is overwritten blindly.
+  /// policy is overwritten.
   core.String etag;
   core.List<core.int> get etagAsBytes {
     return convert.base64.decode(etag);

@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis.sheets.v4;
 
@@ -760,6 +760,20 @@ class SpreadsheetsValuesResourceApi {
   ///
   /// [spreadsheetId] - The ID of the spreadsheet to retrieve data from.
   ///
+  /// [ranges] - The A1 notation of the values to retrieve.
+  ///
+  /// [majorDimension] - The major dimension that results should use.
+  ///
+  /// For example, if the spreadsheet data is: `A1=1,B1=2,A2=3,B2=4`,
+  /// then requesting `range=A1:B2,majorDimension=ROWS` will return
+  /// `[[1,2],[3,4]]`,
+  /// whereas requesting `range=A1:B2,majorDimension=COLUMNS` will return
+  /// `[[1,3],[2,4]]`.
+  /// Possible string values are:
+  /// - "DIMENSION_UNSPECIFIED" : A DIMENSION_UNSPECIFIED.
+  /// - "ROWS" : A ROWS.
+  /// - "COLUMNS" : A COLUMNS.
+  ///
   /// [valueRenderOption] - How values should be represented in the output.
   /// The default render option is ValueRenderOption.FORMATTED_VALUE.
   /// Possible string values are:
@@ -777,20 +791,6 @@ class SpreadsheetsValuesResourceApi {
   /// - "SERIAL_NUMBER" : A SERIAL_NUMBER.
   /// - "FORMATTED_STRING" : A FORMATTED_STRING.
   ///
-  /// [ranges] - The A1 notation of the values to retrieve.
-  ///
-  /// [majorDimension] - The major dimension that results should use.
-  ///
-  /// For example, if the spreadsheet data is: `A1=1,B1=2,A2=3,B2=4`,
-  /// then requesting `range=A1:B2,majorDimension=ROWS` will return
-  /// `[[1,2],[3,4]]`,
-  /// whereas requesting `range=A1:B2,majorDimension=COLUMNS` will return
-  /// `[[1,3],[2,4]]`.
-  /// Possible string values are:
-  /// - "DIMENSION_UNSPECIFIED" : A DIMENSION_UNSPECIFIED.
-  /// - "ROWS" : A ROWS.
-  /// - "COLUMNS" : A COLUMNS.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -802,10 +802,10 @@ class SpreadsheetsValuesResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<BatchGetValuesResponse> batchGet(core.String spreadsheetId,
-      {core.String valueRenderOption,
-      core.String dateTimeRenderOption,
-      core.List<core.String> ranges,
+      {core.List<core.String> ranges,
       core.String majorDimension,
+      core.String valueRenderOption,
+      core.String dateTimeRenderOption,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -817,17 +817,17 @@ class SpreadsheetsValuesResourceApi {
     if (spreadsheetId == null) {
       throw new core.ArgumentError("Parameter spreadsheetId is required.");
     }
-    if (valueRenderOption != null) {
-      _queryParams["valueRenderOption"] = [valueRenderOption];
-    }
-    if (dateTimeRenderOption != null) {
-      _queryParams["dateTimeRenderOption"] = [dateTimeRenderOption];
-    }
     if (ranges != null) {
       _queryParams["ranges"] = ranges;
     }
     if (majorDimension != null) {
       _queryParams["majorDimension"] = [majorDimension];
+    }
+    if (valueRenderOption != null) {
+      _queryParams["valueRenderOption"] = [valueRenderOption];
+    }
+    if (dateTimeRenderOption != null) {
+      _queryParams["dateTimeRenderOption"] = [dateTimeRenderOption];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1178,6 +1178,14 @@ class SpreadsheetsValuesResourceApi {
   ///
   /// [range] - The A1 notation of the values to update.
   ///
+  /// [responseValueRenderOption] - Determines how values in the response should
+  /// be rendered.
+  /// The default render option is ValueRenderOption.FORMATTED_VALUE.
+  /// Possible string values are:
+  /// - "FORMATTED_VALUE" : A FORMATTED_VALUE.
+  /// - "UNFORMATTED_VALUE" : A UNFORMATTED_VALUE.
+  /// - "FORMULA" : A FORMULA.
+  ///
   /// [valueInputOption] - How the input data should be interpreted.
   /// Possible string values are:
   /// - "INPUT_VALUE_OPTION_UNSPECIFIED" : A INPUT_VALUE_OPTION_UNSPECIFIED.
@@ -1202,14 +1210,6 @@ class SpreadsheetsValuesResourceApi {
   /// the response will include all values in the requested range (excluding
   /// trailing empty rows and columns).
   ///
-  /// [responseValueRenderOption] - Determines how values in the response should
-  /// be rendered.
-  /// The default render option is ValueRenderOption.FORMATTED_VALUE.
-  /// Possible string values are:
-  /// - "FORMATTED_VALUE" : A FORMATTED_VALUE.
-  /// - "UNFORMATTED_VALUE" : A UNFORMATTED_VALUE.
-  /// - "FORMULA" : A FORMULA.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1222,10 +1222,10 @@ class SpreadsheetsValuesResourceApi {
   /// this method will complete with the same error.
   async.Future<UpdateValuesResponse> update(
       ValueRange request, core.String spreadsheetId, core.String range,
-      {core.String valueInputOption,
+      {core.String responseValueRenderOption,
+      core.String valueInputOption,
       core.String responseDateTimeRenderOption,
       core.bool includeValuesInResponse,
-      core.String responseValueRenderOption,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1243,6 +1243,9 @@ class SpreadsheetsValuesResourceApi {
     if (range == null) {
       throw new core.ArgumentError("Parameter range is required.");
     }
+    if (responseValueRenderOption != null) {
+      _queryParams["responseValueRenderOption"] = [responseValueRenderOption];
+    }
     if (valueInputOption != null) {
       _queryParams["valueInputOption"] = [valueInputOption];
     }
@@ -1253,9 +1256,6 @@ class SpreadsheetsValuesResourceApi {
     }
     if (includeValuesInResponse != null) {
       _queryParams["includeValuesInResponse"] = ["${includeValuesInResponse}"];
-    }
-    if (responseValueRenderOption != null) {
-      _queryParams["responseValueRenderOption"] = [responseValueRenderOption];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -2034,6 +2034,9 @@ class BasicChartAxis {
   /// The axis title text position.
   TextPosition titleTextPosition;
 
+  /// The view window options for this axis.
+  ChartAxisViewWindowOptions viewWindowOptions;
+
   BasicChartAxis();
 
   BasicChartAxis.fromJson(core.Map _json) {
@@ -2048,6 +2051,10 @@ class BasicChartAxis {
     }
     if (_json.containsKey("titleTextPosition")) {
       titleTextPosition = new TextPosition.fromJson(_json["titleTextPosition"]);
+    }
+    if (_json.containsKey("viewWindowOptions")) {
+      viewWindowOptions =
+          new ChartAxisViewWindowOptions.fromJson(_json["viewWindowOptions"]);
     }
   }
 
@@ -2065,6 +2072,9 @@ class BasicChartAxis {
     }
     if (titleTextPosition != null) {
       _json["titleTextPosition"] = (titleTextPosition).toJson();
+    }
+    if (viewWindowOptions != null) {
+      _json["viewWindowOptions"] = (viewWindowOptions).toJson();
     }
     return _json;
   }
@@ -4121,6 +4131,64 @@ class CellFormat {
   }
 }
 
+/// The options that define a "view window" for a chart (such as the visible
+/// values in an axis).
+class ChartAxisViewWindowOptions {
+  /// The maximum numeric value to be shown in this view window. If unset, will
+  /// automatically determine a maximum value that looks good for the data.
+  core.double viewWindowMax;
+
+  /// The minimum numeric value to be shown in this view window. If unset, will
+  /// automatically determine a minimum value that looks good for the data.
+  core.double viewWindowMin;
+
+  /// The view window's mode.
+  /// Possible string values are:
+  /// - "DEFAULT_VIEW_WINDOW_MODE" : The default view window mode used in the
+  /// Sheets editor for this chart
+  /// type. In most cases, if set, the default mode is equivalent to
+  /// `PRETTY`.
+  /// - "VIEW_WINDOW_MODE_UNSUPPORTED" : Do not use. Represents that the
+  /// currently set mode is not supported by
+  /// the API.
+  /// - "EXPLICIT" : Follows the min and max exactly if specified. If a value is
+  /// unspecified,
+  /// it will fall back to the `PRETTY` value.
+  /// - "PRETTY" : Chooses a min and max that make the chart look good. Both min
+  /// and max are
+  /// ignored in this mode.
+  core.String viewWindowMode;
+
+  ChartAxisViewWindowOptions();
+
+  ChartAxisViewWindowOptions.fromJson(core.Map _json) {
+    if (_json.containsKey("viewWindowMax")) {
+      viewWindowMax = _json["viewWindowMax"].toDouble();
+    }
+    if (_json.containsKey("viewWindowMin")) {
+      viewWindowMin = _json["viewWindowMin"].toDouble();
+    }
+    if (_json.containsKey("viewWindowMode")) {
+      viewWindowMode = _json["viewWindowMode"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (viewWindowMax != null) {
+      _json["viewWindowMax"] = viewWindowMax;
+    }
+    if (viewWindowMin != null) {
+      _json["viewWindowMin"] = viewWindowMin;
+    }
+    if (viewWindowMode != null) {
+      _json["viewWindowMode"] = viewWindowMode;
+    }
+    return _json;
+  }
+}
+
 /// The data included in a domain or series.
 class ChartData {
   /// The source ranges of the data.
@@ -5360,6 +5428,76 @@ class DeleteDimensionRequest {
         new core.Map<core.String, core.Object>();
     if (range != null) {
       _json["range"] = (range).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Removes rows within this range that contain values in the specified columns
+/// that are duplicates of values in any previous row. Rows with identical
+/// values
+/// but different letter cases, formatting, or formulas are considered to be
+/// duplicates.
+///
+/// This request also removes duplicate rows hidden from view (for example, due
+/// to a filter). When removing duplicates, the first instance of each duplicate
+/// row scanning from the top downwards is kept in the resulting range. Content
+/// outside of the specified range isn't removed, and rows considered duplicates
+/// do not have to be adjacent to each other in the range.
+class DeleteDuplicatesRequest {
+  /// The columns in the range to analyze for duplicate values. If no columns
+  /// are
+  /// selected then all columns are analyzed for duplicates.
+  core.List<DimensionRange> comparisonColumns;
+
+  /// The range to remove duplicates rows from.
+  GridRange range;
+
+  DeleteDuplicatesRequest();
+
+  DeleteDuplicatesRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("comparisonColumns")) {
+      comparisonColumns = (_json["comparisonColumns"] as core.List)
+          .map<DimensionRange>((value) => new DimensionRange.fromJson(value))
+          .toList();
+    }
+    if (_json.containsKey("range")) {
+      range = new GridRange.fromJson(_json["range"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (comparisonColumns != null) {
+      _json["comparisonColumns"] =
+          comparisonColumns.map((value) => (value).toJson()).toList();
+    }
+    if (range != null) {
+      _json["range"] = (range).toJson();
+    }
+    return _json;
+  }
+}
+
+/// The result of removing duplicates in a range.
+class DeleteDuplicatesResponse {
+  /// The number of duplicate rows removed.
+  core.int duplicatesRemovedCount;
+
+  DeleteDuplicatesResponse();
+
+  DeleteDuplicatesResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("duplicatesRemovedCount")) {
+      duplicatesRemovedCount = _json["duplicatesRemovedCount"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (duplicatesRemovedCount != null) {
+      _json["duplicatesRemovedCount"] = duplicatesRemovedCount;
     }
     return _json;
   }
@@ -8784,6 +8922,10 @@ class Request {
   /// Deletes a group over the specified range.
   DeleteDimensionGroupRequest deleteDimensionGroup;
 
+  /// Removes rows containing duplicate values in specified columns of a cell
+  /// range.
+  DeleteDuplicatesRequest deleteDuplicates;
+
   /// Deletes an embedded object (e.g, chart, image) in a sheet.
   DeleteEmbeddedObjectRequest deleteEmbeddedObject;
 
@@ -8843,6 +8985,9 @@ class Request {
 
   /// Converts a column of text into many columns of text.
   TextToColumnsRequest textToColumns;
+
+  /// Trims cells of whitespace (such as spaces, tabs, or new lines).
+  TrimWhitespaceRequest trimWhitespace;
 
   /// Unmerges merged cells.
   UnmergeCellsRequest unmergeCells;
@@ -8967,6 +9112,10 @@ class Request {
       deleteDimensionGroup = new DeleteDimensionGroupRequest.fromJson(
           _json["deleteDimensionGroup"]);
     }
+    if (_json.containsKey("deleteDuplicates")) {
+      deleteDuplicates =
+          new DeleteDuplicatesRequest.fromJson(_json["deleteDuplicates"]);
+    }
     if (_json.containsKey("deleteEmbeddedObject")) {
       deleteEmbeddedObject = new DeleteEmbeddedObjectRequest.fromJson(
           _json["deleteEmbeddedObject"]);
@@ -9036,6 +9185,10 @@ class Request {
     }
     if (_json.containsKey("textToColumns")) {
       textToColumns = new TextToColumnsRequest.fromJson(_json["textToColumns"]);
+    }
+    if (_json.containsKey("trimWhitespace")) {
+      trimWhitespace =
+          new TrimWhitespaceRequest.fromJson(_json["trimWhitespace"]);
     }
     if (_json.containsKey("unmergeCells")) {
       unmergeCells = new UnmergeCellsRequest.fromJson(_json["unmergeCells"]);
@@ -9165,6 +9318,9 @@ class Request {
     if (deleteDimensionGroup != null) {
       _json["deleteDimensionGroup"] = (deleteDimensionGroup).toJson();
     }
+    if (deleteDuplicates != null) {
+      _json["deleteDuplicates"] = (deleteDuplicates).toJson();
+    }
     if (deleteEmbeddedObject != null) {
       _json["deleteEmbeddedObject"] = (deleteEmbeddedObject).toJson();
     }
@@ -9224,6 +9380,9 @@ class Request {
     }
     if (textToColumns != null) {
       _json["textToColumns"] = (textToColumns).toJson();
+    }
+    if (trimWhitespace != null) {
+      _json["trimWhitespace"] = (trimWhitespace).toJson();
     }
     if (unmergeCells != null) {
       _json["unmergeCells"] = (unmergeCells).toJson();
@@ -9312,6 +9471,9 @@ class Response {
   /// A reply from deleting a dimension group.
   DeleteDimensionGroupResponse deleteDimensionGroup;
 
+  /// A reply from removing rows containing duplicate values.
+  DeleteDuplicatesResponse deleteDuplicates;
+
   /// A reply from duplicating a filter view.
   DuplicateFilterViewResponse duplicateFilterView;
 
@@ -9320,6 +9482,9 @@ class Response {
 
   /// A reply from doing a find/replace.
   FindReplaceResponse findReplace;
+
+  /// A reply from trimming whitespace.
+  TrimWhitespaceResponse trimWhitespace;
 
   /// A reply from updating a conditional format rule.
   UpdateConditionalFormatRuleResponse updateConditionalFormatRule;
@@ -9375,6 +9540,10 @@ class Response {
       deleteDimensionGroup = new DeleteDimensionGroupResponse.fromJson(
           _json["deleteDimensionGroup"]);
     }
+    if (_json.containsKey("deleteDuplicates")) {
+      deleteDuplicates =
+          new DeleteDuplicatesResponse.fromJson(_json["deleteDuplicates"]);
+    }
     if (_json.containsKey("duplicateFilterView")) {
       duplicateFilterView = new DuplicateFilterViewResponse.fromJson(
           _json["duplicateFilterView"]);
@@ -9385,6 +9554,10 @@ class Response {
     }
     if (_json.containsKey("findReplace")) {
       findReplace = new FindReplaceResponse.fromJson(_json["findReplace"]);
+    }
+    if (_json.containsKey("trimWhitespace")) {
+      trimWhitespace =
+          new TrimWhitespaceResponse.fromJson(_json["trimWhitespace"]);
     }
     if (_json.containsKey("updateConditionalFormatRule")) {
       updateConditionalFormatRule =
@@ -9439,6 +9612,9 @@ class Response {
     if (deleteDimensionGroup != null) {
       _json["deleteDimensionGroup"] = (deleteDimensionGroup).toJson();
     }
+    if (deleteDuplicates != null) {
+      _json["deleteDuplicates"] = (deleteDuplicates).toJson();
+    }
     if (duplicateFilterView != null) {
       _json["duplicateFilterView"] = (duplicateFilterView).toJson();
     }
@@ -9447,6 +9623,9 @@ class Response {
     }
     if (findReplace != null) {
       _json["findReplace"] = (findReplace).toJson();
+    }
+    if (trimWhitespace != null) {
+      _json["trimWhitespace"] = (trimWhitespace).toJson();
     }
     if (updateConditionalFormatRule != null) {
       _json["updateConditionalFormatRule"] =
@@ -10607,6 +10786,58 @@ class TreemapChartSpec {
     }
     if (textFormat != null) {
       _json["textFormat"] = (textFormat).toJson();
+    }
+    return _json;
+  }
+}
+
+/// Trims the whitespace (such as spaces, tabs, or new lines) in every cell in
+/// the specified range. This request removes all whitespace from the start and
+/// end of each cell's text, and reduces any subsequence of remaining whitespace
+/// characters to a single space. If the resulting trimmed text starts with a
+/// '+'
+/// or '=' character, the text remains as a string value and isn't interpreted
+/// as a formula.
+class TrimWhitespaceRequest {
+  /// The range whose cells to trim.
+  GridRange range;
+
+  TrimWhitespaceRequest();
+
+  TrimWhitespaceRequest.fromJson(core.Map _json) {
+    if (_json.containsKey("range")) {
+      range = new GridRange.fromJson(_json["range"]);
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (range != null) {
+      _json["range"] = (range).toJson();
+    }
+    return _json;
+  }
+}
+
+/// The result of trimming whitespace in cells.
+class TrimWhitespaceResponse {
+  /// The number of cells that were trimmed of whitespace.
+  core.int cellsChangedCount;
+
+  TrimWhitespaceResponse();
+
+  TrimWhitespaceResponse.fromJson(core.Map _json) {
+    if (_json.containsKey("cellsChangedCount")) {
+      cellsChangedCount = _json["cellsChangedCount"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (cellsChangedCount != null) {
+      _json["cellsChangedCount"] = cellsChangedCount;
     }
     return _json;
   }

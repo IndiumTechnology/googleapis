@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.proximitybeacon.v1beta1;
 
@@ -457,6 +457,11 @@ class BeaconsResourceApi {
   ///
   /// Request parameters:
   ///
+  /// [projectId] - The project id to list beacons under. If not present then
+  /// the project
+  /// credential that made the request is used as the project.
+  /// Optional.
+  ///
   /// [pageToken] - A pagination token obtained from a previous request to list
   /// beacons.
   ///
@@ -533,11 +538,6 @@ class BeaconsResourceApi {
   /// to a
   /// server-defined upper limit.
   ///
-  /// [projectId] - The project id to list beacons under. If not present then
-  /// the project
-  /// credential that made the request is used as the project.
-  /// Optional.
-  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -549,10 +549,10 @@ class BeaconsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListBeaconsResponse> list(
-      {core.String pageToken,
+      {core.String projectId,
+      core.String pageToken,
       core.String q,
       core.int pageSize,
-      core.String projectId,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -561,6 +561,9 @@ class BeaconsResourceApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body;
 
+    if (projectId != null) {
+      _queryParams["projectId"] = [projectId];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
@@ -569,9 +572,6 @@ class BeaconsResourceApi {
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (projectId != null) {
-      _queryParams["projectId"] = [projectId];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -992,6 +992,11 @@ class BeaconsAttachmentsResourceApi {
   /// Required.
   /// Value must have pattern "^beacons/[^/]+$".
   ///
+  /// [namespacedType] - Specifies the namespace and type of attachment to
+  /// include in response in
+  /// <var>namespace/type</var> format. Accepts `* / * ` to specify
+  /// "all types in all namespaces".
+  ///
   /// [projectId] - The project id to list beacon attachments under. This field
   /// can be
   /// used when "*" is specified to mean all attachment namespaces. Projects
@@ -999,11 +1004,6 @@ class BeaconsAttachmentsResourceApi {
   /// specified and the projectId string is empty, then the project
   /// making the request is used.
   /// Optional.
-  ///
-  /// [namespacedType] - Specifies the namespace and type of attachment to
-  /// include in response in
-  /// <var>namespace/type</var> format. Accepts `* / * ` to specify
-  /// "all types in all namespaces".
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1016,8 +1016,8 @@ class BeaconsAttachmentsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListBeaconAttachmentsResponse> list(core.String beaconName,
-      {core.String projectId,
-      core.String namespacedType,
+      {core.String namespacedType,
+      core.String projectId,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1029,11 +1029,11 @@ class BeaconsAttachmentsResourceApi {
     if (beaconName == null) {
       throw new core.ArgumentError("Parameter beaconName is required.");
     }
-    if (projectId != null) {
-      _queryParams["projectId"] = [projectId];
-    }
     if (namespacedType != null) {
       _queryParams["namespacedType"] = [namespacedType];
+    }
+    if (projectId != null) {
+      _queryParams["projectId"] = [projectId];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];

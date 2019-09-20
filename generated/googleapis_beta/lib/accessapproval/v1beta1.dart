@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unused_import, unnecessary_cast
 
 library googleapis_beta.accessapproval.v1beta1;
 
@@ -90,7 +90,7 @@ class FoldersResourceApi {
   }
 
   /// Updates the settings associated with a project, folder, or organization.
-  /// Completely replaces the existing settings.
+  /// Settings to update are determined by the value of field_mask.
   ///
   /// [request] - The metadata request object.
   ///
@@ -104,6 +104,13 @@ class FoldersResourceApi {
   /// <ol>
   /// Value must have pattern "^folders/[^/]+/accessApprovalSettings$".
   ///
+  /// [updateMask] - The update mask applies to the settings. For the
+  /// `FieldMask` definition,
+  /// see
+  /// https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+  /// If this field is left unset, only the notification_emails field will be
+  /// updated.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -116,7 +123,7 @@ class FoldersResourceApi {
   /// this method will complete with the same error.
   async.Future<AccessApprovalSettings> updateAccessApprovalSettings(
       AccessApprovalSettings request, core.String name,
-      {core.String $fields}) {
+      {core.String updateMask, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -129,6 +136,9 @@ class FoldersResourceApi {
     }
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -323,10 +333,6 @@ class FoldersApprovalRequestsResourceApi {
   /// "folders/{folder_id}", or "organizations/{organization_id}".
   /// Value must have pattern "^folders/[^/]+$".
   ///
-  /// [pageToken] - A token identifying the page of results to return.
-  ///
-  /// [pageSize] - Requested page size.
-  ///
   /// [filter] - A filter on the type of approval requests to retrieve. Must be
   /// one of the
   /// following values:
@@ -337,6 +343,10 @@ class FoldersApprovalRequestsResourceApi {
   ///   <li>ACTIVE: Only active (i.e. currently approved) requests.</li>
   ///   <li>DISMISSED: Only dismissed (including expired) requests.</li>
   /// </ol>
+  ///
+  /// [pageToken] - A token identifying the page of results to return.
+  ///
+  /// [pageSize] - Requested page size.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -349,9 +359,9 @@ class FoldersApprovalRequestsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListApprovalRequestsResponse> list(core.String parent,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -363,14 +373,14 @@ class FoldersApprovalRequestsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -445,7 +455,7 @@ class OrganizationsResourceApi {
   }
 
   /// Updates the settings associated with a project, folder, or organization.
-  /// Completely replaces the existing settings.
+  /// Settings to update are determined by the value of field_mask.
   ///
   /// [request] - The metadata request object.
   ///
@@ -459,6 +469,13 @@ class OrganizationsResourceApi {
   /// <ol>
   /// Value must have pattern "^organizations/[^/]+/accessApprovalSettings$".
   ///
+  /// [updateMask] - The update mask applies to the settings. For the
+  /// `FieldMask` definition,
+  /// see
+  /// https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+  /// If this field is left unset, only the notification_emails field will be
+  /// updated.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -471,7 +488,7 @@ class OrganizationsResourceApi {
   /// this method will complete with the same error.
   async.Future<AccessApprovalSettings> updateAccessApprovalSettings(
       AccessApprovalSettings request, core.String name,
-      {core.String $fields}) {
+      {core.String updateMask, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -484,6 +501,9 @@ class OrganizationsResourceApi {
     }
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -678,10 +698,6 @@ class OrganizationsApprovalRequestsResourceApi {
   /// "folders/{folder_id}", or "organizations/{organization_id}".
   /// Value must have pattern "^organizations/[^/]+$".
   ///
-  /// [pageToken] - A token identifying the page of results to return.
-  ///
-  /// [pageSize] - Requested page size.
-  ///
   /// [filter] - A filter on the type of approval requests to retrieve. Must be
   /// one of the
   /// following values:
@@ -692,6 +708,10 @@ class OrganizationsApprovalRequestsResourceApi {
   ///   <li>ACTIVE: Only active (i.e. currently approved) requests.</li>
   ///   <li>DISMISSED: Only dismissed (including expired) requests.</li>
   /// </ol>
+  ///
+  /// [pageToken] - A token identifying the page of results to return.
+  ///
+  /// [pageSize] - Requested page size.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -704,9 +724,9 @@ class OrganizationsApprovalRequestsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListApprovalRequestsResponse> list(core.String parent,
-      {core.String pageToken,
+      {core.String filter,
+      core.String pageToken,
       core.int pageSize,
-      core.String filter,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -718,14 +738,14 @@ class OrganizationsApprovalRequestsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
+    if (filter != null) {
+      _queryParams["filter"] = [filter];
+    }
     if (pageToken != null) {
       _queryParams["pageToken"] = [pageToken];
     }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
-    }
-    if (filter != null) {
-      _queryParams["filter"] = [filter];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -800,7 +820,7 @@ class ProjectsResourceApi {
   }
 
   /// Updates the settings associated with a project, folder, or organization.
-  /// Completely replaces the existing settings.
+  /// Settings to update are determined by the value of field_mask.
   ///
   /// [request] - The metadata request object.
   ///
@@ -814,6 +834,13 @@ class ProjectsResourceApi {
   /// <ol>
   /// Value must have pattern "^projects/[^/]+/accessApprovalSettings$".
   ///
+  /// [updateMask] - The update mask applies to the settings. For the
+  /// `FieldMask` definition,
+  /// see
+  /// https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+  /// If this field is left unset, only the notification_emails field will be
+  /// updated.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -826,7 +853,7 @@ class ProjectsResourceApi {
   /// this method will complete with the same error.
   async.Future<AccessApprovalSettings> updateAccessApprovalSettings(
       AccessApprovalSettings request, core.String name,
-      {core.String $fields}) {
+      {core.String updateMask, core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia;
@@ -839,6 +866,9 @@ class ProjectsResourceApi {
     }
     if (name == null) {
       throw new core.ArgumentError("Parameter name is required.");
+    }
+    if (updateMask != null) {
+      _queryParams["updateMask"] = [updateMask];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1033,8 +1063,6 @@ class ProjectsApprovalRequestsResourceApi {
   /// "folders/{folder_id}", or "organizations/{organization_id}".
   /// Value must have pattern "^projects/[^/]+$".
   ///
-  /// [pageToken] - A token identifying the page of results to return.
-  ///
   /// [pageSize] - Requested page size.
   ///
   /// [filter] - A filter on the type of approval requests to retrieve. Must be
@@ -1048,6 +1076,8 @@ class ProjectsApprovalRequestsResourceApi {
   ///   <li>DISMISSED: Only dismissed (including expired) requests.</li>
   /// </ol>
   ///
+  /// [pageToken] - A token identifying the page of results to return.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1059,9 +1089,9 @@ class ProjectsApprovalRequestsResourceApi {
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
   async.Future<ListApprovalRequestsResponse> list(core.String parent,
-      {core.String pageToken,
-      core.int pageSize,
+      {core.int pageSize,
       core.String filter,
+      core.String pageToken,
       core.String $fields}) {
     var _url;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
@@ -1073,14 +1103,14 @@ class ProjectsApprovalRequestsResourceApi {
     if (parent == null) {
       throw new core.ArgumentError("Parameter parent is required.");
     }
-    if (pageToken != null) {
-      _queryParams["pageToken"] = [pageToken];
-    }
     if (pageSize != null) {
       _queryParams["pageSize"] = ["${pageSize}"];
     }
     if (filter != null) {
       _queryParams["filter"] = [filter];
+    }
+    if (pageToken != null) {
+      _queryParams["pageToken"] = [pageToken];
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -1103,6 +1133,17 @@ class ProjectsApprovalRequestsResourceApi {
 
 /// Settings on a Project/Folder/Organization related to Access Approval.
 class AccessApprovalSettings {
+  /// A list of Google Cloud Services for which the given resource has Access
+  /// Approval enrolled. Access requests for the resource given by name against
+  /// any of these services contained here will be required to have explicit
+  /// approval. If name refers to an organization, enrollment can be done for
+  /// individual services. If name refers to a folder or project, enrollment can
+  /// only be done on an all or nothing basis.
+  ///
+  /// If a cloud_product is repeated in this list, the first entry will be
+  /// honored and all following entries will be discarded.
+  core.List<EnrolledService> enrolledServices;
+
   /// The resource name of the settings. Format is one of:
   /// <ol>
   ///   <li>"projects/{project_id}/accessApprovalSettings"</li>
@@ -1119,6 +1160,11 @@ class AccessApprovalSettings {
   AccessApprovalSettings();
 
   AccessApprovalSettings.fromJson(core.Map _json) {
+    if (_json.containsKey("enrolledServices")) {
+      enrolledServices = (_json["enrolledServices"] as core.List)
+          .map<EnrolledService>((value) => new EnrolledService.fromJson(value))
+          .toList();
+    }
     if (_json.containsKey("name")) {
       name = _json["name"];
     }
@@ -1131,6 +1177,10 @@ class AccessApprovalSettings {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (enrolledServices != null) {
+      _json["enrolledServices"] =
+          enrolledServices.map((value) => (value).toJson()).toList();
+    }
     if (name != null) {
       _json["name"] = name;
     }
@@ -1451,6 +1501,55 @@ class DismissDecision {
         new core.Map<core.String, core.Object>();
     if (dismissTime != null) {
       _json["dismissTime"] = dismissTime;
+    }
+    return _json;
+  }
+}
+
+/// Represents the enrollment of a cloud resource into a specific service.
+class EnrolledService {
+  /// The product for which Access Approval will be enrolled. Allowed values are
+  /// listed below (case-sensitive):
+  /// <ol>
+  ///   <li>all</li>
+  ///   <li>appengine.googleapis.com</li>
+  ///   <li>bigquery.googleapis.com</li>
+  ///   <li>bigtable.googleapis.com</li>
+  ///   <li>cloudkms.googleapis.com</li>
+  ///   <li>compute.googleapis.com</li>
+  ///   <li>dataflow.googleapis.com</li>
+  ///   <li>iam.googleapis.com</li>
+  ///   <li>pubsub.googleapis.com</li>
+  ///   <li>storage.googleapis.com</li>
+  /// <ol>
+  core.String cloudProduct;
+
+  /// The enrollment level of the service.
+  /// Possible string values are:
+  /// - "ENROLLMENT_LEVEL_UNSPECIFIED" : Default value for proto, shouldn't be
+  /// used.
+  /// - "BLOCK_ALL" : Service is enrolled in Access Approval for all requests
+  core.String enrollmentLevel;
+
+  EnrolledService();
+
+  EnrolledService.fromJson(core.Map _json) {
+    if (_json.containsKey("cloudProduct")) {
+      cloudProduct = _json["cloudProduct"];
+    }
+    if (_json.containsKey("enrollmentLevel")) {
+      enrollmentLevel = _json["enrollmentLevel"];
+    }
+  }
+
+  core.Map<core.String, core.Object> toJson() {
+    final core.Map<core.String, core.Object> _json =
+        new core.Map<core.String, core.Object>();
+    if (cloudProduct != null) {
+      _json["cloudProduct"] = cloudProduct;
+    }
+    if (enrollmentLevel != null) {
+      _json["enrollmentLevel"] = enrollmentLevel;
     }
     return _json;
   }
